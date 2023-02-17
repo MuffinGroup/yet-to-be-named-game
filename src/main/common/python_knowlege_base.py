@@ -84,3 +84,10 @@ if question1 is "0":
     print("Your name is 0")
 else:
     print("Your name is not 0")
+
+#While statements
+while(True):    #This will infinetly print because the value always is "True"
+    print("it never stops...")
+
+while(a < b):   #This wont stop either because a always is smaller than b. That means the output boolean is always "True"
+    print("it does not stop either")
