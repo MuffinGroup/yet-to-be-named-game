@@ -5,9 +5,14 @@ Integer = 1.999999999 #Integers (int) store numbers which can also be used for m
 Boolean = True #Booleans store a value that has to be "True" or "False"
 
 #The basics
-#printing String
+#printing Strings
 print("Hello World") #Prints "Hello World to the console"
 print(String) #Prints "Hello World" which has been defined in the String called "String"
+
+#You can also add two Strings together
+String2 = "My name is funny"
+print(String + String2)
+print(String2 + "Right?") #We can also combine a string and a regular text
 
 #Printing Integers (int)
 print(1.999999999) #Prints 1.999999999 to the console
@@ -56,3 +61,9 @@ d = 4
 if a < b: #Instead of using "and" you can also put two if statements inside of each other. But remember it is a very unelegant way of utilizing multiple conditions
     if c < d: 
         print("Both conditions are met") 
+
+#Input
+#After looking at how to output code, we will take a look at a simple way to read user input
+question1 = input("What is your name? ")
+print("Hello " + question1)
+
