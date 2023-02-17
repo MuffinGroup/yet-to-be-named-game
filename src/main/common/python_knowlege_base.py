@@ -64,6 +64,6 @@ if a < b: #Instead of using "and" you can also put two if statements inside of e
 
 #Input
 #After looking at how to output code, we will take a look at a simple way to read user input
-question1 = input("What is your name? ")
+question1 = input("What is your name? ") #
 print("Hello " + question1)
 
