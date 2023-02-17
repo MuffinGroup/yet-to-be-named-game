@@ -23,13 +23,17 @@ print(3+1) #This will output the result of this addition
 print(Integer + 1) #It works with Integers as well!
 print(Integer - 1) #subtraction
 print(Integer * 1) #multiplication
-print(Integer / 1) #division
+print(Integer % 1) #division
+
+math = 4 - 1 #you can also use integers to solve math problems
+print(math)
 
 #Printing Booleans
 print(True) #This will output the value "True"
 print(Boolean) #This will output the value assigned to it (in this case "True" this makes it more dynamic than simply printing a certain value)
+print(5 < Integer) #You can also output a boolean when comparing different values with "<", ">" or "=". Here the program checks if 5 is smaller than "Integer" (1.999999999) and outputs the result (in this case "False")
 
-#if statements
+#if statements (logical operators)
 a = 1
 b = 2 #Declaring some variables
 
@@ -64,6 +68,19 @@ if a < b: #Instead of using "and" you can also put two if statements inside of e
 
 #Input
 #After looking at how to output code, we will take a look at a simple way to read user input
-question1 = input("What is your name? ") #
-print("Hello " + question1)
+question1 = input("What is your name?") #This will print a string and wait for user input. As soon as the user has typed his answer into the terminal and has pressed "Enter", the information will be stored and printed out in the next line
+print("Hello " + question1) #This will output the stored input
 
+#negative and positive if statements
+#if the input is "t" prints out "Your name is t"
+if question1 is "t":
+    print("Your name is t")
+else:
+    print("Your name is not t")
+    
+#Weird way to check for integers
+#if the input is "0" prints out "Your name is 0"
+if question1 is "0":
+    print("Your name is 0")
+else:
+    print("Your name is not 0")
