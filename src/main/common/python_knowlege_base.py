@@ -1,4 +1,7 @@
 #Data types (variables)
+
+#Important info: in python you start counting from 0
+
 #Strings
 String = "Hello world" #Strings store letters and words
 Integer = 1.999999999 #Integers (int) store numbers which can also be used for mathematical operations
@@ -35,9 +38,9 @@ print(Boolean) #This will output the value assigned to it (in this case "True" t
 print(5 < Integer) #You can also output a boolean when comparing different values with "<", ">" or "=". Here the program checks if 5 is smaller than "Integer" (1.999999999) and outputs the result (in this case "False")
 
 #Printing Arrays
-print(Array[1]) #This will print the first array entry
-print(Array[2]) #This will print the second array entry
-print(Array[3]) #This will print the third array entry
+print(Array[0]) #This will print the first array entry
+print(Array[1]) #This will print the second array entry
+print(Array[2]) #This will print the third array entry
 
 #if statements (logical operators)
 a = 1
@@ -99,5 +102,5 @@ else:
 #    print("it does not stop either")
 
 #for loops
-for x in Array:
-    print(x)
+for i in Array: #prints an entire array. I dont understand this pls help
+    print(i)
