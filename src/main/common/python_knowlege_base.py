@@ -3,6 +3,7 @@
 String = "Hello world" #Strings store letters and words
 Integer = 1.999999999 #Integers (int) store numbers which can also be used for mathematical operations
 Boolean = True #Booleans store a value that has to be "True" or "False"
+Array = ["String", 3, True] #An array stores different datataypes
 
 #The basics
 #printing Strings
@@ -32,6 +33,11 @@ print(math)
 print(True) #This will output the value "True"
 print(Boolean) #This will output the value assigned to it (in this case "True" this makes it more dynamic than simply printing a certain value)
 print(5 < Integer) #You can also output a boolean when comparing different values with "<", ">" or "=". Here the program checks if 5 is smaller than "Integer" (1.999999999) and outputs the result (in this case "False")
+
+#Printing Arrays
+print(Array[1]) #This will print the first array entry
+print(Array[2]) #This will print the second array entry
+print(Array[3]) #This will print the third array entry
 
 #if statements (logical operators)
 a = 1
@@ -85,9 +91,13 @@ if question1 is "0":
 else:
     print("Your name is not 0")
 
-#While statements
-while(True):    #This will infinetly print because the value always is "True"
-    print("it never stops...")
+#While loops
+#while(True):    #This will infinetly print because the value always is "True"
+#    print("it never stops...")
 
-while(a < b):   #This wont stop either because a always is smaller than b. That means the output boolean is always "True"
-    print("it does not stop either")
+#while(a < b):   #This wont stop either because a always is smaller than b. That means the output boolean is always "True"
+#    print("it does not stop either")
+
+#for loops
+for x in Array:
+    print(x)
