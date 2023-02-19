@@ -82,14 +82,14 @@ print("Hello " + question1) #This will output the stored input
 
 #negative and positive if statements
 #if the input is "t" prints out "Your name is t"
-if question1 is "t":
+if question1 is "t": #the "is" can be replaced with "==" as well
     print("Your name is t")
 else:
     print("Your name is not t")
     
 #Weird way to check for integers
 #if the input is "0" prints out "Your name is 0"
-if question1 is "0":
+if question1 == "0": #the "==" can be replaced with "is" as well
     print("Your name is 0")
 else:
     print("Your name is not 0")
