@@ -112,11 +112,17 @@ question2 = (question2) #Converts the input into an integer (allows for better m
 #    print("it does not stop either")
 
 #5. for loops (me is too dumb to figure this out...)
-for i in Array: #prints an entire array. I dont understand this pls help
-    print(i)
+for i in range(5): #Like the while loop but it repeats its body a set amount of times (in this case 5 times)
+    print("e")
 
 value = random.randint(0, 5) #int value will generate any number between 0 and 5
 print(value)
 
 value2 = random.random() #int value2 will generate any float (a float is an int with post comma numbers) between 0 and 1
 print(value2)
+
+#6. methods
+def printOut(name): #Creates a new method called "printOut()" you have to insert the text to be print out in the brackets 
+    print(name)
+
+printOut("e") #executes the formerly created method
