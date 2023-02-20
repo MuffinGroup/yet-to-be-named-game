@@ -1,0 +1,9 @@
+Design: Jakob
+Animationen Design: Jakob
+Animationen in-game: Benedikt
+Gegner: Lukas
+Kollision: Benedikt
+Spieler: Felix
+Spielprinzip/Ziel: Alle
+Startbildschirm: Felix
+Anzeigen: Lukas
