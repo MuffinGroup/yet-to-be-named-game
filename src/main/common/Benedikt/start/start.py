@@ -1,19 +1,43 @@
 import pygame
+import registerButton
+from colors import *
 
-pygame.init
-screen = pygame.display.set_mode((800, 400))
-pygame.display.set_caption("test")
+pygame.init()
+mouse = pygame.mouse.get_pos
+res = (720,720)
+screen = pygame.display.set_mode(res)
+color = (255,255,255)
+color_light = (COLORS.RED)
+color_dark = (100,100,100)
+width = screen.get_width()
+height = screen.get_height()
+smallfont = pygame.font.SysFont('Corbel',35)
+start = smallfont.render('Start Game' , True , color)
+quit = smallfont.render('Quit Game' , True , color)
+icon = pygame.image.load('src//main//assets//icon//icon.png')
+icon_selected = pygame.image.load('src//main//assets//icon//icon_selected.png')
+pygame.display.set_icon(icon)
+start_button = registerButton.Button(100, 100, icon, 0.8)
 clock = pygame.time.Clock()
-img = pygame.image.load('src//main//assets//icon//icon.png')
-pygame.display.set_icon(img)
 
-while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                print("Closed succesful")
-                pygame.quit
-                exit()
-        #screen.blit(img, (0, 0))
-        screen.fill((255,255,255))
-        pygame.display.update()
-        clock.tick(60)
+run = True
+while run:
+
+	screen.fill(COLORS.GRAY)
+
+	if start_button.draw(screen):
+		print('START')
+	
+	if mouse == (width, height):
+		print("success")
+
+	#event handler
+	for event in pygame.event.get():
+		#quit game
+		if event.type == pygame.QUIT:
+			run = False
+
+	pygame.display.update()
+
+pygame.quit()
+    #screen.blit(img, (0, 0))
