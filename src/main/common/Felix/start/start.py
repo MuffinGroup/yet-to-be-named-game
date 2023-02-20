@@ -4,8 +4,9 @@ pygame.init
 screen = pygame.display.set_mode((800, 400))
 pygame.display.set_caption("test")
 clock = pygame.time.Clock()
-img = pygame.image.load('C:\Users\andre\OneDrive - Hertzhaimer Gymnasium Trostberg\Eigenes und Zuhause\Programmieren\yet-to-be-named-game\src\main\common\Felix\start\icon.png')
+img = pygame.image.load('yet-to-be-named-game\src\main\common\Felix\start\icon.png')
 pygame.display.set_icon(img)
+Spieler1 = pygame.image.load('yet-to-be-named-game\src\main//assets\characters\Character1\Character1.png')
 
 while True:
         for event in pygame.event.get():
