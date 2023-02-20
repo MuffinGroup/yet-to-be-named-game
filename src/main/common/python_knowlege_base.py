@@ -3,7 +3,7 @@ import random
 
 #1. Data types (variables)
 #Strings
-String = "Hello world" #Strings (str) store letters and words
+String = "Hello world" #Strings (str) store letters and words always has to be inside of Quotation marks ("...")
 Integer = 1.999999999 #Integers (int) store numbers which can also be used for mathematical operations
 Boolean = True #Booleans (bool) store a value that has to be "True" or "False"
 Array = ["String", 3, True] #An array stores different datataypes
