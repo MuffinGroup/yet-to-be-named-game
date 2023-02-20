@@ -1,4 +1,3 @@
-import random
 #Important info: in python you start counting from 0
 
 #1. Data types (variables)
@@ -114,4 +113,3 @@ question2 = (question2) #Converts the input into an integer (allows for better m
 #5. for loops (me is too dumb to figure this out...)
 for i in Array: #prints an entire array. I dont understand this pls help
     print(i)
-
