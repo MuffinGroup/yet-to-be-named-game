@@ -13,5 +13,7 @@ while True:
                 print("Closed succesful")
                 pygame.quit
                 exit()
+        #screen.blit(img, (0, 0))
+        screen.fill((255,255,255))
         pygame.display.update()
         clock.tick(60)
