@@ -11,7 +11,7 @@ screen_height = 480
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Load character image
-character_image = pygame.image.load("src\main\common\Lukas\Pictures\.png")
+character_image = pygame.image.load("src\main\common\Lukas\Pictures\Oger.gif")
 
 # Set initial position
 character_x = screen_width // 1
