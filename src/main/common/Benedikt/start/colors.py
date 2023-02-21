@@ -1,4 +1,3 @@
-import pygame
 class COLORS:
         RED = (222,4,4)
 
@@ -17,4 +16,3 @@ class COLORS:
         BLACK = (0,0,0)
 
         GRAY = (158,158,158)
-print(pygame.font.get_fonts())
