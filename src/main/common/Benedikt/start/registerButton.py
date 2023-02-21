@@ -1,6 +1,9 @@
+import collections
 import pygame
 
 #button class
+
+
 class Button():
 	def __init__(self, button_name, x, y, scale, display_text, text_color, font_type):
 		image = pygame.image.load('src//main//assets//gui//' + button_name + '.png')
@@ -11,8 +14,9 @@ class Button():
 		self.selected_image = pygame.transform.scale(selected_image, (int(width * scale), int(height * scale)))
 		self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
 		self.display_text = smallfont.render(display_text , True , text_color)
+		self.selected_display_text = smallfont.render(display_text , True , (255, 255, 255))
 		self.rect = self.image.get_rect()
-		self.rect.topleft = (x, y)
+		self.rect.center = (x, y)
 		self.clicked = False
 
 	def draw(self, surface):
@@ -23,13 +27,16 @@ class Button():
 		#check mouseover and clicked conditions
 		if not self.rect.collidepoint(pos):
 			surface.blit(self.image, (self.rect.x, self.rect.y))
+			surface.blit(self.display_text , (self.rect.center, self.rect.center))
 		elif self.rect.collidepoint(pos):
 			surface.blit(self.selected_image, (self.rect.x, self.rect.y))
+			surface.blit(self.selected_display_text , (self.rect.center, self.rect.center))
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
 				self.clicked = True
 				action = True
 
 		if pygame.mouse.get_pressed()[0] == 0:
 			self.clicked = False
-		surface.blit(self.display_text , (self.rect.x + 45, self.rect.y + 90))
-		return action
+
+		return action	
+

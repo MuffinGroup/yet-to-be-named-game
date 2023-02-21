@@ -13,9 +13,9 @@ icon_selected = pygame.image.load('src//main//assets//gui//icon//icon_selected.p
 button = pygame.image.load('src//main//assets//gui//button.png')
 button_selected = pygame.image.load('src//main//assets//gui//button_selected.png')
 pygame.display.set_icon(icon)
-start_button = registerButton.Button("button" ,250, 0, 6.0, "start", COLORS.BLACK, "joystixmonospaceregular")
-options_button = registerButton.Button("button", 250, 250,  6.0, "options", COLORS.BLACK, "joystixmonospaceregular")
-quit_button = registerButton.Button("button", 250, 500,  6.0, "quit", COLORS.BLACK, "joystixmonospaceregular")
+start_button = registerButton.Button("button" ,200, 100, 6.0, "start", COLORS.BLACK, "joystixmonospaceregular")
+options_button = registerButton.Button("button", 200, 300,  6.0, "options", COLORS.BLACK, "joystixmonospaceregular")
+quit_button = registerButton.Button("button", 200, 500,  6.0, "quit", COLORS.BLACK, "joystixmonospaceregular")
 clock = pygame.time.Clock()
 
 while True:
