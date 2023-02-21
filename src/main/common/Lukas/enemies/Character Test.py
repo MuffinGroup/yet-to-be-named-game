@@ -11,14 +11,14 @@ screen_height = 480
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Load character image
-character_image = pygame.image.load("src\main\common\Lukas Pictures\Character1.png")
+character_image = pygame.image.load("src\main\common\Lukas\Pictures\.png")
 
 # Set initial position
-character_x = screen_width // 2
-character_y = screen_height // 2
+character_x = screen_width // 1
+character_y = screen_height // 1
 
 # Set character speed
-character_speed = 5
+character_speed = 1
 
 # Game loop
 running = True
