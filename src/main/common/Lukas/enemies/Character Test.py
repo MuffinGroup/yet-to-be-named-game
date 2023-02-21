@@ -14,11 +14,11 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 character_image = pygame.image.load("src\main\common\Lukas\Pictures\Oger.gif")
 
 # Set initial position
-character_x = screen_width // 1
-character_y = screen_height // 1
+character_x = screen_width // 6
+character_y = screen_height // 6
 
 # Set character speed
-character_speed = 1
+character_speed = 0.5
 
 # Game loop
 running = True
