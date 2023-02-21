@@ -1,5 +1,6 @@
 #Importieren u.initialisieren der Pygame-Bibliothek
 import pygame
+from util.colors.colors import *
 from pygame.locals import*
 pygame.init()
 
@@ -41,7 +42,7 @@ while spielaktiv:
     clock.tick(FPS)
     
     #Spielfeld löschen
-    fenster.fill(GRAU)
+    fenster.fill(COLORS.GRAY)
 
     
 
