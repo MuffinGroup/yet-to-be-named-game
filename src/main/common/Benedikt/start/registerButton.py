@@ -2,11 +2,13 @@ import pygame
 
 #button class
 class Button():
-	def __init__(self, x, y, image, selected_image, scale):
+	def __init__(self, x, y, image, selected_image, scale, display_text, text_color, font_type):
 		width = image.get_width()
 		height = image.get_height()
+		smallfont = pygame.font.SysFont(font_type,35)
 		self.selected_image = pygame.transform.scale(selected_image, (int(width * scale), int(height * scale)))
 		self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
+		self.display_text = smallfont.render(display_text , True , text_color)
 		self.rect = self.image.get_rect()
 		self.rect.topleft = (x, y)
 		self.clicked = False
@@ -27,5 +29,5 @@ class Button():
 
 		if pygame.mouse.get_pressed()[0] == 0:
 			self.clicked = False
-
+		surface.blit(self.display_text , (self.rect.x + 45, self.rect.y + 90))
 		return action
