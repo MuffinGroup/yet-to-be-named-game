@@ -8,11 +8,14 @@ screen = pygame.display.set_mode((720,720))
 smallfont = pygame.font.SysFont('Corbel',35)
 start = smallfont.render('Start Game' , True , COLORS.WHITE)
 quit = smallfont.render('Quit Game' , True , COLORS.WHITE)
-icon = pygame.image.load('src//main//assets//icon//icon.png')
-icon_selected = pygame.image.load('src//main//assets//icon//icon_selected.png')
+icon = pygame.image.load('src//main//assets//gui//icon//icon.png')
+icon_selected = pygame.image.load('src//main//assets//gui//icon//icon_selected.png')
+button = pygame.image.load('src//main//assets//gui//button.png')
+button_selected = pygame.image.load('src//main//assets//gui//button_selected.png')
 pygame.display.set_icon(icon)
-start_button = registerButton.Button(250, 100, icon, icon_selected, 0.8, "start", COLORS.BLACK, "joystixmonospaceregular")
-quit_button = registerButton.Button(250, 400, icon, icon_selected, 0.8, "quit", COLORS.BLACK, "joystixmonospaceregular")
+start_button = registerButton.Button("button" ,250, 0, 6.0, "start", COLORS.BLACK, "joystixmonospaceregular")
+options_button = registerButton.Button("button", 250, 250,  6.0, "options", COLORS.BLACK, "joystixmonospaceregular")
+quit_button = registerButton.Button("button", 250, 500,  6.0, "quit", COLORS.BLACK, "joystixmonospaceregular")
 clock = pygame.time.Clock()
 
 while True:
@@ -21,6 +24,8 @@ while True:
 
 	if start_button.draw(screen):
 		print("Pressed Start")
+	if options_button.draw(screen):
+		print("Pressed Options")
 	if quit_button.draw(screen):
 		pygame.quit
 		print("Pressed Quit")

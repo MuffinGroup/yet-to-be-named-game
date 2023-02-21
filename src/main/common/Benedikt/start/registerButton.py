@@ -2,7 +2,9 @@ import pygame
 
 #button class
 class Button():
-	def __init__(self, x, y, image, selected_image, scale, display_text, text_color, font_type):
+	def __init__(self, button_name, x, y, scale, display_text, text_color, font_type):
+		image = pygame.image.load('src//main//assets//gui//' + button_name + '.png')
+		selected_image = pygame.image.load('src//main//assets//gui//' + button_name + '_selected.png')
 		width = image.get_width()
 		height = image.get_height()
 		smallfont = pygame.font.SysFont(font_type,35)
