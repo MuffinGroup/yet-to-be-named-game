@@ -17,7 +17,7 @@ quit = smallfont.render('Quit Game' , True , color)
 icon = pygame.image.load('src//main//assets//icon//icon.png')
 icon_selected = pygame.image.load('src//main//assets//icon//icon_selected.png')
 pygame.display.set_icon(icon)
-start_button = registerButton.Button(100, 100, icon, 0.8)
+start_button = registerButton.Button(100, 100, icon, icon_selected, 0.8)
 clock = pygame.time.Clock()
 
 run = True
