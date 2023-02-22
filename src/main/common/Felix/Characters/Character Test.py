@@ -3,12 +3,16 @@ import pygame
 # Initialize Pygame
 pygame.init()
 
+#Load background
+background = pygame.image.load("scr/main/assets/background/floor.jpg")
+
 # Set screen dimensions
-screen_width = 640
-screen_height = 480
+screen_width = 1920
+screen_height = 1280
 
 # Create a screen surface
 screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("Muffin Group")
 
 # Load character image
 character_image = pygame.image.load("src\main\common\Lukas\Pictures\Oger.gif").convert_alpha()
