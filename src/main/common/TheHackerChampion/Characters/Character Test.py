@@ -34,7 +34,7 @@ image_height = character_image.get_height()
 character_image = pygame.transform.scale(character_image, (int(image_width * scale), int(image_height * scale)))
 
 # Set initial position
-character_x = 50
+character_x = 0
 character_y = 410
 
 # Set character speed
