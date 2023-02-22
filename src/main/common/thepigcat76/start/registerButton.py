@@ -2,7 +2,6 @@ import pygame
 
 #button class
 
-
 class Button():
 	def __init__(self, button_name, x, y, scale, display_text, text_color, font_type):
 		image = pygame.image.load('src//main//assets//gui//' + button_name + '.png')
