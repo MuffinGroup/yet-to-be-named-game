@@ -4,7 +4,7 @@ from colors import *
 
 pygame.init()
 mouse = pygame.mouse.get_pos
-screen = pygame.display.set_mode((720,720))
+screen = pygame.display.set_mode((720,720), pygame.RESIZABLE)
 smallfont = pygame.font.SysFont('Corbel',35)
 start = smallfont.render('Start Game' , True , COLORS.WHITE)
 quit = smallfont.render('Quit Game' , True , COLORS.WHITE)
