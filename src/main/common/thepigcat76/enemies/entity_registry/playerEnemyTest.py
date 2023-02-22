@@ -27,11 +27,14 @@ leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
 rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 
 #Create Sound
-jumpsound = pygame.mixer.Sound("src/main/data/sounds/jump.wav")
+jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
 jumpsound.set_volume(0.25)
 
 # Load character image
 character_image = pygame.image.load("src/main/assets/characters/Character1/Animations/Character1.png").convert_alpha()
+
+#Register Enemies
+enemy = registerEnemies.enemies("oger", 275, 650, 10)
 
 #Image dimensions
 image_width = character_image.get_width()
@@ -51,6 +54,7 @@ def draw():
     screen.blit(background, (0,0))
     screen.blit(floor, (0,730))
     screen.blit(character_image, (character_x, character_y))
+    enemy.draw(screen)
     pygame.display.update()
 
 
