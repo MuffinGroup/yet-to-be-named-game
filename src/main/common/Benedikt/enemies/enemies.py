@@ -12,7 +12,7 @@ GRAU   =(155,155,155)
 spielaktiv=True
 
 #gegner
-gegnerBILD=pygame.image.load("src\main\common\Lukas\Pictures\Happy Halloween_Copy 3.1.png")
+gegnerBILD=pygame.image.load("src/main/assets/entities/enemy1.png")
 bildgroessen=gegnerBILD.get_rect()
 print(bildgroessen)
 print(bildgroessen.center[0])
