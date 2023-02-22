@@ -43,8 +43,13 @@ while running:
 
     # Draw the character and update the screen
     screen.fill(COLORS.GRAY)
+    character_image=pygame.transform.scale(character_image,(250,250))
+    screen.blit(character_image,(340,190))
     screen.blit(character_image, (character_x, character_y))
+    
     pygame.display.update()
+
+
 
 # Quit Pygame
 pygame.quit()
