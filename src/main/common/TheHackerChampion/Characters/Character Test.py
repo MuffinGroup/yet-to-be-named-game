@@ -22,8 +22,8 @@ screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE
 icon = pygame.image.load('src//main//assets//gui//icon//icon.png')
 pygame.display.set_icon(icon)
 pygame.display.set_caption("Muffin Group")
-leftWall = pygame.draw.rect(screen, (0,0,0), (-2,0,2,600), 0)
-rightWall = pygame.draw.rect(screen, (0,0,0), (1201,0,2,600), 0)
+leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
+rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 
 # Load character image
 character_image = pygame.image.load("src/main/assets/characters/Character1/Animations/Character1.png").convert_alpha()
@@ -61,9 +61,10 @@ while running:
     
     # Handle keyboard input
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
+    Spieler = pygame.Rect(character_x, character_y, 40, 80)
+    if keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall):
         character_x -= character_speed
-    if keys[pygame.K_RIGHT]:
+    if keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall):
         character_x += character_speed
     if keys[pygame.K_UP] and jumpvar == -16:
         jumpvar = 15
