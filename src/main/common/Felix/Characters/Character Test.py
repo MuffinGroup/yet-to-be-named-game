@@ -4,11 +4,11 @@ import pygame
 pygame.init()
 
 #Load background
-background = pygame.image.load("src/main/assets/background/floor.jpg")
+background = pygame.image.load("src/main/assets/background/floor - 1280 x 853.jpg")
 
 # Set screen dimensions
-screen_width = 1920
-screen_height = 1280
+screen_width = 1280
+screen_height = 800
 
 # Create a screen surface
 screen = pygame.display.set_mode((screen_width, screen_height))
@@ -22,7 +22,7 @@ character_x = screen_width // 6
 character_y = screen_height // 6
 
 # Set character speed
-character_speed = 0.5
+character_speed = 5
 
 # Game loop
 running = True
