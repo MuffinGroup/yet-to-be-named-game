@@ -16,6 +16,7 @@ icon_selected = pygame.image.load('src//main//assets//gui//icon//icon_selected.p
 button = pygame.image.load('src//main//assets//gui//button.png')
 button_selected = pygame.image.load('src//main//assets//gui//button_selected.png')
 pygame.display.set_icon(icon)
+pygame.display.set_caption("Muffin Group")
 start_button = registerButton.Button("button" ,350, 250, 6.0, "start", COLORS.BLACK, "joystixmonospaceregular")
 options_button = registerButton.Button("button", 350, 450,  6.0, "options", COLORS.BLACK, "joystixmonospaceregular")
 quit_button = registerButton.Button("button", 350, 650,  6.0, "quit", COLORS.BLACK, "joystixmonospaceregular")
