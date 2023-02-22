@@ -1,9 +1,9 @@
-Design: Jakob
-Animationen Design: Jakob
-Animationen in-game: Benedikt
-Gegner: Lukas
-Kollision: Benedikt
-Spieler: Felix
+Design: N1cohd1
+Animationen Design: N1cohd1
+Animationen in-game: thepigcat76
+Gegner: ReadyPlayerOne14 and thepigcat76
+Kollision: TheHackerChampion
+Spieler: TheHackerChampion
 Spielprinzip/Ziel: Alle
-Startbildschirm: Felix
-Anzeigen: Lukas
+Startbildschirm: thepigcat76
+Anzeigen: ReadyPlayerOne14
