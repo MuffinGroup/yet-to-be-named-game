@@ -25,6 +25,9 @@ pygame.display.set_caption("Muffin Group")
 leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
 rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 
+#Create Sound
+jumpsound = pygame.mixer.Sound("src/main/data/sounds/jump.wav")
+
 # Load character image
 character_image = pygame.image.load("src/main/assets/characters/Character1/Animations/Character1.png").convert_alpha()
 
@@ -68,6 +71,9 @@ while running:
         character_x += character_speed
     if keys[pygame.K_UP] and jumpvar == -16:
         jumpvar = 15
+
+    if jumpvar == 15:
+        pygame.mixer.Sound.play(jumpsound)
 
     if jumpvar >= -15:
         n = 1
