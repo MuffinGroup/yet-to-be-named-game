@@ -9,6 +9,8 @@ background = pygame.image.load("src/main/assets/background/floor - 1280 x 853.jp
 # Set screen dimensions
 screen_width = 1280
 screen_height = 800
+screen = pygame.display.set_mode((720,720), pygame.RESIZABLE)
+leftwall = pygame.draw.rect(screen, (0,0,0), (-2,0,2,600), 0)
 
 # Create a screen surface
 screen = pygame.display.set_mode((screen_width, screen_height))
