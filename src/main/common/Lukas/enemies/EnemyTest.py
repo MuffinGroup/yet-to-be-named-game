@@ -5,7 +5,7 @@ import math
 pygame.init()
 
 # Define game window dimensions
-WIDTH = 800
+WIDTH = 1000
 HEIGHT = 600
 
 # Define colors
