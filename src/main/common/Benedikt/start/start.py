@@ -2,6 +2,8 @@ import pygame
 import registerButton
 from colors import *
 
+start_background = pygame.image.load("src/main/assets/background/start - 1280 x 1016 2.jpg")
+
 pygame.init()
 mouse = pygame.mouse.get_pos
 screen = pygame.display.set_mode((720,720), pygame.RESIZABLE)
@@ -20,7 +22,7 @@ clock = pygame.time.Clock()
 
 while True:
     #screen.blit(img, (0, 0))
-	screen.fill(COLORS.GRAY)
+	screen.blit(start_background, (0,0))
 
 	if start_button.draw(screen):
 		print("Pressed Start")

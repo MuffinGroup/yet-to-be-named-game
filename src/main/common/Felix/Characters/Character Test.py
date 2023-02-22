@@ -9,10 +9,9 @@ background = pygame.image.load("src/main/assets/background/floor - 1280 x 853.jp
 # Set screen dimensions
 screen_width = 1280
 screen_height = 800
-screen = pygame.display.set_mode((720,720), pygame.RESIZABLE)
 
 # Create a screen surface
-screen = pygame.display.set_mode((screen_width, screen_height))
+screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
 pygame.display.set_caption("Muffin Group")
 
 # Load character image
