@@ -13,8 +13,6 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Load character image
 character_image = pygame.image.load("src\main\common\Lukas\Pictures\Character1.copy.png").convert_alpha()
-character_image=pygame.transform.scale(character_image,(250,250))
-screen.blit(character_image,(340,190))
 
 # Set initial position
 character_x = screen_width // 10
@@ -46,11 +44,7 @@ while running:
     # Draw the character and update the screen
     screen.fill(COLORS.GRAY)
     screen.blit(character_image, (character_x, character_y))
-    
-  
-pygame.display.update()
-
-
+    pygame.display.update()
 
 # Quit Pygame
 pygame.quit()
