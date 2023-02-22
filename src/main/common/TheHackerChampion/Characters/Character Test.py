@@ -26,7 +26,7 @@ leftWall = pygame.draw.rect(screen, (0,0,0), (-2,0,2,600), 0)
 rightWall = pygame.draw.rect(screen, (0,0,0), (1201,0,2,600), 0)
 
 # Load character image
-character_image = pygame.image.load("src/main/assets/characters/Character1/Character1.png").convert_alpha()
+character_image = pygame.image.load("src/main/assets/characters/Character1/Animations/Character1.png").convert_alpha()
 
 #Image dimensions
 image_width = character_image.get_width()
