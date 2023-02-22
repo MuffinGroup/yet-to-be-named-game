@@ -26,7 +26,7 @@ leftWall = pygame.draw.rect(screen, (0,0,0), (-2,0,2,600), 0)
 rightWall = pygame.draw.rect(screen, (0,0,0), (1201,0,2,600), 0)
 
 # Load character image
-character_image = pygame.image.load("src/main/assets/characters/Character1/Character1.png").convert_alpha()
+character_image = pygame.image.load("src/main/assets/characters/Character1/Animations/Character1.png").convert_alpha()
 
 #Image dimensions
 image_width = character_image.get_width()
@@ -34,7 +34,7 @@ image_height = character_image.get_height()
 character_image = pygame.transform.scale(character_image, (int(image_width * scale), int(image_height * scale)))
 
 # Set initial position
-character_x = 50
+character_x = 0
 character_y = 410
 
 # Set character speed
