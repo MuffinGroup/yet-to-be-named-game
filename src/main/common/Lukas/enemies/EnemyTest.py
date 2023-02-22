@@ -1,5 +1,6 @@
 import pygame
 import math
+from colors import *
 
 # Initialize Pygame
 pygame.init()
@@ -7,10 +8,6 @@ pygame.init()
 # Define game window dimensions
 WIDTH = 1000
 HEIGHT = 600
-
-# Define colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
 
 # Load enemy image
 enemy_img = pygame.image.load("src\main\common\Lukas\Pictures\Oger.gif")
@@ -68,7 +65,7 @@ while running:
         enemy.attack()
     
     # Draw game objects
-    screen.fill(WHITE)
+    screen.fill(COLORS.WHITE)
     enemy.draw(screen)
     pygame.display.update()
 
