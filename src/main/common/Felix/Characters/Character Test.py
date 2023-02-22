@@ -11,7 +11,7 @@ screen_width = 1920
 screen_height = 1280
 
 # Create a screen surface
-screen = pygame.display.set_mode((screen_width, screen_height))
+screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
 pygame.display.set_caption("Muffin Group")
 
 # Load character image

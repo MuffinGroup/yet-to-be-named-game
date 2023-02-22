@@ -9,7 +9,7 @@ screen_width = 640
 screen_height = 480
 
 # Create a screen surface
-screen = pygame.display.set_mode((screen_width, screen_height))
+screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
 
 # Load character image
 character_image = pygame.image.load("src\main\common\Lukas\Pictures\Character1.copy.png").convert_alpha()
