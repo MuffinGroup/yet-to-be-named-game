@@ -12,7 +12,7 @@ screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Load character image
-character_image = pygame.image.load("src\main\common\Lukas\Pictures\Character1.copy.png").convert_alpha()
+character_image = pygame.image.load("src\main\common\LS-P\Pictures\Character1.copy.png").convert_alpha()
 character_image=pygame.transform.scale(character_image,(250,250))
 screen.blit(character_image,(340,190))
 
