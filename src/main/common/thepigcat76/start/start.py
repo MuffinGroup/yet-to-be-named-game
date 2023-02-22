@@ -5,9 +5,10 @@ from colors import *
 start_background = pygame.image.load("src/main/assets/background/start - 1280 x 1016 2.jpg")
 
 pygame.init()
+smallfont = pygame.font.SysFont("joystixmonospaceregular", 40)
+name = smallfont.render("Yet to be named game" , True , COLORS.DARKER_GRAY)
 mouse = pygame.mouse.get_pos
 screen = pygame.display.set_mode((720,720), pygame.RESIZABLE)
-smallfont = pygame.font.SysFont('Corbel',35)
 start = smallfont.render('Start Game' , True , COLORS.WHITE)
 quit = smallfont.render('Quit Game' , True , COLORS.WHITE)
 icon = pygame.image.load('src//main//assets//gui//icon//icon.png')
@@ -15,9 +16,9 @@ icon_selected = pygame.image.load('src//main//assets//gui//icon//icon_selected.p
 button = pygame.image.load('src//main//assets//gui//button.png')
 button_selected = pygame.image.load('src//main//assets//gui//button_selected.png')
 pygame.display.set_icon(icon)
-start_button = registerButton.Button("button" ,200, 100, 6.0, "start", COLORS.BLACK, "joystixmonospaceregular")
-options_button = registerButton.Button("button", 200, 300,  6.0, "options", COLORS.BLACK, "joystixmonospaceregular")
-quit_button = registerButton.Button("button", 200, 500,  6.0, "quit", COLORS.BLACK, "joystixmonospaceregular")
+start_button = registerButton.Button("button" ,350, 250, 6.0, "start", COLORS.BLACK, "joystixmonospaceregular")
+options_button = registerButton.Button("button", 350, 450,  6.0, "options", COLORS.BLACK, "joystixmonospaceregular")
+quit_button = registerButton.Button("button", 350, 650,  6.0, "quit", COLORS.BLACK, "joystixmonospaceregular")
 clock = pygame.time.Clock()
 
 while True:
@@ -40,5 +41,6 @@ while True:
 			pygame.quit
 			print("Closed successful")
 			exit()
+	screen.blit(name , (40, 50))
 	pygame.display.update()
 	clock.tick(60)

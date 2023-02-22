@@ -16,3 +16,9 @@ class COLORS:
         BLACK = (0,0,0)
 
         GRAY = (158,158,158)
+        
+        DARK_GRAY = (69,69,69)
+
+        DARKER_GRAY = (46, 46, 46)
+
+        DARKEST_GRAY = (26, 26, 26)
