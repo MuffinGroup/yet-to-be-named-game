@@ -22,7 +22,7 @@ enemy_x = 400
 enemy_y = 300
 
 # Set enemy speed
-enemy_speed = 2
+enemy_speed = 0.5
 character_img_speed=0.5
 
 # Set distance at which enemy starts attacking character
