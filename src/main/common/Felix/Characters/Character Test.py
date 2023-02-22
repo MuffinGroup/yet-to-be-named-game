@@ -45,6 +45,7 @@ while running:
         character_y += character_speed
 
     # Draw the character and update the screen
+    screen.blit(background, (0,0))
     screen.blit(character_image, (character_x, character_y))
     pygame.display.update()
 
