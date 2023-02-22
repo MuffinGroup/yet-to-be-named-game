@@ -7,8 +7,11 @@ pygame.init()
 background = pygame.image.load("src/main/assets/background/floor - 1280 x 853.jpg")
 
 # Set screen dimensions
-screen_width = 1280
-screen_height = 800
+scale = 10
+
+# Set screen dimensions
+screen_width = 1920
+screen_height = 1280
 
 # Create a screen surface
 screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
@@ -16,6 +19,10 @@ pygame.display.set_caption("Muffin Group")
 
 # Load character image
 character_image = pygame.image.load("src/main/assets/characters/Character1/Character1.png").convert_alpha()
+#Image dimensions
+image_width = character_image.get_width()
+image_height = character_image.get_height()
+character_image = pygame.transform.scale(character_image, (int(image_width * scale), int(image_height * scale)))
 
 # Set initial position
 character_x = screen_width // 6
