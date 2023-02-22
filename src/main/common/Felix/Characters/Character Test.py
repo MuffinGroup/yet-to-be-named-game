@@ -26,6 +26,13 @@ character_y = screen_height // 6
 # Set character speed
 character_speed = 5
 
+def draw():
+    # Draw the character and update the screen
+    screen.blit(background, (0,0))
+    screen.blit(character_image, (character_x, character_y))
+    pygame.display.update()
+
+
 # Game loop
 running = True
 while running:
@@ -46,10 +53,7 @@ while running:
     if keys[pygame.K_DOWN]:
         character_y += character_speed
 
-    # Draw the character and update the screen
-    screen.blit(background, (0,0))
-    screen.blit(character_image, (character_x, character_y))
-    pygame.display.update()
+    draw()
 
 # Quit Pygame
 pygame.quit()
