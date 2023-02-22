@@ -20,7 +20,7 @@ class Enemy:
     def __init__(self, position, attack_range):
         self.position = position
         self.attack_range = attack_range
-        self.speed = 5
+        self.speed = 2
     
     def update(self, player_position):
         dx = player_position[0] - self.position[0]
