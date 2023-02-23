@@ -86,7 +86,7 @@ while running:
         jumpvar -= 1
 
     if jumpvar == -17:
-        Spieler = pygame.rect(character_x, character_y + 0.5*character_y, 40, 40)
+        Spieler = pygame.rect(character_x, character_y + character_y*0.5, 40, 40)
         jumpvar = -16
     else:
         Spieler = pygame.Rect(character_x, character_y, 40, 80)
