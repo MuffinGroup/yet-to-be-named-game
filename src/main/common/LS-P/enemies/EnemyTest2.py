@@ -14,23 +14,25 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 character_img = pygame.image.load("src\main\common\LS-P\Pictures\Character1.copy.png")
 character_img=pygame.transform.scale(character_img,(250,250))
 screen.blit(character_img,(340,190))
-enemy_img = pygame.image.load("src\main\common\LS-P\Pictures\Oger.gif")
+enemy_img = pygame.image.load("src\main\common\LS-P\Pictures\Oger2.png")
+enemy_img=pygame.transform.scale(enemy_img,(400,400))
+screen.blit(enemy_img,(340,190))
 
 # Set character and enemy starting position
 character_x = 50
 character_y = 50
-enemy_x = 400
-enemy_y = 300
+enemy_x = 200
+enemy_y = 200
 
 # Set enemy speed
-enemy_speed = 2
+enemy_speed = 1
 character_img_speed=6
 
 # Set distance at which enemy starts attacking character
-attack_distance = 400
+attack_distance = 100
 
 # Set enemy attack range
-attack_range = 40
+attack_range = 10
 
 # Set character health and attack power
 character_health = 500
