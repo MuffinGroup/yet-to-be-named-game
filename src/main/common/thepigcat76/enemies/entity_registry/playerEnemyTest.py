@@ -55,36 +55,18 @@ def draw():
     screen.blit(background, (0,0))
     screen.blit(floor, (0,730))
     enemy.draw(screen)
-    player.draw(screen)
+    player.draw(screen, character_x, character_y, 10, jumpsound)
     pygame.display.update()
 
-jumpvar = -16
-while True:
+running = True
+while running:
 
     # Handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
-
-
-    keys = pygame.key.get_pressed()
-    Spieler = pygame.Rect(character_x, character_y, 40, 80)
-    if keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall):
-        character_x -= character_speed
-    if keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall):
-        character_x += character_speed
-    if keys[pygame.K_UP] and jumpvar == -16:
-        jumpvar = 15
-
-    if jumpvar == 15:
-        pygame.mixer.Sound.play(jumpsound)
-
-    if jumpvar >= -15:
-        n = 1
-        if jumpvar < 0:
-            n = -1
-        character_y -= (jumpvar**2)*0.17*n
-        jumpvar -= 1
-
+            running = False
     draw()
     clock.tick(60)
+
+# Quit Pygame
+pygame.quit()
