@@ -28,7 +28,7 @@ leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
 rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 
 #Create Sound
-jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
+jumpsound = pygame.mixer.Sound("src/main/assets/sounds/entities/jump.wav")
 jumpsound.set_volume(0.01)
 
 # Load character image
@@ -51,27 +51,22 @@ character_y = 410
 character_speed = 5
 
 def draw():
-    # Draw the character and update the screen
     screen.fill(COLORS.BLACK)
     screen.blit(background, (0,0))
     screen.blit(floor, (0,730))
-    screen.blit(character_image, (character_x, character_y))
     enemy.draw(screen)
     player.draw(screen)
     pygame.display.update()
 
-
-# Game loop
-running = True
 jumpvar = -16
-while running:
+while True:
 
     # Handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
-    
-    # Handle keyboard input
+            pygame.quit()
+
+
     keys = pygame.key.get_pressed()
     Spieler = pygame.Rect(character_x, character_y, 40, 80)
     if keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall):
@@ -93,6 +88,3 @@ while running:
 
     draw()
     clock.tick(60)
-
-# Quit Pygame
-pygame.quit()
