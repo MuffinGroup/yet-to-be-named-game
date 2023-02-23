@@ -13,7 +13,7 @@ door = pygame.image.load("src\main/assets\elements\doors\door_closed.png")
 
 # Set screen dimensions
 scale = 10
-scaleDoor = 0.25
+scaleDoor = 0.6
 
 # Set screen dimensions
 screen_width = 1280
@@ -38,9 +38,10 @@ character_image = pygame.image.load("src/main/assets/characters/Character1/Anima
 image_width = character_image.get_width()
 image_height = character_image.get_height()
 character_image = pygame.transform.scale(character_image, (int(image_width * scale), int(image_height * scale)))
-door_width = floor.get_width()
-door_height = floor.get_height()
+door_width = door.get_width()
+door_height = door.get_height()
 door = pygame.transform.scale(door, (int(door_width * scaleDoor), int(door_height * scaleDoor)))
+# Sizes door: 320, 320
 
 # Set initial position
 character_x = 0
@@ -54,7 +55,7 @@ def draw():
     screen.fill(COLORS.BLACK)
     screen.blit(background, (0,0))
     screen.blit(floor, (0,730))
-    screen.blit(door, (0,0))
+    screen.blit(door, (965,365))
     screen.blit(character_image, (character_x, character_y))
     pygame.display.update()
 
