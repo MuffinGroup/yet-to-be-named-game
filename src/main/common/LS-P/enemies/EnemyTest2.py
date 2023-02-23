@@ -3,6 +3,7 @@ import math
 
 # Initialize Pygame
 pygame.init()
+clock = pygame.time.Clock()
 
 # Set screen size
 screen_width = 1000
@@ -22,7 +23,7 @@ enemy_x = 400
 enemy_y = 300
 
 # Set enemy speed
-enemy_speed = 0.5
+enemy_speed = 2
 character_img_speed=0.5
 
 # Set distance at which enemy starts attacking character
@@ -37,7 +38,7 @@ character_attack_power = 20
 
 # Set enemy health and attack power
 enemy_health = 50
-enemy_attack_power = 10
+enemy_attack_power = 1
 
 # Define function to calculate distance between two points
 def distance(x1, y1, x2, y2):
@@ -90,6 +91,10 @@ while True:
     if character_health <= 0 or enemy_health <= 0:
         pygame.quit()
         quit()
+
+        draw()
+    clock.tick(70)
+
 
     # Update display
     pygame.display.update()
