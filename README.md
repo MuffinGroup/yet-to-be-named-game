@@ -1,6 +1,6 @@
 # yet-to-be-named-game 🚀
 
-A school project to create a simple 2d game using python
+A project to create a simple 2d game using python
 
 Contributors:
 - Thepigcat76 - Project Managment, Lead Dev
