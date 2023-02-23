@@ -9,7 +9,7 @@ pygame.init()
 clock = pygame.time.Clock()
 
 #Load background
-background = pygame.image.load("src/main/assets/background/floor - 1280 x 853.jpg")
+background = pygame.image.load("src/main/assets/background/hallway.jpg")
 floor = pygame.image.load("src/main/assets/background/boden.jpg")
 
 # Set screen dimensions
