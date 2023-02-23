@@ -8,7 +8,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('enemy_testing')
 
 #create button instances
-enemy = registerEnemies.enemies("enemy1", 2, 100, 100)
+enemy = registerEnemies.enemies("enemy1", 100, 100, 1)
 
 #game loop
 run = True
