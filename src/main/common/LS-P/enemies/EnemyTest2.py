@@ -24,7 +24,7 @@ enemy_y = 300
 
 # Set enemy speed
 enemy_speed = 2
-character_img_speed=0.5
+character_img_speed=6
 
 # Set distance at which enemy starts attacking character
 attack_distance = 400
@@ -93,7 +93,7 @@ while True:
         quit()
 
         draw()
-    clock.tick(70)
+    clock.tick(80)
 
 
     # Update display
