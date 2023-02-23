@@ -25,10 +25,10 @@ class Button():
 		#check mouseover and clicked conditions
 		if not self.rect.collidepoint(pos):
 			surface.blit(self.image, (self.rect.x, self.rect.y))
-			surface.blit(self.display_text , (self.rect.center, self.rect.center))
+			surface.blit(self.display_text , (self.rect.x + 125, self.rect.y + 25))
 		elif self.rect.collidepoint(pos):
 			surface.blit(self.selected_image, (self.rect.x, self.rect.y))
-			surface.blit(self.selected_display_text , (self.rect.center, self.rect.center))
+			surface.blit(self.selected_display_text , (self.rect.x + 125, self.rect.y + 25))
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
 				self.clicked = True
 				action = True

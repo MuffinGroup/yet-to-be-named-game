@@ -17,7 +17,9 @@ clock = pygame.time.Clock()
 character_img = pygame.image.load("src\main\common\LS-P\Pictures\Character1.copy.png")
 character_img=pygame.transform.scale(character_img,(250,250))
 screen.blit(character_img,(340,190))
-enemy_img = pygame.image.load("src\main\common\LS-P\Pictures\Oger.gif")
+enemy_img = pygame.image.load("src\main\common\LS-P\Pictures\Oger2.png")
+enemy_img=pygame.transform.scale(enemy_img,(400,400))
+screen.blit(enemy_img,(340,190))
 
 # Set up the character and enemy positions
 character_pos = [width/2, height/2]
