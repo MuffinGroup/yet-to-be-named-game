@@ -21,18 +21,18 @@ screen.blit(enemy_img,(340,190))
 # Set character and enemy starting position
 character_x = 50
 character_y = 50
-enemy_x = 200
-enemy_y = 200
+enemy_x = 150
+enemy_y = 150
 
 # Set enemy speed
 enemy_speed = 1
 character_img_speed=6
 
 # Set distance at which enemy starts attacking character
-attack_distance = 100
+attack_distance = 200
 
 # Set enemy attack range
-attack_range = 10
+attack_range = 1
 
 # Set character health and attack power
 character_health = 500
