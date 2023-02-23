@@ -13,6 +13,7 @@ door = pygame.image.load("src\main\assets\elements\doors\door closed.png")
 
 # Set screen dimensions
 scale = 10
+scaleDoor = 0.25
 
 # Set screen dimensions
 screen_width = 1280
@@ -37,6 +38,9 @@ character_image = pygame.image.load("src/main/assets/characters/Character1/Anima
 image_width = character_image.get_width()
 image_height = character_image.get_height()
 character_image = pygame.transform.scale(character_image, (int(image_width * scale), int(image_height * scale)))
+door_width = floor.get_width()
+door_height = floor.get_height()
+door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
 
 # Set initial position
 character_x = 0
