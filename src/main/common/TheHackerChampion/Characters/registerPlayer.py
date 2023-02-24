@@ -2,7 +2,7 @@ import pygame
 
 class player():
 	def __init__(self, enemy_name, x, y, scale):
-		image = pygame.image.load('src/main/assets/characters/Character1/Animations/' + enemy_name + '.png')
+		image = pygame.image.load('src/main/assets/entities/characters/Character1/Animations/' + enemy_name + '.png')
 		width = image.get_width()
 		height = image.get_height()
 		self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))

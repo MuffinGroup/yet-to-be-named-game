@@ -2,7 +2,7 @@ import pygame
 import registerButton
 from colors import *
 
-start_background = pygame.image.load("src/main/assets/background/start - 1280 x 1016 2.jpg")
+start_background = pygame.image.load("src/main/assets/elements/background/start.jpg")
 
 pygame.init()
 smallfont = pygame.font.SysFont("joystixmonospaceregular", 40)

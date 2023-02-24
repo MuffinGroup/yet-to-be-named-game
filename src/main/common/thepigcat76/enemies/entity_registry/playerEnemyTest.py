@@ -1,88 +1,68 @@
 import pygame
 import registerEnemies
 import registerPlayer
-from colors import *
-from registerPlayer import *
-
+from colors import*
+import math
 
 # Initialize Pygame
 pygame.init()
+
+# Set up the display
+width, height = 800, 600
+screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+pygame.display.set_caption("Enemy Following Game")
+leftWall = pygame.draw.rect(screen, COLORS.BLACK, (0,0,2,1000), 0)
+rightWall = pygame.draw.rect(screen, COLORS.BLACK, (1100,0,2,1000), 0)
+
+# Set up the clock
 clock = pygame.time.Clock()
 
-#Load background
-background = pygame.image.load("src/main/assets/background/hallway.jpg")
-floor = pygame.image.load("src/main/assets/background/boden.jpg")
-
-rightSprite = pygame.image.load('src/main/assets/characters/Character1/Animations/Character1.png')
-leftSprite = pygame.transform.flip(rightSprite, True, False)
-currentSprite = leftSprite
-
-# Set screen dimensions
-scale = 10
-
-# Set screen dimensions
-screen_width = 1280
-screen_height = 800
-
-# Create a screen surface
-screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
-icon = pygame.image.load('src//main//assets//gui//icon//icon.png')
-pygame.display.set_icon(icon)
-pygame.display.set_caption("Muffin Group")
-leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
-rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
-
-#Create Sound
 jumpsound = pygame.mixer.Sound("src/main/assets/sounds/entities/jump.wav")
-jumpsound.set_volume(0.01)
+jumpsound.set_volume(0.25)
 
-# Load character image
-character_image = pygame.image.load("src/main/assets/characters/Character1/Animations/Character1.png").convert_alpha()
-
-#Register Enemies
-enemy = registerEnemies.enemies("oger", 275, 650, 10)
-player = registerPlayer.player("Character1", 475, 570, 10)
-
-#Image dimensions
-image_width = character_image.get_width()
-image_height = character_image.get_height()
-character_image = pygame.transform.scale(character_image, (int(image_width * scale), int(image_height * scale)))
-
-#Character locations
 character_x = 0
 character_y = 410
 
-# Set character speed
+# Set up the character and enemy images
+character_img = pygame.image.load("src\main\common\LS-P\Pictures\Character1.copy.png")
+character_img=pygame.transform.scale(character_img,(250,250))
+screen.blit(character_img,(character_x, character_y))
+enemy1 = registerEnemies.enemies("oger", 275, 650, 10)
+enemy_img = pygame.image.load("src\main\common\LS-P\Pictures\Oger2.png")
+enemy_img=pygame.transform.scale(enemy_img,(400,400))
+screen.blit(enemy_img,(340,190))
+
+# Set up the character and enemy positions
+character_pos = [width/2, height/2]
+enemy_pos = [width/2 + 100, height/2 + 100]
+
+# Set up the character and enemy speeds
 character_speed = 5
+enemy_speed = 2
 
-def draw():
-    screen.fill(COLORS.BLACK)
-    screen.blit(background, (0,0))
-    screen.blit(floor, (0,730))
-    enemy.draw(screen)
-    player.draw(screen, character_x, character_y)
-    pygame.display.update()
 
-running = True
+# Set up the attack range
+attack_range = 50
+
+# Game loop
 jumpvar = -16
-while running:
-    keys = pygame.key.get_pressed()
-    Player = pygame.Rect(character_x, character_y, 40, 80)
-
+while True:
     # Handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
-    if keys[pygame.K_LEFT] and not Player.colliderect(leftWall):
-        character_x -= character_speed
-        currentSprite = leftSprite
-        print("K_LEFT")
-    if keys[pygame.K_RIGHT] and not Player.colliderect(rightWall):
-        character_x += character_speed
-        print("K_RIGHT")	
+            pygame.quit()
+            quit()
+    
+    # Move the character based on user input
+    keys = pygame.key.get_pressed()
+    Player = pygame.Rect(character_x, character_y, 40, 80)
+    if keys[pygame.K_LEFT]:
+        character_pos[0] -= character_speed
+    if keys[pygame.K_RIGHT]:
+        character_pos[0] += character_speed
     if keys[pygame.K_UP] and jumpvar == -16:
         jumpvar = 15
-        print("K_UP")	
+
     if jumpvar == 15:
         pygame.mixer.Sound.play(jumpsound)
 
@@ -90,12 +70,37 @@ while running:
         n = 1
         if jumpvar < 0:
             n = -1
-        character_y -= (jumpvar**2)*0.17*n
+        character_pos[1] -= (jumpvar**2)*0.17*n
         jumpvar -= 1
-
-
-    draw()
+    # Calculate the distance between the character and the enemy
+    distance = math.sqrt((character_pos[0] - enemy_pos[0])**2 + (character_pos[1] - enemy_pos[1])**2)
+    
+    # If the enemy is too close to the character, follow the character
+    if distance < 200:
+        enemy_dir = [character_pos[0] - enemy_pos[0], character_pos[1] - enemy_pos[1]]
+        enemy_dir_norm = math.sqrt(enemy_dir[0]**2 + enemy_dir[1]**2)
+        enemy_dir_unit = [enemy_dir[0]/enemy_dir_norm, enemy_dir[1]/enemy_dir_norm]
+        enemy_pos[0] += enemy_speed * enemy_dir_unit[0]
+        enemy_pos[1] += enemy_speed * enemy_dir_unit[1]
+    
+    # If the enemy is in range of the character, attack the character
+    if distance < attack_range:
+        # TODO: Implement attack logic
+    
+    # If the character is in range of the enemy, attack the enemy
+        if distance < attack_range:
+        # TODO: Implement attack logic
+    
+    # Clear the screen
+            screen.fill((158,158,158))
+    
+    # Draw the character and enemy on the screen
+    screen.blit(character_img, (character_pos[0]-character_img.get_width()/2, character_pos[1]-character_img.get_height()/2))
+    enemy1.draw(screen, (enemy_pos[0]-enemy_img.get_width()/2, enemy_pos[1]-enemy_img.get_height()/2))
+    
+    # Update the display
+    pygame.display.update()
+    screen.fill(COLORS.GRAY)
+    
+    # Limit the frame rate
     clock.tick(60)
-
-# Quit Pygame
-pygame.quit()

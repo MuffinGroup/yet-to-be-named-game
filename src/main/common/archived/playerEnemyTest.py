@@ -1,5 +1,8 @@
 import pygame
+import registerEnemies
+import registerPlayer
 from colors import *
+from registerPlayer import *
 
 
 # Initialize Pygame
@@ -8,12 +11,14 @@ clock = pygame.time.Clock()
 
 #Load background
 background = pygame.image.load("src/main/assets/elements/background/hallway.jpg")
-floor = pygame.image.load("src\main/assets/elements/background/floor.jpg")
-door = pygame.image.load("src/main/assets/elements/doors/door_closed.png")
+floor = pygame.image.load("src/main/assets/elements/background/floor.jpg")
+
+rightSprite = pygame.image.load('src/main/assets/entities/characters/Character1/Animations/Character1.png')
+leftSprite = pygame.transform.flip(rightSprite, True, False)
+currentSprite = leftSprite
 
 # Set screen dimensions
 scale = 10
-scaleDoor = 0.6
 
 # Set screen dimensions
 screen_width = 1280
@@ -29,21 +34,21 @@ rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 
 #Create Sound
 jumpsound = pygame.mixer.Sound("src/main/assets/sounds/entities/jump.wav")
-jumpsound.set_volume(0.25)
+jumpsound.set_volume(0.01)
 
 # Load character image
 character_image = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha()
+
+#Register Enemies
+enemy = registerEnemies.enemies("oger", 275, 650, 10)
+player = registerPlayer.player("Character1", 475, 570, 10)
 
 #Image dimensions
 image_width = character_image.get_width()
 image_height = character_image.get_height()
 character_image = pygame.transform.scale(character_image, (int(image_width * scale), int(image_height * scale)))
-door_width = door.get_width()
-door_height = door.get_height()
-door = pygame.transform.scale(door, (int(door_width * scaleDoor), int(door_height * scaleDoor)))
-# Sizes door: 320, 320
 
-# Set initial position
+#Character locations
 character_x = 0
 character_y = 410
 
@@ -51,35 +56,33 @@ character_y = 410
 character_speed = 5
 
 def draw():
-    # Draw the character and update the screen
     screen.fill(COLORS.BLACK)
     screen.blit(background, (0,0))
     screen.blit(floor, (0,730))
-    screen.blit(door, (965,365))
-    screen.blit(character_image, (character_x, character_y))
+    enemy.draw(screen)
+    player.draw(screen, character_x, character_y)
     pygame.display.update()
 
-
-# Game loop
 running = True
 jumpvar = -16
 while running:
+    keys = pygame.key.get_pressed()
+    Player = pygame.Rect(character_x, character_y, 40, 80)
 
     # Handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    
-    # Handle keyboard input
-    keys = pygame.key.get_pressed()
-    Spieler = pygame.Rect(character_x, character_y, 40, 80)
-    if keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall):
+    if keys[pygame.K_LEFT] and not Player.colliderect(leftWall):
         character_x -= character_speed
-    if keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall):
+        currentSprite = leftSprite
+        print("K_LEFT")
+    if keys[pygame.K_RIGHT] and not Player.colliderect(rightWall):
         character_x += character_speed
+        print("K_RIGHT")	
     if keys[pygame.K_UP] and jumpvar == -16:
         jumpvar = 15
-
+        print("K_UP")	
     if jumpvar == 15:
         pygame.mixer.Sound.play(jumpsound)
 
@@ -89,6 +92,7 @@ while running:
             n = -1
         character_y -= (jumpvar**2)*0.17*n
         jumpvar -= 1
+
 
     draw()
     clock.tick(60)
