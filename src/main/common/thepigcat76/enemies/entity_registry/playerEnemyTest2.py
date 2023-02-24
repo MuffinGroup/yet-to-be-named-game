@@ -11,6 +11,8 @@ pygame.init()
 width, height = 800, 600
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Enemy Following Game")
+leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
+rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 
 # Set up the clock
 clock = pygame.time.Clock()

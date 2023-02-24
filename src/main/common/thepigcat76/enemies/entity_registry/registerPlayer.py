@@ -3,7 +3,8 @@ import pygame
 class player():
 
 
-	def __init__(self, image, x, y, scale):
+	def __init__(self, player_name, x, y, scale):
+		image = pygame.image.load('src/main/assets/characters/Character1/Animations/' + player_name + '.png')
 		right_image = pygame.transform.flip(image, True, False)
 		width = image.get_width()
 		height = image.get_height()

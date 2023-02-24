@@ -41,7 +41,7 @@ character_image = pygame.image.load("src/main/assets/characters/Character1/Anima
 
 #Register Enemies
 enemy = registerEnemies.enemies("oger", 275, 650, 10)
-player = registerPlayer.player(currentSprite, 475, 570, 10)
+player = registerPlayer.player("Character1", 475, 570, 10)
 
 #Image dimensions
 image_width = character_image.get_width()
