@@ -83,4 +83,3 @@ while True:
     
     # Limit the frame rate
     clock.tick(60)
-
