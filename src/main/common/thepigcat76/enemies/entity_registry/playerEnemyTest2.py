@@ -9,10 +9,10 @@ pygame.init()
 
 # Set up the display
 width, height = 800, 600
-screen = pygame.display.set_mode((width, height))
+screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 pygame.display.set_caption("Enemy Following Game")
-leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
-rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
+leftWall = pygame.draw.rect(screen, COLORS.BLACK, (0,0,2,1000), 0)
+rightWall = pygame.draw.rect(screen, COLORS.BLACK, (1100,0,2,1000), 0)
 
 # Set up the clock
 clock = pygame.time.Clock()
@@ -27,6 +27,7 @@ character_y = 410
 character_img = pygame.image.load("src\main\common\LS-P\Pictures\Character1.copy.png")
 character_img=pygame.transform.scale(character_img,(250,250))
 screen.blit(character_img,(character_x, character_y))
+enemy1 = registerEnemies.enemies("oger", 275, 650, 10)
 enemy_img = pygame.image.load("src\main\common\LS-P\Pictures\Oger2.png")
 enemy_img=pygame.transform.scale(enemy_img,(400,400))
 screen.blit(enemy_img,(340,190))
@@ -95,7 +96,7 @@ while True:
     
     # Draw the character and enemy on the screen
     screen.blit(character_img, (character_pos[0]-character_img.get_width()/2, character_pos[1]-character_img.get_height()/2))
-    screen.blit(enemy_img, (enemy_pos[0]-enemy_img.get_width()/2, enemy_pos[1]-enemy_img.get_height()/2))
+    enemy1.draw(screen, (enemy_pos[0]-enemy_img.get_width()/2, enemy_pos[1]-enemy_img.get_height()/2))
     
     # Update the display
     pygame.display.update()
