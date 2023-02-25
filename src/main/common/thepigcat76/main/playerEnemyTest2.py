@@ -74,9 +74,9 @@ while True:
     keys = pygame.key.get_pressed()
     Player = pygame.Rect(character_x, character_y, 150, 1000)
     if keys[pygame.K_LEFT]:
-        character_pos[0] -= character_speed
+        rect.x -= character_speed
     if keys[pygame.K_RIGHT]:
-        character_pos[0] += character_speed
+        rect.x += character_speed
     if keys[pygame.K_UP] and jumpvar == -16:
         jumpvar = 15
     if jumpvar == 15:
@@ -110,12 +110,11 @@ while True:
     # Clear the screen
             screen.fill((158,158,158))
 
-    if rect.colliderect(doorClosed ):
+    if rect.colliderect(doorClosed):
         print("success")
 
     # Draw the character and enemy on the screen
-    screen.blit(doorClosedSprite, rect)
-    screen.blit(character_img, (character_pos[0]-character_img.get_width()/2, character_pos[1]-character_img.get_height()/2))
+    screen.blit(character_img, rect)
     enemy1.draw(screen, (enemy_pos[0]-enemy_img.get_width()/2, enemy_pos[1]-enemy_img.get_height()/2))
     screen.blit(press_o, (100, 100))
     pygame.draw.rect(screen, (0,0,0), doorClosed, 4)
