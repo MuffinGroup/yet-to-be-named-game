@@ -6,7 +6,7 @@ start_background = pygame.image.load("src/main/assets/elements/background/start.
 
 pygame.init()
 smallfont = pygame.font.SysFont("joystixmonospaceregular", 40)
-name = smallfont.render("Yet to be named game" , True , COLORS.DARKER_GRAY)
+name = smallfont.render("YET TO BE NAMED GAME" , True , COLORS.DARKER_GRAY)
 mouse = pygame.mouse.get_pos
 screen = pygame.display.set_mode((720,720), pygame.RESIZABLE)
 start = smallfont.render('Start Game' , True , COLORS.WHITE)
