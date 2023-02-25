@@ -1,4 +1,5 @@
 import pygame
+import registerDoors
 import registerEnemies
 import registerPlayer
 from colors import*
@@ -9,10 +10,13 @@ pygame.init()
 
 # Set up the display
 width, height = 800, 600
+scaleDoor = 10
+doorClosedSprite = pygame.image.load('src/main/assets/elements/doors/door_1_closed.png')
 screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 pygame.display.set_caption("Enemy Following Game")
 leftWall = pygame.draw.rect(screen, COLORS.BLACK, (0,0,2,1000), 0)
 rightWall = pygame.draw.rect(screen, COLORS.BLACK, (1100,0,2,1000), 0)
+door = pygame.draw.rect(screen, COLORS.BLACK, (1100,0,2,1000), 0)
 
 # Set up the clock
 clock = pygame.time.Clock()
@@ -31,6 +35,13 @@ enemy1 = registerEnemies.enemies("oger", 275, 650, 10)
 enemy_img = pygame.image.load("src\main\common\LS-P\Pictures\Oger2.png")
 enemy_img=pygame.transform.scale(enemy_img,(400,400))
 screen.blit(enemy_img,(340,190))
+door_width = doorClosedSprite.get_width()
+door_height = doorClosedSprite.get_height()
+door_x = 100
+door_y = 105
+doorClosedSprite = pygame.transform.scale(doorClosedSprite, (int(door_width * scaleDoor), int(door_height * scaleDoor)))
+rect = doorClosedSprite.get_rect()
+rect.center = (300, 300)
 
 # Set up the character and enemy positions
 character_pos = [width/2, height/2]
@@ -44,6 +55,8 @@ enemy_speed = 2
 # Set up the attack range
 attack_range = 50
 
+print(door_height)
+print(door_width)
 # Game loop
 jumpvar = -16
 while True:
@@ -53,6 +66,7 @@ while True:
             pygame.quit()
             quit()
     
+    Mousepos = pygame.mouse.get_pos()
     # Move the character based on user input
     keys = pygame.key.get_pressed()
     Player = pygame.Rect(character_x, character_y, 40, 80)
@@ -62,7 +76,8 @@ while True:
         character_pos[0] += character_speed
     if keys[pygame.K_UP] and jumpvar == -16:
         jumpvar = 15
-
+    elif keys[pygame.K_UP] and Player.colliderect(door):
+        print("success")
     if jumpvar == 15:
         pygame.mixer.Sound.play(jumpsound)
 
@@ -93,8 +108,12 @@ while True:
     
     # Clear the screen
             screen.fill((158,158,158))
-    
+
+    if not rect.collidepoint(Mousepos):
+        print("success")
+
     # Draw the character and enemy on the screen
+    screen.blit(doorClosedSprite, (door_x, door_y))
     screen.blit(character_img, (character_pos[0]-character_img.get_width()/2, character_pos[1]-character_img.get_height()/2))
     enemy1.draw(screen, (enemy_pos[0]-enemy_img.get_width()/2, enemy_pos[1]-enemy_img.get_height()/2))
     

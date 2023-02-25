@@ -14,7 +14,7 @@ class player():
 		self.clicked = False
 
 
-	def draw(self, surface, character_x, character_y):
-		surface.blit(self.image, (character_x, character_y))
+	def draw(self, surface):
+		surface.blit(self.image)
 		
 		

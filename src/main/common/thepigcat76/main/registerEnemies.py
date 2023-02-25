@@ -10,10 +10,10 @@ class enemies():
 		self.rect.center = (x, y)
 		self.clicked = False
 
-	def draw(self, surface, player_pos):
+	def draw(self, surface, enemy_pos):
 		action = False
 		#get mouse position
 		pos = pygame.mouse.get_pos()
-		surface.blit(self.image, player_pos)
+		surface.blit(self.image, enemy_pos)
 		return action	
 
