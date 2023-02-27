@@ -14,7 +14,7 @@ scaleDoor = 10
 scalePopUps = 3
 doorClosedSprite = pygame.image.load('src/main/assets/elements/doors/door_1_closed.png')
 screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
-pygame.display.set_caption("Enemy Following Game")
+pygame.display.set_caption("Muffin Group")
 leftWall = pygame.draw.rect(screen, COLORS.BLACK, (0,0,2,1000), 0)
 rightWall = pygame.draw.rect(screen, COLORS.BLACK, (1100,0,2,1000), 0)
 door = pygame.draw.rect(screen, COLORS.BLACK, (1100,0,2,1000), 0)
