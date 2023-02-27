@@ -62,6 +62,7 @@ def draw():
 # Game loop
 running = True
 jumpvar = -16
+doorhandling = 0
 while running:
 
     # Handle events
@@ -72,12 +73,15 @@ while running:
     # Handle keyboard input
     keys = pygame.key.get_pressed()
     Spieler = pygame.Rect(character_x, character_y, 40, 80)
+    Door = pygame.rect(990, 410, 40, 80)
     if keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall):
         character_x -= character_speed
     if keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall):
         character_x += character_speed
     if keys[pygame.K_UP] and jumpvar == -16:
         jumpvar = 15
+    if keys[pygame.K_LEFT] and Spieler.colliderect(Door):
+        doorhandling = 1
 
     if jumpvar == 15:
         pygame.mixer.Sound.play(jumpsound)
@@ -89,7 +93,16 @@ while running:
         character_y -= (jumpvar**2)*0.17*n
         jumpvar -= 1
 
+    if doorhandling == 1:
+        door = pygame.image.load("src/main/assets/elements/doors/door_1_open.png")
+
     draw()
+
+    if doorhandling == 1:
+        pygame.time.wait(120)
+        door = pygame.image.load("src/main/assets/elements/doors/door_1_closed.png")
+        character_image = pygame.image.load("src/main/assets/entities/characters/vanished.png")
+        doorhandling = 0
     clock.tick(60)
 
 # Quit Pygame
