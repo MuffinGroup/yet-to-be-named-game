@@ -86,7 +86,7 @@ while True:
         n = 1
         if jumpvar < 0:
             n = -1
-        character_pos[1] -= (jumpvar**2)*0.17*n
+        rect.y -= (jumpvar**2)*0.17*n
         jumpvar -= 1
     # Calculate the distance between the character and the enemy
     distance = math.sqrt((character_pos[0] - enemy_pos[0])**2 + (character_pos[1] - enemy_pos[1])**2)
