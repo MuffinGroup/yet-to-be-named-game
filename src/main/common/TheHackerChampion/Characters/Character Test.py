@@ -9,11 +9,10 @@ clock = pygame.time.Clock()
 #Load background
 background = pygame.image.load("src/main/assets/elements/background/hallway.jpg")
 floor = pygame.image.load("src\main/assets/elements/background/floor.jpg")
-door = pygame.image.load("src/main/assets/elements/doors/door_closed.png")
+door = pygame.image.load("src/main/assets/elements/doors/door_1_closed.png")
 
 # Set screen dimensions
 scale = 10
-scaleDoor = 0.6
 
 # Set screen dimensions
 screen_width = 1280
@@ -40,7 +39,7 @@ image_height = character_image.get_height()
 character_image = pygame.transform.scale(character_image, (int(image_width * scale), int(image_height * scale)))
 door_width = door.get_width()
 door_height = door.get_height()
-door = pygame.transform.scale(door, (int(door_width * scaleDoor), int(door_height * scaleDoor)))
+door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
 # Sizes door: 320, 320
 
 # Set initial position
@@ -55,7 +54,7 @@ def draw():
     screen.fill(COLORS.BLACK)
     screen.blit(background, (0,0))
     screen.blit(floor, (0,730))
-    screen.blit(door, (965,365))
+    screen.blit(door, (990,410))
     screen.blit(character_image, (character_x, character_y))
     pygame.display.update()
 
