@@ -29,6 +29,7 @@ rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 #Create Sound
 jumpsound = pygame.mixer.Sound("src/main/assets/sounds/entities/jump.wav")
 jumpsound.set_volume(0.25)
+doorsound = pygame.mixer.Sound("src\main/assets\sounds\entities\Door_Closing.wav")
 
 # Load character image
 character_image = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha()
@@ -80,7 +81,7 @@ while running:
         character_x += character_speed
     if keys[pygame.K_UP] and jumpvar == -16:
         jumpvar = 15
-    if keys[pygame.K_LEFT] and Spieler.colliderect(Door):
+    if keys[pygame.K_DOWN] and Spieler.colliderect(Door):
         doorhandling = 1
 
     if jumpvar == 15:
@@ -95,13 +96,19 @@ while running:
 
     if doorhandling == 1:
         door = pygame.image.load("src/main/assets/elements/doors/door_1_open.png")
+        door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
+
 
     draw()
 
     if doorhandling == 1:
-        pygame.time.wait(120)
+        pygame.time.wait(500)
+        pygame.mixer.Sound.play(doorsound)
         door = pygame.image.load("src/main/assets/elements/doors/door_1_closed.png")
+        door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
         character_image = pygame.image.load("src/main/assets/entities/characters/vanished.png")
+        character_y = 100
+        jumpvar = 9999999999
         doorhandling = 0
     clock.tick(60)
 
