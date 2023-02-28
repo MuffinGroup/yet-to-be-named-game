@@ -73,7 +73,7 @@ while running:
     # Handle keyboard input
     keys = pygame.key.get_pressed()
     Spieler = pygame.Rect(character_x, character_y, 40, 80)
-    Door = pygame.rect(990, 410, 40, 80)
+    Door = pygame.Rect(990, 410, 40, 80)
     if keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall):
         character_x -= character_speed
     if keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall):
