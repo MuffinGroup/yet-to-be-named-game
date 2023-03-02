@@ -33,14 +33,17 @@ doorsound = pygame.mixer.Sound("src\main/assets\sounds\entities\Door_Closing.wav
 
 # Load character image
 character_image = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha()
+character_image_inverted = pygame.transform.flip(character_image, True, False)
 
 #Image dimensions
 image_width = character_image.get_width()
 image_height = character_image.get_height()
 character_image = pygame.transform.scale(character_image, (int(image_width * scale), int(image_height * scale)))
+character_image_inverted = pygame.transform.scale(character_image_inverted, (int(image_width * scale), int(image_height * scale)))
 door_width = door.get_width()
 door_height = door.get_height()
 door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
+currentSprite = character_image
 # Sizes door: 320, 320
 
 # Set initial position
@@ -57,7 +60,7 @@ def draw():
     screen.blit(floor, (0,730))
     screen.blit(door, (990,410))
     if visible == True:
-        screen.blit(character_image, (character_x, character_y))
+        screen.blit(currentSprite, (character_x, character_y))
     pygame.display.update()
 
 
@@ -79,8 +82,10 @@ while running:
     Door = pygame.Rect(990, 410, 40, 80)
     if keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall) and visible == True:
         character_x -= character_speed
+        currentSprite = character_image_inverted
     if keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall) and visible == True:
         character_x += character_speed
+        currentSprite = character_image
     if keys[pygame.K_UP] and jumpvar == -16 and visible == True:
         jumpvar = 15
     if keys[pygame.K_DOWN] and Spieler.colliderect(Door) and visible == True:
