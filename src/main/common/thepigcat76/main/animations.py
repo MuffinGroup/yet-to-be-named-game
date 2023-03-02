@@ -21,7 +21,11 @@ height = 32
 width = 32
 scale = 10
 
-image_sprite0 = pygame.transform.scale(image_sprite0,(400,400))
+image_sprite0 = pygame.transform.scale(image_sprite0, (int(width * scale), int(height * scale)))
+image_sprite1 = pygame.transform.scale(image_sprite1, (int(width * scale), int(height * scale)))
+image_sprite2 = pygame.transform.scale(image_sprite2, (int(width * scale), int(height * scale)))
+image_sprite3 = pygame.transform.scale(image_sprite3, (int(width * scale), int(height * scale)))
+image_sprite4 = pygame.transform.scale(image_sprite4, (int(width * scale), int(height * scale)))
 
 # Creating a new clock object to
 # track the amount of time
@@ -46,7 +50,7 @@ while run:
             run = False
     # Setting the framerate to 3fps just
     # to see the result properly
-    clock.tick(3)
+    clock.tick(6)
 
     # Setting 0 in value variable if its
     # value is greater than the length
@@ -68,7 +72,7 @@ while run:
     if value == 0:
         y = 200
     else:
-        y = 265
+        y = 200
 
     # Displaying the image in our game window
     window.blit(image, (x, y))
