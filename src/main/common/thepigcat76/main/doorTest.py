@@ -50,6 +50,17 @@ character_y = 410
 # Set character speed
 character_speed = 5
 
+def draw():
+    # Draw the character and update the screen
+    screen.fill(COLORS.BLACK)
+    screen.blit(background, (0,0))
+    screen.blit(floor, (0,730))
+    screen.blit(door, (990,410))
+    if visible == True:
+        screen.blit(character_image, (character_x, character_y))
+    pygame.display.update()
+
+
 # Game loop
 running = True
 jumpvar = -16
@@ -88,16 +99,10 @@ while running:
     if doorhandling == 1:
         door = pygame.image.load("src/main/assets/elements/doors/door_1_open.png")
         door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
-        pygame.time.wait(500)
-        doorhandling = 2
 
-    # Draw the character and update the screen
-    screen.fill(COLORS.BLACK)
-    screen.blit(background, (0,0))
-    screen.blit(floor, (0,730))
-    screen.blit(door, (990,410))
+    draw()
 
-    if doorhandling == 2:
+    if doorhandling == 1:
         pygame.time.wait(500)
         pygame.mixer.Sound.play(doorsound)
         door = pygame.image.load("src/main/assets/elements/doors/door_1_closed.png")
@@ -106,9 +111,5 @@ while running:
         doorhandling = 0
     clock.tick(60)
 
-    if visible == True:
-        screen.blit(character_image, (character_x, character_y))
-
-    pygame.display.update()
 # Quit Pygame
 pygame.quit()
