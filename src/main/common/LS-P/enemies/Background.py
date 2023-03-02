@@ -3,7 +3,9 @@ import pygame
 pygame.init()
 
 #Variablen/KONSTANTEN setzen
-W, H= 800,600
+screen_width = 1000
+screen_height = 600
+screen = pygame.display.set_mode((screen_width, screen_height))
 FPS=60
 SCHWARZ=(0,0,0)
 WEISS  =(255,255,255)
@@ -20,7 +22,10 @@ print(bildgroessen.width)
 print(bildgroessen.height)
 
 #Definieren und Öffnen eines neuen Fensters
-fenster=pygame.display.set_mode((W,H))
+gegnerBILD=pygame.image.load("src\main\common\LS-P\Pictures\MuffinLogo.png")
+gegnerBild=pygame.transform.scale(gegnerBILD,(400,400))
+screen.blit(gegnerBild,(400,400))
+fenster=pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Grafiken nutzen")
 clock=pygame.time.Clock()
 
