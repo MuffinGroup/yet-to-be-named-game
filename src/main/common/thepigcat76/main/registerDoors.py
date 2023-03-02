@@ -2,7 +2,6 @@ import pygame
 
 class door():
 
-
 	def __init__(self, image, x, y, scale):
 		doorClosedSprite = pygame.image.load(image)
 		width = doorClosedSprite.get_width()
@@ -17,4 +16,3 @@ class door():
 		surface.blit(self.image, (self.rect.x, self.rect.y))
 		if self.rect.collidepoint(pos):
 			print("success")
-		
