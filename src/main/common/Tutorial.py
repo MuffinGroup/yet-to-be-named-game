@@ -8,12 +8,13 @@ pygame.init()
 clock = pygame.time.Clock()
 
 #Load background
-background = pygame.image.load("src/main/assets/elements/background/hallway.jpg")
+background = pygame.image.load("src\main/assets\elements/background\Tutorial.jpg")
 floor = pygame.image.load("src\main/assets/elements/background/floor.jpg")
 door = pygame.image.load("src/main/assets/elements/doors/door_1_closed.png")
 
 # Set screen dimensions
 scale = 10
+scale_bg = 1.5
 
 # Set screen dimensions
 screen_width = 1280
@@ -46,6 +47,9 @@ door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * 
 int_widht = introducer_image.get_width()
 int_height = introducer_image.get_height()
 introducer_image = pygame.transform.scale(introducer_image, (int(int_widht * scale), int(int_height * scale)))
+background_widht = background.get_width()
+background_height = background.get_height()
+background = pygame.transform.scale(background, (int(background_widht * scale_bg), int(background_height * scale_bg)))
 
 # Sizes door: 320, 320
 
