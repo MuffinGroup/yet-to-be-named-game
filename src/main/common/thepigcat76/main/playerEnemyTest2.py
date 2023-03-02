@@ -29,12 +29,12 @@ character_x = 0
 character_y = 410
 
 # Set up the character and enemy images
-character_img = pygame.image.load("src\main\common\LS-P\Pictures\Character1.copy.png")
+character_img = pygame.image.load("src\main/assets/entities/Character1/Animations/Character1.png")
 press_o = pygame.image.load('src/main/assets/gui/icon/press_o.png')
 character_img=pygame.transform.scale(character_img,(250,250))
 screen.blit(character_img,(character_x, character_y))
 enemy1 = registerEnemies.enemies("oger", 275, 650, 10)
-enemy_img = pygame.image.load("src\main\common\LS-P\Pictures\Oger2.png")
+enemy_img = pygame.image.load("src\main/assets\entities\enemies\Oger2.png")
 enemy_img=pygame.transform.scale(enemy_img,(400,400))
 screen.blit(enemy_img,(340,190))
 door_width = doorClosedSprite.get_width()

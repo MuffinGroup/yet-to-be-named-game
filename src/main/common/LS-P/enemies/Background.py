@@ -11,7 +11,7 @@ GRAU   =(155,155,155)
 spielaktiv=True
 
 #gegner
-gegnerBILD=pygame.image.load("src\main\common\LS-P\Pictures\Background final2.jpg")
+gegnerBILD=pygame.image.load("src\main/assets\elements/background\Background final2.jpg")
 bildgroessen=gegnerBILD.get_rect()
 print(bildgroessen)
 print(bildgroessen.center[0])
