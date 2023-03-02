@@ -22,7 +22,7 @@ print(bildgroessen.width)
 print(bildgroessen.height)
 
 #Definieren und Öffnen eines neuen Fensters
-gegnerBILD=pygame.image.load("src\main\common\LS-P\Pictures\MuffinLogo.png")
+gegnerBILD=pygame.image.load("src\main/assets\entities\enemies\Oger2.png")
 gegnerBild=pygame.transform.scale(gegnerBILD,(400,400))
 screen.blit(gegnerBild,(400,400))
 fenster=pygame.display.set_mode((screen_width, screen_height))
