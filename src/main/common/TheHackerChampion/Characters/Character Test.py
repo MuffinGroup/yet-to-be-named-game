@@ -56,7 +56,8 @@ def draw():
     screen.blit(background, (0,0))
     screen.blit(floor, (0,730))
     screen.blit(door, (990,410))
-    screen.blit(character_image, (character_x, character_y))
+    if visible == True:
+        screen.blit(character_image, (character_x, character_y))
     pygame.display.update()
 
 
@@ -64,6 +65,7 @@ def draw():
 running = True
 jumpvar = -16
 doorhandling = 0
+visible = True
 while running:
 
     # Handle events
@@ -75,13 +77,13 @@ while running:
     keys = pygame.key.get_pressed()
     Spieler = pygame.Rect(character_x, character_y, 40, 80)
     Door = pygame.Rect(990, 410, 40, 80)
-    if keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall):
+    if keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall) and visible == True:
         character_x -= character_speed
-    if keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall):
+    if keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall) and visible == True:
         character_x += character_speed
-    if keys[pygame.K_UP] and jumpvar == -16:
+    if keys[pygame.K_UP] and jumpvar == -16 and visible == True:
         jumpvar = 15
-    if keys[pygame.K_DOWN] and Spieler.colliderect(Door):
+    if keys[pygame.K_DOWN] and Spieler.colliderect(Door) and visible == True:
         doorhandling = 1
 
     if jumpvar == 15:
@@ -98,7 +100,6 @@ while running:
         door = pygame.image.load("src/main/assets/elements/doors/door_1_open.png")
         door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
 
-
     draw()
 
     if doorhandling == 1:
@@ -106,9 +107,7 @@ while running:
         pygame.mixer.Sound.play(doorsound)
         door = pygame.image.load("src/main/assets/elements/doors/door_1_closed.png")
         door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
-        character_image = pygame.image.load("src/main/assets/entities/characters/vanished.png")
-        character_y = 100
-        jumpvar = 9999999999
+        visible = False
         doorhandling = 0
     clock.tick(60)
 
