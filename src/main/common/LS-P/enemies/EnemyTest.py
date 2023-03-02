@@ -6,11 +6,14 @@ from colors import *
 pygame.init()
 
 # Define game window dimensions
-WIDTH = 1000
-HEIGHT = 600
+screen_width = 1000
+screen_height = 600
+screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Load enemy image
 enemy_img = pygame.image.load("src\main/assets\entities\enemies\Oger2.png")
+enemy_img=pygame.transform.scale(enemy_img,(250,250))
+screen.blit(enemy_img,(340,190))
 
 # Define enemy class
 class Enemy:
@@ -41,10 +44,10 @@ class Enemy:
         surface.blit(enemy_img, self.position)
 
 # Initialize game window
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Create enemy object
-enemy = Enemy(position=[WIDTH/2, HEIGHT/2], attack_range=100)
+enemy = Enemy(position=[screen_width/2, screen_height/2], attack_range=10)
 
 # Define game loop
 running = True
