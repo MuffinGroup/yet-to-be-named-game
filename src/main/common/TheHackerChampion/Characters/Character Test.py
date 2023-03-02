@@ -1,4 +1,5 @@
 import pygame
+import math
 from colors import *
 
 
@@ -33,6 +34,7 @@ doorsound = pygame.mixer.Sound("src\main/assets\sounds\entities\Door_Closing.wav
 
 # Load character image
 character_image = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha()
+introducer_image = pygame.image.load("src/main/assets/entities/enemies/Oger2.png")
 
 #Image dimensions
 image_width = character_image.get_width()
@@ -41,6 +43,10 @@ character_image = pygame.transform.scale(character_image, (int(image_width * sca
 door_width = door.get_width()
 door_height = door.get_height()
 door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
+int_widht = introducer_image.get_width()
+int_height = introducer_image.get_height()
+introducer_image = pygame.transform.scale(introducer_image, (int(int_widht * scale), int(int_height * scale)))
+
 # Sizes door: 320, 320
 
 # Set initial position
@@ -56,6 +62,7 @@ def draw():
     screen.blit(background, (0,0))
     screen.blit(floor, (0,730))
     screen.blit(door, (990,410))
+    screen.blit(introducer_image, (100, 150))
     if visible == True:
         screen.blit(character_image, (character_x, character_y))
     pygame.display.update()
