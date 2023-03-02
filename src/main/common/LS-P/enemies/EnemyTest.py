@@ -10,7 +10,7 @@ WIDTH = 1000
 HEIGHT = 600
 
 # Load enemy image
-enemy_img = pygame.image.load("src\main\common\LS-P\Pictures\Oger.gif")
+enemy_img = pygame.image.load("src\main\common\LS-P\Pictures\Oger2.png")
 
 # Define enemy class
 class Enemy:
