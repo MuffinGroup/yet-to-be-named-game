@@ -17,7 +17,7 @@ clock = pygame.time.Clock()
 character_img = pygame.image.load("src\main/assets\entities\characters\Characterspng.png")
 character_img=pygame.transform.scale(character_img,(250,250))
 screen.blit(character_img,(340,190))
-enemy_img = pygame.image.load("src\main\assets\entities\enemies\Oger2.png")
+enemy_img = pygame.image.load("src\main/assets\entities\enemies\Oger2.png")
 enemy_img=pygame.transform.scale(enemy_img,(400,400))
 screen.blit(enemy_img,(340,190))
 
