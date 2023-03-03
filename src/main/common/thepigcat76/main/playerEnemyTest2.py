@@ -29,7 +29,7 @@ character_x = 0
 character_y = 410
 
 # Set up the character and enemy images
-character_img = pygame.image.load("src\main/assets/entities/Character1/Animations/Character1.png")
+character_img = pygame.image.load("src\main/assets/entities/characters/Character1/Animations/Character1.png")
 press_o = pygame.image.load('src/main/assets/gui/icon/press_o.png')
 character_img=pygame.transform.scale(character_img,(250,250))
 screen.blit(character_img,(character_x, character_y))
