@@ -16,19 +16,16 @@ characterHeight = 32
 
 scale = 10
 
-idle_sprite0 =  pygame.image.load("src/main/assets/entities/player/standard/animations/character_standard1.png")
-idle_sprite1 =  pygame.image.load("src/main/assets/entities/player/standard/animations/character_standard2.png")
-idle_sprite2 =  pygame.image.load("src/main/assets/entities/player/standard/animations/character_standard3.png")
-idle_sprite3 =  pygame.image.load("src/main/assets/entities/player/standard/animations/character_standard4.png")
-idle_sprite4 =  pygame.image.load("src/main/assets/entities/player/standard/animations/character_standard5.png")
+idle_sprite0 = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1Idle/1Idle(1).png")
+idle_sprite1 = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1Idle/1Idle(2).png")
+idle_sprite2 = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1Idle/1Idle(3).png")
+idle_sprite3 = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1Idle/1Idle(4).png")
+idle_sprite4 = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1Idle/1Idle(5).png")
+idle_sprite5 = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1Idle/1Idle(6).png")
+idle_sprite6 = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1Idle/1Idle(7).png")
+idle_sprite7 = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1Idle/1Idle(8).png")
 
-image_sprite0 = pygame.transform.scale(idle_sprite0, (int(characterWidth * scale), int(characterHeight * scale)))
-image_sprite1 = pygame.transform.scale(idle_sprite1, (int(characterWidth * scale), int(characterHeight * scale)))
-image_sprite2 = pygame.transform.scale(idle_sprite2, (int(characterWidth * scale), int(characterHeight * scale)))
-image_sprite3 = pygame.transform.scale(idle_sprite3, (int(characterWidth * scale), int(characterHeight * scale)))
-image_sprite4 = pygame.transform.scale(idle_sprite4, (int(characterWidth * scale), int(characterHeight * scale)))
-
-idle_sprite = [image_sprite0, image_sprite1, image_sprite2, image_sprite3, image_sprite4]
+idle_sprite = [idle_sprite0, idle_sprite1, idle_sprite2, idle_sprite3, idle_sprite4, idle_sprite5, idle_sprite6, idle_sprite7,]
 # Set screen dimensions
 scale = 10
 
@@ -77,9 +74,6 @@ def draw():
     screen.blit(background, (0,0))
     screen.blit(floor, (0,730))
     screen.blit(door, (990,410))
-    if visible == True:
-        screen.blit(currentSprite, (character_x, character_y))
-    pygame.display.update()
 
 value = 0
 
@@ -140,6 +134,10 @@ while running:
         door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
 
     draw()
+    currentSprite = pygame.transform.scale(currentSprite, (int(characterWidth * scale), int(characterHeight * scale)))    
+    if visible == True:
+        screen.blit(currentSprite, (character_x, character_y))
+    pygame.display.update()
 
     if doorhandling == 1:
         pygame.time.wait(500)
