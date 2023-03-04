@@ -11,6 +11,24 @@ background = pygame.image.load("src/main/assets/elements/background/hallway.jpg"
 floor = pygame.image.load("src\main/assets/elements/background/floor.jpg")
 door = pygame.image.load("src/main/assets/elements/doors/door_1_closed.png")
 
+characterWidth = 32
+characterHeight = 32
+
+scale = 10
+
+idle_sprite0 =  pygame.image.load("src/main/assets/entities/player/standard/animations/character_standard1.png")
+idle_sprite1 =  pygame.image.load("src/main/assets/entities/player/standard/animations/character_standard2.png")
+idle_sprite2 =  pygame.image.load("src/main/assets/entities/player/standard/animations/character_standard3.png")
+idle_sprite3 =  pygame.image.load("src/main/assets/entities/player/standard/animations/character_standard4.png")
+idle_sprite4 =  pygame.image.load("src/main/assets/entities/player/standard/animations/character_standard5.png")
+
+image_sprite0 = pygame.transform.scale(idle_sprite0, (int(characterWidth * scale), int(characterHeight * scale)))
+image_sprite1 = pygame.transform.scale(idle_sprite1, (int(characterWidth * scale), int(characterHeight * scale)))
+image_sprite2 = pygame.transform.scale(idle_sprite2, (int(characterWidth * scale), int(characterHeight * scale)))
+image_sprite3 = pygame.transform.scale(idle_sprite3, (int(characterWidth * scale), int(characterHeight * scale)))
+image_sprite4 = pygame.transform.scale(idle_sprite4, (int(characterWidth * scale), int(characterHeight * scale)))
+
+idle_sprite = [image_sprite0, image_sprite1, image_sprite2, image_sprite3, image_sprite4]
 # Set screen dimensions
 scale = 10
 
@@ -47,7 +65,7 @@ currentSprite = character_image
 # Sizes door: 320, 320
 
 # Set initial position
-character_x = 0
+character_x = 150
 character_y = 410
 
 # Set character speed
@@ -63,30 +81,46 @@ def draw():
         screen.blit(currentSprite, (character_x, character_y))
     pygame.display.update()
 
+value = 0
 
 # Game loop
 running = True
 jumpvar = -16
 doorhandling = 0
 visible = True
+standing = True
 while running:
-
+    clock.tick(180)
     # Handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+            pygame.quit()
+
+    if value >= len(idle_sprite):
+        value = 0
+
+    currentSprite = idle_sprite[value]
     
     # Handle keyboard input
     keys = pygame.key.get_pressed()
     Spieler = pygame.Rect(character_x, character_y, 40, 80)
     Door = pygame.Rect(990, 410, 40, 80)
     if keys[pygame.K_LEFT] or keys[pygame.K_a] and not Spieler.colliderect(leftWall) and visible == True:
+        standing = False
         character_x -= character_speed
         currentSprite = character_image_inverted
+    else:
+        standing = True
     if keys[pygame.K_RIGHT] or keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True:
+        standing = False
         character_x += character_speed
         currentSprite = character_image
-    if keys[pygame.K_UP] or keys[pygame.K_SPACE] and jumpvar == -16 and visible == True:
+    else:
+        standing = True
+    if keys[pygame.K_UP] and jumpvar == -16 and visible == True:
+        jumpvar = 15
+    elif keys[pygame.K_SPACE] and jumpvar == -16 and visible == True:
         jumpvar = 15
     if keys[pygame.K_DOWN] or keys[pygame.K_s] and Spieler.colliderect(Door) and visible == True:
         doorhandling = 1
@@ -114,7 +148,12 @@ while running:
         door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
         visible = False
         doorhandling = 0
-    clock.tick(60)
+
+    if standing == True:
+        pygame.time.delay(180)
+        value += 1
+
+    clock.tick(69)
 
 # Quit Pygame
-pygame.quit()
+
