@@ -26,7 +26,7 @@ enemy_y = 150
 
 # Set enemy speed
 enemy_speed = 2
-character_img_speed=6
+character_img_speed=10
 
 # Set distance at which enemy and character starts attacking character
 attack_distance_enemy_img = 200
@@ -34,11 +34,11 @@ attack_distance_character_img= 300
 
 # Set enemy and character attack range
 attack_range_enemy_img = 1
-attack_range_character_img = 2
+attack_range_character_img = 4
 
 # Set character health and attack power
 character_health = 500
-character_attack_power = 1
+character_attack_power = 2
 
 # Set enemy health and attack power
 enemy_health = 300
@@ -67,7 +67,8 @@ while True:
     if keys[pygame.K_DOWN]:
         character_y += 3
     if keys[pygame.K_w]:
-        enemy_health -= character_attack_power
+        if distance_to_enemy< attack_range_character_img:
+          enemy_health -= character_attack_power
 
     # Move enemy towards character
     enemy_dx = character_x - enemy_x
