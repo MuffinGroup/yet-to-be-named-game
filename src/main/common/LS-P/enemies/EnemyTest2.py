@@ -56,7 +56,7 @@ while True:
             pygame.quit()
             quit()
 
-    # Get character movement input
+    # Get character movement an attack input
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
         character_x -= 3
@@ -66,6 +66,8 @@ while True:
         character_y -= 3
     if keys[pygame.K_DOWN]:
         character_y += 3
+    if keys[pygame.K_w]:
+        enemy_health -= character_attack_power
 
     # Move enemy towards character
     enemy_dx = character_x - enemy_x
