@@ -28,18 +28,20 @@ enemy_y = 150
 enemy_speed = 2
 character_img_speed=6
 
-# Set distance at which enemy starts attacking character
-attack_distance = 200
+# Set distance at which enemy and character starts attacking character
+attack_distance_enemy_img = 200
+attack_distance_character_img= 300
 
-# Set enemy attack range
-attack_range = 1
+# Set enemy and character attack range
+attack_range_enemy_img = 1
+attack_range_character_img = 2
 
 # Set character health and attack power
 character_health = 500
-character_attack_power = 20
+character_attack_power = 2
 
 # Set enemy health and attack power
-enemy_health = 50
+enemy_health = 300
 enemy_attack_power = 1
 
 # Define function to calculate distance between two points
@@ -69,17 +71,23 @@ while True:
     enemy_dx = character_x - enemy_x
     enemy_dy = character_y - enemy_y
     distance_to_character = distance(character_x, character_y, enemy_x, enemy_y)
-    if distance_to_character < attack_distance:
+    distance_to_enemy = distance(enemy_x, enemy_y, character_x, character_y)
+    if distance_to_character < attack_distance_enemy_img:
         # If within attack distance, attack character
-        if distance_to_character < attack_range:
+        if distance_to_character < attack_range_enemy_img:
             character_health -= enemy_attack_power
-        # Otherwise, move towards character
+           # Otherwise, move towards character
         else:
             enemy_dx = enemy_dx / distance_to_character * enemy_speed
             enemy_dy = enemy_dy / distance_to_character * enemy_speed
             enemy_x += enemy_dx
             enemy_y += enemy_dy
-
+    if distance_to_enemy < attack_range_character_img:
+         # If within attack distance, attack character
+        if distance_to_enemy < attack_range_character_img:
+            enemy_health -= character_attack_power
+          
+        
     # Draw images on screen
     screen.fill((255, 255, 255))
     screen.blit(character_img, (character_x, character_y))
@@ -89,12 +97,7 @@ while True:
     pygame.draw.rect(screen, (255, 0, 0), (10, 10, character_health, 10))
     pygame.draw.rect(screen, (255, 0, 0), (screen_width - 110, 10, enemy_health, 10))
 
-    # Check if character or enemy health is 0 or below, end game if true
-    if character_health <= 0 or enemy_health <= 0:
-        pygame.quit()
-        quit()
-
-        draw()
+    
     clock.tick(80)
 
 
