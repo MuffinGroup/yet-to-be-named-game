@@ -25,7 +25,20 @@ idle_sprite5 = pygame.image.load("src/main/assets/entities/characters/Character1
 idle_sprite6 = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1Idle/1Idle(7).png")
 idle_sprite7 = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1Idle/1Idle(8).png")
 
-idle_sprite = [idle_sprite0, idle_sprite1, idle_sprite2, idle_sprite3, idle_sprite4, idle_sprite5, idle_sprite6, idle_sprite7,]
+walking_sprite0 = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1running/1Running(1).png")
+walking_sprite1 = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1running/1Running(2).png")
+walking_sprite2 = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1running/1Running(3).png")
+walking_sprite3 = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1running/1Running(4).png")
+walking_sprite4 = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1running/1Running(5).png")
+walking_sprite5 = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1running/1Running(6).png")
+walking_sprite6 = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1running/1Running(7).png")
+walking_sprite7 = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1running/1Running(8).png")
+walking_sprite8 = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1running/1Running(9).png")
+walking_sprite9 = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1running/1Running(10).png")
+walking_sprite10 = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1running/1Running(11).png")
+
+idle_sprite = [idle_sprite0, idle_sprite1, idle_sprite2, idle_sprite3, idle_sprite4, idle_sprite5, idle_sprite6, idle_sprite7]
+walking_sprite = [walking_sprite0, walking_sprite1, walking_sprite2, walking_sprite3, walking_sprite4, walking_sprite5, walking_sprite6, walking_sprite7, walking_sprite8, walking_sprite9, walking_sprite10]
 # Set screen dimensions
 scale = 10
 
@@ -76,6 +89,7 @@ def draw():
     screen.blit(door, (990,410))
 
 value = 0
+WalkingValue = 0
 
 # Game loop
 running = True
@@ -83,6 +97,7 @@ jumpvar = -16
 doorhandling = 0
 visible = True
 standing = True
+walking = False
 while running:
     clock.tick(180)
     # Handle events
@@ -95,6 +110,9 @@ while running:
         value = 0
 
     currentSprite = idle_sprite[value]
+
+    if value >= len(walking_sprite):
+        value = 0
     
     # Handle keyboard input
     keys = pygame.key.get_pressed()
@@ -102,17 +120,18 @@ while running:
     Door = pygame.Rect(990, 410, 40, 80)
     if keys[pygame.K_LEFT] or keys[pygame.K_a] and not Spieler.colliderect(leftWall) and visible == True:
         standing = False
+        walking = True
         character_x -= character_speed
-        currentSprite = character_image_inverted
     else:
         standing = True
     if keys[pygame.K_RIGHT] or keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True:
         standing = False
+        walking = True
         character_x += character_speed
-        currentSprite = character_image
     else:
         standing = True
     if keys[pygame.K_UP] and jumpvar == -16 and visible == True:
+        standing = False
         jumpvar = 15
     elif keys[pygame.K_SPACE] and jumpvar == -16 and visible == True:
         jumpvar = 15
@@ -151,7 +170,10 @@ while running:
         pygame.time.delay(180)
         value += 1
 
+    if walking == True:
+        pygame.time.delay(180)
+        WalkingValue += 1
+
     clock.tick(69)
 
 # Quit Pygame
-
