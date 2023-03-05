@@ -38,7 +38,7 @@ attack_range_character_img = 2
 
 # Set character health and attack power
 character_health = 500
-character_attack_power = 2
+character_attack_power = 1
 
 # Set enemy health and attack power
 enemy_health = 300
@@ -84,11 +84,6 @@ while True:
             enemy_dy = enemy_dy / distance_to_character * enemy_speed
             enemy_x += enemy_dx
             enemy_y += enemy_dy
-    if distance_to_enemy < attack_range_character_img:
-         # If within attack distance, attack character
-        if distance_to_enemy < attack_range_character_img:
-            enemy_health -= character_attack_power
-          
         
     # Draw images on screen
     screen.fill((255, 255, 255))
