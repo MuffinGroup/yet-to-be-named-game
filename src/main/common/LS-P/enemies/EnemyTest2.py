@@ -97,7 +97,7 @@ while True:
     pygame.draw.rect(screen, (255, 0, 0), (10, 10, character_health, 10))
     pygame.draw.rect(screen, (255, 0, 0), (screen_width - 110, 10, enemy_health, 10))
 
-    # Check if character or enemy health is 0 or below, end game if true
+    # Check if character or enemy health is 0 or below, end game or set changes if true
     if enemy_health <= 0:
      enemy_attack_power = 0
      enemy_speed = 0
