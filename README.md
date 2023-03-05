@@ -10,6 +10,6 @@ Contributors:
 
 A small showcase: https://www.youtube.com/watch?v=O6B3gP3-5k4
 
-To run the project open it in VSC and install the python extension.
+To run the project open it in VSC and install the pygame library (through the command prompt) and python extension.
 After doing so, go to the doorTest.py file and click on the
 little triangle in theright hand corner.
