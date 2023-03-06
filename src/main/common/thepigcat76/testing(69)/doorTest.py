@@ -107,20 +107,31 @@ while running:
     keys = pygame.key.get_pressed()
     Spieler = pygame.Rect(character_x, character_y, 40, 80)
     Door = pygame.Rect(990, 410, 40, 80)
-    if keys[pygame.K_LEFT] or keys[pygame.K_a] and not Spieler.colliderect(leftWall) and visible == True:
+
+    if keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall) and visible == True:
+        standing = False
+        walking = True
+        character_x -= character_speed
+    elif keys[pygame.K_a] and not Spieler.colliderect(leftWall) and visible == True:
         standing = False
         walking = True
         character_x -= character_speed
     else:
         standing = True
         walking = False
-    if keys[pygame.K_RIGHT] or keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True:
+
+    if keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall) and visible == True:
+        standing = False
+        walking = True
+        character_x += character_speed
+    elif keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True:
         standing = False
         walking = True
         character_x += character_speed
     else:
         standing = True
         walking = False
+
     if keys[pygame.K_UP] and jumpvar == -16 and visible == True:
         standing = False
         jumping = True
@@ -129,8 +140,10 @@ while running:
         standing = False
         jumping = True
         jumpvar = 15
-    #Bug when pressing K_DOWN
-    if keys[pygame.K_DOWN] or keys[pygame.K_s] and Spieler.colliderect(Door) and visible == True:
+
+    if keys[pygame.K_DOWN] and Spieler.colliderect(Door) and visible == True:
+        doorhandling = 1
+    elif keys[pygame.K_s] and Spieler.colliderect(Door) and visible == True:
         doorhandling = 1
 
     if jumpvar == 15:
@@ -159,7 +172,7 @@ while running:
     if doorhandling == 1:
         pygame.time.wait(500)
         pygame.mixer.Sound.play(doorsound)
-        door = pygame.image.load("src\main/assets\elements\doors\Door_1_closed_Überarbeitet.png")
+        door = pygame.image.load("src\main/assets\elements\doors\door_1_closed.png")
         door = pygame.transform.scale(door, (int(door_width * scale/2), int(door_height * scale/2)))
         visible = False
         doorhandling = 0
