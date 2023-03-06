@@ -3,10 +3,11 @@ pygame.init()
 #
 ###
 class Player:
-    def __init__(self):
-        self.image = pygame.Surface((30,30)) # Create Player Image
-        self.image.fill(colors["BLUE"]) # Fill Player Red
-        self.rect = pygame.Rect((50,50),(30,30)) # Create Player Rect
+    def __init__(image):
+        Player.image = pygame.image.load("src\main\common\LS-P\Pictures\Character1.copy.png") # Create Player Image
+        Player.image=pygame.transform.scale(Player.image,(250,250))
+        Player.image_speed=5
+        Player.rect = pygame.Rect((50,50),(30,30)) # Create Player Rect
     def move(self,camera_pos):
         pos_x,pos_y = camera_pos # Split camara_pos
         #
