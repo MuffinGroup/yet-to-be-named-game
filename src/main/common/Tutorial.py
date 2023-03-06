@@ -2,6 +2,7 @@ import pygame
 import math
 from colors import *
 import animations
+import registerIdles
 
 
 # Initialize Pygame
