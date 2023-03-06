@@ -70,6 +70,7 @@ while True:
         if distance_to_enemy< attack_range_character_img:
           enemy_health -= character_attack_power
 
+    
     # Move enemy towards character
     enemy_dx = character_x - enemy_x
     enemy_dy = character_y - enemy_y
