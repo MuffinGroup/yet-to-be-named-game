@@ -50,7 +50,7 @@ character_image = pygame.transform.scale(character_image, (int(image_width * sca
 character_image_inverted = pygame.transform.scale(character_image_inverted, (int(image_width * scale), int(image_height * scale)))
 door_width = door.get_width()
 door_height = door.get_height()
-door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
+door = pygame.transform.scale(door, (int(door_width * scale/2), int(door_height * scale/2)))
 int_widht = introducer_image.get_width()
 int_height = introducer_image.get_height()
 introducer_image = pygame.transform.scale(introducer_image, (int(int_widht * scale), int(int_height * scale)))
@@ -74,7 +74,7 @@ def draw():
     screen.fill(COLORS.BLACK)
     screen.blit(background, (0,0))
     screen.blit(floor, (0,730))
-    screen.blit(door, (990,410))
+    screen.blit(door, (990,420))
     screen.blit(text, (865, 220))
     screen.blit(introducer_image, (100, 150))
     if visible == True:
