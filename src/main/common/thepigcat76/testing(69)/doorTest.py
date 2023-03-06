@@ -129,6 +129,7 @@ while running:
         standing = False
         jumping = True
         jumpvar = 15
+    #Bug when pressing K_DOWN
     if keys[pygame.K_DOWN] or keys[pygame.K_s] and Spieler.colliderect(Door) and visible == True:
         doorhandling = 1
 
