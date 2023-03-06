@@ -8,6 +8,7 @@
 -Gegner: Zombifizierte Muffins, Drachenlord
 -Wenn Drachenlord: Spiel "Mach mir ein Bannanenbrot" ab
 -Health bar and healing
+-changes to gravity acceleration perhaps
 
 Namens Ideen:
   -Muffin-mania
