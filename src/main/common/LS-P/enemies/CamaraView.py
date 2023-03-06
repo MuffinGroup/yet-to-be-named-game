@@ -47,8 +47,7 @@ class Player:
 def Main(display,clock):
     world = pygame.Surface((1000,1000)) # Create Map Surface
     world.fill(colors["BLACK"]) # Fill Map Surface Black
-    for x in range(10):
-        pygame.draw.rect(world,colors["BLUE"],((x*100,x*100),(20,20))) # Put Blue Rectagles On Map Surface
+     
     #
     player = Player() # Initialize Player Class
     camera_pos = (192,192) # Create Camara Starting Position
@@ -64,8 +63,6 @@ def Main(display,clock):
         #
         display.fill(colors["WHITE"]) # Fill The Background White To Avoid Smearing
         world.fill(colors["BLACK"]) # Refresh The World So The Player Doesn't Smear
-        for x in range(10):
-            pygame.draw.rect(world,colors["BLUE"],((x*100,x*100),(20,20)))
         player.render(world) # Render The Player
         display.blit(world,camera_pos) # Render Map To The Display
         #
