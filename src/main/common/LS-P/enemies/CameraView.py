@@ -6,24 +6,24 @@ class Player:
     def __init__(image):
         Player.image = pygame.image.load("src\main\common\LS-P\Pictures\Character1.copy.png") # Create Player Image
         Player.image=pygame.transform.scale(Player.image,(250,250))
-        Player.image_speed=5
+        Player.image_speed= 20
         Player.rect = pygame.Rect((50,50),(30,30)) # Create Player Rect
     def move(self,camera_pos):
         pos_x,pos_y = camera_pos # Split camara_pos
         #
         key = pygame.key.get_pressed() # Get Keyboard Input
         if key[pygame.K_UP]: # Check Key
-            self.rect.y -= 8 # Move Player Rect Coord
-            pos_y += 8 # Move Camara Coord Against Player Rect
+            self.rect.y -= Player.image_speed # Move Player Rect Coord
+            pos_y +=  Player.image_speed # Move Camara Coord Against Player Rect
         if key[pygame.K_LEFT]:
-            self.rect.x -= 8
-            pos_x += 8
+            self.rect.x -= Player.image_speed 
+            pos_x += Player.image_speed 
         if key[pygame.K_DOWN]:
-            self.rect.y += 8
-            pos_y -= 8
+            self.rect.y += Player.image_speed 
+            pos_y -= Player.image_speed 
         if key[pygame.K_RIGHT]:
-            self.rect.x += 8
-            pos_x -= 8
+            self.rect.x += Player.image_speed 
+            pos_x -= Player.image_speed 
         #
         if self.rect.x < 0: # Simple Sides Collision
             self.rect.x = 0 # Reset Player Rect Coord
