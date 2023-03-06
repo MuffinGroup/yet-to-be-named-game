@@ -81,6 +81,9 @@ def draw():
         screen.blit(character_image, (character_x, character_y))
     pygame.display.update()
 
+value = 0
+WalkingValue = 0
+
 
 # Game loop
 running = True
