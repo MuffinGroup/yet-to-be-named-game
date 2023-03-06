@@ -55,7 +55,7 @@ def Main(display,clock):
     while True:
         clock.tick(60)
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT or(event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE):
                 pygame.quit()
                 return
         #
@@ -71,7 +71,7 @@ def Main(display,clock):
 #
 if __name__ in "__main__":
     display = pygame.display.set_mode((1000,600))
-    pygame.display.set_caption("Scrolling Camera")
+    pygame.display.set_caption("CamaraView")
     clock = pygame.time.Clock()
     #
     global colors # Difign Colors
