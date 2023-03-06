@@ -183,5 +183,3 @@ while running:
         WalkingValue += 1
 
     clock.tick(69)
-
-# Quit Pygame

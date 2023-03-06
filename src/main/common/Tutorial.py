@@ -47,6 +47,7 @@ introducer_image = pygame.image.load("src/main/assets/entities/enemies/Oger2.png
 image_width = character_image.get_width()
 image_height = character_image.get_height()
 character_image = pygame.transform.scale(character_image, (int(image_width * scale), int(image_height * scale)))
+character_image_inverted = pygame.transform.scale(character_image_inverted, (int(image_width * scale), int(image_height * scale)))
 door_width = door.get_width()
 door_height = door.get_height()
 door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
@@ -86,13 +87,24 @@ running = True
 jumpvar = -16
 doorhandling = 0
 visible = True
+standing = True
+walking = False
+jumping = False
 while running:
     clock.tick(180)
-
     # Handle events
     for event in pygame.event.get():
-        if event.type == pygame.QUIT or (event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE):
+        if event.type == pygame.QUIT:
             running = False
+            pygame.quit()
+
+    if value >= len(animations.idle_sprite):
+        value = 0
+
+    currentSprite = animations.idle_sprite[value]
+
+    if WalkingValue >= len(animations.walking_sprite):
+        WalkingValue = 0
     
     # Handle keyboard input
     keys = pygame.key.get_pressed()
@@ -100,18 +112,36 @@ while running:
     Door = pygame.Rect(990, 410, 40, 80)
 
     if keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall) and visible == True:
+        standing = False
+        walking = True
         character_x -= character_speed
     elif keys[pygame.K_a] and not Spieler.colliderect(leftWall) and visible == True:
+        standing = False
+        walking = True
         character_x -= character_speed
+    else:
+        standing = True
+        walking = False
 
     if keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall) and visible == True:
+        standing = False
+        walking = True
         character_x += character_speed
     elif keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True:
+        standing = False
+        walking = True
         character_x += character_speed
+    else:
+        standing = True
+        walking = False
 
     if keys[pygame.K_UP] and jumpvar == -16 and visible == True:
+        standing = False
+        jumping = True
         jumpvar = 15
     elif keys[pygame.K_SPACE] and jumpvar == -16 and visible == True:
+        standing = False
+        jumping = True
         jumpvar = 15
 
     if keys[pygame.K_DOWN] and Spieler.colliderect(Door) and visible == True:
@@ -131,7 +161,10 @@ while running:
 
     if doorhandling == 1:
         door = pygame.image.load("src/main/assets/elements/doors/door_1_open.png")
-        door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
+        door = pygame.transform.scale(door, (int(door_width * scale/2), int(door_height * scale/2)))
+
+    if walking == True:
+        currentSprite = animations.walking_sprite[WalkingValue]
 
     draw()
     currentSprite = pygame.transform.scale(currentSprite, (int(characterWidth * scale), int(characterHeight * scale)))    
@@ -142,11 +175,15 @@ while running:
     if doorhandling == 1:
         pygame.time.wait(500)
         pygame.mixer.Sound.play(doorsound)
-        door = pygame.image.load("src/main/assets/elements/doors/door_1_closed.png")
+        door = pygame.image.load("src\main/assets\elements\doors\door_1_closed.png")
         door = pygame.transform.scale(door, (int(door_width * scale/2), int(door_height * scale/2)))
         visible = False
         doorhandling = 0
-    clock.tick(60)
 
-# Quit Pygame
-pygame.quit()
+    if standing == True:
+        value += 1
+
+    if walking == True:
+        WalkingValue += 1
+
+    clock.tick(69)
