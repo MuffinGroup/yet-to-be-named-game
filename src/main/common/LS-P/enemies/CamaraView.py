@@ -44,9 +44,11 @@ class Player:
 #
 #
 ###
+
+background = pygame.image.load("src\main/assets\elements/background\Background final2.jpg")
+
 def Main(display,clock):
     world = pygame.Surface((1000,1000)) # Create Map Surface
-    world.fill(colors["BLACK"]) # Fill Map Surface Black
      
     #
     player = Player() # Initialize Player Class
@@ -62,9 +64,9 @@ def Main(display,clock):
         camera_pos = player.move(camera_pos) # Run Player Move Function And Return New Camera Pos
         #
         display.fill(colors["WHITE"]) # Fill The Background White To Avoid Smearing
-        world.fill(colors["BLACK"]) # Refresh The World So The Player Doesn't Smear
         player.render(world) # Render The Player
         display.blit(world,camera_pos) # Render Map To The Display
+        world.blit(background, (0,0))
         #
         pygame.display.flip()
 ###
