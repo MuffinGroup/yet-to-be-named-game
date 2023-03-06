@@ -38,6 +38,7 @@ doorsound = pygame.mixer.Sound("src\main/assets\sounds\entities\Door_Closing.wav
 
 # Load character image
 character_image = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha()
+character_image_inverted = pygame.transform.flip(character_image, True, False)
 introducer_image = pygame.image.load("src/main/assets/entities/enemies/Oger2.png")
 
 #Image dimensions
@@ -56,8 +57,7 @@ background = pygame.transform.scale(background, (int(background_widht * scale_bg
 text_widht = text.get_width()
 text_height = text.get_height()
 text = pygame.transform.scale(text, (int(text_widht * scale_text), int(text_height * scale_text)))
-
-# Sizes door: 320, 320
+current_sprite = character_image
 
 # Set initial position
 character_x = 0
