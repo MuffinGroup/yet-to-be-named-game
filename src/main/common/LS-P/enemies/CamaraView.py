@@ -46,6 +46,7 @@ class Player:
 ###
 
 background = pygame.image.load("src\main/assets\elements/background\Background final2.jpg")
+background=pygame.transform.scale(background,(1000,1000))
 
 def Main(display,clock):
     world = pygame.Surface((1000,1000)) # Create Map Surface
