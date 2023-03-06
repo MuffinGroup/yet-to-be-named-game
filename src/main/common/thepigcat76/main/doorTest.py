@@ -74,7 +74,7 @@ def draw():
     screen.fill(COLORS.BLACK)
     screen.blit(background, (0,0))
     screen.blit(floor, (0,730))
-    screen.blit(door, (990,410))
+    screen.blit(door, (990,420))
 
 value = 0
 WalkingValue = 0
