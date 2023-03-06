@@ -96,13 +96,25 @@ while running:
     keys = pygame.key.get_pressed()
     Spieler = pygame.Rect(character_x, character_y, 40, 80)
     Door = pygame.Rect(990, 410, 40, 80)
+
     if keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall) and visible == True:
         character_x -= character_speed
+    elif keys[pygame.K_a] and not Spieler.colliderect(leftWall) and visible == True:
+        character_x -= character_speed
+
     if keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall) and visible == True:
         character_x += character_speed
+    elif keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True:
+        character_x += character_speed
+
     if keys[pygame.K_UP] and jumpvar == -16 and visible == True:
         jumpvar = 15
+    elif keys[pygame.K_SPACE] and jumpvar == -16 and visible == True:
+        jumpvar = 15
+
     if keys[pygame.K_DOWN] and Spieler.colliderect(Door) and visible == True:
+        doorhandling = 1
+    elif keys[pygame.K_s] and Spieler.colliderect(Door) and visible == True:
         doorhandling = 1
 
     if jumpvar == 15:
