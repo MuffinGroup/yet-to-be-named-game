@@ -1,6 +1,7 @@
 import pygame
 import math
 from colors import *
+import animations
 
 
 # Initialize Pygame
@@ -32,7 +33,7 @@ rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 
 #Create Sound
 jumpsound = pygame.mixer.Sound("src/main/assets/sounds/entities/jump.wav")
-jumpsound.set_volume(0.25)
+jumpsound.set_volume(0.20)
 doorsound = pygame.mixer.Sound("src\main/assets\sounds\entities\Door_Closing.wav")
 
 # Load character image
@@ -84,6 +85,7 @@ jumpvar = -16
 doorhandling = 0
 visible = True
 while running:
+    clock.tick(180)
 
     # Handle events
     for event in pygame.event.get():
