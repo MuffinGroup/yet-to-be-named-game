@@ -9,7 +9,7 @@ clock = pygame.time.Clock()
 #Load background
 background = pygame.image.load("src/main/assets/elements/background/hallway.jpg")
 floor = pygame.image.load("src\main/assets/elements/background/floor.jpg")
-door = pygame.image.load("src\main/assets\elements\doors\Door_1_closed_Überarbeitet.png")
+door = pygame.image.load("src\main/assets\elements\doors\door_1_closed.png")
 
 characterWidth = 32
 characterHeight = 32
