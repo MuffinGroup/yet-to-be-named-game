@@ -75,7 +75,7 @@ def Main(display,clock):
 #
 if __name__ in "__main__":
     display = pygame.display.set_mode((1000,600))
-    pygame.display.set_caption("CamaraView")
+    pygame.display.set_caption("CameraView")
     clock = pygame.time.Clock()
     #
     global colors # Difign Colors

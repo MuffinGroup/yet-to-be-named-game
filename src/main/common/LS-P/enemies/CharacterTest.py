@@ -3,6 +3,7 @@ from colors import*
 
 # Initialize Pygame
 pygame.init()
+clock=pygame.time.Clock()
 
 # Set screen dimensions
 screen_width = 1000
@@ -48,5 +49,6 @@ while running:
      screen.fill(COLORS.GRAY)
      screen.blit(character_image, (character_x, character_y))
      pygame.display.update()
+     clock.tick(60)
 
 pygame.quit()
