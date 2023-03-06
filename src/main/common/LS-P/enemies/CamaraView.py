@@ -4,9 +4,9 @@ pygame.init()
 ###
 class Player:
     def __init__(self):
-        self.image = pygame.Surface((16,16)) # Create Player Image
-        self.image.fill(colors["RED"]) # Fill Player Red
-        self.rect = pygame.Rect((50,50),(16,16)) # Create Player Rect
+        self.image = pygame.Surface((30,30)) # Create Player Image
+        self.image.fill(colors["BLUE"]) # Fill Player Red
+        self.rect = pygame.Rect((50,50),(30,30)) # Create Player Rect
     def move(self,camera_pos):
         pos_x,pos_y = camera_pos # Split camara_pos
         #
@@ -70,7 +70,7 @@ def Main(display,clock):
 ###
 #
 if __name__ in "__main__":
-    display = pygame.display.set_mode((500,500))
+    display = pygame.display.set_mode((1000,600))
     pygame.display.set_caption("Scrolling Camera")
     clock = pygame.time.Clock()
     #
