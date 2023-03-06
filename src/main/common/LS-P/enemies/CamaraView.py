@@ -27,7 +27,7 @@ class Player:
         if self.rect.x < 0: # Simple Sides Collision
             self.rect.x = 0 # Reset Player Rect Coord
             pos_x = camera_pos[0] #Reset Camera Pos Coord
-        elif self.rect.x > 1484:
+        elif self.rect.x > 1484: #Set the Player`s moving range
             self.rect.x = 1484
             pos_x = camera_pos[0]
         if self.rect.y < 0:
