@@ -11,16 +11,16 @@ class Player:
         pos_x,pos_y = camera_pos # Split camara_pos
         #
         key = pygame.key.get_pressed() # Get Keyboard Input
-        if key[pygame.K_w]: # Check Key
+        if key[pygame.K_UP]: # Check Key
             self.rect.y -= 8 # Move Player Rect Coord
             pos_y += 8 # Move Camara Coord Against Player Rect
-        if key[pygame.K_a]:
+        if key[pygame.K_LEFT]:
             self.rect.x -= 8
             pos_x += 8
-        if key[pygame.K_s]:
+        if key[pygame.K_DOWN]:
             self.rect.y += 8
             pos_y -= 8
-        if key[pygame.K_d]:
+        if key[pygame.K_RIGHT]:
             self.rect.x += 8
             pos_x -= 8
         #
