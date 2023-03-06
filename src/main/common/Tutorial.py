@@ -22,6 +22,8 @@ scale_text = 0.4
 # Set screen dimensions
 screen_width = 1280
 screen_height = 800
+characterWidth = 32
+characterHeight = 32
 
 # Create a screen surface
 screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
@@ -132,12 +134,16 @@ while running:
         door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
 
     draw()
+    currentSprite = pygame.transform.scale(currentSprite, (int(characterWidth * scale), int(characterHeight * scale)))    
+    if visible == True:
+        screen.blit(currentSprite, (character_x, character_y))
+    pygame.display.update()
 
     if doorhandling == 1:
         pygame.time.wait(500)
         pygame.mixer.Sound.play(doorsound)
         door = pygame.image.load("src/main/assets/elements/doors/door_1_closed.png")
-        door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
+        door = pygame.transform.scale(door, (int(door_width * scale/2), int(door_height * scale/2)))
         visible = False
         doorhandling = 0
     clock.tick(60)

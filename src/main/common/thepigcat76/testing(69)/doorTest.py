@@ -60,7 +60,6 @@ door_width = door.get_width()
 door_height = door.get_height()
 door = pygame.transform.scale(door, (int(door_width * scale/2), int(door_height * scale/2)))
 currentSprite = character_image
-# Sizes door: 320, 320
 
 # Set initial position
 character_x = 150
