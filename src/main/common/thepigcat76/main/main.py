@@ -10,9 +10,12 @@ class main():
     
     #Loading assets
     character_image = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha() #Makes the background invisible
+    character_image_inverted = pygame.transform.flip(character_image, True, False)
     background = pygame.image.load("src/main/assets/elements/background/hallway.jpg")
     floor = pygame.image.load("src\main/assets/elements/background/floor.jpg")
-    door_closed = pygame.image.load("src\main/assets\elements\doors\Door_1_closed_Überarbeitet.png")
+    door_closed = pygame.image.load("src\main/assets\elements\doors\Door_1_closed.png")
+    door_open = pygame.image.load("src\main/assets\elements\doors\Door_1_open.png")
+    icon = pygame.image.load('src/main/assets/gui/icon/icon.png')
     icon = pygame.image.load('src/main/assets/gui/icon/icon.png')
     jumpsound = pygame.mixer.Sound("src/main/assets/sounds/entities/jump.wav")
     doorsound = pygame.mixer.Sound("src\main/assets\sounds\entities\Door_Closing.wav")
@@ -40,8 +43,11 @@ class main():
     IdleValue = 0
     WalkingValue = 0
     
-    # Game loop
-    running = True
+    #Setting up the gui
+    screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
+    pygame.display.set_icon(icon)
+    pygame.display.set_caption("Muffin Group")
+    #pygame.display.is_fullscreen might
 
     #Character attributes
     jumpvar = -16
@@ -51,6 +57,21 @@ class main():
     walking = False
     jumping = False
 
-    #Game loop
-    while running:
-        
+    #Image dimensions
+    image_width = character_image.get_width()
+    image_height = character_image.get_height()
+
+    #Door dimensions
+    door_width = door_closed.get_width()
+    door_height = door_closed.get_height()
+
+    #Physics, still requires a lot of work
+    leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
+    rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
+
+    #Scaling images
+    character_image = pygame.transform.scale(character_image, (int(image_width * scale), int(image_height * scale)))
+    character_image_inverted = pygame.transform.scale(character_image_inverted (int(image_width * scale), int(image_height * scale)))
+    door_closed = pygame.transform.scale(door_closed, (int(door_width * scale/2), int(door_height * scale/2)))
+    door_closed = pygame.transform.scale(door_closed, (int(door_width * scale/2), int(door_height * scale/2)))
+    currentSprite = character_image
