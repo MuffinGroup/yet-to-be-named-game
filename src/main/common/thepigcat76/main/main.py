@@ -1,5 +1,5 @@
 import pygame
-import colors
+from colors import *
 import animations
 
 class main():
@@ -32,6 +32,9 @@ class main():
     character_image_inverted = pygame.transform.flip(character_image, True, False)
     jumpsound = pygame.mixer.Sound("src/main/assets/sounds/entities/jump.wav")
     doorsound = pygame.mixer.Sound("src\main/assets\sounds\entities\Door_Closing.wav")
+    #Dynamic images
+    currentSprite = character_image
+    currentDoorSprite = door_closed  
 
     #Assigning variables
     #Character dimensions
@@ -77,5 +80,27 @@ class main():
     character_image = pygame.transform.scale(character_image, (int(image_width * scale), int(image_height * scale)))
     character_image_inverted = pygame.transform.scale(character_image_inverted (int(image_width * scale), int(image_height * scale)))
     door_closed = pygame.transform.scale(door_closed, (int(door_width * scale/2), int(door_height * scale/2)))
-    door_closed = pygame.transform.scale(door_closed, (int(door_width * scale/2), int(door_height * scale/2)))
-    currentSprite = character_image
+    door_open = pygame.transform.scale(door_open, (int(door_width * scale/2), int(door_height * scale/2)))
+    
+    def draw():
+        # Draw the character and update the screen
+        main.screen.fill(COLORS.BLACK)
+        main.screen.blit(main.background, (0,0))
+        main.screen.blit(main.floor, (0,730))
+        main.screen.blit(main.currentDoorSprite, (990,420))   
+        pygame.display.update
+
+    running = True    
+    #Main game loop
+    while running:
+        # Handle events
+        for event in pygame.event.get():
+            #Receive closing attempt
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
+        # Handle keyboard input
+        keys = pygame.key.get_pressed()
+        #Player hitbox
+        player = pygame.Rect(character_x, character_y, 40, 80)
+        door = pygame.Rect(990, 410, 40, 80)
