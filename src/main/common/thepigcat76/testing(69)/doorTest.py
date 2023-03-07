@@ -48,8 +48,11 @@ jumpsound.set_volume(0.01)
 doorsound = pygame.mixer.Sound("src\main/assets\sounds\entities\Door_Closing.wav")
 
 # Load character image
+character_image_main = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha
 character_image = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha()
 character_image_inverted = pygame.transform.flip(character_image, True, False)
+
+
 
 #Image dimensions
 image_width = character_image.get_width()
@@ -111,10 +114,12 @@ while running:
         standing = False
         walking = True
         character_x -= character_speed
+        character_image = character_image_inverted
     elif keys[pygame.K_a] and not Spieler.colliderect(leftWall) and visible == True:
         standing = False
         walking = True
         character_x -= character_speed
+        character_image = character_image_inverted
     else:
         standing = True
         walking = False
