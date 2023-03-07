@@ -52,8 +52,6 @@ character_image_main = pygame.image.load("src/main/assets/entities/characters/Ch
 character_image = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha()
 character_image_inverted = pygame.transform.flip(character_image, True, False)
 
-
-
 #Image dimensions
 image_width = character_image.get_width()
 image_height = character_image.get_height()
@@ -89,6 +87,7 @@ visible = True
 standing = True
 walking = False
 jumping = False
+
 while running:
     # Handle events
     for event in pygame.event.get():

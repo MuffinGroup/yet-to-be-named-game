@@ -7,16 +7,29 @@ class main():
     pygame.init()
     #Setup for fps
     Clock = pygame.time.Clock()
+
+    #Loading world elements
+    background = pygame.image.load("src/main/assets/elements/background/hallway.jpg")
+    floor = pygame.image.load("src\main/assets/elements/background/floor.jpg")
+    door_closed = pygame.image.load("src\main/assets\elements\doors\door_1_closed.png")
+    door_open = pygame.image.load("src\main/assets\elements\doors\door_1_open.png")
+
+    #Screen dimensions
+    screen_width = 1280
+    screen_height = 800
+
+    #Loading utility assets
+    icon = pygame.image.load('src/main/assets/gui/icon/icon.png')
     
+    #Setting up the gui
+    screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
+    pygame.display.set_icon(icon)
+    pygame.display.set_caption("Muffin Group")
+    #pygame.display.is_fullscreen might be helpful in the future
+
     #Loading assets
     character_image = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha() #Makes the background invisible
     character_image_inverted = pygame.transform.flip(character_image, True, False)
-    background = pygame.image.load("src/main/assets/elements/background/hallway.jpg")
-    floor = pygame.image.load("src\main/assets/elements/background/floor.jpg")
-    door_closed = pygame.image.load("src\main/assets\elements\doors\Door_1_closed.png")
-    door_open = pygame.image.load("src\main/assets\elements\doors\Door_1_open.png")
-    icon = pygame.image.load('src/main/assets/gui/icon/icon.png')
-    icon = pygame.image.load('src/main/assets/gui/icon/icon.png')
     jumpsound = pygame.mixer.Sound("src/main/assets/sounds/entities/jump.wav")
     doorsound = pygame.mixer.Sound("src\main/assets\sounds\entities\Door_Closing.wav")
 
@@ -27,10 +40,6 @@ class main():
     
     #Art scale
     scale = 10
-
-    #Screen dimensions
-    screen_width = 1280
-    screen_height = 800
 
     # Set initial position
     character_x = 150
@@ -43,11 +52,6 @@ class main():
     IdleValue = 0
     WalkingValue = 0
     
-    #Setting up the gui
-    screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
-    pygame.display.set_icon(icon)
-    pygame.display.set_caption("Muffin Group")
-    #pygame.display.is_fullscreen might
 
     #Character attributes
     jumpvar = -16
