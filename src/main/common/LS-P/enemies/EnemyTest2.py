@@ -25,8 +25,8 @@ enemy_x = 150
 enemy_y = 150
 
 # Set enemy speed
-enemy_speed = 2
-character_img_speed=10
+enemy_speed = 3
+character_img_speed= 5
 
 # Set distance at which enemy and character starts attacking character
 attack_distance_enemy_img = 200
@@ -34,7 +34,7 @@ attack_distance_character_img= 300
 
 # Set enemy and character attack range
 attack_range_enemy_img = 1
-attack_range_character_img = 4
+attack_range_character_img = 6
 
 # Set character health and attack power
 character_health = 500
@@ -59,13 +59,13 @@ while True:
     # Get character movement an attack input
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
-        character_x -= 3
+        character_x -= character_img_speed
     if keys[pygame.K_RIGHT]:
-        character_x += 3
+        character_x += character_img_speed
     if keys[pygame.K_UP]:
-        character_y -= 3
+        character_y -= character_img_speed
     if keys[pygame.K_DOWN]:
-        character_y += 3
+        character_y += character_img_speed
     if keys[pygame.K_w]:
         if distance_to_enemy< attack_range_character_img:
           enemy_health -= character_attack_power
