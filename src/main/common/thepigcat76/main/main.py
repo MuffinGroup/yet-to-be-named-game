@@ -72,6 +72,9 @@ class main():
     door_width = door_closed.get_width()
     door_height = door_closed.get_height()
 
+    #Camera positions
+    cameraPos = (192,192)
+
     #Physics, still requires a lot of work
     leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
     rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
