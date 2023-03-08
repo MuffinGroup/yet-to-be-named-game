@@ -5,7 +5,7 @@ pygame.init()
 class Player:
     def __init__(image):
         Player.image = pygame.image.load("src\main\common\LS-P/Pictures\Character1.copy.png") # Create Player Image 🍆
-        Player.image=pygame.transform.scale(Player.image,(250,250)) #🍆
+        Player.image=pygame.transform.scale(Player.image,(250,250)) 
         Player.image_speed= 5 
         Player.rect = pygame.Rect((50,50),(30,30)) # Create Player Rect
     def move(self,camera_pos):
@@ -28,14 +28,14 @@ class Player:
         if self.rect.x < 0: # Simple Sides Collision
             self.rect.x = 0 # Reset Player Rect Coord
             pos_x = camera_pos[0] #Reset Camera Pos Coord
-        elif self.rect.x > 1470: #Set the Player`s moving range
-            self.rect.x = 1470
+        elif self.rect.x > 1980: #Set the Player`s moving range
+            self.rect.x = 1980
             pos_x = camera_pos[0]
         if self.rect.y < 0:
             self.rect.y = 0
             pos_y = camera_pos[1]
-        elif self.rect.y > 1470:
-            self.rect.y = 1470
+        elif self.rect.y > 1980:
+            self.rect.y = 1980
             pos_y = camera_pos[1]
         #
         return (pos_x,pos_y) # Return New Camera Pos
@@ -46,10 +46,10 @@ class Player:
 #
 ###
 background = pygame.image.load("src\main/assets\elements/background\Background final2.jpg")
-background=pygame.transform.scale(background,(1500,1500))
+background=pygame.transform.scale(background,(2000,2000))
 
 def Main(display,clock):
-    world = pygame.Surface((1500,1500)) # Create Map Surface
+    world = pygame.Surface((2000,2000)) # Create Map Surface
      
     #
     player = Player() # Initialize Player Class
