@@ -16,8 +16,36 @@ class main():
 
     #Loading utility stuff
     icon = pygame.image.load('src/main/assets/gui/icon/icon.png')
+
+    #Assigning variables
+    #Character size
+    characterWidth = 32
+    characterHeight = 32
+
+    #Screen size
     screen_width = 1280
     screen_height = 800
+
+    #Defining scale for character scaling
+    scale = 10
+
+    #character position
+    character_x = 150
+    character_y = 410
+
+    #camera position
+    camera_x = 192
+    camera_y = 192
+
+    #character speed
+    character_speed = 5
+    
+    #values for animation calculation
+    value = 0
+    WalkingValue = 0
+
+    #Door 
+    doorOpen = False
 
     screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
     pygame.display.set_icon(icon)
@@ -27,14 +55,6 @@ class main():
     doorsound = pygame.mixer.Sound("src\main/assets\sounds\entities\Door_Closing.wav")
     character_image_main = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha
     character_image = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha()
-
-    characterWidth = 32
-    characterHeight = 32
-
-    # Set screen dimensions
-    scale = 10
-
-    # Set screen dimensions
 
     # Create a screen surface
     leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
@@ -57,19 +77,13 @@ class main():
     currentSprite = character_image
 
     # Set initial position
-    character_x = 150
-    character_y = 410
 
     # Set character speed
-    character_speed = 5
 
-    value = 0
-    WalkingValue = 0
 
     # Game loop
     running = True
     jumpvar = -16
-    doorhandling = 0
     visible = True
     standing = True
     walking = False
@@ -131,9 +145,9 @@ class main():
             jumpvar = 15
 
         if keys[pygame.K_DOWN] and Spieler.colliderect(Door) and visible == True:
-            doorhandling = 1
+            doorOpen = True
         elif keys[pygame.K_s] and Spieler.colliderect(Door) and visible == True:
-            doorhandling = 1
+            doorOpen = True
 
         if jumpvar == 15:
             pygame.mixer.Sound.play(jumpsound)
@@ -145,7 +159,7 @@ class main():
             character_y -= (jumpvar**2)*0.17*n
             jumpvar -= 1
 
-        if doorhandling == 1:
+        if doorOpen == True:
             currentDoorSprite = door_open
         else:
             currentDoorSprite = door_closed
@@ -165,11 +179,11 @@ class main():
             screen.blit(currentSprite, (character_x, character_y))
         pygame.display.update()
 
-        if doorhandling == 1:
+        if doorOpen == True:
             pygame.time.wait(500)
             pygame.mixer.Sound.play(doorsound)
             visible = False
-            doorhandling = 0
+            doorOpen = 0
 
         if standing == True:
             value += 1
