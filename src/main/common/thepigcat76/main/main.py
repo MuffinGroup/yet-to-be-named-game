@@ -16,7 +16,6 @@ class main():
 
     #Loading utility stuff
     icon = pygame.image.load('src/main/assets/gui/icon/icon.png')
-    currentDoorSprite = door_closed
     screen_width = 1280
     screen_height = 800
 
@@ -31,8 +30,6 @@ class main():
 
     characterWidth = 32
     characterHeight = 32
-
-    scale = 10
 
     # Set screen dimensions
     scale = 10
@@ -54,9 +51,9 @@ class main():
     image_height = character_image.get_height()
     character_image = pygame.transform.scale(character_image, (int(image_width * scale), int(image_height * scale)))
     character_image_inverted = pygame.transform.scale(character_image_inverted, (int(image_width * scale), int(image_height * scale)))
+    currentDoorSprite = door_closed
     door_width = currentDoorSprite.get_width()
     door_height = currentDoorSprite.get_height()
-    door = pygame.transform.scale(currentDoorSprite, (int(door_width * scale/2), int(door_height * scale/2)))
     currentSprite = character_image
 
     # Set initial position
@@ -149,16 +146,18 @@ class main():
             jumpvar -= 1
 
         if doorhandling == 1:
-            door = pygame.image.load("src/main/assets/elements/doors/door_1_open.png")
-            door = pygame.transform.scale(door, (int(door_width * scale/2), int(door_height * scale/2)))
+            currentDoorSprite = door_open
+        else:
+            currentDoorSprite = door_closed
 
         if walking == True:
             currentSprite = animations.walking_sprite[WalkingValue]
-            
+
         # Draw the character and update the screen
         screen.fill(COLORS.BLACK)
         screen.blit(background, (0,0))
         screen.blit(floor, (0,730))
+        currentDoorSprite = pygame.transform.scale(currentDoorSprite, (int(door_width * scale/2), int(door_height * scale/2)))
         screen.blit(currentDoorSprite, (990,420))
 
         currentSprite = pygame.transform.scale(currentSprite, (int(characterWidth * scale), int(characterHeight * scale)))    
@@ -169,8 +168,6 @@ class main():
         if doorhandling == 1:
             pygame.time.wait(500)
             pygame.mixer.Sound.play(doorsound)
-            door = pygame.image.load("src\main/assets\elements\doors\door_1_closed.png")
-            door = pygame.transform.scale(door, (int(door_width * scale/2), int(door_height * scale/2)))
             visible = False
             doorhandling = 0
 
