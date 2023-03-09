@@ -2,73 +2,75 @@ import pygame
 from colors import *
 import animations
 
-#Pygame initialization
-pygame.init()
-#Setup for fps
-clock = pygame.time.Clock()
+class main():
+    #Pygame initialization
+    pygame.init()
+    #Setup for fps
+    clock = pygame.time.Clock()
 
-#Loading world elements
-background = pygame.image.load("src/main/assets/elements/background/hallway.jpg")
-floor = pygame.image.load("src\main/assets/elements/background/floor.jpg")
-door = pygame.image.load("src\main/assets\elements\doors\door_1_closed.png")
+    #Loading world elements
+    background = pygame.image.load("src/main/assets/elements/background/hallway.jpg")
+    floor = pygame.image.load("src\main/assets/elements/background/floor.jpg")
+    door_closed = pygame.image.load("src\main/assets\elements\doors\door_1_closed.png")
+    door_open = pygame.image.load("src\main/assets\elements\doors\door_1_open.png")
 
-#Loading utility stuff
-icon = pygame.image.load('src/main/assets/gui/icon/icon.png')
-screen_width = 1280
-screen_height = 800
+    #Loading utility stuff
+    icon = pygame.image.load('src/main/assets/gui/icon/icon.png')
+    screen_width = 1280
+    screen_height = 800
 
-screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
-pygame.display.set_icon(icon)
-pygame.display.set_caption("Muffin Group")
+    screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
+    pygame.display.set_icon(icon)
+    pygame.display.set_caption("Muffin Group")
 
-jumpsound = pygame.mixer.Sound("src/main/assets/sounds/entities/jump.wav")
-doorsound = pygame.mixer.Sound("src\main/assets\sounds\entities\Door_Closing.wav")
-character_image_main = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha
-character_image = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha()
+    jumpsound = pygame.mixer.Sound("src/main/assets/sounds/entities/jump.wav")
+    doorsound = pygame.mixer.Sound("src\main/assets\sounds\entities\Door_Closing.wav")
+    character_image_main = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha
+    character_image = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha()
 
-characterWidth = 32
-characterHeight = 32
+    characterWidth = 32
+    characterHeight = 32
 
-scale = 10
+    scale = 10
 
-# Set screen dimensions
-scale = 10
+    # Set screen dimensions
+    scale = 10
 
-# Set screen dimensions
+    # Set screen dimensions
 
-# Create a screen surface
-leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
-rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
+    # Create a screen surface
+    leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
+    rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 
-#Create Sound
-jumpsound.set_volume(0.01)
+    #Create Sound
+    jumpsound.set_volume(0.01)
 
-# Load character image
-character_image_inverted = pygame.transform.flip(character_image, True, False)
+    # Load character image
+    character_image_inverted = pygame.transform.flip(character_image, True, False)
 
-#Image dimensions
-image_width = character_image.get_width()
-image_height = character_image.get_height()
-character_image = pygame.transform.scale(character_image, (int(image_width * scale), int(image_height * scale)))
-character_image_inverted = pygame.transform.scale(character_image_inverted, (int(image_width * scale), int(image_height * scale)))
-door_width = door.get_width()
-door_height = door.get_height()
-door = pygame.transform.scale(door, (int(door_width * scale/2), int(door_height * scale/2)))
-currentSprite = character_image
+    #Image dimensions
+    image_width = character_image.get_width()
+    image_height = character_image.get_height()
+    character_image = pygame.transform.scale(character_image, (int(image_width * scale), int(image_height * scale)))
+    character_image_inverted = pygame.transform.scale(character_image_inverted, (int(image_width * scale), int(image_height * scale)))
+    door_width = door.get_width()
+    door_height = door.get_height()
+    door = pygame.transform.scale(door, (int(door_width * scale/2), int(door_height * scale/2)))
+    currentSprite = character_image
 
-# Set initial position
-character_x = 150
-character_y = 410
+    # Set initial position
+    character_x = 150
+    character_y = 410
 
-# Set character speed
-character_speed = 5
+    # Set character speed
+    character_speed = 5
 
-def draw():
-    # Draw the character and update the screen
-    screen.fill(COLORS.BLACK)
-    screen.blit(background, (0,0))
-    screen.blit(floor, (0,730))
-    screen.blit(door, (990,420))
+    def draw():
+        # Draw the character and update the screen
+        main.screen.fill(COLORS.BLACK)
+        main.screen.blit(background, (0,0))
+        main.screen.blit(floor, (0,730))
+        main.screen.blit(door, (990,420))
 
 value = 0
 WalkingValue = 0
