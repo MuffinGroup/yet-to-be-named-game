@@ -4,8 +4,9 @@ pygame.init()
 ###
 class Player:
     def __init__(image):
-        Player.image = pygame.image.load("src\main\common\LS-P/Pictures\Character1.copy.png") # Create Player Image
-        Player.image=pygame.transform.scale(Player.image,(250,250))
+        Player.rightImage = pygame.image.load("src\main\common\LS-P/Pictures\Character1.copy.png") # Create Player Image
+        Player.leftImage = pygame.transform.flip(Player.rightImage, True, False)
+        Player.currentImage = Player.rightImage
         Player.image_speed= 5 
         Player.rect = pygame.Rect((50,50),(30,30)) # Create Player Rect
     def move(self,camera_pos):
@@ -25,9 +26,13 @@ class Player:
         if key[pygame.K_LEFT] and self.visible == True:
             self.standing = False
             self.walking = True
+            Player.currentImage = Player.leftImage
             self.rect.x -= Player.image_speed 
             pos_x += Player.image_speed
         if key[pygame.K_RIGHT] and self.visible == True:
+            self.standing = False
+            self.walking = True
+            Player.currentImage = Player.rightImage
             self.rect.x += Player.image_speed 
             pos_x -= Player.image_speed 
         #
@@ -50,7 +55,8 @@ class Player:
         return (pos_x,pos_y) # Return New Camera Pos
     def render(self,display):
         if self.visible == True:
-            display.blit(self.image,(self.rect.x,self.rect.y))
+            Player.currentImage= pygame.transform.scale(Player.currentImage,(250,250))
+            display.blit(self.currentImage,(self.rect.x,self.rect.y))
 background = pygame.image.load("src\main/assets\elements/background\Background final2.jpg")
 background=pygame.transform.scale(background,(2000,2000))
 
