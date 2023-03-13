@@ -32,7 +32,7 @@ class Player:
         elif self.rect.x > 1980: #Set the Player`s moving range
             self.rect.x = 1980
             pos_x = camera_pos[0]
-        if self.rect.y < 0: #https://www.youtube.com/watch?v=dQw4w9WgXcQ
+        if self.rect.y < 0: #https://www.youtube.com/watch?v=dQw4w9WgXcQ <- the beauty of open-source
             self.rect.y = 0
             pos_y = camera_pos[1]
         elif self.rect.y > 1980:
