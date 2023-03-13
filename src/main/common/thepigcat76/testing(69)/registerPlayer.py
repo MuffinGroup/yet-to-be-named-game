@@ -1,20 +1,45 @@
 import pygame
 
-class player():
-
-
-	def __init__(self, player_name, x, y, scale):
-		image = pygame.image.load('src/main/assets/entities/characters/Character1/Animations/' + player_name + '.png')
-		right_image = pygame.transform.flip(image, True, False)
-		width = image.get_width()
-		height = image.get_height()
-		self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
-		self.rect = self.image.get_rect()
-		self.rect.center = (x, y)
-		self.clicked = False
-
-
-	def draw(self, surface):
-		surface.blit(self.image)
-		
-		
+class Player():
+    def __init__():
+        print("test")
+    def move(self,camera_pos):
+         self.running = True
+         self.jumpvar = -16
+         self.doorhandling = 0
+         self.visible = True
+         self.standing = True
+         self.walking = False
+         self.jumping = False
+         pos_x,pos_y = camera_pos # Split camara_pos
+         key = pygame.key.get_pressed() # Get Keyboard Input
+         if key[pygame.K_UP] and self.visible == True: # Check Key
+            self.rect.y -= Player.image_speed # Move Player Rect Coord
+            pos_y +=  Player.image_speed # Move Camara Coord Against Player Rect
+         if key[pygame.K_LEFT] and self.visible == True:
+            self.standing = False
+            self.walking = True
+            Player.currentImage = Player.leftImage
+            self.rect.x -= Player.image_speed 
+            pos_x += Player.image_speed
+         if key[pygame.K_RIGHT] and self.visible == True:
+            self.standing = False
+            self.walking = True
+            Player.currentImage = Player.rightImage
+            self.rect.x += Player.image_speed 
+            pos_x -= Player.image_speed 
+        
+         if self.rect.x < 0: # Simple Sides Collision
+            self.rect.x = 0 # Reset Player Rect Coord
+            pos_x = camera_pos[0] #Reset Camera Pos Coord
+         elif self.rect.x > 1980: #Set the Player`s moving range
+            self.rect.x = 1980
+            pos_x = camera_pos[0]
+         elif self.rect.y > 1980:
+            self.rect.y = 1980
+            pos_y = camera_pos[1]
+        
+         if self.walking == True:
+            print("yes")
+        #
+         return (pos_x,pos_y) # Return New Camera Pos
