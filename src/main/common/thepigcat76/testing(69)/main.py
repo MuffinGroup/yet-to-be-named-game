@@ -9,16 +9,23 @@ class Player:
         Player.image_speed= 5 
         Player.rect = pygame.Rect((50,50),(30,30)) # Create Player Rect
     def move(self,camera_pos):
+        running = True
+        jumpvar = -16
+        doorhandling = 0
+        self.visible = True
+        standing = True
+        walking = False
+        jumping = False
         pos_x,pos_y = camera_pos # Split camara_pos
         #
         key = pygame.key.get_pressed() # Get Keyboard Input
-        if key[pygame.K_UP]: # Check Key
+        if key[pygame.K_UP] and self.visible == True: # Check Key
             self.rect.y -= Player.image_speed # Move Player Rect Coord
             pos_y +=  Player.image_speed # Move Camara Coord Against Player Rect
-        if key[pygame.K_LEFT]:
+        if key[pygame.K_LEFT] and self.visible == True:
             self.rect.x -= Player.image_speed 
             pos_x += Player.image_speed
-        if key[pygame.K_RIGHT]:
+        if key[pygame.K_RIGHT] and self.visible == True:
             self.rect.x += Player.image_speed 
             pos_x -= Player.image_speed 
         #
@@ -37,11 +44,8 @@ class Player:
         #
         return (pos_x,pos_y) # Return New Camera Pos
     def render(self,display):
-        display.blit(self.image,(self.rect.x,self.rect.y))
-###
-#
-#
-###
+        if self.visible == True:
+            display.blit(self.image,(self.rect.x,self.rect.y))
 background = pygame.image.load("src\main/assets\elements/background\Background final2.jpg")
 background=pygame.transform.scale(background,(2000,2000))
 
@@ -70,7 +74,7 @@ def Main(display,clock):
 ###
 #
 if __name__ in "__main__":
-    display = pygame.display.set_mode((1000,600))
+    display = pygame.display.set_mode((1000,600), pygame.RESIZABLE)
     pygame.display.set_caption("CameraView")
     clock = pygame.time.Clock()
     #
