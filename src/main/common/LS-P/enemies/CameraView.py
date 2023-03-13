@@ -1,5 +1,5 @@
 import pygame
-from HerrCanstein import math
+
 pygame.init()
 #
 ###
