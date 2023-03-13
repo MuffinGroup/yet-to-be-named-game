@@ -1,8 +1,12 @@
 import pygame
 
 class Player():
-    def __init__():
-        print("test")
+    def __init__(currentImage):
+        Player.rightImage = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1.png") # Create Player Image
+        Player.leftImage = pygame.transform.flip(Player.rightImage, True, False)
+        Player.currentImage = Player.rightImage
+        Player.image_speed= 5 
+        Player.rect = pygame.Rect((50,50),(30,30)) # Create Player Rect
     def move(self,camera_pos):
          self.running = True
          self.jumpvar = -16
