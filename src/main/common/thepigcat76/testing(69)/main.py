@@ -3,8 +3,8 @@ pygame.init()
 #
 ###
 class Player:
-    def __init__(image):
-        Player.rightImage = pygame.image.load("src\main\common\LS-P/Pictures\Character1.copy.png") # Create Player Image
+    def __init__(currentImage):
+        Player.rightImage = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1.png") # Create Player Image
         Player.leftImage = pygame.transform.flip(Player.rightImage, True, False)
         Player.currentImage = Player.rightImage
         Player.image_speed= 5 
@@ -42,9 +42,6 @@ class Player:
         elif self.rect.x > 1980: #Set the Player`s moving range
             self.rect.x = 1980
             pos_x = camera_pos[0]
-        if self.rect.y < 0:
-            self.rect.y = 0
-            pos_y = camera_pos[1]
         elif self.rect.y > 1980:
             self.rect.y = 1980
             pos_y = camera_pos[1]
