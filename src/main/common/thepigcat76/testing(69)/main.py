@@ -9,13 +9,13 @@ class Player:
         Player.image_speed= 5 
         Player.rect = pygame.Rect((50,50),(30,30)) # Create Player Rect
     def move(self,camera_pos):
-        running = True
-        jumpvar = -16
-        doorhandling = 0
+        self.running = True
+        self.jumpvar = -16
+        self.doorhandling = 0
         self.visible = True
-        standing = True
-        walking = False
-        jumping = False
+        self.standing = True
+        self.walking = False
+        self.jumping = False
         pos_x,pos_y = camera_pos # Split camara_pos
         #
         key = pygame.key.get_pressed() # Get Keyboard Input
@@ -23,6 +23,8 @@ class Player:
             self.rect.y -= Player.image_speed # Move Player Rect Coord
             pos_y +=  Player.image_speed # Move Camara Coord Against Player Rect
         if key[pygame.K_LEFT] and self.visible == True:
+            self.standing = False
+            self.walking = True
             self.rect.x -= Player.image_speed 
             pos_x += Player.image_speed
         if key[pygame.K_RIGHT] and self.visible == True:
@@ -41,6 +43,9 @@ class Player:
         elif self.rect.y > 1980:
             self.rect.y = 1980
             pos_y = camera_pos[1]
+        
+        if self.walking == True:
+            print("yes")
         #
         return (pos_x,pos_y) # Return New Camera Pos
     def render(self,display):
