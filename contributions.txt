@@ -2,6 +2,7 @@ Design: N1cohd1
 Animation design: N1cohd1
 Animations in-game: thepigcat76
 Enemies: ReadyPlayerOne14 and thepigcat76
+Introduction and Text: TheHackerChampion
 Physics: TheHackerChampion
 Player: TheHackerChampion
 Game-design: All of us
