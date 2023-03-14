@@ -169,9 +169,9 @@ while running:
         character_speed = 7.5
     elif keys[pygame.K_LSHIFT] and keys[pygame.K_LEFT] and visible == True:
         character_speed = 7.5
-    elif keys[pygame.K_LSHIFT] and keys[pygame.K_RIGHT] and visible == True:
+    elif keys[pygame.K_RSHIFT] and keys[pygame.K_RIGHT] and visible == True:
         character_speed = 7.5
-    elif keys[pygame.K_LSHIFT] and keys[pygame.K_LEFT] and visible == True:
+    elif keys[pygame.K_RSHIFT] and keys[pygame.K_LEFT] and visible == True:
         character_speed = 7.5
     else:
         character_speed = 5
