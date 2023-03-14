@@ -23,7 +23,7 @@ class Player:
         pos_x,pos_y = camera_pos # Split camara_pos
         #
         key = pygame.key.get_pressed() # Get Keyboard Input
-        if key[pygame.K_UP] and self.visible == True: # Check Keyif keys[pygame.K_UP] and jumpvar == -16 and visible == True:
+        if key[pygame.K_UP] and jumpvar == -16 and self.visible == True: # Check Keyif keys[pygame.K_UP] and jumpvar == -16 and visible == True:
             standing = False
             jumping = True
             jumpvar = 15
