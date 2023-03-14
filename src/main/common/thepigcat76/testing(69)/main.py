@@ -7,12 +7,14 @@ class Player:
     def __init__(currentImage):
         Player.rightImage = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1.png") # Create Player Image
         Player.leftImage = pygame.transform.flip(Player.rightImage, True, False)
+        Player.jumpsound = pygame.mixer.Sound("src/main/assets/sounds/entities/jump.wav")
+        Player.jumpsound.set_volume(0.25)
         Player.currentImage = Player.rightImage
         Player.image_speed= 5 
         Player.rect = pygame.Rect((50,50),(30,30)) # Create Player Rect
     def move(self,camera_pos):
         self.running = True
-        self.jumpvar = -16
+        jumpvar = -16
         self.doorhandling = 0
         self.visible = True
         self.standing = True
@@ -31,13 +33,14 @@ class Player:
             jumpvar = 15
 
         if jumpvar == 15:
-            pygame.mixer.Sound.play(jumpsound)
+            pygame.mixer.Sound.play(Player.jumpsound)
 
         if jumpvar >= -15:
             n = 1
             if jumpvar < 0:
                 n = -1
-            character_y -= (jumpvar**2)*0.17*n
+            self.rect.y -= (jumpvar**2)*0.17*n
+            pos_y += (jumpvar**2)*0.17*n
             jumpvar -= 1
         if key[pygame.K_LEFT] and self.visible == True:
             self.standing = False
