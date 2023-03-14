@@ -13,7 +13,6 @@ clock = pygame.time.Clock()
 background = pygame.image.load("src\main/assets\elements/background\Tutorial.jpg")
 floor = pygame.image.load("src\main/assets/elements/background/floor.jpg")
 door = pygame.image.load("src/main/assets/elements/doors/door_1_closed.png")
-text = pygame.image.load("src\main/assets\gui/texts\Text.png")
 
 # Set screen dimensions
 scale = 10
@@ -33,6 +32,11 @@ pygame.display.set_icon(icon)
 pygame.display.set_caption("Muffin Group")
 leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
 rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
+
+#Create Text
+myfont = pygame.font.SysFont('joystixmonospaceregular', 40)
+text = myfont.render('To Tower', True, COLORS.BLACK)
+
 
 
 #Create Sound
@@ -59,9 +63,6 @@ introducer_image = pygame.transform.scale(introducer_image, (int(int_widht * sca
 background_widht = background.get_width()
 background_height = background.get_height()
 background = pygame.transform.scale(background, (int(background_widht * scale_bg), int(background_height * scale_bg)))
-text_widht = text.get_width()
-text_height = text.get_height()
-text = pygame.transform.scale(text, (int(text_widht * scale_text), int(text_height * scale_text)))
 current_sprite = character_image
 
 # Set initial position
@@ -77,8 +78,8 @@ def draw():
     screen.blit(background, (0,0))
     screen.blit(floor, (0,730))
     screen.blit(door, (990,420))
-    screen.blit(text, (865, 220))
     screen.blit(introducer_image, (100, 150))
+    screen.blit(text, (990,310))
     if visible == True:
         screen.blit(character_image, (character_x, character_y))
     pygame.display.update()
