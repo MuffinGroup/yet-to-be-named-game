@@ -34,8 +34,9 @@ leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
 rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 
 #Create Text
-myfont = pygame.font.SysFont('joystixmonospaceregular', 40)
-text = myfont.render('To Tower', True, COLORS.BLACK)
+doorfont = pygame.font.SysFont('joystixmonospaceregular', 30)
+myfont = pygame.font.SysFont('joystixmonospaceregular', 20)
+text = doorfont.render('To Tower', True, COLORS.BLACK)
 int10 = myfont.render('Hello!', True, COLORS.BLACK)
 int11 = myfont.render('Nice to see you!', True, COLORS.BLACK)
 
@@ -81,9 +82,9 @@ def draw():
     screen.blit(floor, (0,730))
     screen.blit(door, (990,420))
     screen.blit(introducer_image, (100, 150))
-    screen.blit(text, (990,310))
+    screen.blit(text, (1030,310))
     screen.blit(int10, (100,100))
-    screen.blit(int11, (100,150))
+    screen.blit(int11, (100,130))
 
     if visible == True:
         screen.blit(character_image, (character_x, character_y))
