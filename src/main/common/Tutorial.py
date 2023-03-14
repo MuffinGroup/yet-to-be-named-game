@@ -1,9 +1,6 @@
 import pygame
-import math
-from colors import *
+import colors
 import animations
-import registerIdles
-import registerText
 
 
 # Initialize Pygame
@@ -36,7 +33,7 @@ rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 
 #Create Text
 doorfont = pygame.font.SysFont('joystixmonospaceregular', 30)
-text = doorfont.render('To Tower', True, COLORS.BLACK)
+text = doorfont.render('To Tower', True, colors.BLACK)
 
 
 
@@ -75,7 +72,7 @@ character_speed = 5
 
 def draw():
     # Draw the character and update the screen
-    screen.fill(COLORS.BLACK)
+    screen.fill(colors.BLACK)
     screen.blit(background, (0,0))
     screen.blit(floor, (0,730))
     screen.blit(door, (990,420))

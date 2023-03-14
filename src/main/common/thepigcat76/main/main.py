@@ -1,5 +1,5 @@
 import pygame
-from colors import *
+import colors
 import animations
 
 class main():
@@ -168,7 +168,7 @@ class main():
             currentSprite = animations.walking_sprite[WalkingValue]
 
         # Draw the character and update the screen
-        screen.fill(COLORS.BLACK)
+        screen.fill(colors.BLACK)
         screen.blit(background, (0,0))
         screen.blit(floor, (0,730))
         currentDoorSprite = pygame.transform.scale(currentDoorSprite, (int(door_width * scale/2), int(door_height * scale/2)))

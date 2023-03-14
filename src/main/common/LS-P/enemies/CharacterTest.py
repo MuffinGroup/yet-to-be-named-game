@@ -1,5 +1,5 @@
 import pygame
-from colors import*
+import colors
 
 # Initialize Pygame
 pygame.init()
@@ -46,7 +46,7 @@ while running:
             character_y += character_speed
 
      # Draw the character and update the screen
-     screen.fill(COLORS.GRAY)
+     screen.fill(colors.GRAY)
      screen.blit(character_image, (character_x, character_y))
      pygame.display.update()
      clock.tick(60)

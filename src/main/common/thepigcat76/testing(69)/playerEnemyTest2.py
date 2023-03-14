@@ -1,8 +1,6 @@
 import pygame
-import registerDoors
 import registerEnemies
-import registerPlayer
-from colors import*
+import colors
 import math
 
 # Initialize Pygame
@@ -15,9 +13,9 @@ scalePopUps = 3
 doorClosedSprite = pygame.image.load('src/main/assets/elements/doors/door_1_closed.png')
 screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 pygame.display.set_caption("Muffin Group")
-leftWall = pygame.draw.rect(screen, COLORS.BLACK, (0,0,2,1000), 0)
-rightWall = pygame.draw.rect(screen, COLORS.BLACK, (1100,0,2,1000), 0)
-door = pygame.draw.rect(screen, COLORS.BLACK, (1100,0,2,1000), 0)
+leftWall = pygame.draw.rect(screen, colors.BLACK, (0,0,2,1000), 0)
+rightWall = pygame.draw.rect(screen, colors.BLACK, (1100,0,2,1000), 0)
+door = pygame.draw.rect(screen, colors.BLACK, (1100,0,2,1000), 0)
 
 # Set up the clock
 clock = pygame.time.Clock()
@@ -121,7 +119,7 @@ while True:
     
     # Update the display
     pygame.display.update()
-    screen.fill(COLORS.GRAY)
+    screen.fill(colors.GRAY)
     
     # Limit the frame rate
     clock.tick(60)

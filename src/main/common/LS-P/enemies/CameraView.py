@@ -5,7 +5,7 @@ pygame.init()
 ###
 class Player:
     def __init__(image):
-        Player.image = pygame.image.load("src\main\common\LS-P/Pictures\Character1.copy.png") # Create Player Image 🍆
+        Player.image = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1.png") # Create Player Image 🍆
         Player.image=pygame.transform.scale(Player.image,(250,250)) #🍆
         Player.image_speed= 5 #🍆
         Player.rect = pygame.Rect((50,50),(30,30)) # Create Player Rect🍆

@@ -1,6 +1,6 @@
 import pygame
 import math
-from colors import *
+import colors
 
 
 # Initialize Pygame
@@ -58,7 +58,7 @@ character_speed = 5
 
 def draw():
     # Draw the character and update the screen
-    screen.fill(COLORS.BLACK)
+    screen.fill(colors.BLACK)
     screen.blit(background, (0,0))
     screen.blit(floor, (0,730))
     screen.blit(door, (990,410))
