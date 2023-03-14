@@ -155,9 +155,13 @@ while running:
     elif keys[pygame.K_s] and Spieler.colliderect(Door) and visible == True:
         doorhandling = 1
 
-    if keys[pygame.K_LSHIFT] and walking == True and visible == True:
+    if keys[pygame.K_LSHIFT] and keys[pygame.K_a] and visible == True:
         character_speed = 7.5
-    elif keys[pygame.K_RSHIFT] and walking == True and visible == True:
+    elif keys[pygame.K_LSHIFT] and keys[pygame.K_d] and visible == True:
+        character_speed = 7.5
+    elif keys[pygame.K_RSHIFT] and keys[pygame.K_d] and visible == True:
+        character_speed = 7.5
+    elif keys[pygame.K_RSHIFT] and keys[pygame.K_a] and visible == True:
         character_speed = 7.5
     else:
         character_speed = 5
