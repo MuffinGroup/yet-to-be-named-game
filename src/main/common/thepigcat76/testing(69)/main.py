@@ -1,5 +1,7 @@
 import pygame
 import registerPlayer
+from colors import *
+
 pygame.init()
 #
 ###
@@ -23,13 +25,15 @@ class Player:
         pos_x,pos_y = camera_pos # Split camara_pos
         #
         key = pygame.key.get_pressed() # Get Keyboard Input
+<<<<<<< HEAD
+        if key[pygame.K_UP] and jumpvar == -16 and self.visible == True:
+=======
         if key[pygame.K_UP] and jumpvar == -16 and self.visible == True: # Check Keyif keys[pygame.K_UP] and jumpvar == -16 and visible == True:
             standing = False
             jumping = True
+>>>>>>> 871fb3483673b7e93c29a7560eb5bf29c3ebfefd
             jumpvar = 15
         elif key[pygame.K_SPACE] and jumpvar == -16 and self.visible == True:
-            standing = False
-            jumping = True
             jumpvar = 15
 
         if jumpvar == 15:
@@ -42,6 +46,7 @@ class Player:
             self.rect.y -= (jumpvar**2)*0.17*n
             pos_y += (jumpvar**2)*0.17*n
             jumpvar -= 1
+
         if key[pygame.K_LEFT] and self.visible == True:
             self.standing = False
             self.walking = True
@@ -92,8 +97,8 @@ def Main(display,clock):
         
         camera_pos = player.move(camera_pos) # Run Player Move Function And Return New Camera Pos
         
-        display.fill(colors["WHITE"]) # Fill The Background White To Avoid Smearing
         player.render(world) # Render The Player
+        display.fill(COLORS.WHITE) # Fill The Background White To Avoid Smearing
         display.blit(world,camera_pos) # Render Map To The Display
         world.blit(background, (0,0))
         #
@@ -104,13 +109,4 @@ if __name__ in "__main__":
     display = pygame.display.set_mode((1000,600), pygame.RESIZABLE)
     pygame.display.set_caption("CameraView")
     clock = pygame.time.Clock()
-    #
-    global colors # Difign Colors
-    colors = {
-    "WHITE":(255,255,255),
-    "RED"  :(255,0,0),
-    "GREEN":(0,255,0),
-    "BLUE" :(0,0,255),
-    "BLACK":(0,0,0)
-    }
     Main(display,clock) # Run Main Loop
