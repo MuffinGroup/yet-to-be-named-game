@@ -11,10 +11,10 @@ screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Load images
-character_img = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1.png")
+character_img = pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations\character_1.png")
 character_img=pygame.transform.scale(character_img,(250,250))
 screen.blit(character_img,(340,190))
-enemy_img = pygame.image.load("src\main/assets\entities\enemies\Oger2.png")
+enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img=pygame.transform.scale(enemy_img,(400,400))
 screen.blit(enemy_img,(340,190))
 

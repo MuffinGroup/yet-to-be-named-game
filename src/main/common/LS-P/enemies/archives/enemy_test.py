@@ -1,6 +1,7 @@
+#This file is abandoned
 import pygame
 import math
-from colors import *
+import colors
 
 # Initialize Pygame
 pygame.init()
@@ -11,7 +12,7 @@ screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Load enemy image
-enemy_img = pygame.image.load("src\main/assets\entities\enemies\Oger2.png")
+enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img=pygame.transform.scale(enemy_img,(250,250))
 screen.blit(enemy_img,(340,190))
 
@@ -68,7 +69,7 @@ while running:
         enemy.attack()
     
     # Draw game objects
-    screen.fill(COLORS.WHITE)
+    screen.fill(colors.WHITE)
     enemy.draw(screen)
     pygame.display.update()
 

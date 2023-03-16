@@ -9,13 +9,13 @@ class main():
     clock = pygame.time.Clock()
 
     #Loading world elements
-    background = pygame.image.load("src/main/assets/elements/background/hallway.jpg")
-    floor = pygame.image.load("src\main/assets/elements/background/floor.jpg")
-    door_closed = pygame.image.load("src\main/assets\elements\doors\door_1_closed.png")
-    door_open = pygame.image.load("src\main/assets\elements\doors\door_1_open.png")
+    background = pygame.image.load("src\main/assets/textures\elements/background\placeholder_background_0.jpg")
+    floor = pygame.image.load("src\main/assets/textures\elements/background\placeholder_floor.jpg")
+    door_closed = pygame.image.load("src\main/assets/textures\elements\doors\door_1_closed.png")
+    door_open = pygame.image.load("src\main/assets/textures/elements\doors\door_1_open.png")
 
     #Loading utility stuff
-    icon = pygame.image.load('src/main/assets/gui/icon/icon.png')
+    icon = pygame.image.load('src/main/assets/textures/elements/gui/icon/icon.png')
 
     #Assigning variables
     #Character size
@@ -51,10 +51,9 @@ class main():
     pygame.display.set_icon(icon)
     pygame.display.set_caption("Muffin Group")
 
-    jumpsound = pygame.mixer.Sound("src/main/assets/sounds/entities/jump.wav")
-    doorsound = pygame.mixer.Sound("src\main/assets\sounds\entities\Door_Closing.wav")
-    character_image_main = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha
-    character_image = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha()
+    jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
+    doorsound = pygame.mixer.Sound("src\main/assets\sounds\door_closing.wav")
+    character_image = pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations\character_1.png").convert_alpha()
 
     # Create a screen surface
     leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)

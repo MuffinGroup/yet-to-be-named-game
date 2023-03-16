@@ -1,3 +1,5 @@
+#This file is abandoned
+
 #Importieren u.initialisieren der Pygame-Bibliothek
 import pygame
 pygame.init()
@@ -13,7 +15,7 @@ GRAU   =(155,155,155)
 spielaktiv=True
 
 #gegner
-gegnerBILD=pygame.image.load("src\main/assets\elements/background\Background final2.jpg")
+gegnerBILD=pygame.image.load("src\main/assets/textures\elements/background\placeholder_background_0.jpg")
 bildgroessen=gegnerBILD.get_rect()
 print(bildgroessen)
 print(bildgroessen.center[0])
@@ -22,7 +24,7 @@ print(bildgroessen.width)
 print(bildgroessen.height)
 
 #Definieren und Öffnen eines neuen Fensters
-gegnerBILD=pygame.image.load("src\main/assets\entities\enemies\Oger2.png")
+gegnerBILD=pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 gegnerBild=pygame.transform.scale(gegnerBILD,(400,400))
 screen.blit(gegnerBild,(400,400))
 fenster=pygame.display.set_mode((screen_width, screen_height))
@@ -46,8 +48,3 @@ while spielaktiv:
     
     #Spielfeld löschen
     fenster.fill(GRAU)
-
-    
-
-
-

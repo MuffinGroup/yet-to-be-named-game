@@ -5,14 +5,14 @@ pygame.init()
 ###
 class Player:
     def __init__(image):
-        Player.image = pygame.image.load("src\main/assets\entities\characters\Character1\Animations\Character1.png") # Create Player Image 🍆
-        Player.image=pygame.transform.scale(Player.image,(250,250)) #🍆
-        Player.image_speed= 5 #🍆
-        Player.rect = pygame.Rect((50,50),(30,30)) # Create Player Rect🍆
+        Player.image = pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations\character_1.png") # Create Player Image 
+        Player.image=pygame.transform.scale(Player.image,(250,250))
+        Player.image_speed= 5
+        Player.rect = pygame.Rect((50,50),(30,30)) # Create Player Rect
     def move(self,camera_pos):
-        pos_x,pos_y = camera_pos # Split camara_pos🍆
+        pos_x,pos_y = camera_pos # Split camara_pos
         #
-        key = pygame.key.get_pressed() # Get Keyboard Input🍆
+        key = pygame.key.get_pressed() # Get Keyboard Input
         if key[pygame.K_UP]: # Check Key
             self.rect.y -= Player.image_speed # Move Player Rect Coord
             pos_y +=  Player.image_speed # Move Camara Coord Against Player Rect
@@ -46,7 +46,7 @@ class Player:
 #
 #
 ###
-background = pygame.image.load("src\main/assets\elements/background\Background final2.jpg")
+background = pygame.image.load("src\main/assets/textures\elements/background\placeholder_background_0.jpg")
 background=pygame.transform.scale(background,(2000,2000))
 
 def Main(display,clock):

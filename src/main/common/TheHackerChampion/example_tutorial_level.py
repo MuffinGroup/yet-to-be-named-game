@@ -1,5 +1,4 @@
 import pygame
-import math
 import colors
 
 
@@ -8,9 +7,9 @@ pygame.init()
 clock = pygame.time.Clock()
 
 #Load background
-background = pygame.image.load("src/main/assets/elements/background/hallway.jpg")
-floor = pygame.image.load("src\main/assets/elements/background/floor.jpg")
-door = pygame.image.load("src/main/assets/elements/doors/door_1_closed.png")
+background = pygame.image.load("src\main/assets/textures\elements/background\placeholder_background_0.jpg")
+floor = pygame.image.load("src\main/assets/textures/elements/background/placeholder_floor.jpg")
+door = pygame.image.load("src/main/assets/textures/elements/doors/door_1_closed.png")
 
 # Set screen dimensions
 scale = 10
@@ -21,20 +20,20 @@ screen_height = 800
 
 # Create a screen surface
 screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
-icon = pygame.image.load('src/main/assets/gui/icon/icon.png')
+icon = pygame.image.load('src\main/assets/textures\elements\gui\icon\icon.png')
 pygame.display.set_icon(icon)
 pygame.display.set_caption("Muffin Group")
 leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
 rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 
 #Create Sound
-jumpsound = pygame.mixer.Sound("src/main/assets/sounds/entities/jump.wav")
+jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
 jumpsound.set_volume(0.25)
-doorsound = pygame.mixer.Sound("src\main/assets\sounds\entities\Door_Closing.wav")
+doorsound = pygame.mixer.Sound("src\main/assets\sounds\door_closing.wav")
 
 # Load character image
-character_image = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha()
-introducer_image = pygame.image.load("src/main/assets/entities/enemies/Oger2.png")
+character_image = pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations\character_1.png").convert_alpha()
+introducer_image = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 
 #Image dimensions
 image_width = character_image.get_width()
@@ -104,7 +103,7 @@ while running:
         jumpvar -= 1
 
     if doorhandling == 1:
-        door = pygame.image.load("src/main/assets/elements/doors/door_1_open.png")
+        door = pygame.image.load("src/main/assets/textures/elements/doors/door_1_open.png")
         door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
 
     draw()
@@ -112,7 +111,7 @@ while running:
     if doorhandling == 1:
         pygame.time.wait(500)
         pygame.mixer.Sound.play(doorsound)
-        door = pygame.image.load("src/main/assets/elements/doors/door_1_closed.png")
+        door = pygame.image.load("src/main/assets/textures/elements/doors/door_1_closed.png")
         door = pygame.transform.scale(door, (int(door_width * scale), int(door_height * scale)))
         visible = False
         doorhandling = 0
