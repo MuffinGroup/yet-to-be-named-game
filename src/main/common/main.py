@@ -1,6 +1,7 @@
 import pygame
 import colors
 import animations
+import output
 
 pygame.init()
 
@@ -102,11 +103,13 @@ def Main(display,clock):
     idleValue = 0
     WalkingValue = 0
 
+    output.log("Started succesfully")
     while True:
         clock.tick(60)
         for event in pygame.event.get():
             if event.type == pygame.QUIT or(event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE):
                 pygame.quit()
+                output.log("Closed successfully")
                 return
 
         if idleValue >= len(animations.idle_sprite):
