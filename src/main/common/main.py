@@ -57,6 +57,7 @@ class Player:
             pos_x += Player.image_speed
         else:
             Player.standing = True
+            Player.walkingLeft = False
 
         if key[pygame.K_RIGHT] and self.visible == True:
             Player.walkingRight = True
@@ -66,6 +67,7 @@ class Player:
             pos_x -= Player.image_speed
         else:
             Player.standing = True
+            Player.walkingRight = False
         
         if self.rect.x < 0: # Simple Sides Collision
             self.rect.x = 0 # Reset Player Rect Coord
@@ -87,7 +89,7 @@ class Player:
     
     def render(self,display):
         if self.visible == True:
-            Player.currentSprite= pygame.transform.scale(Player.currentSprite,(250,250))
+            Player.currentSprite = pygame.transform.scale(Player.currentSprite,(250,250))
             display.blit(self.currentSprite,(self.rect.x,self.rect.y))
 
 background = pygame.image.load("src\main/assets/textures\elements/background\placeholder_background_0.jpg")
@@ -127,9 +129,7 @@ def Main(display,clock):
         if Player.walkingLeft == True:
             Player.currentSprite = animations.walking_sprite[WalkingValue]
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
-
-        if Player.standingLeft == True:
-            Player.currentSprite = animations.idle_sprite[idleValue]
+        elif Player.walkingRight == False:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
         
         player.render(world) # Render The Player
