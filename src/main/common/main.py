@@ -51,21 +51,21 @@ class Player:
 
         if key[pygame.K_LEFT] and self.visible == True:
             Player.walkingLeft = True
+            Player.walkingRight = False
             Player.standing = False
-            Player.standingLeft = True
             self.rect.x -= Player.image_speed 
             pos_x += Player.image_speed
         else:
-            Player.walkingLeft = False
+            Player.standing = True
 
         if key[pygame.K_RIGHT] and self.visible == True:
             Player.walkingRight = True
+            Player.walkingLeft = False
             Player.standing = False
-            Player.standingRight = True
             self.rect.x += Player.image_speed 
             pos_x -= Player.image_speed
         else:
-            Player.walkingRight = False
+            Player.standing = True
         
         if self.rect.x < 0: # Simple Sides Collision
             self.rect.x = 0 # Reset Player Rect Coord
@@ -103,13 +103,11 @@ def Main(display,clock):
     idleValue = 0
     WalkingValue = 0
 
-    output.log("Started succesfully")
     while True:
         clock.tick(60)
         for event in pygame.event.get():
             if event.type == pygame.QUIT or(event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE):
                 pygame.quit()
-                output.log("Closed successfully")
                 return
 
         if idleValue >= len(animations.idle_sprite):
@@ -127,9 +125,11 @@ def Main(display,clock):
             Player.currentSprite = animations.walking_sprite[WalkingValue]
             
         if Player.walkingLeft == True:
+            Player.currentSprite = animations.walking_sprite[WalkingValue]
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
         if Player.standingLeft == True:
+            Player.currentSprite = animations.idle_sprite[idleValue]
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
         
         player.render(world) # Render The Player
