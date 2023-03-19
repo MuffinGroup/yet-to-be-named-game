@@ -13,14 +13,10 @@ class Player:
         Player.currentSprite = Player.rightImage
         Player.image_speed= 5 
         Player.jumpvar = -16
-        Player.standingRight = True
-        Player.standingLeft = False
+        Player.facingRight = True
+        Player.facingLeft = False
         Player.standing = True
-        Player.jumpingRight = False
-        Player.jumpingLeft = False
         Player.jumping = False
-        Player.walkingRight = False
-        Player.walkingLeft = False
         Player.walking = False
         Player.rect = pygame.Rect((50,50),(30,30)) # Create Player Rect
 
@@ -128,8 +124,6 @@ def Main(display,clock):
             
         if Player.walkingLeft == True:
             Player.currentSprite = animations.walking_sprite[WalkingValue]
-            Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
-        elif Player.walkingRight == False:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
         
         player.render(world) # Render The Player
