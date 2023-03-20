@@ -46,24 +46,23 @@ class Player:
             Player.jumpvar -= 1
 
         if key[pygame.K_LEFT] and self.visible == True:
-            Player.walkingLeft = True
-            Player.walkingRight = False
+            print("?")
+            Player.walking = True
             Player.standing = False
             self.rect.x -= Player.image_speed 
             pos_x += Player.image_speed
         else:
             Player.standing = True
-            Player.walkingLeft = False
+            Player.walking = False
 
         if key[pygame.K_RIGHT] and self.visible == True:
-            Player.walkingRight = True
-            Player.walkingLeft = False
+            Player.walking = True
             Player.standing = False
             self.rect.x += Player.image_speed 
             pos_x -= Player.image_speed
         else:
             Player.standing = True
-            Player.walkingRight = False
+            Player.walking = False
         
         if self.rect.x < 0: # Simple Sides Collision
             self.rect.x = 0 # Reset Player Rect Coord
@@ -74,12 +73,6 @@ class Player:
         elif self.rect.y > 1980:
             self.rect.y = 1980
             pos_y = camera_pos[1]
-
-        if Player.standingLeft == True or Player.standingRight == True:
-            Player.standing = True
-
-        if Player.walkingLeft == True or Player.walkingRight == True:
-            Player.walking = True
         
         return (pos_x,pos_y) # Return New Camera Pos
     
@@ -119,12 +112,9 @@ def Main(display,clock):
         camera_pos = player.move(camera_pos) # Run Player Move Function And Return New Camera Pos
 
         #Player position detection
-        if Player.walkingRight == True:
+        if Player.walking == True:
+            WalkingValue += 1
             Player.currentSprite = animations.walking_sprite[WalkingValue]
-            
-        if Player.walkingLeft == True:
-            Player.currentSprite = animations.walking_sprite[WalkingValue]
-            Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
         
         player.render(world) # Render The Player
         display.fill(colors.WHITE) # Fill The Background White To Avoid Smearing
@@ -133,9 +123,6 @@ def Main(display,clock):
 
         if Player.standing == True:
             idleValue += 1
-
-        if Player.walking == True:
-            WalkingValue += 1
         
         pygame.display.flip()
 
