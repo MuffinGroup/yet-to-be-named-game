@@ -45,7 +45,7 @@ doorsound = pygame.mixer.Sound("src\main/assets\sounds\Door_Closing.wav")
 # Load character image
 character_image = pygame.image.load("src/main/assets/textures/entities/characters/character_1/animations/character_1.png").convert_alpha()
 character_image_inverted = pygame.transform.flip(character_image, True, False)
-introducer_image = pygame.image.load("src/main/assets/textures/entities/enemies/placeholder_enemy.png")
+introducer_image = pygame.image.load("src/main/assets/textures/entities/npc/npc.png")
 
 #Image dimensions
 image_width = character_image.get_width()
@@ -76,7 +76,7 @@ def draw():
     screen.blit(background, (-200,0))
     screen.blit(floor, (0,730))
     screen.blit(door, (990,420))
-    screen.blit(introducer_image, (100, 150))
+    screen.blit(introducer_image, (850, 400))
     screen.blit(text, (1030,310))
 
     if visible == True:
