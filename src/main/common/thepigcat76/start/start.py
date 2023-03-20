@@ -2,7 +2,7 @@ import pygame
 import registerButton
 import colors
 
-start_background = pygame.image.load("src/main/assets/elements/background/start.jpg")
+start_background = pygame.image.load("src/main/assets/textures/elements/background/placeholder_startscreen.jpg")
 
 pygame.init()
 smallfont = pygame.font.SysFont("joystixmonospaceregular", 40)
@@ -11,10 +11,9 @@ mouse = pygame.mouse.get_pos
 screen = pygame.display.set_mode((720,720), pygame.RESIZABLE)
 start = smallfont.render('Start Game' , True , colors.WHITE)
 quit = smallfont.render('Quit Game' , True , colors.WHITE)
-icon = pygame.image.load('src\main/assets\gui/icon\MuffinLogo.png')
-icon_selected = pygame.image.load('src//main//assets//gui//icon//icon_selected.png')
-button = pygame.image.load('src//main//assets//gui//button.png')
-button_selected = pygame.image.load('src//main//assets//gui//button_selected.png')
+icon = pygame.image.load('src\main/assets/textures/elements\gui/icon\icon_new.png')
+button = pygame.image.load('src\main/assets/textures\elements\gui/button.png')
+button_selected = pygame.image.load('src//main//assets//textures//elements//gui//button_selected.png')
 pygame.display.set_icon(icon)
 pygame.display.set_caption("Muffin Group")
 start_button = registerButton.Button("button" ,350, 250, 6.0, "start", colors.BLACK, "joystixmonospaceregular")
