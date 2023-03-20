@@ -21,6 +21,12 @@ int32 = textfont.render('Great!', True, colors.BLACK)
 int33 = textfont.render('To walk back press LEFT or a', True, colors.BLACK)
 int33 = textfont.render('Well done!', True, colors.BLACK)
 
+int40 = textfont.render('If you want to be faster', True, colors.BLACK)
+int41 = textfont.render('you can press SHIFT to sprint', True, colors.BLACK)
+int42 = textfont.render('That`s faster, right?', True, colors.BLACK)
+
+
+
 
 
 def introduction(screen):
