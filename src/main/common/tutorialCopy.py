@@ -81,7 +81,7 @@ def draw():
     screen.blit(door, (990,420))
     screen.blit(introducer_image, (850, 400))
     screen.blit(text, (1030,310))
-    registerText.introduction(screen)
+    registerText.introduction(running, jumpvar, doorhandling, visible, standing, walking, jumping, character_speed, character_x, character_y, leftWall, rightWall, screen)
 
     if visible == True:
         screen.blit(character_image, (character_x, character_y))

@@ -45,14 +45,29 @@ int74 = textfont.render('to start the game.', True, colors.BLACK)
 int75 = textfont.render('Good luck!', True, colors.BLACK)
 
 
+Info1 = True
+Info2 = False
+Info3 = False
+Info4 = False
+Info5 = False
+Info6 = False
+Info7 = False
 
 
+def introduction(running, jumpvar, doorhandling, visible, standing, walking, jumping, character_speed, character_x, character_y, leftWall, rightWall, screen):
 
-def introduction(screen):
-    screen.blit(int10, (100,100))
-    screen.blit(int11, (100,125))
-    screen.blit(int12, (100,150))
-    screen.blit(int13, (100,175))
-    screen.blit(int14, (100,200))
-    screen.blit(int15, (100,250))
-    
+    keys = pygame.key.get_pressed()
+    Spieler = pygame.Rect(character_x, character_y, 40, 80)
+    Door = pygame.Rect(990, 410, 40, 80)
+
+    if Info1 == True:
+        screen.blit(int10, (100,100))
+        screen.blit(int11, (100,125))
+        screen.blit(int12, (100,150))
+        screen.blit(int13, (100,175))
+        screen.blit(int14, (100,200))
+        screen.blit(int15, (100,250))
+        if keys[pygame.K_KP_ENTER]:
+            Info1 = False
+            Info2 = True
+        
