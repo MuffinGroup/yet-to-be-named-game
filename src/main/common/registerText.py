@@ -15,6 +15,14 @@ int21 = textfont.render('you should learn how to move and act.', True, colors.BL
 int22 = textfont.render('I will explain this now', True, colors.BLACK)
 int23 = textfont.render('Press Enter', True, colors.BLACK)
 
+int30 = textfont.render('First we learn how to walk.', True, colors.BLACK)
+int31 = textfont.render('To walk forward press RIGHT or d', True, colors.BLACK)
+int32 = textfont.render('Great!', True, colors.BLACK)
+int33 = textfont.render('To walk back press LEFT or a', True, colors.BLACK)
+int33 = textfont.render('Well done!', True, colors.BLACK)
+
+
+
 def introduction(screen):
     screen.blit(int10, (100,100))
     screen.blit(int11, (100,125))
