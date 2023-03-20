@@ -3,6 +3,7 @@ import colors
 
 pygame.init()
 textfont = pygame.font.SysFont('joystixmonospaceregular', 20)
+
 int10 = textfont.render('Hello!', True, colors.BLACK)
 int11 = textfont.render('Nice to see you!', True, colors.BLACK)
 int12 = textfont.render('In this game you will find', True, colors.BLACK)
@@ -28,6 +29,13 @@ int42 = textfont.render('That`s faster, right?', True, colors.BLACK)
 int50 = textfont.render('Sometimes you have to jump.', True, colors.BLACK)
 int51 = textfont.render('For this press UP or SPACE.', True, colors.BLACK)
 int52 = textfont.render('Nice jump!', True, colors.BLACK)
+
+int60 = textfont.render('Now you know how to move.', True, colors.BLACK)
+int61 = textfont.render('But of course there are some enemies.', True, colors.BLACK)
+int62 = textfont.render('So you have to attack them.', True, colors.BLACK)
+int63 = textfont.render('For this press F', True, colors.BLACK)
+int64 = textfont.render('Try it out on this oger!', True, colors.BLACK)
+int65 = textfont.render('Good job!', True, colors.BLACK)
 
 
 
