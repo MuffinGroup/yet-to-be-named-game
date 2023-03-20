@@ -46,18 +46,23 @@ class Player:
             Player.jumpvar -= 1
 
         if key[pygame.K_LEFT] and self.visible == True:
+            print("?")
+            Player.walking = True
             Player.standing = False
             self.rect.x -= Player.image_speed 
             pos_x += Player.image_speed
         else:
             Player.standing = True
+            Player.walking = False
 
         if key[pygame.K_RIGHT] and self.visible == True:
+            Player.walking = True
             Player.standing = False
             self.rect.x += Player.image_speed 
             pos_x -= Player.image_speed
         else:
             Player.standing = True
+            Player.walking = False
         
         if self.rect.x < 0: # Simple Sides Collision
             self.rect.x = 0 # Reset Player Rect Coord
@@ -108,6 +113,7 @@ def Main(display,clock):
 
         #Player position detection
         if Player.walking == True:
+            WalkingValue += 1
             Player.currentSprite = animations.walking_sprite[WalkingValue]
         
         player.render(world) # Render The Player
@@ -117,9 +123,6 @@ def Main(display,clock):
 
         if Player.standing == True:
             idleValue += 1
-
-        if Player.walking == True:
-            WalkingValue += 1
         
         pygame.display.flip()
 
