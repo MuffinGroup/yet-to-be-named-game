@@ -123,6 +123,8 @@ def Main(display,clock):
 
         if Player.standing == True:
             idleValue += 1
+
+                
         
         pygame.display.flip()
 

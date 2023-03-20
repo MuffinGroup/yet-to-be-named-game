@@ -133,7 +133,7 @@ while running:
         currentSprite = animations.walking_sprite[WalkingValue]
 
     draw()
-    registerText.introduction()
+    registerText.int10
     currentSprite = pygame.transform.scale(currentSprite, (int(characterWidth * scale), int(characterHeight * scale)))    
     if visible == True:
         screen.blit(currentSprite, (character_x, character_y))
