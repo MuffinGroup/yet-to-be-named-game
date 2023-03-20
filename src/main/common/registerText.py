@@ -9,4 +9,4 @@ def introduction():
     int12 = textfont.render('In this game you will find', True, colors.BLACK)
     int13 = textfont.render('some nice levels with enemies,', True, colors.BLACK)
     int14 = textfont.render('interesting tasks and much more!', True, colors.BLACK)
-    int15 = textfont.render('Next: Enter')
+    int15 = textfont.render('Press Enter')
