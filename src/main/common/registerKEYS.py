@@ -1,23 +1,7 @@
 import pygame
 
-def keyinput():
-    # Set initial position
-    character_x = 0
-    character_y = 410
+def keyinput(running, jumpvar, doorhandling, visible, standing, walking, jumping, character_speed, character_x, character_y, leftWall, rightWall):
 
-    screen_width = 1280
-    screen_height = 800
-    screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
-    leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
-    rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
-
-    running = True
-    jumpvar = -16
-    doorhandling = 0
-    visible = True
-    standing = True
-    walking = False
-    jumping = False
 
     # Handle keyboard input
     keys = pygame.key.get_pressed()

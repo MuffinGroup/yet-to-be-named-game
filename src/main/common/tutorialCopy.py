@@ -3,6 +3,7 @@ import math
 import colors
 import animations
 import registerText
+import registerKEYS
 
 
 # Initialize Pygame
@@ -114,7 +115,7 @@ while running:
     if WalkingValue >= len(animations.walking_sprite):
         WalkingValue = 0
     
-
+    registerKEYS.keyinput(running, jumpvar, doorhandling, visible, standing, walking, jumping, character_speed, character_x, character_y, leftWall, rightWall)
 
     if jumpvar == 15:
         pygame.mixer.Sound.play(jumpsound)
