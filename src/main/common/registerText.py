@@ -10,3 +10,9 @@ def introduction():
     int13 = textfont.render('some nice levels with enemies,', True, colors.BLACK)
     int14 = textfont.render('interesting tasks and much more!', True, colors.BLACK)
     int15 = textfont.render('Press Enter', True, colors.BLACK)
+
+    screen_width = 1280
+    screen_height = 800
+    screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
+
+    screen.blit(int10, (100,100))
