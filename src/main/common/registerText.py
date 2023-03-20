@@ -22,8 +22,13 @@ int33 = textfont.render('To walk back press LEFT or a', True, colors.BLACK)
 int33 = textfont.render('Well done!', True, colors.BLACK)
 
 int40 = textfont.render('If you want to be faster', True, colors.BLACK)
-int41 = textfont.render('you can press SHIFT to sprint', True, colors.BLACK)
+int41 = textfont.render('you can press SHIFT to sprint.', True, colors.BLACK)
 int42 = textfont.render('That`s faster, right?', True, colors.BLACK)
+
+int50 = textfont.render('Sometimes you have to jump.', True, colors.BLACK)
+int51 = textfont.render('For this press UP or SPACE.', True, colors.BLACK)
+int52 = textfont.render('Nice jump!', True, colors.BLACK)
+
 
 
 
