@@ -37,6 +37,12 @@ int63 = textfont.render('For this press F', True, colors.BLACK)
 int64 = textfont.render('Try it out on this oger!', True, colors.BLACK)
 int65 = textfont.render('Good job!', True, colors.BLACK)
 
+int70 = textfont.render('Now you got the controls.', True, colors.BLACK)
+int71 = textfont.render('If you are ready go to the door.', True, colors.BLACK)
+int72 = textfont.render('This door will bring you to the castle.', True, colors.BLACK)
+int73 = textfont.render('And now press DOWN or s', True, colors.BLACK)
+int74 = textfont.render('to start the game.', True, colors.BLACK)
+int75 = textfont.render('Good luck!', True, colors.BLACK)
 
 
 
