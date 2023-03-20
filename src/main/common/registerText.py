@@ -70,7 +70,7 @@ def introduction(running, jumpvar, doorhandling, visible, standing, walking, jum
         screen.blit(int13, (100,175))
         screen.blit(int14, (100,200))
         screen.blit(int15, (100,250))
-        if keys[pygame.K_KP_ENTER]:
+        if keys[pygame.K_RETURN]:
             print('enter')
             Info1 = 'off'
             Info2 = 'on'
