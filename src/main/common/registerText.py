@@ -49,7 +49,8 @@ Info1 = 'on'
 Info2 = 'off'
 Info3_1 = 'off'
 Info3_2 = 'off'
-Info4 = 'off'
+Info4_1 = 'off'
+Info4_2 = 'off'
 Info5 = 'off'
 Info6 = 'off'
 Info7 = 'off'
@@ -62,7 +63,7 @@ def introduction(running, jumpvar, doorhandling, visible, standing, walking, jum
     Spieler = pygame.Rect(character_x, character_y, 40, 80)
     Door = pygame.Rect(990, 410, 40, 80)
 
-    global Info1, Info2, Info3_1,Info3_2, Info4, Info5, Info6, Info7
+    global Info1, Info2, Info3_1,Info3_2, Info4_1, Info4_2, Info5, Info6, Info7
 
 
     if Info1 == 'on':
@@ -126,5 +127,26 @@ def introduction(running, jumpvar, doorhandling, visible, standing, walking, jum
             pygame.time.wait(200)
             Info3_2 = 'off'
             Info4 = 'on'
+
         
-    
+        if Info4_1 == 'on':
+            screen.blit(int40, (100,100))
+            screen.blit(int41, (100,125))
+            if keys[pygame.K_LSHIFT] and keys[pygame.K_a] and visible == True:
+                character_speed = 7.5
+            elif keys[pygame.K_LSHIFT] and keys[pygame.K_d] and visible == True:
+                character_speed = 7.5
+            elif keys[pygame.K_RSHIFT] and keys[pygame.K_d] and visible == True:
+                character_speed = 7.5
+            elif keys[pygame.K_RSHIFT] and keys[pygame.K_a] and visible == True:
+                character_speed = 7.5
+            elif keys[pygame.K_LSHIFT] and keys[pygame.K_RIGHT] and visible == True:
+                character_speed = 7.5
+            elif keys[pygame.K_LSHIFT] and keys[pygame.K_LEFT] and visible == True:
+                character_speed = 7.5
+            elif keys[pygame.K_RSHIFT] and keys[pygame.K_RIGHT] and visible == True:
+                character_speed = 7.5
+            elif keys[pygame.K_RSHIFT] and keys[pygame.K_LEFT] and visible == True:
+                character_speed = 7.5
+            else:
+                character_speed = 5

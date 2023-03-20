@@ -12,7 +12,6 @@ def keyinput(running, jumpvar, doorhandling, visible, standing, walking, jumping
         standing = False
         walking = True
         character_x -= character_speed
-        print('test sucess')
     elif keys[pygame.K_a] and not Spieler.colliderect(leftWall) and visible == True:
         standing = False
         walking = True
