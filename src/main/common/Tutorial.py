@@ -8,13 +8,13 @@ pygame.init()
 clock = pygame.time.Clock()
 
 #Load background
-background = pygame.image.load("src\main/assets\elements/background\Tutorial.jpg")
-floor = pygame.image.load("src\main/assets/elements/background/floor.jpg")
-door = pygame.image.load("src/main/assets/elements/doors/door_1_closed.png")
+background = pygame.image.load("src\main/assets/textures\elements/background\placeholder_background_1.jpg")
+floor = pygame.image.load("src\main/assets/textures/elements/background/placeholder_floor.jpg")
+door = pygame.image.load("src/main/assets/textures/elements/doors/door_1_closed.png")
 
 # Set screen dimensions
 scale = 10
-scale_bg = 1.5
+scale_bg = 3.25
 scale_text = 0.4
 
 # Set screen dimensions
@@ -25,7 +25,7 @@ characterHeight = 32
 
 # Create a screen surface
 screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
-icon = pygame.image.load('src/main/assets/gui/icon/icon.png')
+icon = pygame.image.load('src/main/assets/textures/elements/gui/icon/icon.png')
 pygame.display.set_icon(icon)
 pygame.display.set_caption("Muffin Group")
 leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
@@ -33,19 +33,19 @@ rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 
 #Create Text
 doorfont = pygame.font.SysFont('joystixmonospaceregular', 30)
-text = doorfont.render('To Tower', True, colors.BLACK)
+text = doorfont.render('To Castle', True, colors.BLACK)
 
 
 
 #Create Sound
-jumpsound = pygame.mixer.Sound("src/main/assets/sounds/entities/jump.wav")
+jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
 jumpsound.set_volume(0.20)
-doorsound = pygame.mixer.Sound("src\main/assets\sounds\entities\Door_Closing.wav")
+doorsound = pygame.mixer.Sound("src\main/assets\sounds\Door_Closing.wav")
 
 # Load character image
-character_image = pygame.image.load("src/main/assets/entities/characters/Character1/Animations/Character1.png").convert_alpha()
+character_image = pygame.image.load("src/main/assets/textures/entities/characters/character_1/animations/character_1.png").convert_alpha()
 character_image_inverted = pygame.transform.flip(character_image, True, False)
-introducer_image = pygame.image.load("src/main/assets/entities/enemies/Oger2.png")
+introducer_image = pygame.image.load("src/main/assets/textures/entities/enemies/placeholder_enemy.png")
 
 #Image dimensions
 image_width = character_image.get_width()
@@ -73,7 +73,7 @@ character_speed = 5
 def draw():
     # Draw the character and update the screen
     screen.fill(colors.BLACK)
-    screen.blit(background, (0,0))
+    screen.blit(background, (-200,0))
     screen.blit(floor, (0,730))
     screen.blit(door, (990,420))
     screen.blit(introducer_image, (100, 150))
@@ -184,7 +184,7 @@ while running:
         jumpvar -= 1
 
     if doorhandling == 1:
-        door = pygame.image.load("src/main/assets/elements/doors/door_1_open.png")
+        door = pygame.image.load("src/main/assets/textures/elements/doors/door_1_open.png")
         door = pygame.transform.scale(door, (int(door_width * scale/2), int(door_height * scale/2)))
 
     if walking == True:
@@ -199,7 +199,7 @@ while running:
     if doorhandling == 1:
         pygame.time.wait(500)
         pygame.mixer.Sound.play(doorsound)
-        door = pygame.image.load("src\main/assets\elements\doors\door_1_closed.png")
+        door = pygame.image.load("src\main/assets/textures\elements\doors\door_1_closed.png")
         door = pygame.transform.scale(door, (int(door_width * scale/2), int(door_height * scale/2)))
         visible = False
         doorhandling = 0
