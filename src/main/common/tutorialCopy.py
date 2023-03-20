@@ -35,7 +35,7 @@ rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 
 #Create Text
 doorfont = pygame.font.SysFont('joystixmonospaceregular', 30)
-text = doorfont.render('To Tower', True, colors.BLACK)
+text = doorfont.render('To Castle', True, colors.BLACK)
 
 
 

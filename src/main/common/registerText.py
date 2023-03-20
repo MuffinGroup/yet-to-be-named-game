@@ -16,3 +16,9 @@ def introduction():
     screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
 
     screen.blit(int10, (100,100))
+    screen.blit(int11, (100,125))
+    screen.blit(int12, (100,150))
+    screen.blit(int13, (100,175))
+    screen.blit(int14, (100,200))
+    screen.blit(int15, (100,225))
+    
