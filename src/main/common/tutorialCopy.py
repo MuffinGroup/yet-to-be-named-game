@@ -80,6 +80,7 @@ def draw():
     screen.blit(door, (990,420))
     screen.blit(introducer_image, (850, 400))
     screen.blit(text, (1030,310))
+    registerText.introduction(screen)
 
     if visible == True:
         screen.blit(character_image, (character_x, character_y))
@@ -133,7 +134,6 @@ while running:
         currentSprite = animations.walking_sprite[WalkingValue]
 
     draw()
-    registerText.int10
     currentSprite = pygame.transform.scale(currentSprite, (int(characterWidth * scale), int(characterHeight * scale)))    
     if visible == True:
         screen.blit(currentSprite, (character_x, character_y))
