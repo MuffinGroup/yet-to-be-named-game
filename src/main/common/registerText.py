@@ -20,7 +20,7 @@ int30 = textfont.render('First we learn how to walk.', True, colors.BLACK)
 int31 = textfont.render('To walk forward press RIGHT or d', True, colors.BLACK)
 int32 = textfont.render('Great!', True, colors.BLACK)
 int33 = textfont.render('To walk back press LEFT or a', True, colors.BLACK)
-int33 = textfont.render('Well done!', True, colors.BLACK)
+int34 = textfont.render('Well done!', True, colors.BLACK)
 
 int40 = textfont.render('If you want to be faster', True, colors.BLACK)
 int41 = textfont.render('you can press SHIFT to sprint.', True, colors.BLACK)
@@ -47,7 +47,8 @@ int75 = textfont.render('Good luck!', True, colors.BLACK)
 
 Info1 = 'on'
 Info2 = 'off'
-Info3 = 'off'
+Info3_1 = 'off'
+Info3_2 = 'off'
 Info4 = 'off'
 Info5 = 'off'
 Info6 = 'off'
@@ -61,7 +62,8 @@ def introduction(running, jumpvar, doorhandling, visible, standing, walking, jum
     Spieler = pygame.Rect(character_x, character_y, 40, 80)
     Door = pygame.Rect(990, 410, 40, 80)
 
-    global Info1, Info2, Info3, Info4, Info5, Info6, Info7
+    global Info1, Info2, Info3_1,Info3_2, Info4, Info5, Info6, Info7
+
 
     if Info1 == 'on':
         screen.blit(int10, (100,100))
@@ -71,13 +73,58 @@ def introduction(running, jumpvar, doorhandling, visible, standing, walking, jum
         screen.blit(int14, (100,200))
         screen.blit(int15, (100,250))
         if keys[pygame.K_RETURN]:
-            print('enter')
             Info1 = 'off'
             Info2 = 'on'
+
 
     if Info2 == 'on':
         screen.blit(int20, (100,100))
         screen.blit(int21, (100,125))
         screen.blit(int22, (100,150))
         screen.blit(int23, (100,175))
+        if keys[pygame.K_RETURN]:
+            Info2 = 'off'
+            Info3_1 = 'on'
+
+    
+    if Info3_1 == 'on':
+        screen.blit(int30, (100,100))
+        screen.blit(int31, (100,125))
+        if keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall) and visible == True:
+            standing = False
+            walking = True
+            character_x += character_speed
+        elif keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True:
+            standing = False
+            walking = True
+            character_x += character_speed
+        else:
+            standing = True
+            walking = False
+        if character_x >= 300:
+            Info3_1 = 'off'
+            Info3_2 = 'on'
+    
+    if Info3_2 == 'on':
+        screen.blit(int30, (100,100))
+        screen.blit(int31, (100,125))
+        screen.blit(int32, (100,150))
+        screen.blit(int33, (100,175))
+        if keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall) and visible == True:
+            standing = False
+            walking = True
+            character_x -= character_speed
+        elif keys[pygame.K_a] and not Spieler.colliderect(leftWall) and visible == True:
+            standing = False
+            walking = True
+            character_x -= character_speed
+        else:
+            standing = True
+            walking = False
+        if character_x <= 100:
+            screen.blit(int34, (100,200))
+            pygame.time.wait(200)
+            Info3_2 = 'off'
+            Info4 = 'on'
         
+    
