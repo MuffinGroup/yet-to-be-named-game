@@ -1,7 +1,10 @@
 import pygame
+import math
 import colors
 import animations
-import TutorialTest
+import registerText
+import registerKEYS
+
 
 # Initialize Pygame
 pygame.init()
@@ -15,6 +18,7 @@ door = pygame.image.load("src/main/assets/textures/elements/doors/door_1_closed.
 # Set screen dimensions
 scale = 10
 scale_bg = 3.25
+scale_text = 0.4
 
 # Set screen dimensions
 screen_width = 1280
@@ -33,6 +37,8 @@ rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 #Create Text
 doorfont = pygame.font.SysFont('joystixmonospaceregular', 30)
 text = doorfont.render('To Castle', True, colors.BLACK)
+
+
 
 #Create Sound
 jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
@@ -75,11 +81,13 @@ def draw():
     screen.blit(door, (990,420))
     screen.blit(introducer_image, (850, 400))
     screen.blit(text, (1030,310))
-    screen.blit(TutorialTest.Info1Line1, (100,100))
+    registerText.introduction(running, jumpvar, doorhandling, visible, standing, walking, jumping, character_speed, character_x, character_y, leftWall, rightWall, screen)
+    print(character_x)
 
     if visible == True:
         screen.blit(character_image, (character_x, character_y))
     pygame.display.update()
+    
 
 value = 0
 WalkingValue = 0
@@ -109,67 +117,7 @@ while running:
     if WalkingValue >= len(animations.walking_sprite):
         WalkingValue = 0
     
-    # Handle keyboard input
-    keys = pygame.key.get_pressed()
-    Spieler = pygame.Rect(character_x, character_y, 40, 80)
-    Door = pygame.Rect(990, 410, 40, 80)
-
-    if keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall) and visible == True:
-        standing = False
-        walking = True
-        character_x -= character_speed
-    elif keys[pygame.K_a] and not Spieler.colliderect(leftWall) and visible == True:
-        standing = False
-        walking = True
-        character_x -= character_speed
-    else:
-        standing = True
-        walking = False
-
-    if keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall) and visible == True:
-        standing = False
-        walking = True
-        character_x += character_speed
-    elif keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True:
-        standing = False
-        walking = True
-        character_x += character_speed
-    else:
-        standing = True
-        walking = False
-
-    if keys[pygame.K_UP] and jumpvar == -16 and visible == True:
-        standing = False
-        jumping = True
-        jumpvar = 15
-    elif keys[pygame.K_SPACE] and jumpvar == -16 and visible == True:
-        standing = False
-        jumping = True
-        jumpvar = 15
-
-    if keys[pygame.K_DOWN] and Spieler.colliderect(Door) and visible == True:
-        doorhandling = 1
-    elif keys[pygame.K_s] and Spieler.colliderect(Door) and visible == True:
-        doorhandling = 1
-
-    if keys[pygame.K_LSHIFT] and keys[pygame.K_a] and visible == True:
-        character_speed = 7.5
-    elif keys[pygame.K_LSHIFT] and keys[pygame.K_d] and visible == True:
-        character_speed = 7.5
-    elif keys[pygame.K_RSHIFT] and keys[pygame.K_d] and visible == True:
-        character_speed = 7.5
-    elif keys[pygame.K_RSHIFT] and keys[pygame.K_a] and visible == True:
-        character_speed = 7.5
-    elif keys[pygame.K_LSHIFT] and keys[pygame.K_RIGHT] and visible == True:
-        character_speed = 7.5
-    elif keys[pygame.K_LSHIFT] and keys[pygame.K_LEFT] and visible == True:
-        character_speed = 7.5
-    elif keys[pygame.K_RSHIFT] and keys[pygame.K_RIGHT] and visible == True:
-        character_speed = 7.5
-    elif keys[pygame.K_RSHIFT] and keys[pygame.K_LEFT] and visible == True:
-        character_speed = 7.5
-    else:
-        character_speed = 5
+    registerKEYS.keyinput(running, jumpvar, doorhandling, visible, standing, walking, jumping, character_speed, character_x, character_y, leftWall, rightWall)
 
     if jumpvar == 15:
         pygame.mixer.Sound.play(jumpsound)
