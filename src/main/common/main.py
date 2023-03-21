@@ -113,7 +113,6 @@ def Main(display,clock):
 
         #Player position detection
         if Player.walking == True:
-            WalkingValue += 1
             Player.currentSprite = animations.walking_sprite[WalkingValue]
         
         player.render(world) # Render The Player
@@ -124,8 +123,9 @@ def Main(display,clock):
         if Player.standing == True:
             idleValue += 1
 
-                
-        
+        if Player.walking == True:
+            WalkingValue += 1
+
         pygame.display.flip()
 
 
