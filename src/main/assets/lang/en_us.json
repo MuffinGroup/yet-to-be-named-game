@@ -1,7 +1,7 @@
 {
-"introduction_welcome": "Hello! Nice to see you!",
-"introduction_body": "In this game you will find some nice levels with enemys, interesting tasks and much more!",
-"introduction_end": "Press -Enter- to continue",
+"introduction_1": "Hello! Nice to see you!",
+"introduction_2": "In this game you will find some nice levels with enemys, interesting tasks and much more!",
+"introduction_3": "Press -Enter- to continue",
 
 "toast_1": "Before you start, you schould learn how to move and act, these things you will learn in the following tutorial. Please press enter."
 }
