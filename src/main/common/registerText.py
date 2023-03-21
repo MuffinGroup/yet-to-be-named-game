@@ -152,5 +152,3 @@ def introduction(running, jumpvar, doorhandling, visible, standing, walking, jum
                 character_speed = 7.5
             else:
                 character_speed = 5
-
-    return(running, jumpvar, doorhandling, visible, standing, walking, jumping, character_speed, character_x, character_y, leftWall, rightWall, screen)    
