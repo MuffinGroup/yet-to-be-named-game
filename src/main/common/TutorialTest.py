@@ -265,6 +265,11 @@ def introduction():
         pygame.time.wait(500)
         Info4_2 = False
         Info5_1 = True
+
+    if Info5_1 == True:
+        screen.blit(int50, (100,100))
+        screen.blit(int51, (100,125))
+        
         
 
 def draw():
