@@ -1,7 +1,6 @@
 import pygame
 import colors
 import animations
-import output
 
 pygame.init()
 
