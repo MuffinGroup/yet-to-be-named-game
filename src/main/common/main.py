@@ -56,6 +56,8 @@ class Player:
         
         if key[pygame.K_LEFT] and self.visible == True:
             Player.standing = False
+            Player.facingLeft = True
+            Player.facingRight = True
             self.rect.x -= Player.image_speed 
             pos_x += Player.image_speed
         else:
@@ -115,6 +117,10 @@ def Main(display,clock):
         #Player position detection
         if Player.walking == True:
             Player.currentSprite = animations.walking_sprite[WalkingValue]
+
+        if Player.facingLeft == True:
+            print("e")
+            Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
         
         player.render(world) # Render The Player
         display.fill(colors.WHITE) # Fill The Background White To Avoid Smearing
