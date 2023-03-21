@@ -44,20 +44,7 @@ class Player:
             Player.jumping = True
             Player.jumpvar -= 1
 
-        if key[pygame.K_LEFT] and self.visible == True:
-            print("?")
-            Player.walking = True
-            Player.standing = False
-            Player.facingLeft = True
-            Player.facingRight = False
-            self.rect.x -= Player.image_speed 
-            pos_x += Player.image_speed
-        else:
-            Player.standing = True
-            Player.walking = False
-
         if key[pygame.K_RIGHT] and self.visible == True:
-            Player.walking = True
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -67,6 +54,17 @@ class Player:
             Player.standing = True
             Player.walking = False
         
+        if key[pygame.K_LEFT] and self.visible == True:
+            Player.standing = False
+            self.rect.x -= Player.image_speed 
+            pos_x += Player.image_speed
+        else:
+            Player.standing = True
+            Player.walking = False
+
+        if key[pygame.K_LEFT] and self.visible == True or key[pygame.K_RIGHT] and self.visible == True:
+            Player.walking = True
+
         if self.rect.x < 0: # Simple Sides Collision
             self.rect.x = 0 # Reset Player Rect Coord
             pos_x = camera_pos[0] #Reset Camera Pos Coord
