@@ -127,14 +127,15 @@ Info4_1 = False
 Info4_2 = False
 Info5_1 = False
 Info5_2 = False
-Info6 = False
+Info6_1 = False
+Info6_2 = False
 Info7 = False
 
 
 def introduction():
 
     pygame.init()
-    global character_x, character_y, character_speed, visible, walking, Info1, Info2, Info3_1, Info3_2, Info4_1, Info4_2, Info5_1,Info5_2, Info6, Info7
+    global character_x, character_y, character_speed, visible, walking, Info1, Info2, Info3_1, Info3_2, Info4_1, Info4_2, Info5_1,Info5_2, Info6_1,Info6_2, Info7
     keys = pygame.key.get_pressed()
     Spieler = pygame.Rect(character_x, character_y, 40, 80)
     Door = pygame.Rect(990, 410, 40, 80)
@@ -269,7 +270,27 @@ def introduction():
     if Info5_1 == True:
         screen.blit(int50, (100,100))
         screen.blit(int51, (100,125))
-        
+        if keys[pygame.K_UP]:
+            jumping = True
+            jumpvar = -15
+            Info5_1 = False
+            Info5_2 = True
+        elif keys[pygame.K_SPACE]:
+            jumping = True
+            jumpvar = -15
+            Info5_1 = False
+            Info5_2 = True
+        else:
+            jumping = False
+            standing = True
+
+    if Info5_2 == True:
+        screen.blit(int50, (100,100))
+        screen.blit(int51, (100,125))
+        screen.blit(int52, (100,100))
+        pygame.time.wait(500)
+        Info5_2 = False
+        Info6_1 = True
         
 
 def draw():
