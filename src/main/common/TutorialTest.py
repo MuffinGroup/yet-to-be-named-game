@@ -199,30 +199,30 @@ def introduction():
             screen.blit(int34, (100,200))
             pygame.time.wait(200)
             Info3_2 = False
-            Info4 = True
+            Info4_1 = True
 
         
-        if Info4_1 == True:
-            screen.blit(int40, (100,100))
-            screen.blit(int41, (100,125))
-            if keys[pygame.K_LSHIFT] and keys[pygame.K_a] and visible == True:
-                character_speed = 7.5
-            elif keys[pygame.K_LSHIFT] and keys[pygame.K_d] and visible == True:
-                character_speed = 7.5
-            elif keys[pygame.K_RSHIFT] and keys[pygame.K_d] and visible == True:
-                character_speed = 7.5
-            elif keys[pygame.K_RSHIFT] and keys[pygame.K_a] and visible == True:
-                character_speed = 7.5
-            elif keys[pygame.K_LSHIFT] and keys[pygame.K_RIGHT] and visible == True:
-                character_speed = 7.5
-            elif keys[pygame.K_LSHIFT] and keys[pygame.K_LEFT] and visible == True:
-                character_speed = 7.5
-            elif keys[pygame.K_RSHIFT] and keys[pygame.K_RIGHT] and visible == True:
-                character_speed = 7.5
-            elif keys[pygame.K_RSHIFT] and keys[pygame.K_LEFT] and visible == True:
-                character_speed = 7.5
-            else:
-                character_speed = 5
+    if Info4_1 == True:
+        screen.blit(int40, (100,100))
+        screen.blit(int41, (100,125))
+        if keys[pygame.K_LSHIFT] and keys[pygame.K_a] and not Spieler.colliderect(leftWall) and visible == True:
+            character_speed = 7.5
+        elif keys[pygame.K_LSHIFT] and keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True:
+            character_speed = 7.5
+        elif keys[pygame.K_RSHIFT] and keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True:
+            character_speed = 7.5
+        elif keys[pygame.K_RSHIFT] and keys[pygame.K_a] and not Spieler.colliderect(leftWall) and visible == True:
+            character_speed = 7.5
+        elif keys[pygame.K_LSHIFT] and keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall) and visible == True:
+            character_speed = 7.5
+        elif keys[pygame.K_LSHIFT] and keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall) and visible == True:
+            character_speed = 7.5
+        elif keys[pygame.K_RSHIFT] and keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall) and visible == True:
+            character_speed = 7.5
+        elif keys[pygame.K_RSHIFT] and keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall) and visible == True:
+            character_speed = 7.5
+        else:
+            character_speed = 5
 
 def draw():
     # Draw the character and update the screen
