@@ -15,7 +15,6 @@ door = pygame.image.load("src/main/assets/textures/elements/doors/door_1_closed.
 # Set screen dimensions
 scale = 10
 scale_bg = 3.25
-scale_text = 0.4
 
 # Set screen dimensions
 screen_width = 1280

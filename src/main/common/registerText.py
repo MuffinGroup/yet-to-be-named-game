@@ -94,7 +94,9 @@ def introduction(running, jumpvar, doorhandling, visible, standing, walking, jum
         if keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall) and visible == True:
             standing = False
             walking = True
+            print(character_x)
             character_x += character_speed
+            print(character_x)
         elif keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True:
             standing = False
             walking = True
@@ -150,3 +152,5 @@ def introduction(running, jumpvar, doorhandling, visible, standing, walking, jum
                 character_speed = 7.5
             else:
                 character_speed = 5
+
+    return(running, jumpvar, doorhandling, visible, standing, walking, jumping, character_speed, character_x, character_y, leftWall, rightWall, screen)    
