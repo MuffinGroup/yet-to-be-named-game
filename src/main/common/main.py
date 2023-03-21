@@ -48,6 +48,8 @@ class Player:
             print("?")
             Player.walking = True
             Player.standing = False
+            Player.facingLeft = True
+            Player.facingRight = False
             self.rect.x -= Player.image_speed 
             pos_x += Player.image_speed
         else:
@@ -57,6 +59,8 @@ class Player:
         if key[pygame.K_RIGHT] and self.visible == True:
             Player.walking = True
             Player.standing = False
+            Player.facingLeft = False
+            Player.facingRight = True
             self.rect.x += Player.image_speed 
             pos_x -= Player.image_speed
         else:
