@@ -207,20 +207,28 @@ def introduction():
         screen.blit(int41, (100,125))
         if keys[pygame.K_LSHIFT] and keys[pygame.K_a] and not Spieler.colliderect(leftWall) and visible == True:
             character_speed = 7.5
+            character_x -= character_speed
         elif keys[pygame.K_LSHIFT] and keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True:
             character_speed = 7.5
+            character_x += character_speed
         elif keys[pygame.K_RSHIFT] and keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True:
             character_speed = 7.5
+            character_x += character_speed
         elif keys[pygame.K_RSHIFT] and keys[pygame.K_a] and not Spieler.colliderect(leftWall) and visible == True:
             character_speed = 7.5
+            character_x -= character_speed
         elif keys[pygame.K_LSHIFT] and keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall) and visible == True:
             character_speed = 7.5
+            character_x += character_speed
         elif keys[pygame.K_LSHIFT] and keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall) and visible == True:
             character_speed = 7.5
+            character_x -= character_speed
         elif keys[pygame.K_RSHIFT] and keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall) and visible == True:
             character_speed = 7.5
+            character_x += character_speed
         elif keys[pygame.K_RSHIFT] and keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall) and visible == True:
             character_speed = 7.5
+            character_x -= character_speed
         else:
             character_speed = 5
 
