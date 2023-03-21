@@ -251,6 +251,11 @@ def introduction():
             character_speed = 5
             standing = True
             walking = False
+        if character_speed == 7.5 and character_x >= 500:
+            Info4_1 = False
+            Info4_2 = True
+        
+    
 
 def draw():
     # Draw the character and update the screen
