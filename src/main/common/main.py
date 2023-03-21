@@ -84,8 +84,8 @@ class Player:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite,(250,250))
             display.blit(self.currentSprite,(self.rect.x,self.rect.y))
 
-background = pygame.image.load("src\main/assets/textures\elements/background\placeholder_background_0.jpg")
-background= pygame.transform.scale(background,(2000,2000))
+background = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
+background = pygame.transform.scale(background, (int(384 * 3), int(128 * 3)))
 
 def Main(display,clock):
     world = pygame.Surface((2000,2000)) # Create Map Surface
@@ -98,7 +98,6 @@ def Main(display,clock):
     WalkingValue = 0
 
     while True:
-        clock.tick(60)
         for event in pygame.event.get():
             if event.type == pygame.QUIT or(event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE):
                 pygame.quit()
@@ -133,6 +132,7 @@ def Main(display,clock):
         if Player.walking == True:
             WalkingValue += 1
 
+        clock.tick(80)
         pygame.display.flip()
 
 
