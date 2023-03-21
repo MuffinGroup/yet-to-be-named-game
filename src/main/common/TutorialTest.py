@@ -198,6 +198,8 @@ def introduction():
         if character_x <= 100:
             screen.blit(int34, (100,200))
             pygame.time.wait(200)
+            standing = True
+            walking = False
             Info3_2 = False
             Info4_1 = True
 
@@ -208,29 +210,47 @@ def introduction():
         if keys[pygame.K_LSHIFT] and keys[pygame.K_a] and not Spieler.colliderect(leftWall) and visible == True:
             character_speed = 7.5
             character_x -= character_speed
+            standing = False
+            walking = True
         elif keys[pygame.K_LSHIFT] and keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True:
             character_speed = 7.5
             character_x += character_speed
+            standing = False
+            walking = True
         elif keys[pygame.K_RSHIFT] and keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True:
             character_speed = 7.5
             character_x += character_speed
+            standing = False
+            walking = True
         elif keys[pygame.K_RSHIFT] and keys[pygame.K_a] and not Spieler.colliderect(leftWall) and visible == True:
             character_speed = 7.5
             character_x -= character_speed
+            standing = False
+            walking = True
         elif keys[pygame.K_LSHIFT] and keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall) and visible == True:
             character_speed = 7.5
             character_x += character_speed
+            standing = False
+            walking = True
         elif keys[pygame.K_LSHIFT] and keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall) and visible == True:
             character_speed = 7.5
             character_x -= character_speed
+            standing = False
+            walking = True
         elif keys[pygame.K_RSHIFT] and keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall) and visible == True:
             character_speed = 7.5
             character_x += character_speed
+            standing = False
+            walking = True
         elif keys[pygame.K_RSHIFT] and keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall) and visible == True:
             character_speed = 7.5
             character_x -= character_speed
+            standing = False
+            walking = True
         else:
             character_speed = 5
+            standing = True
+            walking = False
 
 def draw():
     # Draw the character and update the screen
