@@ -27,7 +27,6 @@ class Player:
         
         key = pygame.key.get_pressed() # Get Keyboard Input
         if key[pygame.K_UP] and Player.jumpvar == -16 and self.visible == True: # Check Keyif keys[pygame.K_UP] and jumpvar == -16 and visible == True:
-            Player.standing = False
             Player.jumpvar = 15
         elif key[pygame.K_SPACE] and Player.jumpvar == -16 and self.visible == True:
             Player.jumpvar = 15
@@ -79,16 +78,23 @@ class Player:
         
         return (pos_x,pos_y) # Return New Camera Pos
     
-    def render(self,display):
+    def render(self,screen):
         if self.visible == True:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite,(250,250))
-            display.blit(self.currentSprite,(self.rect.x,self.rect.y))
+            screen.blit(self.currentSprite,(self.rect.x,self.rect.y))
 
-background = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
-background = pygame.transform.scale(background, (int(384 * 3), int(128 * 3)))
+floor = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
+floor_width = floor.get_width()
+floor_height = floor.get_height()
+floor = pygame.transform.scale(floor, (int(floor_width * 3), int(floor_height * 3)))
 
-def Main(display,clock):
-    world = pygame.Surface((2000,2000)) # Create Map Surface
+background = pygame.image.load("src\main/assets/textures\levels/background.png")
+background_width = background.get_width()
+background_height = background.get_height()
+background = pygame.transform.scale(background, (int(background_width * 3), int(background_height * 3)))
+
+def Main(screen,clock):
+    world = pygame.Surface((8000,8000)) # Create Map Surface
      
     player = Player() # Initialize Player Class
     camera_pos = (192,192) # Create Camara Starting Position 
@@ -118,13 +124,13 @@ def Main(display,clock):
             Player.currentSprite = animations.walking_sprite[WalkingValue]
 
         if Player.facingLeft == True:
-            print("e")
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
         
+        world.fill(colors.BLUE)
+        world.blit(floor, (0,300))
+        screen.fill(colors.WHITE) # Fill The background White To Avoid Smearing
         player.render(world) # Render The Player
-        display.fill(colors.WHITE) # Fill The Background White To Avoid Smearing
-        display.blit(world,camera_pos) # Render Map To The Display
-        world.blit(background, (0,0))
+        screen.blit(world,camera_pos) # Render Map To The screen
 
         if Player.standing == True:
             idleValue += 1
@@ -137,7 +143,7 @@ def Main(display,clock):
 
 
 if __name__ in "__main__":
-    display = pygame.display.set_mode((1000,600), pygame.RESIZABLE)
+    screen = pygame.display.set_mode((1000,600), pygame.RESIZABLE)
     pygame.display.set_caption("CameraView")
     clock = pygame.time.Clock()
-    Main(display,clock) # Run Main Loop
+    Main(screen,clock) # Run Main Loop
