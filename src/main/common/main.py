@@ -10,19 +10,21 @@ class Player:
         Player.jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
         Player.jumpsound.set_volume(0.25)
         Player.currentSprite = Player.rightImage
-        Player.image_speed= 5 
+        Player.image_speed= 10
         Player.jumpvar = -16
         Player.facingRight = True
         Player.facingLeft = False
         Player.standing = True
         Player.jumping = False
         Player.walking = False
-        Player.rect = pygame.Rect((50,50),(30,30)) # Create Player Rect
+        Player.rect = pygame.Rect((480,600),(30,30)) # Create Player Rect
 
     def move(self,camera_pos):
         self.running = True
         self.doorhandling = 0
         self.visible = True
+        global pos_x
+        global pos_y
         pos_x,pos_y = camera_pos # Split camara_pos
         
         key = pygame.key.get_pressed() # Get Keyboard Input
@@ -66,14 +68,21 @@ class Player:
         if key[pygame.K_LEFT] and self.visible == True or key[pygame.K_RIGHT] and self.visible == True:
             Player.walking = True
 
-        if self.rect.x < 0: # Simple Sides Collision
-            self.rect.x = 0 # Reset Player Rect Coord
+        if self.rect.x < 380: # Simple Sides Collision
+            self.rect.x = 380 # Reset Player Rect Coord
+            Player.standing = True
+            Player.walking = False
             pos_x = camera_pos[0] #Reset Camera Pos Coord
         elif self.rect.x > 1980: #Set the Player`s moving range
             self.rect.x = 1980
+            Player.standing = True
+            Player.walking = False
             pos_x = camera_pos[0]
         elif self.rect.y > 1980:
             self.rect.y = 1980
+            Player.standing = True
+            Player.jumping = False
+            Player.walking = False
             pos_y = camera_pos[1]
         
         return (pos_x,pos_y) # Return New Camera Pos
@@ -86,7 +95,7 @@ class Player:
 floor = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
 floor_width = floor.get_width()
 floor_height = floor.get_height()
-floor = pygame.transform.scale(floor, (int(floor_width * 3), int(floor_height * 3)))
+floor = pygame.transform.scale(floor, (int(floor_width * 8), int(floor_height * 8)))
 
 background = pygame.image.load("src\main/assets/textures\levels/background.png")
 background_width = background.get_width()
@@ -97,7 +106,7 @@ def Main(screen,clock):
     world = pygame.Surface((8000,8000)) # Create Map Surface
      
     player = Player() # Initialize Player Class
-    camera_pos = (192,192) # Create Camara Starting Position 
+    camera_pos = (-100,-312) # Create Camara Starting Position 
     
     #values for animation calculation
     idleValue = 0
@@ -127,10 +136,10 @@ def Main(screen,clock):
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
         
         world.fill(colors.BLUE)
-        world.blit(floor, (0,300))
+        world.blit(floor, (-500,850))
         screen.fill(colors.WHITE) # Fill The background White To Avoid Smearing
         player.render(world) # Render The Player
-        screen.blit(world,camera_pos) # Render Map To The screen
+        screen.blit(world, (pos_x,pos_y)) # Render Map To The screen
 
         if Player.standing == True:
             idleValue += 1

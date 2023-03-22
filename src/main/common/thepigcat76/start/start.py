@@ -2,9 +2,8 @@ import pygame
 import registerButton
 import colors
 
-start_background = pygame.image.load("src/main/assets/textures/elements/background/placeholder_startscreen.jpg")
-
 pygame.init()
+start_background = pygame.image.load("src/main/assets/textures/elements/background/placeholder_startscreen.jpg")
 smallfont = pygame.font.SysFont("joystixmonospaceregular", 40)
 name = smallfont.render("YET TO BE NAMED GAME" , True , colors.DARKER_GRAY)
 mouse = pygame.mouse.get_pos
