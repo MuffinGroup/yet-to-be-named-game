@@ -29,11 +29,11 @@ class Player:
         
         key = pygame.key.get_pressed() # Get Keyboard Input
         if key[pygame.K_UP] and Player.jumpvar == -16 and self.visible == True: # Check Keyif keys[pygame.K_UP] and jumpvar == -16 and visible == True:
-            Player.jumpvar = 15
+            Player.jumpvar = 14.3
         elif key[pygame.K_SPACE] and Player.jumpvar == -16 and self.visible == True:
-            Player.jumpvar = 15
+            Player.jumpvar = 14.3
 
-        if Player.jumpvar == 15:
+        if Player.jumpvar == 14.3:
             pygame.mixer.Sound.play(Player.jumpsound)
 
         if Player.jumpvar >= -15:
