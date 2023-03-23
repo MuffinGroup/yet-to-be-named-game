@@ -135,7 +135,7 @@ def Main(screen,clock):
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
         
-        world.fill(colors.BLUE)
+        world.fill(colors.AQUA)
         world.blit(floor, (-500,850))
         screen.fill(colors.WHITE) # Fill The background White To Avoid Smearing
         player.render(world) # Render The Player
