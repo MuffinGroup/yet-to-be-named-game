@@ -18,7 +18,7 @@ class Player:
         Player.standing = True
         Player.jumping = False
         Player.walking = False
-        Player.rect = pygame.Rect((500,600),(30,30)) # Create Player Rect
+        Player.rect = pygame.Rect((480,600),(30,30)) # Create Player Rect
 
     def move(self,camera_pos):
         self.running = True
@@ -71,6 +71,10 @@ class Player:
         if key[pygame.K_LEFT] and self.visible == True or key[pygame.K_RIGHT] and self.visible == True:
             Player.walking = True
 
+        #For debugging purposes
+        if key[pygame.K_p]:
+            print(Player.rect.x)
+
         if self.rect.x < 380: # Simple Sides Collision
             self.rect.x = 380 # Reset Player Rect Coord
             Player.standing = True
@@ -100,6 +104,7 @@ floor_width = floor.get_width()
 floor_height = floor.get_height()
 floor = pygame.transform.scale(floor, (int(floor_width * 8), int(floor_height * 8)))
 wooden_sign = registries.element.registerElements("environment/blocks/wooden_sign", 480, 770, 5)
+placeholder = registries.element.registerElements("environment/blocks/cobble", 1980, 770, 5)
 
 background = pygame.image.load("src\main/assets/textures\levels/background.png")
 background_width = background.get_width()
@@ -142,6 +147,7 @@ def Main(screen,clock):
         world.fill(registries.colors.AQUA)
         world.blit(floor, (-500,850))
         wooden_sign.draw(world)
+        placeholder.draw(world)
         screen.fill(registries.colors.WHITE) # Fill The background White To Avoid Smearing
         player.render(world) # Render The Player
         screen.blit(world, (pos_x,pos_y)) # Render Map To The screen
