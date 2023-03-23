@@ -1,6 +1,6 @@
 import pygame
-import colors
-import animations
+import registries.colors
+import registries.animations
 
 pygame.init()
 
@@ -118,26 +118,26 @@ def Main(screen,clock):
                 pygame.quit()
                 return
 
-        if idleValue >= len(animations.idle_sprite):
+        if idleValue >= len(registries.animations.idle_sprite):
             idleValue = 0
 
-        Player.currentSprite = animations.idle_sprite[idleValue]
+        Player.currentSprite = registries.animations.idle_sprite[idleValue]
 
-        if WalkingValue >= len(animations.walking_sprite):
+        if WalkingValue >= len(registries.animations.walking_sprite):
             WalkingValue = 0
         
         camera_pos = player.move(camera_pos) # Run Player Move Function And Return New Camera Pos
 
         #Player position detection
         if Player.walking == True:
-            Player.currentSprite = animations.walking_sprite[WalkingValue]
+            Player.currentSprite = registries.animations.walking_sprite[WalkingValue]
 
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
         
-        world.fill(colors.AQUA)
+        world.fill(registries.colors.AQUA)
         world.blit(floor, (-500,850))
-        screen.fill(colors.WHITE) # Fill The background White To Avoid Smearing
+        screen.fill(registries.colors.WHITE) # Fill The background White To Avoid Smearing
         player.render(world) # Render The Player
         screen.blit(world, (pos_x,pos_y)) # Render Map To The screen
 
