@@ -12,7 +12,7 @@ background = pygame.image.load("src\main/assets/textures\elements/background\pla
 floor = pygame.image.load("src\main/assets/textures/elements/background/placeholder_floor.jpg")
 door = pygame.image.load("src/main/assets/textures/elements/doors/door_1_closed.png")
 
-# Set screen dimensions
+# Set screen dimensions (I'd suggest the Nether Dimension..........................btw, this is the 500th commit)
 scale = 10
 scale_bg = 3.25
 
