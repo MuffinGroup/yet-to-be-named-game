@@ -1,10 +1,11 @@
 import pygame
+import element
 
 #button class
 
-class Button():
+class registerElements():
 	def __init__(self, elementLocation, x, y, scale):
-		image = pygame.image.load("src\main/assets/textures\elements\environment/" + elementLocation + ".png")
+		image = pygame.image.load("src\main/assets/textures\elements/" + elementLocation + ".png")
 		width = image.get_width()
 		height = image.get_height()
 		self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
@@ -15,7 +16,7 @@ class Button():
 			surface.blit(self.image, (self.rect.x, self.rect.y))
 
 class testing():
-	element = Button("blocks/wooden_sign", 100, 100, 10)
+	element = element.registerElements("environment/blocks/wooden_sign", 500, 500, 10)
 	screen = pygame.display.set_mode((720, 720))
 	running = True
 	while running:
