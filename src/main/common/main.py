@@ -7,11 +7,12 @@ pygame.init()
 
 class Player:
     def __init__(currentImage):
+        Player.defaultSpeed = 10
         Player.rightImage = pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations\character_1.png") # Create Player Image
         Player.jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
         Player.jumpsound.set_volume(0.25)
         Player.currentSprite = Player.rightImage
-        Player.image_speed= 10
+        Player.image_speed= Player.defaultSpeed
         Player.jumpvar = -16
         Player.facingRight = True
         Player.facingLeft = False
@@ -70,6 +71,11 @@ class Player:
 
         if key[pygame.K_LEFT] and self.visible == True or key[pygame.K_RIGHT] and self.visible == True:
             Player.walking = True
+        
+        if Player.walking == True and key[pygame.K_RSHIFT] or key[pygame.K_LSHIFT]:
+            Player.image_speed = 18
+        else:
+            Player.image_speed = Player.defaultSpeed
 
         #For debugging purposes
         if key[pygame.K_p]:
@@ -158,7 +164,7 @@ def Main(screen,clock):
         if Player.walking == True:
             WalkingValue += 1
 
-        clock.tick(80)
+        clock.tick(100)
         pygame.display.flip()
 
 
