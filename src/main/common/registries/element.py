@@ -1,5 +1,4 @@
 import pygame
-import element
 
 #button class
 
@@ -14,15 +13,3 @@ class registerElements():
 
 	def draw(self, surface):
 			surface.blit(self.image, (self.rect.x, self.rect.y))
-
-class testing():
-	element = element.registerElements("environment/blocks/wooden_sign", 500, 500, 10)
-	screen = pygame.display.set_mode((720, 720))
-	running = True
-	while running:
-		element.draw(screen)
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				pygame.quit
-				running = False
-		pygame.display.flip()

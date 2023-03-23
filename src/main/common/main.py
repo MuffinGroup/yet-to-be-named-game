@@ -18,7 +18,7 @@ class Player:
         Player.standing = True
         Player.jumping = False
         Player.walking = False
-        Player.rect = pygame.Rect((480,600),(30,30)) # Create Player Rect
+        Player.rect = pygame.Rect((500,600),(30,30)) # Create Player Rect
 
     def move(self,camera_pos):
         self.running = True
@@ -45,6 +45,8 @@ class Player:
             pos_y += (Player.jumpvar**2)*0.17*n
             Player.jumping = True
             Player.jumpvar -= 1
+        else:
+            Player.jumpvar = -16
 
         if key[pygame.K_RIGHT] and self.visible == True:
             Player.standing = False
@@ -97,6 +99,7 @@ floor = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
 floor_width = floor.get_width()
 floor_height = floor.get_height()
 floor = pygame.transform.scale(floor, (int(floor_width * 8), int(floor_height * 8)))
+wooden_sign = registries.element.registerElements("environment/blocks/wooden_sign", 480, 770, 5)
 
 background = pygame.image.load("src\main/assets/textures\levels/background.png")
 background_width = background.get_width()
@@ -138,6 +141,7 @@ def Main(screen,clock):
         
         world.fill(registries.colors.AQUA)
         world.blit(floor, (-500,850))
+        wooden_sign.draw(world)
         screen.fill(registries.colors.WHITE) # Fill The background White To Avoid Smearing
         player.render(world) # Render The Player
         screen.blit(world, (pos_x,pos_y)) # Render Map To The screen
