@@ -12,4 +12,4 @@ Contributors:
 A small showcase: https://www.youtube.com/watch?v=O6B3gP3-5k4
 
 To run the project, install python and the pygame library,
-open it in VSC and run the main.py fileusing the python extension.
+open it in VSC and run the main.py file using the python extension.
