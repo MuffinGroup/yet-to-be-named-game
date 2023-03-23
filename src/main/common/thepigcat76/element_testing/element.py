@@ -14,12 +14,3 @@ class self():
     def blitElement(surface, elementX, elementY):
         elementPos = (elementX, elementY)
         surface.blit(registryName, elementPos)
-
-    def getElementName():
-        return registryName
-    
-    def getElementWidth():
-        return width
-    
-    def getElementHeight():
-        return height
