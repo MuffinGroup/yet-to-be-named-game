@@ -1,7 +1,7 @@
 import pygame
 import math
-import colors
-import animations
+import registries.colors
+import registries.animations
 import registerText
 import registerKEYS
 
@@ -36,7 +36,7 @@ rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 
 #Create Text
 doorfont = pygame.font.SysFont('joystixmonospaceregular', 30)
-text = doorfont.render('To Castle', True, colors.BLACK)
+text = doorfont.render('To Castle', True, registries.colors.BLACK)
 
 
 
@@ -78,45 +78,45 @@ character_speed = 5
 
 textfont = pygame.font.SysFont('joystixmonospaceregular', 20)
 
-int10 = textfont.render('Hello!', True, colors.BLACK)
-int11 = textfont.render('Nice to see you!', True, colors.BLACK)
-int12 = textfont.render('In this game you will find', True, colors.BLACK)
-int13 = textfont.render('some nice levels with enemies,', True, colors.BLACK)
-int14 = textfont.render('interesting tasks and much more!', True, colors.BLACK)
-int15 = textfont.render('Press Enter', True, colors.BLACK)
+int10 = textfont.render('Hello!', True, registries.colors.BLACK)
+int11 = textfont.render('Nice to see you!', True, registries.colors.BLACK)
+int12 = textfont.render('In this game you will find', True, registries.colors.BLACK)
+int13 = textfont.render('some nice levels with enemies,', True, registries.colors.BLACK)
+int14 = textfont.render('interesting tasks and much more!', True, registries.colors.BLACK)
+int15 = textfont.render('Press Enter', True, registries.colors.BLACK)
 
-int20 = textfont.render('Before you start,', True, colors.BLACK)
-int21 = textfont.render('you should learn how to move and act.', True, colors.BLACK)
-int22 = textfont.render('I will explain this now', True, colors.BLACK)
-int23 = textfont.render('Press Enter', True, colors.BLACK)
+int20 = textfont.render('Before you start,', True, registries.colors.BLACK)
+int21 = textfont.render('you should learn how to move and act.', True, registries.colors.BLACK)
+int22 = textfont.render('I will explain this now', True, registries.colors.BLACK)
+int23 = textfont.render('Press Enter', True, registries.colors.BLACK)
 
-int30 = textfont.render('First we learn how to walk.', True, colors.BLACK)
-int31 = textfont.render('To walk forward press RIGHT or d', True, colors.BLACK)
-int32 = textfont.render('Great!', True, colors.BLACK)
-int33 = textfont.render('To walk back press LEFT or a', True, colors.BLACK)
-int34 = textfont.render('Well done!', True, colors.BLACK)
+int30 = textfont.render('First we learn how to walk.', True, registries.colors.BLACK)
+int31 = textfont.render('To walk forward press RIGHT or d', True, registries.colors.BLACK)
+int32 = textfont.render('Great!', True, registries.colors.BLACK)
+int33 = textfont.render('To walk back press LEFT or a', True, registries.colors.BLACK)
+int34 = textfont.render('Well done!', True, registries.colors.BLACK)
 
-int40 = textfont.render('If you want to be faster', True, colors.BLACK)
-int41 = textfont.render('you can press SHIFT to sprint.', True, colors.BLACK)
-int42 = textfont.render('That`s faster, right?', True, colors.BLACK)
+int40 = textfont.render('If you want to be faster', True, registries.colors.BLACK)
+int41 = textfont.render('you can press SHIFT to sprint.', True, registries.colors.BLACK)
+int42 = textfont.render('That`s faster, right?', True, registries.colors.BLACK)
 
-int50 = textfont.render('Sometimes you have to jump.', True, colors.BLACK)
-int51 = textfont.render('For this press UP or SPACE.', True, colors.BLACK)
-int52 = textfont.render('Nice jump!', True, colors.BLACK)
+int50 = textfont.render('Sometimes you have to jump.', True, registries.colors.BLACK)
+int51 = textfont.render('For this press UP or SPACE.', True, registries.colors.BLACK)
+int52 = textfont.render('Nice jump!', True, registries.colors.BLACK)
 
-int60 = textfont.render('Now you know how to move.', True, colors.BLACK)
-int61 = textfont.render('But of course there are some enemies.', True, colors.BLACK)
-int62 = textfont.render('So you have to attack them.', True, colors.BLACK)
-int63 = textfont.render('For this press F', True, colors.BLACK)
-int64 = textfont.render('Try it out on this oger!', True, colors.BLACK)
-int65 = textfont.render('Good job!', True, colors.BLACK)
+int60 = textfont.render('Now you know how to move.', True, registries.colors.BLACK)
+int61 = textfont.render('But of course there are some enemies.', True, registries.colors.BLACK)
+int62 = textfont.render('So you have to attack them.', True, registries.colors.BLACK)
+int63 = textfont.render('For this press F', True, registries.colors.BLACK)
+int64 = textfont.render('Try it out on this oger!', True, registries.colors.BLACK)
+int65 = textfont.render('Good job!', True, registries.colors.BLACK)
 
-int70 = textfont.render('Now you got the controls.', True, colors.BLACK)
-int71 = textfont.render('If you are ready go to the door.', True, colors.BLACK)
-int72 = textfont.render('This door will bring you to the castle.', True, colors.BLACK)
-int73 = textfont.render('And now press DOWN or s', True, colors.BLACK)
-int74 = textfont.render('to start the game.', True, colors.BLACK)
-int75 = textfont.render('Good luck!', True, colors.BLACK)
+int70 = textfont.render('Now you got the controls.', True, registries.colors.BLACK)
+int71 = textfont.render('If you are ready go to the door.', True, registries.colors.BLACK)
+int72 = textfont.render('This door will bring you to the castle.', True, registries.colors.BLACK)
+int73 = textfont.render('And now press DOWN or s', True, registries.colors.BLACK)
+int74 = textfont.render('to start the game.', True, registries.colors.BLACK)
+int75 = textfont.render('Good luck!', True, registries.colors.BLACK)
 
 
 Info1 = True
@@ -295,7 +295,7 @@ def introduction():
 
 def draw():
     # Draw the character and update the screen
-    screen.fill(colors.BLACK)
+    screen.fill(registries.colors.BLACK)
     screen.blit(background, (-200,0))
     screen.blit(floor, (0,730))
     screen.blit(door, (990,420))
@@ -328,12 +328,12 @@ while running:
             running = False
             pygame.quit()
 
-    if value >= len(animations.idle_sprite):
+    if value >= len(registries.animations.idle_sprite):
         value = 0
 
-    currentSprite = animations.idle_sprite[value]
+    currentSprite = registries.animations.idle_sprite[value]
 
-    if WalkingValue >= len(animations.walking_sprite):
+    if WalkingValue >= len(registries.animations.walking_sprite):
         WalkingValue = 0
     
     if jumpvar == 15:
@@ -351,7 +351,7 @@ while running:
         door = pygame.transform.scale(door, (int(door_width * scale/2), int(door_height * scale/2)))
 
     if walking == True:
-        currentSprite = animations.walking_sprite[WalkingValue]
+        currentSprite = registries.animations.walking_sprite[WalkingValue]
 
     draw()
     currentSprite = pygame.transform.scale(currentSprite, (int(characterWidth * scale), int(characterHeight * scale)))    

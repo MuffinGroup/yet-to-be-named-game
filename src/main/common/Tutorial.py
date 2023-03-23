@@ -1,6 +1,6 @@
 import pygame
-import colors
-import animations
+import registries.colors
+import registries.animations
 
 
 # Initialize Pygame
@@ -32,7 +32,7 @@ rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 
 #Create Text
 doorfont = pygame.font.SysFont('joystixmonospaceregular', 30)
-text = doorfont.render('To Castle', True, colors.BLACK)
+text = doorfont.render('To Castle', True, registries.colors.BLACK)
 
 
 
@@ -71,7 +71,7 @@ character_speed = 5
 
 def draw():
     # Draw the character and update the screen
-    screen.fill(colors.BLACK)
+    screen.fill(registries.colors.BLACK)
     screen.blit(background, (-200,0))
     screen.blit(floor, (0,730))
     screen.blit(door, (990,420))
@@ -102,12 +102,12 @@ while running:
             running = False
             pygame.quit()
 
-    if value >= len(animations.idle_sprite):
+    if value >= len(registries.animations.idle_sprite):
         value = 0
 
-    currentSprite = animations.idle_sprite[value]
+    currentSprite = registries.animations.idle_sprite[value]
 
-    if WalkingValue >= len(animations.walking_sprite):
+    if WalkingValue >= len(registries.animations.walking_sprite):
         WalkingValue = 0
     
     # Handle keyboard input
@@ -187,7 +187,7 @@ while running:
         door = pygame.transform.scale(door, (int(door_width * scale/2), int(door_height * scale/2)))
 
     if walking == True:
-        currentSprite = animations.walking_sprite[WalkingValue]
+        currentSprite = registries.animations.walking_sprite[WalkingValue]
 
     draw()
     currentSprite = pygame.transform.scale(currentSprite, (int(characterWidth * scale), int(characterHeight * scale)))    

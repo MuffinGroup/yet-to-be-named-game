@@ -1,6 +1,7 @@
 import pygame
 import registries.colors
 import registries.animations
+import registries.element
 
 pygame.init()
 
