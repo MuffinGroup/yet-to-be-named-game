@@ -19,6 +19,7 @@ class Player:
         Player.standing = True
         Player.jumping = False
         Player.walking = False
+        Player.colliding = False
         Player.rect = pygame.Rect((480,600),(30,30)) # Create Player Rect
 
     def move(self,camera_pos):
