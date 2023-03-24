@@ -1,4 +1,5 @@
 import pygame
+import animations
 
 #button class
 
@@ -38,10 +39,14 @@ class Button():
 
 		return action
 	
-	def drawAnimated(self, surface):
+	def drawAnimated(self, surface, animatedArray):
 		action = False
 		animationPlaying = False
+		animationValue = 0
 		pos = pygame.mouse.get_pos()
-
-		if not self.rect.collidepoint(pos) and animationPlaying == False:
-
+		if animationPlaying == False:
+			surface.blit(self.image, (self.rect.x, self.rect.y))
+		
+		if self.rect.collidepoint(pos) and animationPlaying == False:
+			animationValue += 1
+			surface.blit(animatedArray[animationValue], (self.rect.x, self.rect.y))

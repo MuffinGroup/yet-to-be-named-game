@@ -1,7 +1,6 @@
 import pygame
 import registerButton
 import colors
-import animations
 
 pygame.init()
 screen = pygame.display.set_mode((720,720), pygame.RESIZABLE)
