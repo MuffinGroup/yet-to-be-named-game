@@ -48,5 +48,8 @@ class Button():
 			surface.blit(self.image, (self.rect.x, self.rect.y))
 		
 		if self.rect.collidepoint(pos) and animationPlaying == False:
-			animationValue += 1
+			if animationValue >= len(animatedArray):
+				animationValue = len(animatedArray)
+			else:
+				animationValue += 1
 			surface.blit(animatedArray[animationValue], (self.rect.x, self.rect.y))
