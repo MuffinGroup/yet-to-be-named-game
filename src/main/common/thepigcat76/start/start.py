@@ -1,6 +1,7 @@
 import pygame
 import registerButton
 import colors
+import animations
 
 pygame.init()
 start_background = pygame.image.load("src/main/assets/textures/elements/background/placeholder_startscreen.jpg")
