@@ -253,3 +253,5 @@ optionsButton28 = pygame.image.load("src\main/assets/textures\elements\gui\Optio
 optionsButton29 = pygame.image.load("src\main/assets/textures\elements\gui\OptionsButtonSel/OptionButtonSel(8).png")
 optionsButton30 = pygame.image.load("src\main/assets/textures\elements\gui\OptionsButtonSel/OptionButtonSel(8).png")
 optionsButton31 = pygame.image.load("src\main/assets/textures\elements\gui\OptionsButtonSel/OptionButtonSel(8).png")
+
+optionsButton = [optionsButton0, optionsButton1, optionsButton2, optionsButton3, optionsButton4, optionsButton5, optionsButton6, optionsButton7, optionsButton8, optionsButton9, optionsButton10, optionsButton11, optionsButton12, optionsButton13, optionsButton14, optionsButton15, optionsButton16, optionsButton17, optionsButton18, optionsButton19, optionsButton20, optionsButton21, optionsButton22, optionsButton23, optionsButton24, optionsButton25, optionsButton26, optionsButton27, optionsButton28, optionsButton29, optionsButton30, optionsButton31]

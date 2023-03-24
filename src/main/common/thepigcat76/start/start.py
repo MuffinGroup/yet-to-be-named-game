@@ -4,19 +4,17 @@ import colors
 import animations
 
 pygame.init()
-start_background = pygame.image.load("src/main/assets/textures/elements/background/placeholder_startscreen.jpg")
-smallfont = pygame.font.SysFont("joystixmonospaceregular", 40)
-name = smallfont.render("YET TO BE NAMED GAME" , True , colors.DARKER_GRAY)
-mouse = pygame.mouse.get_pos
 screen = pygame.display.set_mode((720,720), pygame.RESIZABLE)
 icon = pygame.image.load('src\main/assets/textures/elements\gui/icon\icon_new.png')
-button = pygame.image.load('src\main/assets/textures\elements\gui/button.png')
-button_selected = pygame.image.load('src//main//assets//textures//elements//gui//button_selected.png')
 pygame.display.set_icon(icon)
 pygame.display.set_caption("Muffin Group")
 start_button = registerButton.Button("button" ,350, 250, 6.0, "start", colors.BLACK, "joystixmonospaceregular")
 options_button = registerButton.Button("button", 350, 450,  6.0, "options", colors.BLACK, "joystixmonospaceregular")
 quit_button = registerButton.Button("button", 350, 650,  6.0, "quit", colors.BLACK, "joystixmonospaceregular")
+smallfont = pygame.font.SysFont("joystixmonospaceregular", 40)
+name = smallfont.render("YET TO BE NAMED GAME" , True , colors.DARKER_GRAY)
+mouse = pygame.mouse.get_pos
+start_background = pygame.image.load("src/main/assets/textures/elements/background/placeholder_startscreen.jpg")
 clock = pygame.time.Clock()
 
 while True:
