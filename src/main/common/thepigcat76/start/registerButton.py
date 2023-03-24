@@ -44,14 +44,26 @@ class Button():
 	
 	def drawAnimated(self, surface, animatedArray):
 		pos = pygame.mouse.get_pos()
+		scale = 6
+		width = 80
+		height = 32
+		image = pygame.transform.scale(animatedArray[self.value], (int(width * scale), int(height * scale)))
 
-		if self.value >= int(len(animatedArray) - 1):
+		if self.value >= 31 and self.selected == True:
+			self.value = 30
+		elif self.selected == False:
 			self.value = 0
 		
 		if not self.rect.collidepoint(pos):
 			surface.blit(self.image, (self.rect.x, self.rect.y))
+			self.selected = False 
 		else:
-			surface.blit(animatedArray[self.value], (self.rect.x, self.rect.y))
+			self.selected = True
+
+		if self.selected == True and self.value < 31:
 			self.value += 1
+
+		if self.selected == True:
+			surface.blit(image, (self.rect.x, self.rect.y))
 
 	clock.tick(60)
