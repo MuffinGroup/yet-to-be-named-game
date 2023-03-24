@@ -36,5 +36,12 @@ class Button():
 		if pygame.mouse.get_pressed()[0] == 0:
 			self.clicked = False
 
-		return action	
+		return action
+	
+	def drawAnimated(self, surface):
+		action = False
+		animationPlaying = False
+		pos = pygame.mouse.get_pos()
+
+		if not self.rect.collidepoint(pos) and animationPlaying == False:
 
