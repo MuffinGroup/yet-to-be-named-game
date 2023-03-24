@@ -161,6 +161,8 @@ def Main(screen,clock):
 
         if Player.standing == True:
             idleValue += 1
+        
+        print(idleValue)
 
         if Player.walking == True:
             WalkingValue += 1

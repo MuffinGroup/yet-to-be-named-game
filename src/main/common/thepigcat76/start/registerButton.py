@@ -4,8 +4,10 @@ import animations
 #button class
 
 class Button():
+	clock = pygame.time.Clock()
 	def __init__(self, button_name, x, y, scale, display_text, text_color, font_type):
 		image = pygame.image.load('src//main//assets//textures//elements//gui//' + button_name + '.png')
+		self.value = 0
 		selected_image = pygame.image.load('src//main//assets//textures//elements//gui//' + button_name + '_selected.png')
 		width = image.get_width()
 		height = image.get_height()
@@ -17,6 +19,7 @@ class Button():
 		self.rect = self.image.get_rect()
 		self.rect.center = (x, y)
 		self.clicked = False
+		self.selected = False
 
 	def draw(self, surface):
 		action = False
@@ -40,16 +43,15 @@ class Button():
 		return action
 	
 	def drawAnimated(self, surface, animatedArray):
-		action = False
-		animationPlaying = False
-		animationValue = 0
 		pos = pygame.mouse.get_pos()
-		if animationPlaying == False:
-			surface.blit(self.image, (self.rect.x, self.rect.y))
+
+		if self.value >= int(len(animatedArray) - 1):
+			self.value = 0
 		
-		if self.rect.collidepoint(pos) and animationPlaying == False:
-			if animationValue >= len(animatedArray):
-				animationValue = len(animatedArray)
-			else:
-				animationValue += 1
-			surface.blit(animatedArray[animationValue], (self.rect.x, self.rect.y))
+		if not self.rect.collidepoint(pos):
+			surface.blit(self.image, (self.rect.x, self.rect.y))
+		else:
+			surface.blit(animatedArray[self.value], (self.rect.x, self.rect.y))
+			self.value += 1
+
+	clock.tick(60)
