@@ -20,10 +20,11 @@ clock = pygame.time.Clock()
 while True:
     #screen.blit(img, (0, 0))
 	screen.blit(start_background, (0,0))
-	options_button.drawAnimated(screen, animations.optionsButton)
 
 	if start_button.draw(screen):
 		print("Pressed Start")
+	if options_button.drawAnimated(screen, animations.optionsButton):
+		print("optionals")
 	if quit_button.draw(screen):
 		pygame.quit
 		print("Pressed Quit")

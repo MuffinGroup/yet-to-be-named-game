@@ -43,6 +43,7 @@ class Button():
 		return action
 	
 	def drawAnimated(self, surface, animatedArray):
+		action = False
 		pos = pygame.mouse.get_pos()
 		scale = 6
 		width = 80
@@ -59,11 +60,19 @@ class Button():
 			self.selected = False 
 		else:
 			self.selected = True
+			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+				self.clicked = True
+				action = True
 
 		if self.selected == True and self.value < 31:
 			self.value += 1
 
 		if self.selected == True:
 			surface.blit(image, (self.rect.x, self.rect.y))
+
+		if pygame.mouse.get_pressed()[0] == 0:
+			self.clicked = False
+
+		return action
 
 	clock.tick(60)
