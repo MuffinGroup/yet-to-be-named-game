@@ -53,8 +53,8 @@ class Button():
 		height = image.get_height()
 		buttonSprite = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
 
-		if self.value >= 31 and self.selected == True:
-			self.value = 30
+		if self.value >= len(animationArray) - 1 and self.selected == True:
+			self.value = len(animationArray) - 2
 		elif self.selected == False:
 			self.value = 0
 		
@@ -68,7 +68,7 @@ class Button():
 				self.clicked = True
 				action = True
 
-		if self.selected == True and self.value < 31:
+		if self.selected == True and self.value < len(animationArray) - 1:
 			self.value += 1
 
 		if self.selected == True:
