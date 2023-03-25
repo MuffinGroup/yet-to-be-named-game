@@ -255,3 +255,46 @@ optionsButton30 = pygame.image.load("src\main/assets/textures\elements\gui\Optio
 optionsButton31 = pygame.image.load("src\main/assets/textures\elements\gui\OptionsButtonSel/OptionButtonSel(8).png")
 
 optionsButton = [optionsButton0, optionsButton1, optionsButton2, optionsButton3, optionsButton4, optionsButton5, optionsButton6, optionsButton7, optionsButton8, optionsButton9, optionsButton10, optionsButton11, optionsButton12, optionsButton13, optionsButton14, optionsButton15, optionsButton16, optionsButton17, optionsButton18, optionsButton19, optionsButton20, optionsButton21, optionsButton22, optionsButton23, optionsButton24, optionsButton25, optionsButton26, optionsButton27, optionsButton28, optionsButton29, optionsButton30, optionsButton31]
+
+
+startButton0 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(1).png")
+startButton1 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(1).png")
+startButton2 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(1).png")
+startButton3 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(1).png")
+
+startButton4 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(2).png")
+startButton5 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(2).png")
+startButton6 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(2).png")
+startButton7 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(2).png")
+
+startButton8 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(3).png")
+startButton9 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(3).png")
+startButton10 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(3).png")
+startButton11 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(3).png")
+
+startButton12 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(4).png")
+startButton13 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(4).png")
+startButton14 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(4).png")
+startButton15 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(4).png")
+
+startButton16 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(5).png")
+startButton17 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(5).png")
+startButton18 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(5).png")
+startButton19 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(5).png")
+
+startButton20 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(6).png")
+startButton21 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(6).png")
+startButton22 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(6).png")
+startButton23 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(6).png")
+
+startButton24 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(7).png")
+startButton25 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(7).png")
+startButton26 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel\StartButtonSel(7).png")
+startButton27 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel/StartButtonSel(7).png")
+
+startButton28 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel/StartButtonSel(8).png")
+startButton29 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel/StartButtonSel(8).png")
+startButton30 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel/StartButtonSel(8).png")
+startButton31 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel/StartButtonSel(8).png")
+
+startButton = [startButton0, startButton1, startButton2, startButton3, startButton4, startButton5, startButton6, startButton7, startButton8, startButton9, startButton10, startButton11, startButton12, startButton13, startButton14, startButton15, startButton16, startButton17, startButton18, startButton19, startButton20, startButton21, startButton22, startButton23, startButton24, startButton25, startButton26, startButton27, startButton28, startButton29, startButton30, startButton31]
