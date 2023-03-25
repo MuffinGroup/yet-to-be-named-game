@@ -5,18 +5,18 @@ import random
 pygame.init()
 
 # set up the game window
-window_width = 500
-window_height = 500
+window_width = 1200
+window_height = 700
 game_window = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Collect Items Game")
 
 # set up the character and items
 character_image = pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations\character_1.png")
 character_image=pygame.transform.scale(character_image,(250,250))
+character_image.blit(character_image,(340,190))
 character_rect = character_image.get_rect()
 character_rect.center = (window_width//2, window_height//2)
-item_images = [pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png"), pygame.image.load("src\main/assets/textures\entities\placeholder_enemy - Kopie.png")]
-item_images=pygame.transform.scale(item_images,(250,250))
+item_images = [pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png"), pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy - Kopie.png")]
 item_rects = []
 for i in range(10):
     item_rect = item_images[i % len(item_images)].get_rect()
@@ -48,13 +48,13 @@ while game_running:
     # handle key presses to move the character
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
-        character_rect.move_ip(-5, 0)
+        character_rect.move_ip(-1, 0)
     if keys[pygame.K_RIGHT]:
-        character_rect.move_ip(5, 0)
+        character_rect.move_ip(1, 0)
     if keys[pygame.K_UP]:
-        character_rect.move_ip(0, -5)
+        character_rect.move_ip(0, -1)
     if keys[pygame.K_DOWN]:
-        character_rect.move_ip(0, 5)
+        character_rect.move_ip(0, 1)
     
     # check for collision with items
     if check_collision(character_rect, item_rects):
