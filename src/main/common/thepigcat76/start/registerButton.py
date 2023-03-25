@@ -24,6 +24,7 @@ class Button():
 		self.clicked = False
 		self.selected = False
 
+	#draw function is not used atm 
 	def draw(self, surface, xTextOffset, yTextOffset):
 		action = False
 		#get mouse position
@@ -73,6 +74,15 @@ class Button():
 
 		if self.selected == True:
 			surface.blit(buttonSprite, (self.rect.x - xOffset, self.rect.y - yOffset))
+
+		if self.value < len(animationArray)/4 * 1:
+			surface.blit(self.selected_display_text1 , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
+		elif self.value < len(animationArray)/4 * 2:
+			surface.blit(self.selected_display_text2 , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
+		elif self.value < len(animationArray)/4 * 3:
+			surface.blit(self.selected_display_text3 , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
+		elif self.value > len(animationArray)/4 * 3:
+			surface.blit(self.selected_display_text4 , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
 
 		if pygame.mouse.get_pressed()[0] == 0:
 			self.clicked = False
