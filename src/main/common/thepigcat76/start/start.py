@@ -23,7 +23,7 @@ while True:
 
 	if start_button.draw(screen):
 		print("Pressed Start")
-	if options_button.drawAnimated(screen, animations.optionsButton):
+	if options_button.drawAnimated(screen, animations.optionsButton, 0, 0, 6):
 		print("optionals")
 	if quit_button.draw(screen):
 		pygame.quit
