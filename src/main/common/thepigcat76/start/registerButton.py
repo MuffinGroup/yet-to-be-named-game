@@ -15,13 +15,16 @@ class Button():
 		self.selected_image = pygame.transform.scale(selected_image, (int(width * scale), int(height * scale)))
 		self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
 		self.display_text = smallfont.render(display_text , True , text_color)
-		self.selected_display_text = smallfont.render(display_text , True , (255, 255, 255))
+		self.selected_display_text1 = smallfont.render(display_text , True , (56, 56, 56))
+		self.selected_display_text2 = smallfont.render(display_text , True , (80, 80, 80))
+		self.selected_display_text3 = smallfont.render(display_text , True , (171, 171, 171))
+		self.selected_display_text4 = smallfont.render(display_text , True , (255, 255, 255))
 		self.rect = self.image.get_rect()
 		self.rect.center = (x, y)
 		self.clicked = False
 		self.selected = False
 
-	def draw(self, surface):
+	def draw(self, surface, xTextOffset, yTextOffset):
 		action = False
 		#get mouse position
 		pos = pygame.mouse.get_pos()
@@ -29,10 +32,10 @@ class Button():
 		#check mouseover and clicked conditions
 		if not self.rect.collidepoint(pos):
 			surface.blit(self.image, (self.rect.x, self.rect.y))
-			surface.blit(self.display_text , (self.rect.x + 125, self.rect.y + 25))
+			surface.blit(self.display_text , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
 		elif self.rect.collidepoint(pos):
 			surface.blit(self.selected_image, (self.rect.x, self.rect.y))
-			surface.blit(self.selected_display_text , (self.rect.x + 125, self.rect.y + 25))
+			surface.blit(self.selected_display_text4 , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
 				self.clicked = True
 				action = True
@@ -56,6 +59,7 @@ class Button():
 		
 		if not self.rect.collidepoint(pos):
 			surface.blit(self.image, (self.rect.x, self.rect.y))
+			surface.blit(self.display_text , (self.rect.x + 125, self.rect.y + 25))
 			self.selected = False 
 		else:
 			self.selected = True
