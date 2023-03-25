@@ -20,7 +20,7 @@ while True:
     #screen.blit(img, (0, 0))
 	screen.blit(start_background, (0,0))
 
-	if start_button.draw(screen, 0, 0):
+	if start_button.drawAnimated(screen, animations.startButton, 0, 0, 6):
 		print("Pressed Start")
 	if options_button.drawAnimated(screen, animations.optionsButton, 48, 48, 6):
 		print("optionals")

@@ -48,9 +48,10 @@ class Button():
 	def drawAnimated(self, surface, animationArray, xOffset, yOffset, scale):
 		action = False
 		pos = pygame.mouse.get_pos()
-		width = 80
-		height = 32
-		image = pygame.transform.scale(animationArray[self.value], (int(width * scale), int(height * scale)))
+		image = animationArray[self.value]
+		width = image.get_width()
+		height = image.get_height()
+		buttonSprite = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
 
 		if self.value >= 31 and self.selected == True:
 			self.value = 30
@@ -71,7 +72,7 @@ class Button():
 			self.value += 1
 
 		if self.selected == True:
-			surface.blit(image, (self.rect.x - xOffset, self.rect.y - yOffset))
+			surface.blit(buttonSprite, (self.rect.x - xOffset, self.rect.y - yOffset))
 
 		if pygame.mouse.get_pressed()[0] == 0:
 			self.clicked = False
