@@ -13,7 +13,6 @@ options_button = registerButton.Button("button", 350, 450,  6.0, "options", colo
 quit_button = registerButton.Button("button", 350, 650,  6.0, "quit", colors.BLACK, "joystixmonospaceregular")
 smallfont = pygame.font.SysFont("joystixmonospaceregular", 40)
 name = smallfont.render("YET TO BE NAMED GAME" , True , colors.DARKER_GRAY)
-mouse = pygame.mouse.get_pos
 start_background = pygame.image.load("src/main/assets/textures/elements/background/placeholder_startscreen.jpg")
 clock = pygame.time.Clock()
 
@@ -23,7 +22,7 @@ while True:
 
 	if start_button.draw(screen):
 		print("Pressed Start")
-	if options_button.drawAnimated(screen, animations.optionsButton, 0, 0, 6):
+	if options_button.drawAnimated(screen, animations.optionsButton, 48, 48, 6):
 		print("optionals")
 	if quit_button.draw(screen):
 		pygame.quit

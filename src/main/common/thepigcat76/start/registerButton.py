@@ -55,7 +55,7 @@ class Button():
 			self.value = 0
 		
 		if not self.rect.collidepoint(pos):
-			surface.blit(self.image, (self.rect.x - xOffset, self.rect.y - yOffset))
+			surface.blit(self.image, (self.rect.x, self.rect.y))
 			self.selected = False 
 		else:
 			self.selected = True
@@ -67,7 +67,7 @@ class Button():
 			self.value += 1
 
 		if self.selected == True:
-			surface.blit(image, (self.rect.x, self.rect.y))
+			surface.blit(image, (self.rect.x - xOffset, self.rect.y - yOffset))
 
 		if pygame.mouse.get_pressed()[0] == 0:
 			self.clicked = False
