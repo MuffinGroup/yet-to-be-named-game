@@ -11,5 +11,6 @@ class registerElements():
 		self.rect = self.image.get_rect()
 		self.rect.center = (x, y)
 
-	def draw(self, surface):
+	def draw(self, surface, player):
 			surface.blit(self.image, (self.rect.x, self.rect.y))
+			player.colliderect(self.rect)

@@ -21,6 +21,7 @@ class Player:
         Player.walking = False
         Player.colliding = False
         Player.rect = pygame.Rect((480,600),(30,30)) # Create Player Rect
+        Player.countup = 1
 
     def move(self,camera_pos):
         self.running = True
@@ -31,9 +32,9 @@ class Player:
         pos_x,pos_y = camera_pos # Split camara_pos
         
         key = pygame.key.get_pressed() # Get Keyboard Input
-        if key[pygame.K_UP] and Player.jumpvar == -16 and self.visible == True: # Check Keyif keys[pygame.K_UP] and jumpvar == -16 and visible == True:
+        if key[pygame.K_UP] and Player.jumpvar == -16 and self.visible == True and Player.colliding == False: # Check Keyif keys[pygame.K_UP] and jumpvar == -16 and visible == True:
             Player.jumpvar = 14.3
-        elif key[pygame.K_SPACE] and Player.jumpvar == -16 and self.visible == True:
+        elif key[pygame.K_SPACE] and Player.jumpvar == -16 and self.visible == True and Player.colliding == False:
             Player.jumpvar = 14.3
 
         if Player.jumpvar == 14.3:
@@ -50,7 +51,7 @@ class Player:
         else:
             Player.jumpvar = -16
 
-        if key[pygame.K_RIGHT] and self.visible == True:
+        if key[pygame.K_RIGHT] and self.visible == True and Player.colliding == False:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -60,7 +61,7 @@ class Player:
             Player.standing = True
             Player.walking = False
         
-        if key[pygame.K_LEFT] and self.visible == True:
+        if key[pygame.K_LEFT] and self.visible == True and Player.colliding == False:
             Player.standing = False
             Player.facingLeft = True
             Player.facingRight = True
@@ -75,6 +76,7 @@ class Player:
         
         if Player.walking == True and key[pygame.K_RSHIFT] or key[pygame.K_LSHIFT]:
             Player.image_speed = 18
+            Player.countUp = 2
         else:
             Player.image_speed = Player.defaultSpeed
 
@@ -161,13 +163,11 @@ def Main(screen,clock):
 
         if Player.standing == True:
             idleValue += 1
-        
-        print(idleValue)
 
         if Player.walking == True:
-            WalkingValue += 1
+            WalkingValue += Player.countup
 
-        clock.tick(100)
+        clock.tick(200)
         pygame.display.flip()
 
 
