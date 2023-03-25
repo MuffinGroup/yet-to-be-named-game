@@ -20,11 +20,11 @@ while True:
     #screen.blit(img, (0, 0))
 	screen.blit(start_background, (0,0))
 
-	if start_button.drawAnimated(screen, animations.startButton, 0, 0, 6):
+	if start_button.drawAnimated(screen, animations.startButton, 0, 0, 6, -125, -25):
 		print("Pressed Start")
-	if options_button.drawAnimated(screen, animations.optionsButton, 48, 48, 6):
+	if options_button.drawAnimated(screen, animations.optionsButton, 48, 48, 6, -90, -25):
 		print("optionals")
-	if quit_button.draw(screen, 0, 0):
+	if quit_button.drawAnimated(screen, animations.quitButton, 0, 0, 6, -125, -25):
 		pygame.quit
 		print("Pressed Quit")
 		print("Closed successful")

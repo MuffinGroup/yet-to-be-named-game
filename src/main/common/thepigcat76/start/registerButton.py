@@ -45,7 +45,7 @@ class Button():
 
 		return action
 	
-	def drawAnimated(self, surface, animationArray, xOffset, yOffset, scale):
+	def drawAnimated(self, surface, animationArray, xOffset, yOffset, scale, xTextOffset, yTextOffset):
 		action = False
 		pos = pygame.mouse.get_pos()
 		image = animationArray[self.value]
@@ -60,7 +60,7 @@ class Button():
 		
 		if not self.rect.collidepoint(pos):
 			surface.blit(self.image, (self.rect.x, self.rect.y))
-			surface.blit(self.display_text , (self.rect.x + 125, self.rect.y + 25))
+			surface.blit(self.display_text , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
 			self.selected = False 
 		else:
 			self.selected = True

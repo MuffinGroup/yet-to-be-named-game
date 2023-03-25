@@ -298,3 +298,45 @@ startButton30 = pygame.image.load("src\main/assets/textures\elements\gui\StartBu
 startButton31 = pygame.image.load("src\main/assets/textures\elements\gui\StartButtonSel/StartButtonSel(8).png")
 
 startButton = [startButton0, startButton1, startButton2, startButton3, startButton4, startButton5, startButton6, startButton7, startButton8, startButton9, startButton10, startButton11, startButton12, startButton13, startButton14, startButton15, startButton16, startButton17, startButton18, startButton19, startButton20, startButton21, startButton22, startButton23, startButton24, startButton25, startButton26, startButton27, startButton28, startButton29, startButton30, startButton31]
+
+quitButton0 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(1).png")
+quitButton1 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(1).png")
+quitButton2 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(1).png")
+quitButton3 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(1).png")
+
+quitButton4 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(2).png")
+quitButton5 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(2).png")
+quitButton6 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(2).png")
+quitButton7 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(2).png")
+
+quitButton8 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(3).png")
+quitButton9 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(3).png")
+quitButton10 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(3).png")
+quitButton11 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(3).png")
+
+quitButton12 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(4).png")
+quitButton13 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(4).png")
+quitButton14 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(4).png")
+quitButton15 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(4).png")
+
+quitButton16 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(5).png")
+quitButton17 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(5).png")
+quitButton18 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(5).png")
+quitButton19 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(5).png")
+
+quitButton20 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(6).png")
+quitButton21 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(6).png")
+quitButton22 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(6).png")
+quitButton23 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(6).png")
+
+quitButton24 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(7).png")
+quitButton25 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(7).png")
+quitButton26 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel\QuitButtonSel(7).png")
+quitButton27 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel/QuitButtonSel(7).png")
+
+quitButton28 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel/QuitButtonSel(8).png")
+quitButton29 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel/QuitButtonSel(8).png")
+quitButton30 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel/QuitButtonSel(8).png")
+quitButton31 = pygame.image.load("src\main/assets/textures\elements\gui\QuitButtonSel/QuitButtonSel(8).png")
+
+quitButton = [quitButton0, quitButton1, quitButton2, quitButton3, quitButton4, quitButton5, quitButton6, quitButton7, quitButton8, quitButton9, quitButton10, quitButton11, quitButton12, quitButton13, quitButton14, quitButton15, quitButton16, quitButton17, quitButton18, quitButton19, quitButton20, quitButton21, quitButton22, quitButton23, quitButton24, quitButton25, quitButton26, quitButton27, quitButton28, quitButton29, quitButton30, quitButton31]
