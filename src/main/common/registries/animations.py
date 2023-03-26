@@ -218,26 +218,47 @@ jump_sprite = [jump_sprite0, jump_sprite1, jump_sprite2, jump_sprite3, jump_spri
 #walking1 = loadMovement("idle", 1)
 
 #Thanks again to Tim Cook aka PFornax from daskomikos discord server for helping us out with this <3
-def load_animationByNumber(AlphaImageName, numberofsprites, dictionary = None, format = "png"):
+def load_animationByNumber(AlphaImageName, numberofsprites, timesLoaded, dictionary = None, format = "png"):
     sprite_list = []
     for sprite in range(1, numberofsprites):
         currentimagename = str(dictionary)+"/"+str(AlphaImageName)+"("+str(sprite) + ")" + "." +str(format)
         image = pygame.image.load(currentimagename)
-        image1 = image
-        image2 = image
-        image3 = image
-        image4 = image
-        image5 = image
-        image6 = image
-        image7 = image
-        sprite_list.append(image)
-        sprite_list.append(image1)
-        sprite_list.append(image2)
-        sprite_list.append(image3)
-        sprite_list.append(image4)
-        sprite_list.append(image5)
+        if timesLoaded == 0:
+            print("times loaded has to be min 1 and max 16")
+        if timesLoaded >= 1:
+            sprite_list.append(image)
+        if timesLoaded >= 2:
+            sprite_list.append(image)
+        if timesLoaded >= 3:
+            sprite_list.append(image)
+        if timesLoaded >= 4:
+            sprite_list.append(image)
+        if timesLoaded >= 5:
+            sprite_list.append(image)
+        if timesLoaded >= 6:
+            sprite_list.append(image)
+        if timesLoaded >= 7:
+            sprite_list.append(image)
+        if timesLoaded >= 8:
+            sprite_list.append(image)
+        if timesLoaded >= 9:
+            sprite_list.append(image)
+        if timesLoaded >= 10:
+            sprite_list.append(image)
+        if timesLoaded >= 11:
+            sprite_list.append(image)
+        if timesLoaded >= 12:
+            sprite_list.append(image)
+        if timesLoaded >= 13:
+            sprite_list.append(image)
+        if timesLoaded >= 14:
+            sprite_list.append(image)
+        if timesLoaded >= 15:
+            sprite_list.append(image)
+        if timesLoaded >= 16:
+            sprite_list.append(image)
         #sprite_list.append(image6)
         #sprite_list.append(image7)
     return sprite_list
 
-walking_spriteNew = load_animationByNumber("1Running", 8, "src\main/assets/textures\entities\characters\character_1/animations/1Running", "png" ) 
+walking_spriteNew = load_animationByNumber("1Running", 8, 16, "src\main/assets/textures\entities\characters\character_1/animations/1Running", "png" ) 
