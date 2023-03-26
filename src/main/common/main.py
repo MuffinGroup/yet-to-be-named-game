@@ -166,6 +166,7 @@ def Main(screen,clock):
 
         if Player.walking == True:
             WalkingValue += Player.countup
+            print(idleValue)
 
         clock.tick(200)
         pygame.display.flip()
