@@ -1,0 +1,34 @@
+        if timesLoaded == 0:
+            print("times loaded has to be min 1 and max 16")
+        if timesLoaded >= 1:
+            sprite_list.append(image)
+        if timesLoaded >= 2:
+            sprite_list.append(image)
+        if timesLoaded >= 3:
+            sprite_list.append(image)
+        if timesLoaded >= 4:
+            sprite_list.append(image)
+        if timesLoaded >= 5:
+            sprite_list.append(image)
+        if timesLoaded >= 6:
+            sprite_list.append(image)
+        if timesLoaded >= 7:
+            sprite_list.append(image)
+        if timesLoaded >= 8:
+            sprite_list.append(image)
+        if timesLoaded >= 9:
+            sprite_list.append(image)
+        if timesLoaded >= 10:
+            sprite_list.append(image)
+        if timesLoaded >= 11:
+            sprite_list.append(image)
+        if timesLoaded >= 12:
+            sprite_list.append(image)
+        if timesLoaded >= 13:
+            sprite_list.append(image)
+        if timesLoaded >= 14:
+            sprite_list.append(image)
+        if timesLoaded >= 15:
+            sprite_list.append(image)
+        if timesLoaded >= 16:
+            sprite_list.append(image) 
