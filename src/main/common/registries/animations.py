@@ -218,7 +218,7 @@ jump_sprite = [jump_sprite0, jump_sprite1, jump_sprite2, jump_sprite3, jump_spri
 #walking1 = loadMovement("idle", 1)
 
 #Thanks again to Tim Cook aka PFornax from daskomikos discord server for helping us out with this <3
-def load_animationByNumber(AlphaImageName, numberofsprites, test, dictionary = None, format = "png"):
+def load_animationByNumber(AlphaImageName, numberofsprites, dictionary = None, format = "png"):
     sprite_list = []
     for sprite in range(1, numberofsprites):
         currentimagename = str(dictionary)+"/"+str(AlphaImageName)+"("+str(sprite) + ")" + "." +str(format)
@@ -240,4 +240,4 @@ def load_animationByNumber(AlphaImageName, numberofsprites, test, dictionary = N
         #sprite_list.append(image7)
     return sprite_list
 
-walking_spriteNew = load_animationByNumber("1Running", 8, 4, "src\main/assets/textures\entities\characters\character_1/animations/1Running", "png" ) 
+walking_spriteNew = load_animationByNumber("1Running", 8, "src\main/assets/textures\entities\characters\character_1/animations/1Running", "png" ) 
