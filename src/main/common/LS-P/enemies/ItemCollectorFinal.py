@@ -1,6 +1,4 @@
-
 import pygame
-import random
 
 # initialize pygame
 pygame.init()
@@ -45,6 +43,7 @@ while game_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game_running = False
+       
     
     # handle key presses to move the character
     keys = pygame.key.get_pressed()
@@ -56,7 +55,7 @@ while game_running:
         character_rect.move_ip(0, -1)
     if keys[pygame.K_DOWN]:
         character_rect.move_ip(0, 1)
-    
+        
     # check for collision with items
     if check_collision(character_rect, item_rects):
         score += 1
