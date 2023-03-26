@@ -13,8 +13,6 @@ def load_animation(AlphaImageName, numberofsprites, timesLoaded, dictionary = No
         image = pygame.image.load(currentimagename)
         for i in range(timesLoaded):
             sprite_list.append(image)
-        #sprite_list.append(image6)
-        #sprite_list.append(image7)
     return sprite_list
 
 walking_sprite = load_animation("1Running", 8, 5, "src\main/assets/textures\entities\characters\character_1/animations/1Running", "png" ) 

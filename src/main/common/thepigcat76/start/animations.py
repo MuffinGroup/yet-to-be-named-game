@@ -13,8 +13,6 @@ def load_animation(AlphaImageName, numberofsprites, timesLoaded, dictionary = No
         image = pygame.image.load(currentimagename)
         for i in range(timesLoaded):
             sprite_list.append(image)
-        #sprite_list.append(image6)
-        #sprite_list.append(image7)
     return sprite_list
 
 startButton = load_animation("StartButtonSel", 9, 4, "src/main/assets/textures/elements/gui/StartButtonSel")
