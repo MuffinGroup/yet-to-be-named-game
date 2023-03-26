@@ -205,24 +205,31 @@ jump_sprite = [jump_sprite0, jump_sprite1, jump_sprite2, jump_sprite3, jump_spri
 
 
 #currently supported types: running, jumping, idle
-def loadMovement(type, number):
-    if type == "running":
-        pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations/1Running/1running(" + str(number) + ").png")
-    elif type == "jumping":
-        pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations/1Jump/1Jump(" + str(number) + ").png")
-    elif type == "idle":
-        pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations/1Idle/1idle(" + str(number) + ").png")
-    else:
-        print("could not resolve type: " + type)
+#def loadMovement(type, number):
+#    if type == "running":
+#        pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations/1Running/1running(" + str(number) + ").png")
+#    elif type == "jumping":
+#        pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations/1Jump/1Jump(" + str(number) + ").png")
+#    elif type == "idle":
+#        pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations/1Idle/1idle(" + str(number) + ").png")
+#    else:
+#        print("could not resolve type: " + type)
 
-walking1 = loadMovement("idle", 1)
+#walking1 = loadMovement("idle", 1)
 
+#Thanks again to Tim Cook aka PFornax from daskomikos discord server for helping us out with this <3
 def load_animationByNumber(AlphaImageName, numberofsprites, test, dictionary = None, format = "png"):
     sprite_list = []
     for sprite in range(1, numberofsprites):
         currentimagename = str(dictionary)+"/"+str(AlphaImageName)+"("+str(sprite) + ")" + "." +str(format)
         image = pygame.image.load(currentimagename)
+        image1 = pygame.image.load(currentimagename)
+        image2 = pygame.image.load(currentimagename)
+        image3 = pygame.image.load(currentimagename)
         sprite_list.append(image)
+        sprite_list.append(image1)
+        sprite_list.append(image2)
+        sprite_list.append(image3)
     return sprite_list
 
 walking_spriteNew = load_animationByNumber("1Running", 8, 4, "src\main/assets/textures\entities\characters\character_1/animations/1Running", "png" ) 
