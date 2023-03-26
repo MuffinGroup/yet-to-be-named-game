@@ -141,14 +141,14 @@ def Main(screen,clock):
 
         Player.currentSprite = registries.animations.idle_sprite[idleValue]
 
-        if WalkingValue >= len(registries.animations.walking_sprite):
+        if WalkingValue >= len(registries.animations.walking_spriteNew):
             WalkingValue = 0
         
         camera_pos = player.move(camera_pos) # Run Player Move Function And Return New Camera Pos
 
         #Player position detection
         if Player.walking == True:
-            Player.currentSprite = registries.animations.walking_sprite[WalkingValue]
+            Player.currentSprite = registries.animations.walking_spriteNew[WalkingValue]
 
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
