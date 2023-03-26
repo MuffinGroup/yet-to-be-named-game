@@ -223,13 +223,21 @@ def load_animationByNumber(AlphaImageName, numberofsprites, test, dictionary = N
     for sprite in range(1, numberofsprites):
         currentimagename = str(dictionary)+"/"+str(AlphaImageName)+"("+str(sprite) + ")" + "." +str(format)
         image = pygame.image.load(currentimagename)
-        image1 = pygame.image.load(currentimagename)
-        image2 = pygame.image.load(currentimagename)
-        image3 = pygame.image.load(currentimagename)
+        image1 = image
+        image2 = image
+        image3 = image
+        image4 = image
+        image5 = image
+        image6 = image
+        image7 = image
         sprite_list.append(image)
         sprite_list.append(image1)
         sprite_list.append(image2)
         sprite_list.append(image3)
+        sprite_list.append(image4)
+        sprite_list.append(image5)
+        #sprite_list.append(image6)
+        #sprite_list.append(image7)
     return sprite_list
 
 walking_spriteNew = load_animationByNumber("1Running", 8, 4, "src\main/assets/textures\entities\characters\character_1/animations/1Running", "png" ) 

@@ -170,7 +170,6 @@ def Main(screen,clock):
         clock.tick(200)
         pygame.display.flip()
 
-
 if __name__ in "__main__":
     screen = pygame.display.set_mode((1000,600), pygame.RESIZABLE)
     pygame.display.set_caption("CameraView")
