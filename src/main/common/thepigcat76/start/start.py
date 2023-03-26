@@ -5,7 +5,7 @@ import animations
 
 pygame.init()
 screen = pygame.display.set_mode((720,720), pygame.RESIZABLE)
-icon = pygame.image.load('src\main/assets/textures/elements\gui/icon\icon_new.png')
+icon = pygame.image.load('src\main/assets/textures/elements\gui/icon\muffin_icon.png')
 pygame.display.set_icon(icon)
 pygame.display.set_caption("Muffin Group")
 start_button = registerButton.Button("button" ,350, 250, 6.0, "start", colors.BLACK, "joystixmonospaceregular")
