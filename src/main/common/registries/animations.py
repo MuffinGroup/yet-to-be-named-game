@@ -216,3 +216,13 @@ def loadMovement(type, number):
         print("could not resolve type: " + type)
 
 walking1 = loadMovement("idle", 1)
+
+def load_animationByNumber(AlphaImageName, numberofsprites, test, dictionary = None, format = "png"):
+    sprite_list = []
+    for sprite in range(1, numberofsprites):
+        currentimagename = str(dictionary)+"/"+str(AlphaImageName)+"("+str(sprite) + ")" + "." +str(format)
+        image = pygame.image.load(currentimagename)
+        sprite_list.append(image)
+    return sprite_list
+
+walking_spriteNew = load_animationByNumber("1Running", 8, 4, "src\main/assets/textures\entities\characters\character_1/animations/1Running", "png" ) 
