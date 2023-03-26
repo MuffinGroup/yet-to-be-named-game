@@ -18,7 +18,7 @@ character_rect = character_image.get_rect()
 character_rect.center = (window_width//2, window_height//2)
 item_images = [pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png"), pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy - Kopie.png")]
 item_rects = []
-for i in range(1):
+for i in range(5):
     item_rect = item_images[i % len(item_images)].get_rect()
     item_rect.center = (random.randint(50, window_width-50), random.randint(50, window_height-50))
     item_rects.append(item_rect)
