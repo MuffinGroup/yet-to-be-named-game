@@ -191,3 +191,26 @@ jump_sprite54 = pygame.image.load("src\main/assets/textures\entities\characters\
 jump_sprite55 = pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations/1Jump/1Jump(7).png")
 
 jump_sprite = [jump_sprite0, jump_sprite1, jump_sprite2, jump_sprite3, jump_sprite4, jump_sprite5, jump_sprite6, jump_sprite7, jump_sprite8, jump_sprite9, jump_sprite10, jump_sprite11, jump_sprite12, jump_sprite13, jump_sprite14, jump_sprite15, jump_sprite16, jump_sprite17, jump_sprite18, jump_sprite19, jump_sprite20, jump_sprite21, jump_sprite22, jump_sprite23, jump_sprite24, jump_sprite25, jump_sprite26, jump_sprite27, jump_sprite28, jump_sprite29, jump_sprite30, jump_sprite31, jump_sprite32, jump_sprite33, jump_sprite34, jump_sprite35, jump_sprite36, jump_sprite37, jump_sprite38, jump_sprite39, jump_sprite40, jump_sprite41, jump_sprite42, jump_sprite43, jump_sprite44, jump_sprite45, jump_sprite46, jump_sprite47, jump_sprite48, jump_sprite49, jump_sprite50, jump_sprite51, jump_sprite52, jump_sprite53, jump_sprite54, jump_sprite55]
+
+#Thanks to Tim Cook aka PFornax from daskomikos discord server for helping us out with this <3
+#def load(image, fileNumber, dictionary = None, format = "png"):
+#    pathname = dictionary
+#    formattype = format
+#    imagename = image
+#    imagename = str(pathname) + "/" + str(imagename) + "(" + str(fileNumber) + ")." + str(formattype)
+#    image = pygame.image.load(imagename)
+#    return image
+
+#walking_sprite1 = load("1running", 1,("src\main/assets/textures\entities\characters\character_1/animations/1Running"), ("png") ) 
+
+
+#currently supported types: running, jumping, idle
+def loadMovement(type, number):
+    if type == "running":
+        pass
+    if type == "jumping":
+        pass
+    if type == "idle":
+        pass
+
+loadMovement("hi", 1)
