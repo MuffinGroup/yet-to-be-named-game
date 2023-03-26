@@ -207,10 +207,12 @@ jump_sprite = [jump_sprite0, jump_sprite1, jump_sprite2, jump_sprite3, jump_spri
 #currently supported types: running, jumping, idle
 def loadMovement(type, number):
     if type == "running":
-        pass
-    if type == "jumping":
-        pass
-    if type == "idle":
-        pass
+        pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations/1Running/1running(" + str(number) + ").png")
+    elif type == "jumping":
+        pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations/1Jump/1Jump(" + str(number) + ").png")
+    elif type == "idle":
+        pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations/1Idle/1idle(" + str(number) + ").png")
+    else:
+        print("could not resolve type: " + type)
 
-loadMovement("hi", 1)
+walking1 = loadMovement("idle", 1)
