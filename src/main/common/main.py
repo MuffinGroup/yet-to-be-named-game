@@ -29,6 +29,8 @@ class Player:
         self.visible = True
         global pos_x
         global pos_y
+        pos_x = self.rect.x
+        pos_y = self.rect.y
         pos_x,pos_y = camera_pos # Split camara_pos
         
         key = pygame.key.get_pressed() # Get Keyboard Input
@@ -45,7 +47,6 @@ class Player:
             if Player.jumpvar < 0:
                 n = -1
             self.rect.y -= (Player.jumpvar**2)*0.17*n
-            pos_y += (Player.jumpvar**2)*0.17*n
             Player.jumping = True
             Player.jumpvar -= 1
         else:
@@ -56,7 +57,6 @@ class Player:
             Player.facingLeft = False
             Player.facingRight = True
             self.rect.x += Player.image_speed 
-            pos_x -= Player.image_speed
         else:
             Player.standing = True
             Player.walking = False
@@ -66,7 +66,6 @@ class Player:
             Player.facingLeft = True
             Player.facingRight = True
             self.rect.x -= Player.image_speed 
-            pos_x += Player.image_speed
         else:
             Player.standing = True
             Player.walking = False
@@ -101,7 +100,7 @@ class Player:
             Player.walking = False
             pos_y = camera_pos[1]
         
-        return (pos_x,pos_y) # Return New Camera Pos
+        return (-self.rect.x + 400, -self.rect.y + 400) # Return New Camera Pos
     
     def render(self,screen):
         if self.visible == True:
