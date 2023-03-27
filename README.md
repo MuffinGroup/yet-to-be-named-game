@@ -9,7 +9,7 @@ Contributors:
 - TheHackerChampion - Dev
 - ReadyPlayerOne - Dev
 
-A small showcase: https://www.youtube.com/watch?v=O6B3gP3-5k4
+A small showcase: https://www.youtube.com/watch?v=w0I0Rwj7rjA
 
 To run the project, install python and the pygame library,
 open it in VSC and run the main.py file using the python extension.
