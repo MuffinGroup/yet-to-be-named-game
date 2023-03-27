@@ -20,11 +20,11 @@ class Player:
         Player.jumping = False
         Player.walking = False
         Player.colliding = False
-        Player.rect = pygame.Rect((480,600),(Player.rightImage.get_width() * 10, Player.rightImage.get_height() * 10)) # Create Player Rect
+        Player.rect = pygame.Rect((480,600),(250, 250)) # Create Player Rect
         Player.countup = 1
+        Player.debuggingMode = False
 
-    def move(self,camera_pos):
-        mouse = pygame.mouse.get_pos()
+    def keybinds(self,camera_pos):
         self.running = True
         self.doorhandling = 0
         self.visible = True
@@ -71,6 +71,14 @@ class Player:
         else:
             Player.standing = True
             Player.walking = False
+
+        if key[pygame.K_d] and Player.debuggingMode == False:
+            Player.debuggingMode = True
+
+        if key[pygame.K_d] and Player.debuggingMode == False:key[pygame.K_d] and Player.debuggingMode == True:
+            Player.debuggingMode = True
+        if registries.elementDebug.registerElements.colliding == True and Player.debuggingMode == True:
+            print("collides")
 
         if key[pygame.K_u] and self.visible == True and Player.colliding == False:
             Player.standing = False
@@ -126,7 +134,9 @@ class Player:
         if self.visible == True:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite,(250,250))
             screen.blit(self.currentSprite,(self.rect.x,self.rect.y))
-wooden_sign = registries.elementDebug.registerElements("environment/blocks/wooden_sign", 480, 470, 5)
+            if Player.debuggingMode == True:
+                pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4)
+wooden_sign = registries.elementDebug.registerElements("environment/blocks/wooden_sign", 480, 770, 5)
 placeholder = registries.elementDebug.registerElements("environment/blocks/cobble", 1980, 770, 5)
 
 floor = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
@@ -163,7 +173,7 @@ def Main(screen,clock):
         if WalkingValue >= len(registries.animations.walking_sprite):
             WalkingValue = 0
         
-        camera_pos = player.move(camera_pos) # Run Player Move Function And Return New Camera Pos
+        camera_pos = player.keybinds(camera_pos) # Run Player Move Function And Return New Camera Pos
 
         #Player position detection
         if Player.walking == True:
