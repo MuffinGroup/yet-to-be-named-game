@@ -101,7 +101,7 @@ class Player:
         #    Player.walking = False
         #    pos_y = camera_pos[1]
         
-        return (-self.rect.x + 380, -self.rect.y + 300) # Return New Camera Pos
+        return (-self.rect.x + 380, -self.rect.y + 300) # Return New Camera Position
     
     def render(self,screen):
         if self.visible == True:
