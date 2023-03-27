@@ -1,12 +1,13 @@
 import pygame
+import sys
 
 #Thanks to Tim Cook aka PFornax from daskomikos discord server for helping us out with improving this <3
 def load_animation(AlphaImageName, numberofsprites, timesLoaded, dictionary = None, format = "png"):
-    if timesLoaded <= 0:
-        print("timesLoaded must be 1 or above")
+    if timesLoaded <= 0: #Bug prevention
+        print("<ERROR>: timesLoaded must be 1 or above")
+        print("stopping execution...")
     while timesLoaded <= 0:
-        pygame.quit()
-        exit
+        sys.exit()
     sprite_list = []
     for sprite in range(1, numberofsprites):
         currentimagename = str(dictionary)+"/"+str(AlphaImageName)+"("+str(sprite) + ")" + "." +str(format)

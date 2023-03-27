@@ -24,6 +24,7 @@ class Player:
         Player.countup = 1
 
     def move(self,camera_pos):
+        mouse = pygame.mouse.get_pos()
         self.running = True
         self.doorhandling = 0
         self.visible = True
@@ -83,36 +84,36 @@ class Player:
         if key[pygame.K_p]:
             print(Player.rect.x)
 
-        if self.rect.x < 380: # Simple Sides Collision
-            self.rect.x = 380 # Reset Player Rect Coord
-            Player.standing = True
-            Player.walking = False
-            pos_x = camera_pos[0] #Reset Camera Pos Coord
-        elif self.rect.x > 1980: #Set the Player`s moving range
-            self.rect.x = 1980
-            Player.standing = True
-            Player.walking = False
-            pos_x = camera_pos[0]
-        elif self.rect.y > 1980:
-            self.rect.y = 1980
-            Player.standing = True
-            Player.jumping = False
-            Player.walking = False
-            pos_y = camera_pos[1]
+        #if self.rect.x < 380: # Simple Sides Collision
+        #    self.rect.x = 380 # Reset Player Rect Coord
+        #    Player.standing = True
+        #    Player.walking = False
+        #    pos_x = camera_pos[0] #Reset Camera Pos Coord
+        #elif self.rect.x > 1980: #Set the Player`s moving range
+        #    self.rect.x = 1980
+        #    Player.standing = True
+        #    Player.walking = False
+        #    pos_x = camera_pos[0]
+        #elif self.rect.y > 1980:
+        #    self.rect.y = 1980
+        #    Player.standing = True
+        #    Player.jumping = False
+        #    Player.walking = False
+        #    pos_y = camera_pos[1]
         
-        return (-self.rect.x + 400, -self.rect.y + 400) # Return New Camera Pos
+        return (-self.rect.x + 380, -self.rect.y + 300) # Return New Camera Pos
     
     def render(self,screen):
         if self.visible == True:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite,(250,250))
             screen.blit(self.currentSprite,(self.rect.x,self.rect.y))
+wooden_sign = registries.element.registerElements("environment/blocks/wooden_sign", 480, 770, 5)
+placeholder = registries.element.registerElements("environment/blocks/cobble", 1980, 600, 5)
 
 floor = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
 floor_width = floor.get_width()
 floor_height = floor.get_height()
 floor = pygame.transform.scale(floor, (int(floor_width * 8), int(floor_height * 8)))
-wooden_sign = registries.element.registerElements("environment/blocks/wooden_sign", 480, 770, 5)
-placeholder = registries.element.registerElements("environment/blocks/cobble", 1980, 770, 5)
 
 background = pygame.image.load("src\main/assets/textures\levels/background.png")
 background_width = background.get_width()
@@ -154,8 +155,8 @@ def Main(screen,clock):
         
         world.fill(registries.colors.AQUA)
         world.blit(floor, (-500,850))
-        wooden_sign.draw(world)
-        placeholder.draw(world)
+        wooden_sign.draw(world, Player.rect)
+        placeholder.draw(world, Player.rect)
         screen.fill(registries.colors.WHITE) # Fill The background White To Avoid Smearing
         player.render(world) # Render The Player
         screen.blit(world, (pos_x,pos_y)) # Render Map To The screen
