@@ -75,8 +75,9 @@ class Player:
         if key[pygame.K_d] and Player.debuggingMode == False:
             Player.debuggingMode = True
 
-        if key[pygame.K_d] and Player.debuggingMode == False:key[pygame.K_d] and Player.debuggingMode == True:
-            Player.debuggingMode = True
+        if key[pygame.K_o] and Player.debuggingMode == True:
+            Player.debuggingMode = False
+
         if registries.elementDebug.registerElements.colliding == True and Player.debuggingMode == True:
             print("collides")
 
