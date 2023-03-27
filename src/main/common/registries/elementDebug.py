@@ -12,5 +12,6 @@ class registerElements():
 
 	def draw(self, surface, player):
 			surface.blit(self.image, (self.rect.x, self.rect.y))
+			pygame.draw.rect(surface, (0, 255, 0), player, 4)
 			if player.colliderect(self.rect):
 				print("e")

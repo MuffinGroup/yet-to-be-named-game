@@ -1,7 +1,7 @@
 import pygame
 import registries.colors
 import registries.animations
-import registries.element
+import registries.elementDebug
 
 pygame.init()
 
@@ -20,7 +20,7 @@ class Player:
         Player.jumping = False
         Player.walking = False
         Player.colliding = False
-        Player.rect = pygame.Rect((480,600),(30,30)) # Create Player Rect
+        Player.rect = pygame.Rect((480,600),(Player.rightImage.get_width() * 10, Player.rightImage.get_height() * 10)) # Create Player Rect
         Player.countup = 1
 
     def move(self,camera_pos):
@@ -126,8 +126,8 @@ class Player:
         if self.visible == True:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite,(250,250))
             screen.blit(self.currentSprite,(self.rect.x,self.rect.y))
-wooden_sign = registries.element.registerElements("environment/blocks/wooden_sign", 480, 470, 5)
-placeholder = registries.element.registerElements("environment/blocks/cobble", 1980, 770, 5)
+wooden_sign = registries.elementDebug.registerElements("environment/blocks/wooden_sign", 480, 470, 5)
+placeholder = registries.elementDebug.registerElements("environment/blocks/cobble", 1980, 770, 5)
 
 floor = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
 floor_width = floor.get_width()
