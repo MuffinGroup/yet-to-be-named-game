@@ -13,3 +13,7 @@ A small showcase: https://www.youtube.com/watch?v=w0I0Rwj7rjA
 
 To run the project, install python and the pygame library,
 open it in VSC and run the main.py file using the python extension.
+
+Good to know:
+    We have created a very easy way to load animations using pygame. If you want
+    to check it out go to one of the animations.py files.
