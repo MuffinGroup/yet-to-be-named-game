@@ -220,7 +220,7 @@ def Main(screen,clock):
         pygame.display.flip()
 
 if __name__ in "__main__":
-    screen = pygame.display.set_mode((1000,600), pygame.RESIZABLE)
+    screen = pygame.display.set_mode((1000,750), pygame.RESIZABLE)
     pygame.display.set_caption("CameraView")
     clock = pygame.time.Clock()
     Main(screen,clock) # Run Main Loop
