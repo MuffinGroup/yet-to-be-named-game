@@ -20,6 +20,8 @@ class Player:
         Player.jumping = False
         Player.walking = False
         Player.colliding = False
+        Player.collidingLeft = False
+        Player.collidingRight = False
         Player.rect = pygame.Rect((880,600),(250, 250)) # Create Player Rect
         Player.countup = 1
         Player.debuggingMode = False
