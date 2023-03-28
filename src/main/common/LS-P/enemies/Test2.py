@@ -54,13 +54,13 @@ while True:
     # handle user input
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
-        character_rect.move_ip(-5, 0)
+        character_rect.move_ip(-3, 0)
     if keys[pygame.K_RIGHT]:
-        character_rect.move_ip(5, 0)
+        character_rect.move_ip(3, 0)
     if keys[pygame.K_UP]:
-        character_rect.move_ip(0, -5)
+        character_rect.move_ip(0, -3)
     if keys[pygame.K_DOWN]:
-        character_rect.move_ip(0, 5)
+        character_rect.move_ip(0, 3)
 
     # draw the graphics
     game_window.fill((255, 255, 255))
@@ -74,3 +74,5 @@ while True:
     for i, inventory_rect in enumerate(inventory_rects):
         pygame.draw.rect(game_window, (0, 0, 0), inventory_rect, 2)  # draw the outline of the inventory boxes
     pygame.display.update()
+
+pygame.quit()
