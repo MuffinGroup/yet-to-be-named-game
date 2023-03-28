@@ -8,5 +8,5 @@
 - Startscreen: thepigcat76
 - Camera: ReadyPlayerOne14
 - Combat: ReadyPlayerOne14
-- Items: ReadyPlayerOne14
+- Items and inventory: ReadyPlayerOne14
 - collisions: thepigcat76
