@@ -22,7 +22,7 @@ class Player:
         Player.colliding = False
         Player.collidingLeft = False
         Player.collidingRight = False
-        Player.rect = pygame.Rect((880,600),(250, 250)) # Create Player Rect
+        Player.rect = pygame.Rect((880,650),(100, 200)) # Create Player Rect
         Player.countup = 1
         Player.debuggingMode = False
 
@@ -55,11 +55,12 @@ class Player:
         else:
             Player.jumpvar = -16
 
-        if key[pygame.K_RIGHT] and self.visible == True and Player.colliding == False and Player.collidingRight == False:
-            Player.standing = False
+        if key[pygame.K_RIGHT] and self.visible == True:
             Player.facingLeft = False
             Player.facingRight = True
-            self.rect.x += Player.image_speed 
+            if Player.collidingRight == False or Player.collidingLeft == False:
+                Player.standing = False
+                self.rect.x += Player.image_speed 
         else:
             Player.standing = True
             Player.walking = False
@@ -96,11 +97,12 @@ class Player:
             Player.walking = False
 
         #-------------------------------------------------
-        if key[pygame.K_LEFT] and self.visible == True and Player.colliding == False and Player.collidingLeft == False:
-            Player.standing = False
+        if key[pygame.K_LEFT] and self.visible == True:
             Player.facingLeft = True
             Player.facingRight = True
-            self.rect.x -= Player.image_speed 
+            if Player.collidingLeft == False or Player.collidingRight == False:
+                Player.standing = False
+                self.rect.x -= Player.image_speed 
         else:
             Player.standing = True
             Player.walking = False
@@ -140,7 +142,7 @@ class Player:
     def render(self,screen):
         if self.visible == True:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite,(250,250))
-            screen.blit(self.currentSprite,(self.rect.x,self.rect.y))
+            screen.blit(self.currentSprite,(self.rect.x - 75,self.rect.y-50))
             if Player.debuggingMode == True:
                 pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4)
 placeholder = registries.element.registerElements("environment/blocks/cobble", 5)
@@ -187,7 +189,7 @@ def Main(screen,clock):
 
         Player.currentSprite = registries.animations.idle_sprite[idleValue]
 
-        if Player.rect.colliderect(wooden_sign_hitbox):
+        if Player.rect.colliderect(wooden_sign_hitbox) or Player.rect.colliderect(placeholder_hitbox) or Player.rect.colliderect(placeholder_hitbox1):
             registries.element.registerElements.colliding = True
         else:
             registries.element.registerElements.colliding = False
