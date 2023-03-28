@@ -34,7 +34,7 @@ for i in range(4):
     rect = pygame.Rect(50 + i * 80, 10, 70, 70)
     inventory_rects.append(rect)
 
-litle_score=0
+litlle_score = 0
 
 while True:
     # handle events

@@ -34,7 +34,7 @@ class Player:
         global pos_y
         pos_x = self.rect.x
         pos_y = self.rect.y
-        pos_x,pos_y = camera_pos # Split camara_pos
+        pos_x, pos_y = camera_pos # Split camara_pos
         
         key = pygame.key.get_pressed() # Get Keyboard Input
         if key[pygame.K_UP] and Player.jumpvar == -16 and self.visible == True and Player.colliding == False: # Check Keyif keys[pygame.K_UP] and jumpvar == -16 and visible == True:
@@ -222,7 +222,7 @@ def Main(screen,clock):
         pygame.display.flip()
 
 if __name__ in "__main__":
-    screen = pygame.display.set_mode((1000,750), pygame.RESIZABLE)
+    screen = pygame.display.set_mode((1000,600), pygame.RESIZABLE)
     pygame.display.set_caption("CameraView")
     clock = pygame.time.Clock()
     Main(screen,clock) # Run Main Loop
