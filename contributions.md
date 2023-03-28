@@ -1,12 +1,12 @@
-Design: N1cohd1
-Animation design: N1cohd1
-Animations in-game: thepigcat76
-Enemies: ReadyPlayerOne14 and thepigcat76
-Introduction and Text: TheHackerChampion
-Player: TheHackerChampion and thepigct76
-Game-design: All of us
-Startscreen: thepigcat76
-Camera: ReadyPlayerOne14
-Combat: ReadyPlayerOne14
-Items: ReadyPlayerOne14
-collisions: thepigcat76
+- Design: N1cohd1
+- Animation design: N1cohd1
+- Animations in-game: thepigcat76
+- Enemies: ReadyPlayerOne14 and thepigcat76
+- Introduction and Text: TheHackerChampion
+- Player: TheHackerChampion and thepigct76
+- Game-design: All of us
+- Startscreen: thepigcat76
+- Camera: ReadyPlayerOne14
+- Combat: ReadyPlayerOne14
+- Items: ReadyPlayerOne14
+- collisions: thepigcat76
