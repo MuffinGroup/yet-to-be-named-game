@@ -12,6 +12,8 @@ pygame.display.set_caption("Collect Items Game")
 
 # set up the character and items
 character_image = pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations\character_1.png")
+character_image=pygame.transform.scale(character_image,(250,250))
+character_image.blit(character_image,(340,190))
 currenSprite = character_image
 currenSprite = pygame.transform.scale(currenSprite,(250,250))
 character_rect = character_image.get_rect()
