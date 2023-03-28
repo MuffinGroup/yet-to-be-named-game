@@ -65,7 +65,7 @@ class Player:
             Player.walking = False
 
         #For testing purpose
-        if key[pygame.K_DOWN] and self.visible == True and Player.colliding == False and Player.debuggingMode == True:
+        if key[pygame.K_DOWN] and self.visible == True and registries.element.registerElements.colliding == False and Player.debuggingMode == True:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -86,7 +86,7 @@ class Player:
         elif registries.element.registerElements.colliding == False or Player.facingLeft == False:
             Player.collidingLeft = False
 
-        if key[pygame.K_u] and self.visible == True and Player.colliding == False and Player.debuggingMode == True:
+        if key[pygame.K_u] and self.visible == True and registries.element.registerElements.colliding == False and Player.debuggingMode == True:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -187,7 +187,7 @@ def Main(screen,clock):
 
         Player.currentSprite = registries.animations.idle_sprite[idleValue]
 
-        if Player.rect.colliderect(hitbox_elements[hitboxArrayCount]):
+        if Player.rect.colliderect(wooden_sign_hitbox):
             registries.element.registerElements.colliding = True
         else:
             registries.element.registerElements.colliding = False
