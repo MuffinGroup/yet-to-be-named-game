@@ -55,7 +55,7 @@ class Player:
         else:
             Player.jumpvar = -16
 
-        if key[pygame.K_RIGHT] and self.visible == True and Player.colliding == False:
+        if key[pygame.K_RIGHT] and self.visible == True and Player.colliding == False and Player.collidingRight == False:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -77,10 +77,14 @@ class Player:
         if key[pygame.K_d]:
             Player.debuggingMode = True
 
-        if registries.element.registerElements.colliding == True and Player.debuggingMode == True:
-            print("collides")        
-        if registries.element.registerElements.colliding1 == True and Player.debuggingMode == True:
-            print("collides1")
+        if registries.element.registerElements.colliding == True and Player.facingRight == True:
+            Player.collidingRight = True
+        elif registries.element.registerElements.colliding == False or Player.facingRight == False:
+            Player.collidingRight = False
+        if registries.element.registerElements.colliding == True and Player.facingLeft == True:
+            Player.collidingLeft = True
+        elif registries.element.registerElements.colliding == False or Player.facingLeft == False:
+            Player.collidingLeft = False
 
         if key[pygame.K_u] and self.visible == True and Player.colliding == False and Player.debuggingMode == True:
             Player.standing = False
@@ -92,7 +96,7 @@ class Player:
             Player.walking = False
 
         #-------------------------------------------------
-        if key[pygame.K_LEFT] and self.visible == True and Player.colliding == False:
+        if key[pygame.K_LEFT] and self.visible == True and Player.colliding == False and Player.collidingLeft == False:
             Player.standing = False
             Player.facingLeft = True
             Player.facingRight = True
@@ -146,7 +150,7 @@ placeholder3 = registries.element.registerElements("environment/blocks/cobble", 
 wooden_sign_hitbox = pygame.Rect((200, 770),(int(32 * 5), int(32 * 5)))
 placeholder_hitbox = pygame.Rect((800, 770),(int(32 * 5), int(32 * 5)))
 placeholder_hitbox1 = pygame.Rect((600, 770),(int(32 * 5), int(32 * 5)))
-hitbox_elements = [wooden_sign_hitbox, placeholder_hitbox, placeholder_hitbox1]
+hitbox_elements = [wooden_sign_hitbox]
 
 floor = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
 floor_width = floor.get_width()
