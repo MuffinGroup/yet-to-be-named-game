@@ -20,7 +20,7 @@ class Player:
         Player.jumping = False
         Player.walking = False
         Player.colliding = False
-        Player.rect = pygame.Rect((480,600),(250, 250)) # Create Player Rect
+        Player.rect = pygame.Rect((880,600),(250, 250)) # Create Player Rect
         Player.countup = 1
         Player.debuggingMode = False
 
@@ -63,7 +63,7 @@ class Player:
             Player.walking = False
 
         #For testing purpose
-        if key[pygame.K_DOWN] and self.visible == True and Player.colliding == False:
+        if key[pygame.K_DOWN] and self.visible == True and Player.colliding == False and Player.debuggingMode == True:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -72,16 +72,13 @@ class Player:
             Player.standing = True
             Player.walking = False
 
-        if key[pygame.K_d] and Player.debuggingMode == False:
+        if key[pygame.K_d]:
             Player.debuggingMode = True
-
-        if key[pygame.K_o] and Player.debuggingMode == True:
-            Player.debuggingMode = False
 
         if registries.elementDebug.registerElements.colliding == True and Player.debuggingMode == True:
             print("collides")
 
-        if key[pygame.K_u] and self.visible == True and Player.colliding == False:
+        if key[pygame.K_u] and self.visible == True and Player.colliding == False and Player.debuggingMode == True:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -137,8 +134,9 @@ class Player:
             screen.blit(self.currentSprite,(self.rect.x,self.rect.y))
             if Player.debuggingMode == True:
                 pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4)
-wooden_sign = registries.elementDebug.registerElements("environment/blocks/wooden_sign", 480, 770, 5)
+wooden_sign = registries.elementDebug.registerElements("environment/blocks/cobble", 480, 770, 5)
 placeholder = registries.elementDebug.registerElements("environment/blocks/cobble", 1980, 770, 5)
+placeholder2 = registries.elementDebug.registerElements("environment/blocks/cobble",880, 770, 5 )
 
 floor = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
 floor_width = floor.get_width()
@@ -187,7 +185,8 @@ def Main(screen,clock):
         world.blit(floor, (-500,850))
         wooden_sign.draw(world, Player.rect)
         placeholder.draw(world, Player.rect)
-        screen.fill(registries.colors.WHITE) # Fill The background White To Avoid Smearing
+        placeholder2.draw(world, Player.rect)
+        screen.fill(registries.colors.AQUA) # Fill The background White To Avoid Smearing
         player.render(world) # Render The Player
         screen.blit(world, (pos_x,pos_y)) # Render Map To The screen
 
