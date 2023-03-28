@@ -20,11 +20,13 @@ class Player:
         Player.jumping = False
         Player.walking = False
         Player.colliding = False
-        Player.rect = pygame.Rect((480,600),(30,30)) # Create Player Rect
+        Player.collidingLeft = False
+        Player.collidingRight = False
+        Player.rect = pygame.Rect((880,600),(250, 250)) # Create Player Rect
         Player.countup = 1
+        Player.debuggingMode = False
 
-    def move(self,camera_pos):
-        mouse = pygame.mouse.get_pos()
+    def keybinds(self,camera_pos):
         self.running = True
         self.doorhandling = 0
         self.visible = True
@@ -32,7 +34,7 @@ class Player:
         global pos_y
         pos_x = self.rect.x
         pos_y = self.rect.y
-        pos_x,pos_y = camera_pos # Split camara_pos
+        pos_x, pos_y = camera_pos # Split camara_pos
         
         key = pygame.key.get_pressed() # Get Keyboard Input
         if key[pygame.K_UP] and Player.jumpvar == -16 and self.visible == True and Player.colliding == False: # Check Keyif keys[pygame.K_UP] and jumpvar == -16 and visible == True:
@@ -63,7 +65,7 @@ class Player:
             Player.walking = False
 
         #For testing purpose
-        if key[pygame.K_DOWN] and self.visible == True and Player.colliding == False:
+        if key[pygame.K_DOWN] and self.visible == True and Player.colliding == False and Player.debuggingMode == True:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -72,7 +74,15 @@ class Player:
             Player.standing = True
             Player.walking = False
 
-        if key[pygame.K_u] and self.visible == True and Player.colliding == False:
+        if key[pygame.K_d]:
+            Player.debuggingMode = True
+
+        if registries.element.registerElements.colliding == True and Player.debuggingMode == True:
+            print("collides")        
+        if registries.element.registerElements.colliding1 == True and Player.debuggingMode == True:
+            print("collides1")
+
+        if key[pygame.K_u] and self.visible == True and Player.colliding == False and Player.debuggingMode == True:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -80,6 +90,7 @@ class Player:
         else:
             Player.standing = True
             Player.walking = False
+
         #-------------------------------------------------
         if key[pygame.K_LEFT] and self.visible == True and Player.colliding == False:
             Player.standing = False
@@ -126,8 +137,16 @@ class Player:
         if self.visible == True:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite,(250,250))
             screen.blit(self.currentSprite,(self.rect.x,self.rect.y))
-wooden_sign = registries.element.registerElements("environment/blocks/wooden_sign", 480, 470, 5)
-placeholder = registries.element.registerElements("environment/blocks/cobble", 1980, 770, 5)
+            if Player.debuggingMode == True:
+                pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4)
+placeholder = registries.element.registerElements("environment/blocks/cobble", 5)
+wooden_sign = registries.element.registerElements("environment/blocks/wooden_sign", 5)
+placeholder2 = registries.element.registerElements("environment/blocks/cobble", 5)
+placeholder3 = registries.element.registerElements("environment/blocks/cobble", 5)
+wooden_sign_hitbox = pygame.Rect((200, 770),(int(32 * 5), int(32 * 5)))
+placeholder_hitbox = pygame.Rect((800, 770),(int(32 * 5), int(32 * 5)))
+placeholder_hitbox1 = pygame.Rect((600, 770),(int(32 * 5), int(32 * 5)))
+hitbox_elements = [wooden_sign_hitbox, placeholder_hitbox, placeholder_hitbox1]
 
 floor = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
 floor_width = floor.get_width()
@@ -148,6 +167,7 @@ def Main(screen,clock):
     #values for animation calculation
     idleValue = 0
     WalkingValue = 0
+    hitboxArrayCount = 0
 
     while True:
         for event in pygame.event.get():
@@ -158,12 +178,20 @@ def Main(screen,clock):
         if idleValue >= len(registries.animations.idle_sprite):
             idleValue = 0
 
+        if hitboxArrayCount >= len(hitbox_elements):
+            hitboxArrayCount = 0
+
         Player.currentSprite = registries.animations.idle_sprite[idleValue]
+
+        if Player.rect.colliderect(hitbox_elements[hitboxArrayCount]):
+            registries.element.registerElements.colliding = True
+        else:
+            registries.element.registerElements.colliding = False
 
         if WalkingValue >= len(registries.animations.walking_sprite):
             WalkingValue = 0
         
-        camera_pos = player.move(camera_pos) # Run Player Move Function And Return New Camera Pos
+        camera_pos = player.keybinds(camera_pos) # Run Player Move Function And Return New Camera Pos
 
         #Player position detection
         if Player.walking == True:
@@ -172,11 +200,15 @@ def Main(screen,clock):
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
         
+        if len(hitbox_elements) > 0:
+            hitboxArrayCount += 1
+
         world.fill(registries.colors.AQUA)
         world.blit(floor, (-500,850))
-        wooden_sign.draw(world, Player.rect)
-        placeholder.draw(world, Player.rect)
-        screen.fill(registries.colors.WHITE) # Fill The background White To Avoid Smearing
+        wooden_sign.draw(world, wooden_sign_hitbox)
+        placeholder.draw(world, placeholder_hitbox)
+        placeholder2.draw(world, placeholder_hitbox1)
+        screen.fill(registries.colors.AQUA) # Fill The background White To Avoid Smearing
         player.render(world) # Render The Player
         screen.blit(world, (pos_x,pos_y)) # Render Map To The screen
 
@@ -190,7 +222,7 @@ def Main(screen,clock):
         pygame.display.flip()
 
 if __name__ in "__main__":
-    screen = pygame.display.set_mode((1000,750), pygame.RESIZABLE)
+    screen = pygame.display.set_mode((1000,600), pygame.RESIZABLE)
     pygame.display.set_caption("CameraView")
     clock = pygame.time.Clock()
     Main(screen,clock) # Run Main Loop
