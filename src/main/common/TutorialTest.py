@@ -76,9 +76,9 @@ character_speed = 5
 
 #define all functions
 
-textfont = pygame.font.SysFont('joystixmonospaceregular', 50)
+textfont = pygame.font.SysFont('joystixmonospaceregular', 20)
 
-int10 = textfont.render('NEVER GONNA GIVE YOU UP!!!', True, registries.colors.BLACK)
+int10 = textfont.render('Hello!', True, registries.colors.BLACK)
 int11 = textfont.render('Nice to see you!', True, registries.colors.BLACK)
 int12 = textfont.render('In this game you will find', True, registries.colors.BLACK)
 int13 = textfont.render('some nice levels with enemies,', True, registries.colors.BLACK)
@@ -143,6 +143,11 @@ def introduction():
 
     if Info1 == True:
         screen.blit(int10, (100,100))
+        screen.blit(int11, (100,125))
+        screen.blit(int12, (100,150))
+        screen.blit(int13, (100,175))
+        screen.blit(int14, (100,200))
+        screen.blit(int15, (100,250))
         if keys[pygame.K_RETURN]:
             Info1 = False
             Info2 = True
@@ -297,7 +302,6 @@ def draw():
     screen.blit(introducer_image, (850, 400))
     screen.blit(text, (1030,310))
     introduction()
-
 
     if visible == True:
         screen.blit(character_image, (character_x, character_y))
