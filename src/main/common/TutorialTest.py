@@ -64,7 +64,7 @@ introducer_image = pygame.transform.scale(introducer_image, (int(int_widht * sca
 background_widht = background.get_width()
 background_height = background.get_height()
 background = pygame.transform.scale(background, (int(background_widht * scale_bg), int(background_height * scale_bg)))
-current_sprite = character_image
+currentSprite = character_image
 
 # Set initial position
 character_x = 0
