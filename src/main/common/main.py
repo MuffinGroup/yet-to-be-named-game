@@ -22,7 +22,7 @@ class Player:
         Player.colliding = False
         Player.collidingLeft = False
         Player.collidingRight = False
-        Player.rect = pygame.Rect((880, 600), (250, 250)) # Create Player Rect
+        Player.rect = pygame.Rect((880,600),(250, 250)) # Create Player Rect
         Player.countup = 1
         Player.debuggingMode = False
 
@@ -35,7 +35,7 @@ class Player:
         pos_x = self.rect.x
         pos_y = self.rect.y
         pos_x, pos_y = camera_pos # Split camara_pos
-        
+
         key = pygame.key.get_pressed() # Get Keyboard Input
         if key[pygame.K_UP] and Player.jumpvar == -16 and self.visible == True and Player.colliding == False: # Check Keyif keys[pygame.K_UP] and jumpvar == -16 and visible == True:
             Player.jumpvar = 14.3
@@ -54,6 +54,15 @@ class Player:
             Player.jumpvar -= 1
         else:
             Player.jumpvar = -16
+
+        if key[pygame.K_RIGHT] and self.visible == True and Player.colliding == False:
+            Player.standing = False
+            Player.facingLeft = False
+            Player.facingRight = True
+            self.rect.x += Player.image_speed 
+        else:
+            Player.standing = True
+            Player.walking = False
 
         #For testing purpose
         if key[pygame.K_DOWN] and self.visible == True and Player.colliding == False and Player.debuggingMode == True:
@@ -95,15 +104,6 @@ class Player:
         if key[pygame.K_LEFT] and self.visible == True or key[pygame.K_RIGHT] and self.visible == True:
             Player.walking = True
 
-        if key[pygame.K_RIGHT] and self.visible == True and Player.colliding == False:
-            Player.standing = False
-            Player.facingLeft = False
-            Player.facingRight = True
-            self.rect.x += Player.image_speed 
-        else:
-            Player.standing = True
-            Player.walking = False
-        
         if Player.walking == True and key[pygame.K_RSHIFT] or key[pygame.K_LSHIFT]:
             Player.image_speed = 18
             Player.countUp = 2
@@ -130,9 +130,9 @@ class Player:
         #    Player.jumping = False
         #    Player.walking = False
         #    pos_y = camera_pos[1]
-        
+
         return (-self.rect.x + 380, -self.rect.y + 300) # Return New Camera Position
-    
+
     def render(self,screen):
         if self.visible == True:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite,(250,250))
@@ -160,10 +160,10 @@ background = pygame.transform.scale(background, (int(background_width * 3), int(
 
 def Main(screen,clock):
     world = pygame.Surface((8000,8000)) # Create Map Surface
-     
+
     player = Player() # Initialize Player Class
     camera_pos = (-100,-312) # Create Camara Starting Position 
-    
+
     #values for animation calculation
     idleValue = 0
     WalkingValue = 0
@@ -190,7 +190,7 @@ def Main(screen,clock):
 
         if WalkingValue >= len(registries.animations.walking_sprite):
             WalkingValue = 0
-        
+
         camera_pos = player.keybinds(camera_pos) # Run Player Move Function And Return New Camera Pos
 
         #Player position detection
@@ -199,7 +199,7 @@ def Main(screen,clock):
 
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
-        
+
         if len(hitbox_elements) > 0:
             hitboxArrayCount += 1
 
