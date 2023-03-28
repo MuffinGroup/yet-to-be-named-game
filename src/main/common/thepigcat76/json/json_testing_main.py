@@ -13,6 +13,7 @@ screen = pygame.display.set_mode((1280, 800), pygame.RESIZABLE)
 
 textfont = pygame.font.SysFont('joystixmonospaceregular', 30)
 text = textfont.render(str(json_testing.test), True, colors.WHITE)
+text2 = textfont.render(str(json_testing.test2), True, colors.WHITE)
 
 while True:
     for event in pygame.event.get():
@@ -20,4 +21,5 @@ while True:
             pygame.quit()
             
     screen.blit(text, (330,310))
+    screen.blit(text2, (0,210))
     pygame.display.update()
