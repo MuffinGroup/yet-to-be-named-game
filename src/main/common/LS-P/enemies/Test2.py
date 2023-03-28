@@ -46,6 +46,7 @@ while True:
     # check for collision between the character and the items
     for i, item_rect in enumerate(item_rects):
         if character_rect.colliderect(item_rect):
+            item_rects.remove(item_rect)
             # add the item to the inventory
             for j in range(len(inventory)):
                 if inventory[j] is None:
@@ -74,7 +75,7 @@ while True:
             inventory_rect = inventory_rects[i]
             game_window.blit(item, inventory_rect)
     for i, inventory_rect in enumerate(inventory_rects):
-        pygame.draw.rect(game_window, (0, 0, 0), inventory_rect, 2)  # draw the outline of the inventory boxes
+        pygame.draw.rect(game_window, (0, 0, 0), inventory_rect, 5)  # draw the outline of the inventory boxes
     pygame.display.update()
 
 pygame.quit()
