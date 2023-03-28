@@ -22,7 +22,7 @@ class Player:
         Player.colliding = False
         Player.collidingLeft = False
         Player.collidingRight = False
-        Player.rect = pygame.Rect((880,600),(250, 250)) # Create Player Rect
+        Player.rect = pygame.Rect((880, 600), (250, 250)) # Create Player Rect
         Player.countup = 1
         Player.debuggingMode = False
 
@@ -54,15 +54,6 @@ class Player:
             Player.jumpvar -= 1
         else:
             Player.jumpvar = -16
-
-        if key[pygame.K_RIGHT] and self.visible == True and Player.colliding == False:
-            Player.standing = False
-            Player.facingLeft = False
-            Player.facingRight = True
-            self.rect.x += Player.image_speed 
-        else:
-            Player.standing = True
-            Player.walking = False
 
         #For testing purpose
         if key[pygame.K_DOWN] and self.visible == True and Player.colliding == False and Player.debuggingMode == True:
@@ -103,6 +94,15 @@ class Player:
 
         if key[pygame.K_LEFT] and self.visible == True or key[pygame.K_RIGHT] and self.visible == True:
             Player.walking = True
+
+        if key[pygame.K_RIGHT] and self.visible == True and Player.colliding == False:
+            Player.standing = False
+            Player.facingLeft = False
+            Player.facingRight = True
+            self.rect.x += Player.image_speed 
+        else:
+            Player.standing = True
+            Player.walking = False
         
         if Player.walking == True and key[pygame.K_RSHIFT] or key[pygame.K_LSHIFT]:
             Player.image_speed = 18
