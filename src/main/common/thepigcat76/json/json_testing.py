@@ -5,4 +5,4 @@ with open("src\main/assets\lang\en_us.json", "r") as f:
 
 test = data["introduction_1"]
 
-print(test.__str__())
+print(str(test))
