@@ -76,7 +76,9 @@ class Player:
             Player.debuggingMode = True
 
         if registries.elementDebug.registerElements.colliding == True and Player.debuggingMode == True:
-            print("collides")
+            print("collides")        
+        if registries.elementDebug.registerElements.colliding1 == True and Player.debuggingMode == True:
+            print("collides1")
 
         if key[pygame.K_u] and self.visible == True and Player.colliding == False and Player.debuggingMode == True:
             Player.standing = False
@@ -86,6 +88,7 @@ class Player:
         else:
             Player.standing = True
             Player.walking = False
+
         #-------------------------------------------------
         if key[pygame.K_LEFT] and self.visible == True and Player.colliding == False:
             Player.standing = False
@@ -134,9 +137,14 @@ class Player:
             screen.blit(self.currentSprite,(self.rect.x,self.rect.y))
             if Player.debuggingMode == True:
                 pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4)
-wooden_sign = registries.elementDebug.registerElements("environment/blocks/cobble", 480, 770, 5)
-placeholder = registries.elementDebug.registerElements("environment/blocks/cobble", 1980, 770, 5)
-placeholder2 = registries.elementDebug.registerElements("environment/blocks/cobble",880, 770, 5 )
+placeholder = registries.elementDebug.registerElements("environment/blocks/cobble", 5)
+wooden_sign = registries.elementDebug.registerElements("environment/blocks/wooden_sign", 5)
+placeholder2 = registries.elementDebug.registerElements("environment/blocks/cobble", 5)
+placeholder3 = registries.elementDebug.registerElements("environment/blocks/cobble", 5)
+wooden_sign_hitbox = pygame.Rect((200, 770),(int(32 * 5), int(32 * 5)))
+placeholder_hitbox = pygame.Rect((800, 770),(int(32 * 5), int(32 * 5)))
+placeholder_hitbox1 = pygame.Rect((600, 770),(int(32 * 5), int(32 * 5)))
+hitbox_elements = [wooden_sign_hitbox, placeholder_hitbox, placeholder_hitbox1]
 
 floor = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
 floor_width = floor.get_width()
@@ -157,6 +165,7 @@ def Main(screen,clock):
     #values for animation calculation
     idleValue = 0
     WalkingValue = 0
+    hitboxArrayCount = 0
 
     while True:
         for event in pygame.event.get():
@@ -167,7 +176,15 @@ def Main(screen,clock):
         if idleValue >= len(registries.animations.idle_sprite):
             idleValue = 0
 
+        if hitboxArrayCount >= len(hitbox_elements):
+            hitboxArrayCount = 0
+
         Player.currentSprite = registries.animations.idle_sprite[idleValue]
+
+        if Player.rect.colliderect(hitbox_elements[hitboxArrayCount]):
+            registries.elementDebug.registerElements.colliding = True
+        else:
+            registries.elementDebug.registerElements.colliding = False
 
         if WalkingValue >= len(registries.animations.walking_sprite):
             WalkingValue = 0
@@ -181,11 +198,14 @@ def Main(screen,clock):
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
         
+        if len(hitbox_elements) > 0:
+            hitboxArrayCount += 1
+
         world.fill(registries.colors.AQUA)
         world.blit(floor, (-500,850))
-        wooden_sign.draw(world, Player.rect)
-        placeholder.draw(world, Player.rect)
-        placeholder2.draw(world, Player.rect)
+        wooden_sign.draw(world, wooden_sign_hitbox)
+        placeholder.draw(world, placeholder_hitbox)
+        placeholder2.draw(world, placeholder_hitbox1)
         screen.fill(registries.colors.AQUA) # Fill The background White To Avoid Smearing
         player.render(world) # Render The Player
         screen.blit(world, (pos_x,pos_y)) # Render Map To The screen
