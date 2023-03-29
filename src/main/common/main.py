@@ -18,7 +18,6 @@ class Player:
         Player.standing = True
         Player.jumping = False
         Player.walking = False
-        Player.colliding = False
         Player.collidingLeft = False
         Player.collidingRight = False
         Player.rect = pygame.Rect((880,650),(100, 200)) # Create the players hitbox
@@ -36,9 +35,9 @@ class Player:
         player_x, player_y = camera_pos #Assign variables to the camera position
 
         key = pygame.key.get_pressed() #Receive keyboard input
-        if key[pygame.K_UP] and Player.jumpvar == -16 and Player.visible == True and Player.colliding == False: #Jumping
+        if key[pygame.K_UP] and Player.jumpvar == -16 and Player.visible == True and registries.element.registerElements.colliding == False: #Jumping
             Player.jumpvar = 14.3
-        elif key[pygame.K_SPACE] and Player.jumpvar == -16 and Player.visible == True and Player.colliding == False: #Alternative jumping keybind
+        elif key[pygame.K_SPACE] and Player.jumpvar == -16 and Player.visible == True and registries.element.registerElements.colliding == False: #Alternative jumping keybind
             Player.jumpvar = 14.3
 
         if Player.jumpvar == 14.3: #Play jump sound when the player jumps
@@ -125,18 +124,21 @@ class Player:
             registries.element.registerElements.colliding = True
         else:
             registries.element.registerElements.colliding = False
-    
-        #Collisions on the right side
-        if registries.element.registerElements.colliding == True and Player.facingRight == True:
-            Player.collidingRight = True
-        elif registries.element.registerElements.colliding == False or Player.facingRight == False:
-            Player.collidingRight = False
 
         #Collisions on the left side
-        if registries.element.registerElements.colliding == True and Player.facingLeft == True:
+        if registries.element.registerElements.colliding == True and Player.facingLeft == True and Player.walking == True:
             Player.collidingLeft = True
-        elif registries.element.registerElements.colliding == False or Player.facingLeft == False:
+            print("colliding left")
+        elif registries.element.registerElements.colliding == False or Player.facingLeft == False and Player.walking == True:
             Player.collidingLeft = False
+    
+        #Collisions on the right side
+        if registries.element.registerElements.colliding == True and Player.facingRight == True and Player.walking == True:
+            Player.collidingRight = True
+            print("colliding right")
+        elif registries.element.registerElements.colliding == False or Player.facingRight == False and Player.walking == True:
+            Player.collidingRight = False
+
 
 #Loading element textures
 placeholder = registries.element.registerElements("environment/blocks/cobble", 5)
@@ -201,7 +203,6 @@ def Main(screen,clock):
         #Draw elements to the screen
         wooden_sign.draw(world, wooden_sign_hitbox)
         placeholder.draw(world, placeholder_hitbox)
-        placeholder2.draw(world, placeholder_hitbox1)
 
         #Fill the background outside of the map
         screen.fill(registries.colors.AQUA)
