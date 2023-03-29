@@ -35,9 +35,9 @@ class Player:
         player_x, player_y = camera_pos #Assign variables to the camera position
 
         key = pygame.key.get_pressed() #Receive keyboard input
-        if key[pygame.K_UP] and Player.jumpvar == -16 and Player.visible == True and registries.element.registerElements.colliding == False: #Jumping
+        if key[pygame.K_UP] and Player.jumpvar == -16 and Player.visible == True: #Jumping
             Player.jumpvar = 14.3
-        elif key[pygame.K_SPACE] and Player.jumpvar == -16 and Player.visible == True and registries.element.registerElements.colliding == False: #Alternative jumping keybind
+        elif key[pygame.K_SPACE] and Player.jumpvar == -16 and Player.visible == True: #Alternative jumping keybind
             Player.jumpvar = 14.3
 
         if Player.jumpvar == 14.3: #Play jump sound when the player jumps
@@ -53,12 +53,14 @@ class Player:
         else:
             Player.jumpvar = -16
 
-        if key[pygame.K_RIGHT] and Player.visible == True: #Player walking
+        if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True: #Player walking
             Player.facingLeft = False
             Player.facingRight = True
-            if Player.collidingRight == False or Player.collidingLeft == False:
-                Player.standing = False
-                self.rect.x += Player.speed 
+        elif key[pygame.K_RIGHT] and Player.collidingRight == False:
+            Player.facingLeft = False
+            Player.facingRight = True
+            Player.standing = False
+            self.rect.x += Player.speed
         else:
             Player.standing = True
             Player.walking = False
@@ -131,20 +133,16 @@ class Player:
             registries.element.registerElements.colliding = False
 
         #Collisions on the left side
-        if registries.element.registerElements.colliding == True and Player.facingLeft == True and Player.walking == True:
+        if Player.facingLeft == True and Player.collidingRight == False and registries.element.registerElements.colliding == True:
             Player.collidingLeft = True
-            Player.collidingRight = True
         else:
             Player.collidingLeft = False
-            Player.collidingRight = False
     
         #Collisions on the right side
-        if registries.element.registerElements.colliding == True and Player.facingRight == True and Player.collidingLeft == False:
-            Player.collidingLeft = True
+        if Player.facingRight == True and Player.facingLeft == False and registries.element.registerElements.colliding == True:
             Player.collidingRight = True
         else:
             Player.collidingRight = False
-            Player.collidingLeft = False
 
 
 #Loading element textures
@@ -154,7 +152,7 @@ placeholder2 = registries.element.registerElements("environment/blocks/cobble", 
 placeholder3 = registries.element.registerElements("environment/blocks/cobble", 5)
 
 #Loading element hitboxes
-placeholder_hitbox = pygame.Rect((800, 770),(int(32 * 5), int(32 * 5)))
+placeholder_hitbox = pygame.Rect((400, 770),(int(32 * 5), int(32 * 5)))
 
 #Loading floor and background
 floor = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
