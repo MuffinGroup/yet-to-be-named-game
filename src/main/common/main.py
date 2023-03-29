@@ -3,17 +3,16 @@ import registries.colors
 import registries.animations
 import registries.element
 
+#pygame initialization
 pygame.init()
-
 class Player:
+    #Initial Player attribute assignment
     def __init__(currentImage):
         Player.defaultSpeed = 10
-        Player.rightImage = pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations\character_1.png") # Create Player Image
         Player.jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
         Player.jumpsound.set_volume(0.25)
-        Player.currentSprite = Player.rightImage
-        Player.image_speed= Player.defaultSpeed
-        Player.jumpvar = -16
+        Player.speed = Player.defaultSpeed
+        Player.jumpvar = -16 #Important for jumping calculation
         Player.facingRight = True
         Player.facingLeft = False
         Player.standing = True
@@ -22,30 +21,30 @@ class Player:
         Player.colliding = False
         Player.collidingLeft = False
         Player.collidingRight = False
-        Player.rect = pygame.Rect((880,650),(100, 200)) # Create Player Rect
-        Player.countup = 1
+        Player.rect = pygame.Rect((880,650),(100, 200)) # Create the players hitbox
+        Player.animationFrameUpdate = 1
         Player.debuggingMode = False
+        Player.visible = True
 
     def keybinds(self,camera_pos):
-        self.running = True
-        self.doorhandling = 0
-        self.visible = True
-        global pos_x
-        global pos_y
-        pos_x = self.rect.x
-        pos_y = self.rect.y
-        pos_x, pos_y = camera_pos # Split camara_pos
+        global player_x
+        global player_y
+        self.doorhandling = 0 #Door mechanics
+        player_x = self.rect.x #Camera following the player
+        player_y = self.rect.y
 
-        key = pygame.key.get_pressed() # Get Keyboard Input
-        if key[pygame.K_UP] and Player.jumpvar == -16 and self.visible == True and Player.colliding == False: # Check Keyif keys[pygame.K_UP] and jumpvar == -16 and visible == True:
+        player_x, player_y = camera_pos #Assign variables to the camera position
+
+        key = pygame.key.get_pressed() #Receive keyboard input
+        if key[pygame.K_UP] and Player.jumpvar == -16 and Player.visible == True and Player.colliding == False: #Jumping
             Player.jumpvar = 14.3
-        elif key[pygame.K_SPACE] and Player.jumpvar == -16 and self.visible == True and Player.colliding == False:
+        elif key[pygame.K_SPACE] and Player.jumpvar == -16 and Player.visible == True and Player.colliding == False: #Alternative jumping keybind
             Player.jumpvar = 14.3
 
-        if Player.jumpvar == 14.3:
+        if Player.jumpvar == 14.3: #Play jump sound when the player jumps
             pygame.mixer.Sound.play(Player.jumpsound)
 
-        if Player.jumpvar >= -15:
+        if Player.jumpvar >= -15: #Jumping movement
             n = 1
             if Player.jumpvar < 0:
                 n = -1
@@ -55,174 +54,169 @@ class Player:
         else:
             Player.jumpvar = -16
 
-        if key[pygame.K_RIGHT] and self.visible == True:
+        if key[pygame.K_RIGHT] and Player.visible == True: #Player walking
             Player.facingLeft = False
             Player.facingRight = True
             if Player.collidingRight == False or Player.collidingLeft == False:
                 Player.standing = False
-                self.rect.x += Player.image_speed 
+                self.rect.x += Player.speed 
         else:
             Player.standing = True
             Player.walking = False
 
-        #For testing purpose
-        if key[pygame.K_DOWN] and self.visible == True and registries.element.registerElements.colliding == False and Player.debuggingMode == True:
-            Player.standing = False
-            Player.facingLeft = False
+        if key[pygame.K_LEFT] and Player.visible == True: #Player Walking
+            Player.facingLeft = True
             Player.facingRight = True
-            self.rect.y += Player.image_speed 
+            if Player.collidingLeft == False or Player.collidingRight == False:
+                Player.standing = False
+                self.rect.x -= Player.speed 
         else:
             Player.standing = True
             Player.walking = False
 
+        #Debug mode to help developers
         if key[pygame.K_d]:
             Player.debuggingMode = True
 
+        if key[pygame.K_DOWN] and Player.visible == True and registries.element.registerElements.colliding == False and Player.debuggingMode == True:
+            Player.standing = False
+            Player.facingLeft = False
+            Player.facingRight = True
+            self.rect.y += Player.speed 
+        else:
+            Player.standing = True
+            Player.walking = False
+            
+        if key[pygame.K_u] and Player.visible == True and registries.element.registerElements.colliding == False and Player.debuggingMode == True:
+            Player.standing = False
+            Player.facingLeft = False
+            Player.facingRight = True
+            self.rect.y -= Player.speed 
+        else:
+            Player.standing = True
+            Player.walking = False
+
+        if key[pygame.K_p] and Player.debuggingMode == True:
+            print(Player.rect.x)
+    
+    #End of debugging mode functions
+
+        if key[pygame.K_LEFT] and Player.visible == True or key[pygame.K_RIGHT] and Player.visible == True: #Walking animations
+            Player.walking = True
+
+        if Player.walking == True and key[pygame.K_RSHIFT] or key[pygame.K_LSHIFT]: #Sprinting
+            Player.speed = 18
+            Player.countUp = 2
+        else:
+            Player.speed = Player.defaultSpeed
+
+        return (-self.rect.x + 380, -self.rect.y + 300) # Return new player position
+    
+    def render(self,screen): #Player and player hitbox rendering
+        if Player.visible == True:
+            Player.currentSprite = pygame.transform.scale(Player.currentSprite,(250,250))
+            screen.blit(self.currentSprite,(self.rect.x - 75,self.rect.y-50)) #Drawing the player to the screen
+            if Player.debuggingMode == True:
+                pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4) #Drawing the hitbox to the screen
+
+    def collisions(self):
+        #Checking for collisions with element hitboxes
+        if Player.rect.colliderect(wooden_sign_hitbox) or Player.rect.colliderect(placeholder_hitbox) or Player.rect.colliderect(placeholder_hitbox1):
+            registries.element.registerElements.colliding = True
+        else:
+            registries.element.registerElements.colliding = False
+    
+        #Collisions on the right side
         if registries.element.registerElements.colliding == True and Player.facingRight == True:
             Player.collidingRight = True
         elif registries.element.registerElements.colliding == False or Player.facingRight == False:
             Player.collidingRight = False
+
+        #Collisions on the left side
         if registries.element.registerElements.colliding == True and Player.facingLeft == True:
             Player.collidingLeft = True
         elif registries.element.registerElements.colliding == False or Player.facingLeft == False:
             Player.collidingLeft = False
 
-        if key[pygame.K_u] and self.visible == True and registries.element.registerElements.colliding == False and Player.debuggingMode == True:
-            Player.standing = False
-            Player.facingLeft = False
-            Player.facingRight = True
-            self.rect.y -= Player.image_speed 
-        else:
-            Player.standing = True
-            Player.walking = False
-
-        #-------------------------------------------------
-        if key[pygame.K_LEFT] and self.visible == True:
-            Player.facingLeft = True
-            Player.facingRight = True
-            if Player.collidingLeft == False or Player.collidingRight == False:
-                Player.standing = False
-                self.rect.x -= Player.image_speed 
-        else:
-            Player.standing = True
-            Player.walking = False
-
-        if key[pygame.K_LEFT] and self.visible == True or key[pygame.K_RIGHT] and self.visible == True:
-            Player.walking = True
-
-        if Player.walking == True and key[pygame.K_RSHIFT] or key[pygame.K_LSHIFT]:
-            Player.image_speed = 18
-            Player.countUp = 2
-        else:
-            Player.image_speed = Player.defaultSpeed
-
-        #For debugging purposes
-        if key[pygame.K_p]:
-            print(Player.rect.x)
-
-        #if self.rect.x < 380: # Simple Sides Collision
-        #    self.rect.x = 380 # Reset Player Rect Coord
-        #    Player.standing = True
-        #    Player.walking = False
-        #    pos_x = camera_pos[0] #Reset Camera Pos Coord
-        #elif self.rect.x > 1980: #Set the Player`s moving range
-        #    self.rect.x = 1980
-        #    Player.standing = True
-        #    Player.walking = False
-        #    pos_x = camera_pos[0]
-        #elif self.rect.y > 1980:
-        #    self.rect.y = 1980
-        #    Player.standing = True
-        #    Player.jumping = False
-        #    Player.walking = False
-        #    pos_y = camera_pos[1]
-
-        return (-self.rect.x + 380, -self.rect.y + 300) # Return New Camera Position
-
-    def render(self,screen):
-        if self.visible == True:
-            Player.currentSprite = pygame.transform.scale(Player.currentSprite,(250,250))
-            screen.blit(self.currentSprite,(self.rect.x - 75,self.rect.y-50))
-            if Player.debuggingMode == True:
-                pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4)
+#Loading element textures
 placeholder = registries.element.registerElements("environment/blocks/cobble", 5)
 wooden_sign = registries.element.registerElements("environment/blocks/wooden_sign", 5)
 placeholder2 = registries.element.registerElements("environment/blocks/cobble", 5)
 placeholder3 = registries.element.registerElements("environment/blocks/cobble", 5)
+
+#Loading element hitboxes
 wooden_sign_hitbox = pygame.Rect((200, 770),(int(32 * 5), int(32 * 5)))
 placeholder_hitbox = pygame.Rect((800, 770),(int(32 * 5), int(32 * 5)))
 placeholder_hitbox1 = pygame.Rect((600, 770),(int(32 * 5), int(32 * 5)))
-hitbox_elements = [wooden_sign_hitbox]
 
+#Loading floor and background
 floor = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
 floor_width = floor.get_width()
 floor_height = floor.get_height()
 floor = pygame.transform.scale(floor, (int(floor_width * 8), int(floor_height * 8)))
 
-background = pygame.image.load("src\main/assets/textures\levels/background.png")
-background_width = background.get_width()
-background_height = background.get_height()
-background = pygame.transform.scale(background, (int(background_width * 3), int(background_height * 3)))
 
 def Main(screen,clock):
-    world = pygame.Surface((8000,8000)) # Create Map Surface
-
+    world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
-    camera_pos = (-100,-312) # Create Camara Starting Position 
+    camera_pos = (-100,-312) #camera starting position
 
     #values for animation calculation
     idleValue = 0
-    WalkingValue = 0
-    hitboxArrayCount = 0
+    walkingValue = 0
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT or(event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE):
                 pygame.quit()
                 return
-
+        #idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
             idleValue = 0
 
-        if hitboxArrayCount >= len(hitbox_elements):
-            hitboxArrayCount = 0
-
+        #loading the idle animation
         Player.currentSprite = registries.animations.idle_sprite[idleValue]
+        
+        if walkingValue >= len(registries.animations.walking_sprite):
+            walkingValue = 0
 
-        if Player.rect.colliderect(wooden_sign_hitbox) or Player.rect.colliderect(placeholder_hitbox) or Player.rect.colliderect(placeholder_hitbox1):
-            registries.element.registerElements.colliding = True
-        else:
-            registries.element.registerElements.colliding = False
+        #Player movement
+        camera_pos = player.keybinds(camera_pos) 
 
-        if WalkingValue >= len(registries.animations.walking_sprite):
-            WalkingValue = 0
+        #Player collision detection
+        player.collisions()
 
-        camera_pos = player.keybinds(camera_pos) # Run Player Move Function And Return New Camera Pos
-
-        #Player position detection
+        #Movement animation rendering
         if Player.walking == True:
-            Player.currentSprite = registries.animations.walking_sprite[WalkingValue]
-
+            Player.currentSprite = registries.animations.walking_sprite[walkingValue]
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
-        if len(hitbox_elements) > 0:
-            hitboxArrayCount += 1
-
+        #Render background
         world.fill(registries.colors.AQUA)
+
+        #Render floor
         world.blit(floor, (-500,850))
+        
+        #Draw elements to the screen
         wooden_sign.draw(world, wooden_sign_hitbox)
         placeholder.draw(world, placeholder_hitbox)
         placeholder2.draw(world, placeholder_hitbox1)
-        screen.fill(registries.colors.AQUA) # Fill The background White To Avoid Smearing
-        player.render(world) # Render The Player
-        screen.blit(world, (pos_x,pos_y)) # Render Map To The screen
 
+        #Fill the background outside of the map
+        screen.fill(registries.colors.AQUA)
+
+        #Render the player
+        player.render(world)
+
+        #Render the map to the screen
+        screen.blit(world, (player_x,player_y))
+
+        #Idle animations
         if Player.standing == True:
             idleValue += 1
-
         if Player.walking == True:
-            WalkingValue += Player.countup
+            walkingValue += Player.animationFrameUpdate
 
         clock.tick(200)
         pygame.display.flip()
