@@ -20,7 +20,7 @@ class Player:
         Player.walking = False
         Player.collidingLeft = False
         Player.collidingRight = False
-        Player.rect = pygame.Rect((880,650),(100, 200)) # Create the players hitbox
+        Player.rect = pygame.Rect((180,650),(100, 200)) # Create the players hitbox
         Player.animationFrameUpdate = 1
         Player.debuggingMode = False
         Player.visible = True
@@ -66,12 +66,17 @@ class Player:
         if key[pygame.K_LEFT] and Player.visible == True: #Player Walking
             Player.facingLeft = True
             Player.facingRight = True
-            if Player.collidingLeft == False or Player.collidingRight == False:
+            if Player.collidingLeft == False:
                 Player.standing = False
                 self.rect.x -= Player.speed 
         else:
             Player.standing = True
             Player.walking = False
+
+        if Player.collidingLeft == True:
+            print("colliding left")
+        if Player.collidingRight == True:
+            print("colliding right")
 
         #Debug mode to help developers
         if key[pygame.K_d]:
@@ -120,7 +125,7 @@ class Player:
 
     def collisions(self):
         #Checking for collisions with element hitboxes
-        if Player.rect.colliderect(wooden_sign_hitbox) or Player.rect.colliderect(placeholder_hitbox) or Player.rect.colliderect(placeholder_hitbox1):
+        if Player.rect.colliderect(placeholder_hitbox):
             registries.element.registerElements.colliding = True
         else:
             registries.element.registerElements.colliding = False
@@ -128,16 +133,18 @@ class Player:
         #Collisions on the left side
         if registries.element.registerElements.colliding == True and Player.facingLeft == True and Player.walking == True:
             Player.collidingLeft = True
-            print("colliding left")
-        elif registries.element.registerElements.colliding == False or Player.facingLeft == False and Player.walking == True:
+            Player.collidingRight = True
+        else:
             Player.collidingLeft = False
+            Player.collidingRight = False
     
         #Collisions on the right side
-        if registries.element.registerElements.colliding == True and Player.facingRight == True and Player.walking == True:
+        if registries.element.registerElements.colliding == True and Player.facingRight == True and Player.collidingLeft == False:
+            Player.collidingLeft = True
             Player.collidingRight = True
-            print("colliding right")
-        elif registries.element.registerElements.colliding == False or Player.facingRight == False and Player.walking == True:
+        else:
             Player.collidingRight = False
+            Player.collidingLeft = False
 
 
 #Loading element textures
@@ -147,9 +154,7 @@ placeholder2 = registries.element.registerElements("environment/blocks/cobble", 
 placeholder3 = registries.element.registerElements("environment/blocks/cobble", 5)
 
 #Loading element hitboxes
-wooden_sign_hitbox = pygame.Rect((200, 770),(int(32 * 5), int(32 * 5)))
 placeholder_hitbox = pygame.Rect((800, 770),(int(32 * 5), int(32 * 5)))
-placeholder_hitbox1 = pygame.Rect((600, 770),(int(32 * 5), int(32 * 5)))
 
 #Loading floor and background
 floor = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
@@ -182,11 +187,12 @@ def Main(screen,clock):
         if walkingValue >= len(registries.animations.walking_sprite):
             walkingValue = 0
 
-        #Player movement
-        camera_pos = player.keybinds(camera_pos) 
 
         #Player collision detection
         player.collisions()
+        
+        #Player movement
+        camera_pos = player.keybinds(camera_pos) 
 
         #Movement animation rendering
         if Player.walking == True:
@@ -201,7 +207,6 @@ def Main(screen,clock):
         world.blit(floor, (-500,850))
         
         #Draw elements to the screen
-        wooden_sign.draw(world, wooden_sign_hitbox)
         placeholder.draw(world, placeholder_hitbox)
 
         #Fill the background outside of the map
