@@ -65,12 +65,14 @@ class Player:
             Player.standing = True
             Player.walking = False
 
-        if key[pygame.K_LEFT] and Player.visible == True: #Player Walking
+        if key[pygame.K_LEFT] and Player.visible == True and Player.collidingLeft == True: #Player walking
             Player.facingLeft = True
-            Player.facingRight = True
-            if Player.collidingLeft == False:
-                Player.standing = False
-                self.rect.x -= Player.speed 
+            Player.facingRight = False
+        elif key[pygame.K_LEFT] and Player.collidingLeft == False:
+            Player.facingLeft = True
+            Player.facingRight = False
+            Player.standing = False
+            self.rect.x -= Player.speed
         else:
             Player.standing = True
             Player.walking = False
