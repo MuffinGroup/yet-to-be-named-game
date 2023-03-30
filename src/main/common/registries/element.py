@@ -2,7 +2,6 @@ import pygame
 
 class registerElements():
 	colliding = False
-	colliding1 = False
 	def __init__(self, elementLocation, scale):
 		image = pygame.image.load("src\main/assets/textures\elements/" + elementLocation + ".png")
 		width = image.get_width()
