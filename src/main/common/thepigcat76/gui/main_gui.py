@@ -1,12 +1,13 @@
 import pygame
 import gui
+import buttons.colors
 
 # Initialize Pygame
 pygame.init()
 
 #Load background
 background = pygame.image.load("src\main/assets/textures\elements/background\placeholder_background_1.jpg")
-test = gui.registerGui(100, 100, None, "e", "wwewe")
+test = gui.registerGui(100, 100)
 
 # Create a screen surface
 screen = pygame.display.set_mode((1280, 800), pygame.RESIZABLE)
@@ -17,5 +18,5 @@ while True:
             pygame.quit()
             exit()
     
-    test.blitGui(screen)
+    test.blitGui(screen, buttons.colors.BLUE, 100)
     pygame.display.update()
