@@ -6,7 +6,7 @@ pygame.init()
 
 #Load background
 background = pygame.image.load("src\main/assets/textures\elements/background\placeholder_background_1.jpg")
-test = gui.registerGui(100, 100)
+test = gui.registerGui(100, 100, None, "e", "wwewe")
 
 # Create a screen surface
 screen = pygame.display.set_mode((1280, 800), pygame.RESIZABLE)
