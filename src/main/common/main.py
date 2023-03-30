@@ -24,6 +24,7 @@ class Player:
         Player.animationFrameUpdate = 1
         Player.debuggingMode = False
         Player.visible = True
+        Player.locked = False
 
     def keybinds(self,camera_pos):
         global player_x
@@ -35,9 +36,9 @@ class Player:
         player_x, player_y = camera_pos #Assign variables to the camera position
 
         key = pygame.key.get_pressed() #Receive keyboard input
-        if key[pygame.K_UP] and Player.jumpvar == -16 and Player.visible == True: #Jumping
+        if key[pygame.K_UP] and Player.jumpvar == -16 and Player.visible == True and Player.locked == False: #Jumping
             Player.jumpvar = 14.3
-        elif key[pygame.K_SPACE] and Player.jumpvar == -16 and Player.visible == True: #Alternative jumping keybind
+        elif key[pygame.K_SPACE] and Player.jumpvar == -16 and Player.visible == True and Player.locked == False: #Alternative jumping keybind
             Player.jumpvar = 14.3
 
         if Player.jumpvar == 14.3: #Play jump sound when the player jumps
@@ -53,10 +54,10 @@ class Player:
         else:
             Player.jumpvar = -16
 
-        if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True: #Player walking
+        if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
             Player.facingLeft = False
             Player.facingRight = True
-        elif key[pygame.K_RIGHT] and Player.collidingRight == False:
+        elif key[pygame.K_RIGHT] and Player.collidingRight == False and Player.locked == False:
             Player.facingLeft = False
             Player.facingRight = True
             Player.standing = False
@@ -65,10 +66,10 @@ class Player:
             Player.standing = True
             Player.walking = False
 
-        if key[pygame.K_LEFT] and Player.visible == True and Player.collidingLeft == True: #Player walking
+        if key[pygame.K_LEFT] and Player.visible == True and Player.collidingLeft == True and Player.locked == False: #Player walking
             Player.facingLeft = True
             Player.facingRight = False
-        elif key[pygame.K_LEFT] and Player.collidingLeft == False:
+        elif key[pygame.K_LEFT] and Player.collidingLeft == False and Player.locked == False:
             Player.facingLeft = True
             Player.facingRight = False
             Player.standing = False
@@ -83,10 +84,13 @@ class Player:
             print("colliding right")
 
         #Debug mode to help developers
-        if key[pygame.K_d]:
+        if key[pygame.K_d] and Player.locked == False:
             Player.debuggingMode = True
+        
+        if key[pygame.K_0] and Player.debuggingMode == True:
+            Player.locked = True
 
-        if key[pygame.K_DOWN] and Player.visible == True and registries.element.registerElements.colliding == False and Player.debuggingMode == True:
+        if key[pygame.K_DOWN] and Player.visible == True and registries.element.registerElements.colliding == False and Player.debuggingMode == True and Player.locked == False:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -95,7 +99,7 @@ class Player:
             Player.standing = True
             Player.walking = False
             
-        if key[pygame.K_u] and Player.visible == True and registries.element.registerElements.colliding == False and Player.debuggingMode == True:
+        if key[pygame.K_u] and Player.visible == True and registries.element.registerElements.colliding == False and Player.debuggingMode == True and Player.locked == False:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -109,7 +113,7 @@ class Player:
     
     #End of debugging mode functions
 
-        if key[pygame.K_LEFT] and Player.visible == True or key[pygame.K_RIGHT] and Player.visible == True: #Walking animations
+        if key[pygame.K_LEFT] and Player.visible == True and Player.locked == False or key[pygame.K_RIGHT] and Player.visible == True  and Player.locked == False: #Walking animations
             Player.walking = True
 
         if Player.walking == True and key[pygame.K_RSHIFT] or key[pygame.K_LSHIFT]: #Sprinting
@@ -162,6 +166,8 @@ floor_width = floor.get_width()
 floor_height = floor.get_height()
 floor = pygame.transform.scale(floor, (int(floor_width * 8), int(floor_height * 8)))
 
+font = pygame.font.SysFont('joystixmonospaceregular', 25)
+text = font.render('Press 0 to open the debug menu', True, registries.colors.DARK_ORANGE)
 
 def Main(screen,clock):
     world = pygame.Surface((8000,8000)) # Create Map
@@ -186,7 +192,6 @@ def Main(screen,clock):
         
         if walkingValue >= len(registries.animations.walking_sprite):
             walkingValue = 0
-
 
         #Player collision detection
         player.collisions()
@@ -217,6 +222,9 @@ def Main(screen,clock):
 
         #Render the map to the screen
         screen.blit(world, (player_x,player_y))
+
+        if Player.debuggingMode == True:
+            screen.blit(text, (320, 30))
 
         #Idle animations
         if Player.standing == True:
