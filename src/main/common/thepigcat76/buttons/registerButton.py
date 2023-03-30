@@ -1,11 +1,10 @@
 import pygame
-import animations
 
 #button class
 
 class Button():
 	clock = pygame.time.Clock()
-	def __init__(self, button_name, x, y, scale, display_text, text_color, font_type):
+	def __init__(self, button_name, x, y, scale, display_text, text_color, font_type): #If you are creating a toggle button, fill the display_test field with ""
 		image = pygame.image.load('src//main//assets//textures//elements//gui//' + button_name + '.png')
 		self.value = 0
 		selected_image = pygame.image.load('src//main//assets//textures//elements//gui//' + button_name + '_selected.png')
@@ -22,7 +21,9 @@ class Button():
 		self.rect = self.image.get_rect()
 		self.rect.center = (x, y)
 		self.clicked = False
+		self.toggled = False
 		self.selected = False
+		self.test = 0
 
 	#draw function is not used atm 
 	def draw(self, surface, xTextOffset, yTextOffset):
@@ -86,6 +87,34 @@ class Button():
 
 		if pygame.mouse.get_pressed()[0] == 0:
 			self.clicked = False
+
+		return action
+	
+	def drawToggle(self, surface):
+		action = False
+		pos = pygame.mouse.get_pos()
+
+		if self.toggled == False or self.test == 0:
+			surface.blit(self.image, (self.rect.x, self.rect.y))
+			self.selected = False
+		if self.toggled == True and self.test == 1:
+			surface.blit(self.selected_image, (self.rect.x, self.rect.y))
+			self.selected = True
+		if self.toggled == True and self.test > 1:
+			surface.blit(self.image, (self.rect.x, self.rect.y))
+			self.test = 0
+			self.selected = False
+
+		if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+			self.test += 1
+			self.toggled = True
+			action = True
+			pygame.time.wait(100)
+
+		if self.selected == True:
+			print("toggled = True")
+		elif self.selected == False:
+			print("toggled = False")
 
 		return action
 
