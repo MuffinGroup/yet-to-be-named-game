@@ -109,6 +109,7 @@ while True:
     if enemy_health <= 0:
      enemy_attack_power = 0
      enemy_speed = 0
+     enemy_x= 1000
     if character_health <= 0:
      pygame.quit
      quit()
