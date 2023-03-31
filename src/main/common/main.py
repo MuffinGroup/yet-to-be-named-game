@@ -25,7 +25,7 @@ class Player:
         Player.debuggingMode = False
         Player.visible = True
         Player.locked = False
-        Player.debugginMenu = False
+        Player.debuggingMenu = False
 
     def keybinds(self,camera_pos):
         global player_x
@@ -88,10 +88,15 @@ class Player:
         if key[pygame.K_d] and Player.locked == False:
             Player.debuggingMode = True
 
-        if key[pygame.K_0] and Player.debuggingMode == True:
+        if key[pygame.K_0] and Player.debuggingMode == True and Player.debuggingMenu == False:
+            pygame.time.wait(200)
             Player.locked = True
-            Player.debugginMenu = True
+            Player.debuggingMenu = True
             print("e")
+        elif key[pygame.K_0] and Player.debuggingMode == True:
+            pygame.time.wait(200)
+            Player.debuggingMenu = False
+            print("o")
 
         if key[pygame.K_DOWN] and Player.visible == True and registries.element.registerElements.colliding == False and Player.debuggingMode == True and Player.locked == False:
             Player.standing = False
@@ -157,8 +162,10 @@ class Player:
 #Loading element textures
 placeholder = registries.element.registerElements("environment/blocks/cobble", 5)
 wooden_sign = registries.element.registerElements("environment/blocks/wooden_sign", 5)
-placeholder2 = registries.element.registerElements("environment/blocks/cobble", 5)
+tree_stump = registries.element.registerElements("environment/blocks/tree_stump", 5)
 placeholder3 = registries.element.registerElements("environment/blocks/cobble", 5)
+
+print(tree_stump.get_height())
 
 #Loading element hitboxes
 placeholder_hitbox = pygame.Rect((400, 770),(int(32 * 5), int(32 * 5)))
@@ -231,7 +238,7 @@ def Main(screen,clock):
         if Player.debuggingMode == True:
             screen.blit(text, (320, 30))
         
-        if Player.debugginMenu == True:
+        if Player.debuggingMenu == True:
             pygame.draw.rect(screen, registries.colors.PURPLE, debug_menu, 10000)
 
         #Idle animations
