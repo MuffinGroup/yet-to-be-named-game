@@ -29,7 +29,6 @@ font = pygame.font.SysFont(None, 30)
 
 # set up the variables for the game loop
 inventory = [None] * 4  # an empty inventory
-inventory_full = []
 inventory_rects = []  # the rects for displaying the inventory
 for i in range(4):
     rect = pygame.Rect(50 + i * 80, 10, 70, 70)
@@ -63,12 +62,12 @@ while True:
         character_rect.move_ip(0, -3)
     if keys[pygame.K_DOWN]:
         character_rect.move_ip(0, 3)
-
+    
     # draw the graphics
     game_window.fill((255, 255, 255))
     game_window.blit(character_image, character_rect)
     for item_rect in item_rects:
-        game_window.blit(item_images[0], item_rect) # only display the first item image for all items
+        game_window.blit(item_images[0], item_rect)# only display the first item image for all items
     for i, item in enumerate(inventory):
         if item is not None:
             inventory_rect = inventory_rects[i]

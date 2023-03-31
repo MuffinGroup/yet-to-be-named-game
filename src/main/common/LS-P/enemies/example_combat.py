@@ -14,6 +14,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 character_img = pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations\character_1.png")
 character_img=pygame.transform.scale(character_img,(250,250))
 screen.blit(character_img,(340,190))
+character_rect = character_img.get_rect()
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img=pygame.transform.scale(enemy_img,(400,400))
 screen.blit(enemy_img,(340,190))
@@ -86,11 +87,13 @@ while True:
             enemy_dy = enemy_dy / distance_to_character * enemy_speed
             enemy_x += enemy_dx
             enemy_y += enemy_dy
-        
+
+    
     # Draw images on screen
     screen.fill((255, 255, 255))
     screen.blit(character_img, (character_x, character_y))
     screen.blit(enemy_img, (enemy_x, enemy_y))
+
 
     # Display health bars for character and enemy
     pygame.draw.rect(screen, (255, 0, 0), (10, 10, character_health, 10))
