@@ -10,3 +10,11 @@ class registerElements():
 
 	def draw(self, surface, hitbox):
 			surface.blit(self.image, (hitbox))
+
+	def get_width(self):
+		width = self.image.get_width()
+		return width
+	
+	def get_height(self):
+		heigth = self.image.get_height()
+		return heigth
