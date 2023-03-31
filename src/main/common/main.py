@@ -159,11 +159,12 @@ class Player:
             Player.collidingRight = False
 
         if Player.debuggingMode == False:
-            if not Player.rect.colliderect(floor_hitbox) or not Player.rect.colliderect(placeholder_hitbox):
-                Player.rect.y += 0.1
-            if Player.rect.colliderect(floor_hitbox) or Player.rect.colliderect(placeholder_hitbox):
-                Player.rect.y -= 100
-                print("e")
+            if not Player.rect.colliderect(placeholder_hitbox) and not Player.rect.colliderect(floor_hitbox):
+                Player.rect.y += 10
+                print("not colliding")
+            if Player.rect.colliderect(placeholder_hitbox):
+                Player.rect.y -= 10
+                print("colliding")
 
 
 #Loading element textures
