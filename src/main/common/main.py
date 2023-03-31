@@ -25,6 +25,7 @@ class Player:
         Player.debuggingMode = False
         Player.visible = True
         Player.locked = False
+        Player.debugginMenu = False
 
     def keybinds(self,camera_pos):
         global player_x
@@ -86,9 +87,11 @@ class Player:
         #Debug mode to help developers
         if key[pygame.K_d] and Player.locked == False:
             Player.debuggingMode = True
-        
+
         if key[pygame.K_0] and Player.debuggingMode == True:
             Player.locked = True
+            Player.debugginMenu = True
+            print("e")
 
         if key[pygame.K_DOWN] and Player.visible == True and registries.element.registerElements.colliding == False and Player.debuggingMode == True and Player.locked == False:
             Player.standing = False
@@ -167,7 +170,9 @@ floor_height = floor.get_height()
 floor = pygame.transform.scale(floor, (int(floor_width * 8), int(floor_height * 8)))
 
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
-text = font.render('Press 0 to open the debug menu', True, registries.colors.DARK_ORANGE)
+text = font.render('Press 0 to open/close the debug menu', True, registries.colors.DARK_ORANGE)
+
+debug_menu = pygame.Rect((100, 100), (100, 100))
 
 def Main(screen,clock):
     world = pygame.Surface((8000,8000)) # Create Map
@@ -225,6 +230,9 @@ def Main(screen,clock):
 
         if Player.debuggingMode == True:
             screen.blit(text, (320, 30))
+        
+        if Player.debugginMenu == True:
+            pygame.draw.rect(screen, registries.colors.PURPLE, debug_menu, 10000)
 
         #Idle animations
         if Player.standing == True:
