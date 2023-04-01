@@ -26,6 +26,7 @@ class Player:
         Player.visible = True
         Player.locked = False
         Player.debuggingMenu = False
+        Player.test = False
 
     def keybinds(self,camera_pos):
         global player_x
@@ -86,8 +87,14 @@ class Player:
             print("colliding right")
 
         #Debug mode to help developers
-        if key[pygame.K_d] and Player.locked == False:
+        if key[pygame.K_d] and Player.debuggingMode == False:
+            pygame.time.wait(200)
             Player.debuggingMode = True
+            print("e")
+        elif key[pygame.K_d] and Player.debuggingMode == True:
+            pygame.time.wait(200)
+            Player.debuggingMode = False
+            print("a")
 
         if key[pygame.K_0] and Player.debuggingMode == True and Player.debuggingMenu == False:
             pygame.time.wait(200)
@@ -96,6 +103,7 @@ class Player:
             print("e")
         elif key[pygame.K_0] and Player.debuggingMode == True:
             pygame.time.wait(200)
+            Player.locked = False
             Player.debuggingMenu = False
             print("o")
 
@@ -162,13 +170,24 @@ class Player:
         if Player.debuggingMode == False:
             if not Player.rect.colliderect(floor_hitbox) and Player.jumping == False:
                 Player.rect.y += 0.1
+            elif not Player.rect.colliderect(placeholder_hitbox):
+                Player.rect.y += 0.1
+                print("meow")
             if Player.rect.colliderect(floor_hitbox) and Player.jumping == False:
                 Player.rect.y = 650
             
-            if Player.rect.colliderect(placeholder_hitbox):
+            if Player.rect.colliderect(placeholder_hitbox) and Player.test == False:
+                Player.rect.y = placeholder_hitbox.y - placeholder.get_height() * 2
+                Player.test = True
+                print("test")
+            if not Player.rect.colliderect(placeholder_hitbox) and Player.test == True:
                 Player.rect.y = placeholder_hitbox.y - placeholder.get_height() * 1.25
-            elif Player.rect.colliderect(floor_hitbox) and Player.jumping == False and Player.rect.colliderect(placeholder_hitbox) and Player.jumping == False:
-                Player.rect.y = 650
+                Player.test = False
+                print("tessst")
+            elif not Player.rect.colliderect(placeholder_hitbox) and Player.test == True:
+                Player.rect.y = placeholder_hitbox.y - placeholder.get_height() * 1.25
+                Player.test = False
+                print("tesssttt")
 
 #Loading element textures
 placeholder = registries.element.registerElements("environment/blocks/cobble", 5)
@@ -192,7 +211,7 @@ floor_hitbox = pygame.Rect((0, 850), (floor_width * 8, floor_height * 8))
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
 text = font.render('Press 0 to open/close the debug menu', True, registries.colors.DARK_ORANGE)
 
-debug_menu = pygame.Rect((100, 100), (100, 100))
+debug_menu = pygame.Rect((70, 70), (300, 400))
 
 def Main(screen,clock):
     world = pygame.Surface((8000,8000)) # Create Map
@@ -241,6 +260,8 @@ def Main(screen,clock):
         #Draw elements to the screen
         placeholder.draw(world, placeholder_hitbox)
 
+        pygame.draw.rect(screen, registries.colors.WHITE, placeholder_hitbox, 1000)
+
         tree_stump.draw(world, tree_stump_hitbox)
 
         #Fill the background outside of the map
@@ -256,7 +277,7 @@ def Main(screen,clock):
             screen.blit(text, (320, 30))
         
         if Player.debuggingMenu == True:
-            pygame.draw.rect(screen, registries.colors.PURPLE, debug_menu, 10000)
+            pygame.draw.rect(screen, registries.colors.BLUISH_GRAY, debug_menu, 10000)
 
         #Idle animations
         if Player.standing == True:
