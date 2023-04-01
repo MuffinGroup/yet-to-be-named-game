@@ -54,6 +54,7 @@ class Player:
             Player.jumpvar -= 1
         else:
             Player.jumpvar = -16
+            Player.jumping = False
 
         if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
             Player.facingLeft = False
@@ -159,13 +160,15 @@ class Player:
             Player.collidingRight = False
 
         if Player.debuggingMode == False:
-            if not Player.rect.colliderect(placeholder_hitbox) and not Player.rect.colliderect(floor_hitbox):
-                Player.rect.y += 10
-                print("not colliding")
+            if not Player.rect.colliderect(floor_hitbox) and Player.jumping == False:
+                Player.rect.y += 0.1
+            if Player.rect.colliderect(floor_hitbox) and Player.jumping == False:
+                Player.rect.y = 650
+            
             if Player.rect.colliderect(placeholder_hitbox):
-                Player.rect.y -= 10
-                print("colliding")
-
+                Player.rect.y = placeholder_hitbox.y - placeholder.get_height() * 1.25
+            elif Player.rect.colliderect(floor_hitbox) and Player.jumping == False and Player.rect.colliderect(placeholder_hitbox) and Player.jumping == False:
+                Player.rect.y = 650
 
 #Loading element textures
 placeholder = registries.element.registerElements("environment/blocks/cobble", 5)
@@ -176,7 +179,7 @@ placeholder3 = registries.element.registerElements("environment/blocks/cobble", 
 print(tree_stump.get_width())
 
 #Loading element hitboxes
-placeholder_hitbox = pygame.Rect((400, 770),(int(placeholder.get_width()), int(placeholder.get_height())))
+placeholder_hitbox = pygame.Rect((400, 650),(int(placeholder.get_width()), int(placeholder.get_height())))
 tree_stump_hitbox = pygame.Rect((800, 730),(int(placeholder.get_width()), int(placeholder.get_width())))
 
 #Loading floor and background
