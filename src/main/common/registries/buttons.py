@@ -2,7 +2,7 @@ import pygame
 
 #button class
 
-class Button():
+class registerButton():
 	clock = pygame.time.Clock()
 	def __init__(self, button_name, x, y, scale, display_text, text_color, font_type): #If you are creating a toggle button, fill the display_test field with ""
 		image = pygame.image.load('src//main//assets//textures//elements//gui//' + button_name + '.png')

@@ -1,7 +1,8 @@
 import pygame
 import registries.colors
 import registries.animations
-import registries.element
+import registries.elements
+import registries.buttons
 
 #pygame initialization
 pygame.init()
@@ -91,7 +92,7 @@ class Player:
             pygame.time.wait(200)
             Player.debuggingMode = True
             print("e")
-        elif key[pygame.K_d] and Player.debuggingMode == True:
+        elif key[pygame.K_d] and Player.debuggingMode == True and Player.debuggingMenu == False:
             pygame.time.wait(200)
             Player.debuggingMode = False
             print("a")
@@ -107,7 +108,7 @@ class Player:
             Player.debuggingMenu = False
             print("o")
 
-        if key[pygame.K_DOWN] and Player.visible == True and registries.element.registerElements.colliding == False and Player.debuggingMode == True and Player.locked == False:
+        if key[pygame.K_DOWN] and Player.visible == True and registries.elements.registerElements.colliding == False and Player.debuggingMode == True and Player.locked == False:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -116,7 +117,7 @@ class Player:
             Player.standing = True
             Player.walking = False
             
-        if key[pygame.K_u] and Player.visible == True and registries.element.registerElements.colliding == False and Player.debuggingMode == True and Player.locked == False:
+        if key[pygame.K_u] and Player.visible == True and registries.elements.registerElements.colliding == False and Player.debuggingMode == True and Player.locked == False:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -146,23 +147,31 @@ class Player:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite,(250,250))
             screen.blit(self.currentSprite,(self.rect.x - 75,self.rect.y-50)) #Drawing the player to the screen
             if Player.debuggingMode == True:
-                pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4) #Drawing the hitbox to the screen
+                pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4) #Drawing the hitbox to the screen	
 
+    def renderDebugMenu(self):
+        if Player.debuggingMenu == True:
+            pygame.draw.rect(screen, registries.colors.BLUISH_GRAY, debug_menu, 10000)
+            if toggleAdvMove.drawToggle(screen):
+                print("toggled")
+            screen.blit(toggleAdvMoveText, (100, 135))
+
+        
     def collisions(self):
         #Checking for collisions with element hitboxes
         if Player.rect.colliderect(placeholder_hitbox) or Player.rect.colliderect(tree_stump_hitbox):
-            registries.element.registerElements.colliding = True
+            registries.elements.registerElements.colliding = True
         else:
-            registries.element.registerElements.colliding = False
+            registries.elements.registerElements.colliding = False
 
         #Collisions on the left side
-        if Player.facingLeft == True and Player.collidingRight == False and registries.element.registerElements.colliding == True:
+        if Player.facingLeft == True and Player.collidingRight == False and registries.elements.registerElements.colliding == True:
             Player.collidingLeft = True
         else:
             Player.collidingLeft = False
     
         #Collisions on the right side
-        if Player.facingRight == True and Player.facingLeft == False and registries.element.registerElements.colliding == True:
+        if Player.facingRight == True and Player.facingLeft == False and registries.elements.registerElements.colliding == True:
             Player.collidingRight = True
         else:
             Player.collidingRight = False
@@ -190,10 +199,10 @@ class Player:
                 print("tesssttt")
 
 #Loading element textures
-placeholder = registries.element.registerElements("environment/blocks/cobble", 5)
-wooden_sign = registries.element.registerElements("environment/blocks/wooden_sign", 5)
-tree_stump = registries.element.registerElements("environment/blocks/tree_stump", 5)
-placeholder3 = registries.element.registerElements("environment/blocks/cobble", 5)
+placeholder = registries.elements.registerElements("environment/blocks/cobble", 5)
+wooden_sign = registries.elements.registerElements("environment/blocks/wooden_sign", 5)
+tree_stump = registries.elements.registerElements("environment/blocks/tree_stump", 5)
+placeholder3 = registries.elements.registerElements("environment/blocks/cobble", 5)
 
 print(tree_stump.get_width())
 
@@ -212,6 +221,9 @@ font = pygame.font.SysFont('joystixmonospaceregular', 25)
 text = font.render('Press 0 to open/close the debug menu', True, registries.colors.DARK_ORANGE)
 
 debug_menu = pygame.Rect((70, 70), (300, 400))
+
+toggleAdvMoveText = font.render('flying', True, registries.colors.BLACK)
+toggleAdvMove = registries.buttons.registerButton("toggle", 300, 150,  12.0, "", registries.colors.BLACK, "")
 
 def Main(screen,clock):
     world = pygame.Surface((8000,8000)) # Create Map
@@ -275,9 +287,9 @@ def Main(screen,clock):
 
         if Player.debuggingMode == True:
             screen.blit(text, (320, 30))
-        
-        if Player.debuggingMenu == True:
-            pygame.draw.rect(screen, registries.colors.BLUISH_GRAY, debug_menu, 10000)
+
+        #Rendering the debug menu
+        player.renderDebugMenu()
 
         #Idle animations
         if Player.standing == True:
