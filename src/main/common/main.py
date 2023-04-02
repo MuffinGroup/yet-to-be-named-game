@@ -197,15 +197,11 @@ class Player:
         if Player.debuggingMode == False:
             if not Player.rect.colliderect(floor_hitbox) and not Player.rect.colliderect(placeholder_hitbox) and Player.jumping == False:
                 Player.rect.y += 10
-                Player.allowJump = False
-            else:
-                Player.allowJump = True
 
-            if Player.rect.colliderect(floor_hitbox) and Player.colliding == True and Player.rect.colliderect(placeholder_hitbox) and Player.jumping == False:
-                Player.rect.y -= 1
-                print("miau")
-            elif Player.rect.colliderect(placeholder_hitbox) and Player.colliding == True:
-                Player.rect.y -= 10
+            if Player.rect.colliderect(floor_hitbox):
+                Player.rect.y = 650
+            if Player.rect.colliderect(placeholder_hitbox):
+                Player.rect.y = placeholder_hitbox.y - placeholder.get_height() * 1.3
 
 #Loading element textures
 placeholder = registries.elements.registerElements("environment/blocks/cobble", 5)
