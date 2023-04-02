@@ -200,11 +200,12 @@ class Player:
                 Player.allowJump = False
             else:
                 Player.allowJump = True
-            if Player.rect.colliderect(floor_hitbox) and Player.colliding == True and Player.rect.colliderect(placeholder_hitbox):
-                Player.rect.y -= 10
+
+            if Player.rect.colliderect(floor_hitbox) and Player.colliding == True and Player.rect.colliderect(placeholder_hitbox) and Player.jumping == False:
+                Player.rect.y -= 1
                 print("miau")
             elif Player.rect.colliderect(placeholder_hitbox) and Player.colliding == True:
-                pass
+                Player.rect.y -= 10
 
 #Loading element textures
 placeholder = registries.elements.registerElements("environment/blocks/cobble", 5)
@@ -235,6 +236,9 @@ toggleCollisions = registries.buttons.registerButton("toggle", 300, 250,  12.0, 
 
 toggleAdvMoveText = font.render('flying', True, registries.colors.BLACK)
 toggleAdvMove = registries.buttons.registerButton("toggle", 300, 150,  12.0, "", registries.colors.BLACK, "")
+
+screen_width = 1000
+screen_height = 600
 
 def Main(screen,clock):
     world = pygame.Surface((8000,8000)) # Create Map
@@ -312,7 +316,7 @@ def Main(screen,clock):
         pygame.display.flip()
 
 if __name__ in "__main__":
-    screen = pygame.display.set_mode((1000,600), pygame.RESIZABLE)
+    screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
     pygame.display.set_caption("CameraView")
     clock = pygame.time.Clock()
     Main(screen,clock) # Run Main Loop
