@@ -92,6 +92,10 @@ class registerButton():
 	
 	def drawToggle(self, surface):
 		action = False
+		pos = pygame.mouse.get_pos()
+
+		if self.rect.collidepoint(pos):
+			print("mouse collides")
 
 		if self.toggled == False or self.test == 0:
 			surface.blit(self.image, (self.rect.x, self.rect.y))

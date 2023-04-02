@@ -68,6 +68,7 @@ class Button():
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
 				self.clicked = True
 				action = True
+				print("mouse collides")
 
 		if self.selected == True and self.value < len(animationArray) - 1:
 			self.value += 1

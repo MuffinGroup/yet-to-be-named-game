@@ -21,7 +21,7 @@ class Player:
         Player.walking = False
         Player.collidingLeft = False
         Player.collidingRight = False
-        Player.rect = pygame.Rect((180,650),(100, 200)) # Create the players hitbox
+        Player.rect = pygame.Rect((180,301),(100, 200)) # Create the players hitbox
         Player.animationFrameUpdate = 1
         Player.debuggingMode = False
         Player.visible = True
@@ -30,6 +30,7 @@ class Player:
         Player.test = False
         Player.flying = 0
         Player.colliding = 0
+        Player.allowJump = True
 
     def keybinds(self,camera_pos):
         global player_x
@@ -41,9 +42,9 @@ class Player:
         player_x, player_y = camera_pos #Assign variables to the camera position
 
         key = pygame.key.get_pressed() #Receive keyboard input
-        if key[pygame.K_UP] and Player.jumpvar == -16 and Player.visible == True and Player.locked == False: #Jumping
+        if key[pygame.K_UP] and Player.jumpvar == -16 and Player.visible == True and Player.locked == False and Player.allowJump == True: #Jumping
             Player.jumpvar = 14.3
-        elif key[pygame.K_SPACE] and Player.jumpvar == -16 and Player.visible == True and Player.locked == False: #Alternative jumping keybind
+        elif key[pygame.K_SPACE] and Player.jumpvar == -16 and Player.visible == True and Player.locked == False and Player.allowJump == True: #Alternative jumping keybind
             Player.jumpvar = 14.3
 
         if Player.jumpvar == 14.3: #Play jump sound when the player jumps
@@ -194,26 +195,16 @@ class Player:
             Player.collidingRight = False
 
         if Player.debuggingMode == False:
-            if not Player.rect.colliderect(floor_hitbox) and Player.jumping == False:
-                Player.rect.y += 0.1
-            elif not Player.rect.colliderect(placeholder_hitbox):
-                Player.rect.y += 0.1
-                print("meow")
-            if Player.rect.colliderect(floor_hitbox) and Player.jumping == False:
-                Player.rect.y = 650
-            
-            if Player.rect.colliderect(placeholder_hitbox) and Player.test == False:
-                Player.rect.y = placeholder_hitbox.y - placeholder.get_height() * 2
-                Player.test = True
-                print("test")
-            if not Player.rect.colliderect(placeholder_hitbox) and Player.test == True:
-                Player.rect.y = placeholder_hitbox.y - placeholder.get_height() * 1.25
-                Player.test = False
-                print("tessst")
-            elif not Player.rect.colliderect(placeholder_hitbox) and Player.test == True:
-                Player.rect.y = placeholder_hitbox.y - placeholder.get_height() * 1.25
-                Player.test = False
-                print("tesssttt")
+            if not Player.rect.colliderect(floor_hitbox) and not Player.rect.colliderect(placeholder_hitbox) and Player.jumping == False:
+                Player.rect.y += 10
+                Player.allowJump = False
+            else:
+                Player.allowJump = True
+            if Player.rect.colliderect(floor_hitbox) and Player.colliding == True and Player.rect.colliderect(placeholder_hitbox):
+                Player.rect.y -= 10
+                print("miau")
+            elif Player.rect.colliderect(placeholder_hitbox) and Player.colliding == True:
+                pass
 
 #Loading element textures
 placeholder = registries.elements.registerElements("environment/blocks/cobble", 5)
@@ -224,7 +215,7 @@ placeholder3 = registries.elements.registerElements("environment/blocks/cobble",
 print(tree_stump.get_width())
 
 #Loading element hitboxes
-placeholder_hitbox = pygame.Rect((400, 650),(int(placeholder.get_width()), int(placeholder.get_height())))
+placeholder_hitbox = pygame.Rect((400, 750),(int(placeholder.get_width()), int(placeholder.get_height())))
 tree_stump_hitbox = pygame.Rect((800, 730),(int(placeholder.get_width()), int(placeholder.get_width())))
 
 #Loading floor and background
