@@ -92,7 +92,6 @@ class registerButton():
 	
 	def drawToggle(self, surface):
 		action = False
-		pos = pygame.mouse.get_pos()
 
 		if self.toggled == False or self.test == 0:
 			surface.blit(self.image, (self.rect.x, self.rect.y))
@@ -110,11 +109,6 @@ class registerButton():
 			self.toggled = True
 			action = True
 			pygame.time.wait(100)
-
-		if self.selected == True:
-			print("toggled = True")
-		elif self.selected == False:
-			print("toggled = False")
 
 		return action
 

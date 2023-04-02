@@ -90,9 +90,10 @@ class Button():
 
 		return action
 	
-	def drawToggle(self, surface):
+	def drawToggle(self, surface, boolean):
 		action = False
 		pos = pygame.mouse.get_pos()
+		boolean = False
 
 		if self.toggled == False or self.test == 0:
 			surface.blit(self.image, (self.rect.x, self.rect.y))
@@ -112,9 +113,12 @@ class Button():
 			pygame.time.wait(100)
 
 		if self.selected == True:
-			print("toggled = True")
+			boolean = True
 		elif self.selected == False:
-			print("toggled = False")
+			boolean = False
+
+		if boolean == False:
+			print("bool")
 
 		return action
 

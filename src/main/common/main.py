@@ -28,6 +28,8 @@ class Player:
         Player.locked = False
         Player.debuggingMenu = False
         Player.test = False
+        Player.flying = 0
+        Player.colliding = 0
 
     def keybinds(self,camera_pos):
         global player_x
@@ -108,7 +110,7 @@ class Player:
             Player.debuggingMenu = False
             print("o")
 
-        if key[pygame.K_DOWN] and Player.visible == True and registries.elements.registerElements.colliding == False and Player.debuggingMode == True and Player.locked == False:
+        if key[pygame.K_DOWN] and Player.visible == True and registries.elements.registerElements.colliding == False and Player.debuggingMode == True and Player.locked == False and Player.flying == 1:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -117,7 +119,7 @@ class Player:
             Player.standing = True
             Player.walking = False
             
-        if key[pygame.K_u] and Player.visible == True and registries.elements.registerElements.colliding == False and Player.debuggingMode == True and Player.locked == False:
+        if key[pygame.K_u] and Player.visible == True and registries.elements.registerElements.colliding == False and Player.debuggingMode == True and Player.locked == False and Player.flying == 1:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -153,8 +155,23 @@ class Player:
         if Player.debuggingMenu == True:
             pygame.draw.rect(screen, registries.colors.BLUISH_GRAY, debug_menu, 10000)
             if toggleAdvMove.drawToggle(screen):
-                print("toggled")
+                if Player.flying > 1:
+                    Player.flying = 0
+                Player.flying += 1
+                if Player.flying == 1:
+                    print("selected")
+                if Player.flying == 2:
+                    print("not selected") 
             screen.blit(toggleAdvMoveText, (100, 135))
+            if toggleCollisions.drawToggle(screen):
+                if Player.colliding > 1:
+                    Player.colliding = 0
+                Player.colliding += 1
+                if Player.colliding == 1:
+                    print("selected")
+                if Player.colliding == 2:
+                    print("not selected") 
+            screen.blit(toggleCollisionsText, (80, 235))
 
         
     def collisions(self):
@@ -221,6 +238,9 @@ font = pygame.font.SysFont('joystixmonospaceregular', 25)
 text = font.render('Press 0 to open/close the debug menu', True, registries.colors.DARK_ORANGE)
 
 debug_menu = pygame.Rect((70, 70), (300, 400))
+
+toggleCollisionsText = font.render('collides', True, registries.colors.BLACK)
+toggleCollisions = registries.buttons.registerButton("toggle", 300, 250,  12.0, "", registries.colors.BLACK, "")
 
 toggleAdvMoveText = font.render('flying', True, registries.colors.BLACK)
 toggleAdvMove = registries.buttons.registerButton("toggle", 300, 150,  12.0, "", registries.colors.BLACK, "")
