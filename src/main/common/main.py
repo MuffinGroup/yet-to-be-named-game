@@ -200,7 +200,10 @@ class Player:
 
             if Player.rect.colliderect(floor_hitbox):
                 Player.rect.y = 650
-            if Player.rect.colliderect(placeholder_hitbox):
+                Player.standing = True
+            if Player.rect.colliderect(placeholder_hitbox) and Player.standing == False and Player.collidingRight == False or Player.collidingLeft == False:
+                Player.collidingLeft = False
+                Player.collidingRight = False
                 Player.rect.y = placeholder_hitbox.y - placeholder.get_height() * 1.3
 
 #Loading element textures
@@ -283,7 +286,7 @@ def Main(screen,clock):
         #Draw elements to the screen
         placeholder.draw(world, placeholder_hitbox)
 
-        pygame.draw.rect(screen, registries.colors.WHITE, placeholder_hitbox, 1000)
+        pygame.draw.rect(world, registries.colors.WHITE, placeholder_hitbox, 1000)
 
         tree_stump.draw(world, tree_stump_hitbox)
 
