@@ -77,13 +77,11 @@ class Player:
         if key[pygame.K_LEFT] and Player.visible == True and Player.collidingLeft == True and Player.locked == False: #Player walking
             Player.facingLeft = True
             Player.facingRight = False
-            print("1")
         elif key[pygame.K_LEFT] and Player.collidingLeft == False and Player.locked == False and Player.collidingLeft == False:
             Player.facingLeft = True
             Player.facingRight = False
             Player.standing = False
             self.rect.x -= Player.speed
-            print("2")
         else:
             Player.standing = True
             Player.walking = False
@@ -97,22 +95,18 @@ class Player:
         if key[pygame.K_d] and Player.debuggingMode == False:
             pygame.time.wait(200)
             Player.debuggingMode = True
-            print("e")
         elif key[pygame.K_d] and Player.debuggingMode == True and Player.debuggingMenu == False:
             pygame.time.wait(200)
             Player.debuggingMode = False
-            print("a")
 
         if key[pygame.K_0] and Player.debuggingMode == True and Player.debuggingMenu == False:
             pygame.time.wait(200)
             Player.locked = True
             Player.debuggingMenu = True
-            print("e")
         elif key[pygame.K_0] and Player.debuggingMode == True:
             pygame.time.wait(200)
             Player.locked = False
             Player.debuggingMenu = False
-            print("o")
 
         if key[pygame.K_DOWN] and Player.visible == True and Player.debuggingMode == True and Player.locked == False and Player.flying == 1:
             Player.standing = False
@@ -198,14 +192,10 @@ class Player:
 
         if Player.rect.colliderect(floor_hitbox):
             Player.rect.y = 650
-        if Player.rect.collidepoint(placeholder_hitbox.topleft):
-            print("eeeeeeee")
         if Player.rect.collidepoint(placeholder_hitbox.centerx, placeholder_hitbox.top):
             Player.rect.y -= placeholder.get_height()/1.6
         if not Player.rect.colliderect(placeholder_hitbox) and not Player.rect.colliderect(floor_hitbox) and Player.jumping == False:
             Player.rect.y += 0.1
-        if Player.jumping == True:
-            print("e")
 
     def collisionsUpdated(self):    
         if Player.rect.collidepoint(placeholder_hitbox.topleft) and Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.facingRight == True and Player.collidingLeft == False:
@@ -217,6 +207,9 @@ class Player:
             Player.collidingLeft = True
         else:
             Player.collidingLeft = False
+
+        if Player.rect.collidepoint(placeholder_hitbox.center):
+            print("colliding center")
 
         
 
