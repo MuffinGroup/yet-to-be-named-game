@@ -54,7 +54,7 @@ class Player:
             n = 1
             if Player.jumpvar < 0:
                 n = -1
-            if not Player.rect.colliderect(placeholder_hitbox):
+            if Player.rect.colliderect(placeholder_hitbox) or not Player.rect.colliderect(placeholder_hitbox):
                 self.rect.y -= (Player.jumpvar**2)*0.17*n
             Player.jumping = True
             Player.jumpvar -= 1
@@ -195,10 +195,33 @@ class Player:
         else:
             Player.collidingRight = False
 
-        if not Player.rect.colliderect(placeholder_hitbox) and not Player.rect.colliderect(floor_hitbox) and Player.jumping == False:
-            Player.rect.y += 10
+    def collisions(self):
+        #Checking for collisions with element hitboxes
+        if Player.rect.colliderect(placeholder_hitbox) or Player.rect.colliderect(tree_stump_hitbox):
+            registries.elements.registerElements.colliding = True
+        else:
+            registries.elements.registerElements.colliding = False
+
+        #Collisions on the left side
+        if Player.facingLeft == True and Player.collidingRight == False and registries.elements.registerElements.colliding == True:
+            Player.collidingLeft = True
+        else:
+            Player.collidingLeft = False
+    
+        #Collisions on the right side
+        if Player.facingRight == True and Player.facingLeft == False and registries.elements.registerElements.colliding == True:
+            Player.collidingRight = True
+        else:
+            Player.collidingRight = False
+
         if Player.rect.colliderect(floor_hitbox):
             Player.rect.y = 650
+        if Player.rect.collidepoint(placeholder_hitbox.centerx ,placeholder_hitbox.top):
+            Player.rect.y -= placeholder.get_height()/1.6
+        if not Player.rect.colliderect(placeholder_hitbox) and not Player.rect.colliderect(floor_hitbox) and Player.jumping == False:
+            Player.rect.y += 0.1
+        if Player.jumping == True:
+            print("e")
 
 #Loading element textures
 placeholder = registries.elements.registerElements("environment/blocks/cobble", 5)
