@@ -175,26 +175,6 @@ class Player:
                     print("not selected") 
             screen.blit(toggleCollisionsText, (80, 235))
 
-        
-    def collisions(self):
-        #Checking for collisions with element hitboxes
-        if Player.rect.colliderect(placeholder_hitbox) or Player.rect.colliderect(tree_stump_hitbox):
-            registries.elements.registerElements.colliding = True
-        else:
-            registries.elements.registerElements.colliding = False
-
-        #Collisions on the left side
-        if Player.facingLeft == True and Player.collidingRight == False and registries.elements.registerElements.colliding == True:
-            Player.collidingLeft = True
-        else:
-            Player.collidingLeft = False
-    
-        #Collisions on the right side
-        if Player.facingRight == True and Player.facingLeft == False and registries.elements.registerElements.colliding == True:
-            Player.collidingRight = True
-        else:
-            Player.collidingRight = False
-
     def collisions(self):
         #Checking for collisions with element hitboxes
         if Player.rect.colliderect(placeholder_hitbox) or Player.rect.colliderect(tree_stump_hitbox):
@@ -216,12 +196,25 @@ class Player:
 
         if Player.rect.colliderect(floor_hitbox):
             Player.rect.y = 650
-        if Player.rect.collidepoint(placeholder_hitbox.centerx ,placeholder_hitbox.top):
+        if Player.rect.collidepoint(placeholder_hitbox.topleft):
+            print("eeeeeeee")
+        if Player.rect.collidepoint(placeholder_hitbox.centerx, placeholder_hitbox.top):
             Player.rect.y -= placeholder.get_height()/1.6
         if not Player.rect.colliderect(placeholder_hitbox) and not Player.rect.colliderect(floor_hitbox) and Player.jumping == False:
             Player.rect.y += 0.1
         if Player.jumping == True:
             print("e")
+
+    def collisionsUpdated(self):    
+        if Player.rect.collidepoint(placeholder_hitbox.topleft) and Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.facingRight == True:
+            Player.collidingLeft = True
+        else:
+            Player.collidingLeft = False
+        
+        if Player.rect.collidepoint(placeholder_hitbox.topright) and Player.rect.colliderect(placeholder_hitbox.x + placeholder.get_width(), placeholder_hitbox.centery) and Player.facingLeft == True:
+            Player.collidingRight = True
+        else:
+            Player.collidingRight = False
 
 #Loading element textures
 placeholder = registries.elements.registerElements("environment/blocks/cobble", 5)
@@ -281,7 +274,7 @@ def Main(screen,clock):
             walkingValue = 0
 
         #Player collision detection
-        player.collisions()
+        player.collisionsUpdated()
         
         #Player movement
         camera_pos = player.keybinds(camera_pos) 
