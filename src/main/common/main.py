@@ -210,6 +210,8 @@ class Player:
 
         if Player.rect.collidepoint(placeholder_hitbox.center):
             print("colliding center")
+        if Player.rect.collidepoint(placeholder_hitbox.centerx, placeholder_hitbox.top):
+            print("colliding top")
 
         
 
