@@ -77,11 +77,13 @@ class Player:
         if key[pygame.K_LEFT] and Player.visible == True and Player.collidingLeft == True and Player.locked == False: #Player walking
             Player.facingLeft = True
             Player.facingRight = False
-        elif key[pygame.K_LEFT] and Player.collidingLeft == False and Player.locked == False:
+            print("1")
+        elif key[pygame.K_LEFT] and Player.collidingLeft == False and Player.locked == False and Player.collidingLeft == False:
             Player.facingLeft = True
             Player.facingRight = False
             Player.standing = False
             self.rect.x -= Player.speed
+            print("2")
         else:
             Player.standing = True
             Player.walking = False
@@ -112,7 +114,7 @@ class Player:
             Player.debuggingMenu = False
             print("o")
 
-        if key[pygame.K_DOWN] and Player.visible == True and registries.elements.registerElements.colliding == False and Player.debuggingMode == True and Player.locked == False and Player.flying == 1:
+        if key[pygame.K_DOWN] and Player.visible == True and Player.debuggingMode == True and Player.locked == False and Player.flying == 1:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -121,7 +123,7 @@ class Player:
             Player.standing = True
             Player.walking = False
             
-        if key[pygame.K_u] and Player.visible == True and registries.elements.registerElements.colliding == False and Player.debuggingMode == True and Player.locked == False and Player.flying == 1:
+        if key[pygame.K_u] and Player.visible == True and Player.debuggingMode == True and Player.locked == False and Player.flying == 1:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -206,15 +208,17 @@ class Player:
             print("e")
 
     def collisionsUpdated(self):    
-        if Player.rect.collidepoint(placeholder_hitbox.topleft) and Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.facingRight == True:
-            Player.collidingLeft = True
-        else:
-            Player.collidingLeft = False
-        
-        if Player.rect.collidepoint(placeholder_hitbox.topright) and Player.rect.colliderect(placeholder_hitbox.x + placeholder.get_width(), placeholder_hitbox.centery) and Player.facingLeft == True:
+        if Player.rect.collidepoint(placeholder_hitbox.topleft) and Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.facingRight == True and Player.collidingLeft == False:
             Player.collidingRight = True
         else:
             Player.collidingRight = False
+        
+        if Player.rect.collidepoint(placeholder_hitbox.topright) and Player.rect.collidepoint(placeholder_hitbox.x + placeholder.get_width(), placeholder_hitbox.centery) and Player.facingLeft == True and Player.collidingRight == False:
+            Player.collidingLeft = True
+        else:
+            Player.collidingLeft = False
+
+        
 
 #Loading element textures
 placeholder = registries.elements.registerElements("environment/blocks/cobble", 5)
