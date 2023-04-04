@@ -21,7 +21,7 @@ class Player:
         Player.walking = False
         Player.collidingLeft = False
         Player.collidingRight = False
-        Player.rect = pygame.Rect((180,301),(100, 200)) # Create the players hitbox
+        Player.rect = pygame.Rect((180,650),(100, 200)) # Create the players hitbox
         Player.animationFrameUpdate = 1
         Player.debuggingMode = False
         Player.visible = True
@@ -54,7 +54,8 @@ class Player:
             n = 1
             if Player.jumpvar < 0:
                 n = -1
-            self.rect.y -= (Player.jumpvar**2)*0.17*n
+            if not Player.rect.colliderect(placeholder_hitbox):
+                self.rect.y -= (Player.jumpvar**2)*0.17*n
             Player.jumping = True
             Player.jumpvar -= 1
         else:
@@ -194,17 +195,10 @@ class Player:
         else:
             Player.collidingRight = False
 
-        if Player.debuggingMode == False:
-            if not Player.rect.colliderect(floor_hitbox) and not Player.rect.colliderect(placeholder_hitbox) and Player.jumping == False:
-                Player.rect.y += 10
-
-            if Player.rect.colliderect(floor_hitbox):
-                Player.rect.y = 650
-                Player.standing = True
-            if Player.rect.colliderect(placeholder_hitbox) and Player.standing == False and Player.collidingRight == False or Player.collidingLeft == False:
-                Player.collidingLeft = False
-                Player.collidingRight = False
-                Player.rect.y = placeholder_hitbox.y - placeholder.get_height() * 1.3
+        if not Player.rect.colliderect(placeholder_hitbox) and not Player.rect.colliderect(floor_hitbox) and Player.jumping == False:
+            Player.rect.y += 10
+        if Player.rect.colliderect(floor_hitbox):
+            Player.rect.y = 650
 
 #Loading element textures
 placeholder = registries.elements.registerElements("environment/blocks/cobble", 5)
