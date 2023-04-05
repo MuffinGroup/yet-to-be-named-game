@@ -55,8 +55,7 @@ class Player:
             n = 1
             if Player.jumpvar < 0:
                 n = -1
-            if not Player.collidingTop:
-                self.rect.y -= (Player.jumpvar**2)*0.17*n
+            self.rect.y -= (Player.jumpvar**2)*0.17*n
             Player.jumping = True
             Player.jumpvar -= 1
         else:
@@ -99,6 +98,7 @@ class Player:
         elif key[pygame.K_d] and Player.debuggingMode == True and Player.debuggingMenu == False:
             pygame.time.wait(200)
             Player.debuggingMode = False
+            Player.flying == 0
 
         if key[pygame.K_0] and Player.debuggingMode == True and Player.debuggingMenu == False:
             pygame.time.wait(200)
@@ -198,33 +198,36 @@ class Player:
         if not Player.rect.colliderect(placeholder_hitbox) and not Player.rect.colliderect(floor_hitbox) and Player.jumping == False:
             Player.rect.y += 0.1
 
-    def collisionsUpdated(self):    
-        if Player.rect.collidepoint(placeholder_hitbox.topleft) and Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.facingRight == True and Player.collidingLeft == False:
-            Player.collidingRight = True
-        else:
-            Player.collidingRight = False
-        
-        if Player.rect.collidepoint(placeholder_hitbox.topright) and Player.rect.collidepoint(placeholder_hitbox.x + placeholder.get_width(), placeholder_hitbox.centery) and Player.facingLeft == True and Player.collidingRight == False:
-            Player.collidingLeft = True
-        else:
-            Player.collidingLeft = False
+    def collisionsUpdated(self):
+        if Player.flying == 0:    
+            if not Player.rect.colliderect(floor_hitbox) and not Player.rect.colliderect(placeholder_hitbox) and Player.jumping == False:
+                Player.rect.y += 10
+            if Player.rect.collidepoint(placeholder_hitbox.centerx, placeholder_hitbox.top):
+                Player.rect.y -= 10
 
-        if Player.rect.collidepoint(placeholder_hitbox.center) and Player.facingLeft == True:
-            while Player.rect.colliderect(placeholder_hitbox):
-                Player.rect.x += 1
-            print("colliding center")
-        elif Player.rect.collidepoint(placeholder_hitbox.center) and Player.facingRight == True:
-            while Player.rect.colliderect(placeholder_hitbox):
-                Player.rect.x -= 1
-        if Player.rect.collidepoint(placeholder_hitbox.centerx, placeholder_hitbox.top):
-            Player.collidingTop = True
-        else:
-            Player.collidingTop = False
+            if Player.rect.collidepoint(placeholder_hitbox.topleft) and Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.facingRight == True and Player.collidingLeft == False:
+                Player.collidingRight = True
+            elif Player.rect.collidepoint(placeholder_hitbox.topleft) and not Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.rect.y < 650 + placeholder.get_height():
+                Player.collidingRight = True
+            else:
+                Player.collidingRight = False
 
-        if Player.collidingTop == True:
-            print("colliding top")
-        if not Player.rect.colliderect(floor_hitbox) and Player.jumping == False and not Player.rect.colliderect(placeholder_hitbox):
-            Player.rect.y += 10
+            if Player.rect.collidepoint(placeholder_hitbox.topright) and Player.rect.collidepoint(placeholder_hitbox.x + placeholder.get_width(), placeholder_hitbox.centery) and Player.facingLeft == True and Player.collidingRight == False:
+                Player.collidingLeft = True
+            else:
+                Player.collidingLeft = False
+
+            if Player.rect.collidepoint(placeholder_hitbox.center) and Player.facingLeft == True:
+                while Player.rect.colliderect(placeholder_hitbox):
+                    Player.rect.x += 1
+                print("colliding center")
+            elif Player.rect.collidepoint(placeholder_hitbox.center) and Player.facingRight == True:
+                while Player.rect.colliderect(placeholder_hitbox):
+                    Player.rect.x -= 1
+            if Player.rect.collidepoint(placeholder_hitbox.centerx, placeholder_hitbox.top):
+                Player.collidingTop = True
+            else:
+                Player.collidingTop = False
         
 
 #Loading element textures
@@ -236,7 +239,7 @@ placeholder3 = registries.elements.registerElements("environment/blocks/cobble",
 print(tree_stump.get_width())
 
 #Loading element hitboxes
-placeholder_hitbox = pygame.Rect((400, 750),(int(placeholder.get_width()), int(placeholder.get_height())))
+placeholder_hitbox = pygame.Rect((400, 800),(int(placeholder.get_width()), int(placeholder.get_height())))
 tree_stump_hitbox = pygame.Rect((800, 730),(int(placeholder.get_width()), int(placeholder.get_width())))
 
 #Loading floor and background
