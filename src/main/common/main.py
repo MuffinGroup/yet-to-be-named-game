@@ -31,6 +31,7 @@ class Player:
         Player.flying = 0
         Player.colliding = 0
         Player.allowJump = True
+        Player.collidingTop = False
 
     def keybinds(self,camera_pos):
         global player_x
@@ -54,7 +55,7 @@ class Player:
             n = 1
             if Player.jumpvar < 0:
                 n = -1
-            if Player.rect.colliderect(placeholder_hitbox) or not Player.rect.colliderect(placeholder_hitbox):
+            if not Player.collidingTop:
                 self.rect.y -= (Player.jumpvar**2)*0.17*n
             Player.jumping = True
             Player.jumpvar -= 1
@@ -208,9 +209,19 @@ class Player:
         else:
             Player.collidingLeft = False
 
-        if Player.rect.collidepoint(placeholder_hitbox.center):
+        if Player.rect.collidepoint(placeholder_hitbox.center) and Player.facingLeft == True:
+            while Player.rect.colliderect(placeholder_hitbox):
+                Player.rect.x += 1
             print("colliding center")
+        elif Player.rect.collidepoint(placeholder_hitbox.center) and Player.facingRight == True:
+            while Player.rect.colliderect(placeholder_hitbox):
+                Player.rect.x -= 1
         if Player.rect.collidepoint(placeholder_hitbox.centerx, placeholder_hitbox.top):
+            Player.collidingTop = True
+        else:
+            Player.collidingTop = False
+
+        if Player.collidingTop == True:
             print("colliding top")
 
         
