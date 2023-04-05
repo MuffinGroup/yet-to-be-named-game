@@ -223,7 +223,8 @@ class Player:
 
         if Player.collidingTop == True:
             print("colliding top")
-
+        if not Player.rect.colliderect(floor_hitbox) and Player.jumping == False and not Player.rect.colliderect(placeholder_hitbox):
+            Player.rect.y += 10
         
 
 #Loading element textures
