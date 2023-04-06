@@ -234,12 +234,13 @@ class Player:
             if Player.rect.collidepoint(placeholder_hitbox.centerx, placeholder_hitbox.top):
                 Player.collidingTop = True
             elif Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.top) and not Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.rect.y >= placeholder_hitbox.y + placeholder.get_height():
-                print("collisions are weird")
-            elif Player.rect.collidepoint(placeholder_hitbox.topleft) and Player.collidingRight == False: #jumping is temporary
+                Player.collidingTop = True
+
+            if Player.rect.collidepoint(placeholder_hitbox.topleft) and not Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.rect.y > placeholder_hitbox.y + placeholder.get_height(): #jumping is temporary
                 print("why???")
+                Player.collidingTop = True
                 Player.e = True
             else:
-                Player.collidingTop = False
                 Player.e = False
         
 
