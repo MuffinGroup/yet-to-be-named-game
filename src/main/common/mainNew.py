@@ -40,19 +40,19 @@ wooden_sign = registries.elements.registerElements("environment/blocks/wooden_si
 tree_stump = registries.elements.registerElements("environment/blocks/tree_stump", 5)
 placeholder3 = registries.elements.registerElements("environment/blocks/cobble", 5)
 
-game_map = [['1','1','1','0','0','0','2','0','2','2','0','0','0','0','0','0','0','0','0'],
+game_map = [['0','0','0','0','0','0','2','0','2','2','0','0','0','0','0','0','0','0','0'],
             ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
             ['0','0','0','0','0','0','1','0','0','0','0','0','0','0','0','0','0','0','0'],
             ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','0','0','0'],
             ['0','0','0','0','0','2','2','2','2','2','2','2','0','0','0','1','0','0','0'],
             ['0','0','0','0','0','1','1','1','1','1','1','1','0','0','1','1','1','0','0'],
             ['2','2','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','2','2'],
-            ['1','1','2','2','2','2','2','2','2','2','2','2','2','2','2','2','2','1','1'],
+            ['1','1','2','2','2','2','2','2','2','2','2','2','0','0','0','0','0','1','1'],
+            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','3','1','1'],
             ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'],
             ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'],
             ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1']]
+            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','3','1','1']]
 
 print(tree_stump.get_width())
 
@@ -63,14 +63,19 @@ placeholder_hitbox = pygame.Rect((400, 750),(int(placeholder.get_width()), int(p
 tree_stump_hitbox = pygame.Rect((800, 730),(int(placeholder.get_width()), int(placeholder.get_width())))
 
 grassElement = pygame.image.load("src\main/assets/textures\elements\Environment\Blocks\grass_dirt.png")
-grass_width = grassElement.get_width()
-grass_height = grassElement.get_height()
-grassElement = pygame.transform.scale(grassElement, (grass_width * scale, grass_height * scale))
+grass_width = grassElement.get_width() * scale
+grass_height = grassElement.get_height() * scale
+grassElement = pygame.transform.scale(grassElement, (grass_width, grass_height))
 
 dirtElement = pygame.image.load("src\main/assets/textures\elements\Environment\Blocks\Dirt.png")
 dirt_width = dirtElement.get_width()
 dirt_height = dirtElement.get_height()
-dirtElement = pygame.transform.scale(dirtElement, (grass_width * scale, grass_height * scale))
+dirtElement = pygame.transform.scale(dirtElement, (grass_width, grass_height))
+
+cobbleElement = pygame.image.load("src\main/assets/textures\elements\Environment\Blocks\Cobble.png")
+cobble_width = cobbleElement.get_width()
+cobble_height = cobbleElement.get_height()
+cobbleElement = pygame.transform.scale(cobbleElement, (grass_width, grass_height))
 
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
 text = font.render('Press 0 to open/close the debug menu', True, registries.colors.DARK_ORANGE)
@@ -151,12 +156,15 @@ def Main(screen,clock):
         for row in game_map:
             x = 0
             for tile in row:
-                if tile == '1':
-                    world.blit(dirtElement, (x * grass_width * 3, y * grass_width * 3))
-                if tile == '2':
-                    world.blit(grassElement, (x * grass_width * 3, y * grass_width * 3))
                 if tile != '0':
-                    tile_rects.append(pygame.Rect(x * grass_width * 3, y * grass_width * 3, grass_width * 3, grass_width * 3))
+                    tileRect = pygame.Rect(x * grass_width, y * grass_width, grass_width, grass_height)
+                    tile_rects.append(tileRect)
+                if tile == '1':
+                    world.blit(dirtElement, tileRect)
+                if tile == '2':
+                    world.blit(grassElement, tileRect)
+                if tile == '3':
+                    world.blit(cobbleElement, tileRect)
                 x += 1
             y += 1
         #-----------------------
@@ -182,6 +190,7 @@ def Main(screen,clock):
 
         Player.currentSprite = pygame.transform.scale(Player.currentSprite, (160, 160))
         world.blit(Player.currentSprite, (player_rect.x, player_rect.y))
+        
 
         for event in pygame.event.get(): # event loop
             if event.type == pygame.QUIT: # check for window quit
