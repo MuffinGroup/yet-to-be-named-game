@@ -40,12 +40,12 @@ wooden_sign = registries.elements.registerElements("environment/blocks/wooden_si
 tree_stump = registries.elements.registerElements("environment/blocks/tree_stump", 5)
 placeholder3 = registries.elements.registerElements("environment/blocks/cobble", 5)
 
-game_map = [['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
+game_map = [['1','1','1','0','0','0','2','0','2','2','0','0','0','0','0','0','0','0','0'],
             ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','2','2','2','2','2','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
+            ['0','0','0','0','0','0','1','0','0','0','0','0','0','0','0','0','0','0','0'],
+            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','0','0','0'],
+            ['0','0','0','0','0','2','2','2','2','2','2','2','0','0','0','1','0','0','0'],
+            ['0','0','0','0','0','1','1','1','1','1','1','1','0','0','1','1','1','0','0'],
             ['2','2','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','2','2'],
             ['1','1','2','2','2','2','2','2','2','2','2','2','2','2','2','2','2','1','1'],
             ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'],
@@ -56,6 +56,8 @@ game_map = [['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'
 
 print(tree_stump.get_width())
 
+scale = 3
+
 #Loading element hitboxes
 placeholder_hitbox = pygame.Rect((400, 750),(int(placeholder.get_width()), int(placeholder.get_height())))
 tree_stump_hitbox = pygame.Rect((800, 730),(int(placeholder.get_width()), int(placeholder.get_width())))
@@ -63,10 +65,12 @@ tree_stump_hitbox = pygame.Rect((800, 730),(int(placeholder.get_width()), int(pl
 grassElement = pygame.image.load("src\main/assets/textures\elements\Environment\Blocks\grass_dirt.png")
 grass_width = grassElement.get_width()
 grass_height = grassElement.get_height()
+grassElement = pygame.transform.scale(grassElement, (grass_width * scale, grass_height * scale))
 
 dirtElement = pygame.image.load("src\main/assets/textures\elements\Environment\Blocks\Dirt.png")
 dirt_width = dirtElement.get_width()
 dirt_height = dirtElement.get_height()
+dirtElement = pygame.transform.scale(dirtElement, (grass_width * scale, grass_height * scale))
 
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
 text = font.render('Press 0 to open/close the debug menu', True, registries.colors.DARK_ORANGE)
@@ -141,19 +145,21 @@ def Main(screen,clock):
         if walkingValue >= len(registries.animations.walking_sprite):
             walkingValue = 0
 
+        #Loading game map
         tile_rects = []
         y = 0
         for row in game_map:
             x = 0
             for tile in row:
                 if tile == '1':
-                    world.blit(dirtElement, (x * grass_width, y * grass_width))
+                    world.blit(dirtElement, (x * grass_width * 3, y * grass_width * 3))
                 if tile == '2':
-                    world.blit(grassElement, (x * grass_width, y * grass_width))
+                    world.blit(grassElement, (x * grass_width * 3, y * grass_width * 3))
                 if tile != '0':
-                    tile_rects.append(pygame.Rect(x * grass_width, y * grass_width, grass_width, grass_width))
+                    tile_rects.append(pygame.Rect(x * grass_width * 3, y * grass_width * 3, grass_width * 3, grass_width * 3))
                 x += 1
             y += 1
+        #-----------------------
 
         player_movement = [0, 0]
         if moving_right:
@@ -161,7 +167,7 @@ def Main(screen,clock):
         if moving_left:
             player_movement[0] -= 2
         player_movement[1] += player_y_momentum
-        player_y_momentum += 0.2
+        player_y_momentum += 0.1
         if player_y_momentum > 3:
             player_y_momentum = 3
 
@@ -174,6 +180,7 @@ def Main(screen,clock):
             air_timer += 1
         
 
+        Player.currentSprite = pygame.transform.scale(Player.currentSprite, (160, 160))
         world.blit(Player.currentSprite, (player_rect.x, player_rect.y))
 
         for event in pygame.event.get(): # event loop
