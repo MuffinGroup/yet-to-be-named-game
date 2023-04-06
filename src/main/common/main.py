@@ -13,7 +13,7 @@ class Player:
         Player.jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
         Player.jumpsound.set_volume(0.25)
         Player.speed = Player.defaultSpeed
-        Player.jumpvar = -16 #Important for jumping calculation
+        Player.jumpvar = 16 #Important for jumping calculation
         Player.facingRight = True
         Player.facingLeft = False
         Player.standing = True
@@ -32,6 +32,9 @@ class Player:
         Player.colliding = 0
         Player.allowJump = True
         Player.collidingTop = False
+        Player.test2 = 0
+        Player.n = 0
+        Player.e = False
 
     def keybinds(self,camera_pos):
         global player_x
@@ -43,23 +46,23 @@ class Player:
         player_x, player_y = camera_pos #Assign variables to the camera position
 
         key = pygame.key.get_pressed() #Receive keyboard input
-        if key[pygame.K_UP] and Player.jumpvar == -16 and Player.visible == True and Player.locked == False and Player.allowJump == True: #Jumping
-            Player.jumpvar = 14.3
-        elif key[pygame.K_SPACE] and Player.jumpvar == -16 and Player.visible == True and Player.locked == False and Player.allowJump == True: #Alternative jumping keybind
-            Player.jumpvar = 14.3
+        if key[pygame.K_UP] and Player.jumpvar == 16 and Player.visible == True and Player.locked == False and Player.allowJump == True: #Jumping
+            Player.jumpvar = -14.3
+        elif key[pygame.K_SPACE] and Player.jumpvar == 16 and Player.visible == True and Player.locked == False and Player.allowJump == True: #Alternative jumping keybind
+            Player.jumpvar = -14.3
 
-        if Player.jumpvar == 14.3: #Play jump sound when the player jumps
+        if Player.jumpvar == -14.3: #Play jump sound when the player jumps
             pygame.mixer.Sound.play(Player.jumpsound)
 
-        if Player.jumpvar >= -15: #Jumping movement
-            n = 1
+        if Player.jumpvar <= 15: #Jumping movement
+            Player.n = -1
             if Player.jumpvar < 0:
-                n = -1
-            self.rect.y -= (Player.jumpvar**2)*0.17*n
+                Player.n = 1
+            Player.rect.y -= (Player.jumpvar**2)*0.17*Player.n
             Player.jumping = True
-            Player.jumpvar -= 1
+            Player.jumpvar += 1
         else:
-            Player.jumpvar = -16
+            Player.jumpvar = 16
             Player.jumping = False
 
         if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
@@ -147,7 +150,7 @@ class Player:
         if Player.visible == True:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite,(250,250))
             screen.blit(self.currentSprite,(self.rect.x - 75,self.rect.y-50)) #Drawing the player to the screen
-            if Player.debuggingMode == True:
+            if Player.debuggingMode == True or Player.e == True:
                 pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4) #Drawing the hitbox to the screen	
 
     def renderDebugMenu(self):
@@ -201,9 +204,10 @@ class Player:
     def collisionsUpdated(self):
         if Player.flying == 0:    
             if not Player.rect.colliderect(floor_hitbox) and not Player.rect.colliderect(placeholder_hitbox) and Player.jumping == False:
-                Player.rect.y += 10
-            if Player.rect.collidepoint(placeholder_hitbox.centerx, placeholder_hitbox.top):
+                Player.rect.y += 7
+            elif Player.collidingTop == True:
                 Player.rect.y -= 10
+                print("b")
 
             if Player.rect.collidepoint(placeholder_hitbox.topleft) and Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.facingRight == True and Player.collidingLeft == False:
                 Player.collidingRight = True
@@ -213,6 +217,8 @@ class Player:
                 Player.collidingRight = False
 
             if Player.rect.collidepoint(placeholder_hitbox.topright) and Player.rect.collidepoint(placeholder_hitbox.x + placeholder.get_width(), placeholder_hitbox.centery) and Player.facingLeft == True and Player.collidingRight == False:
+                Player.collidingLeft = True
+            elif Player.rect.collidepoint(placeholder_hitbox.topright) and not Player.rect.collidepoint(placeholder_hitbox.x + placeholder.get_width(), placeholder_hitbox.centery) and Player.rect.y < 650 + placeholder.get_height():
                 Player.collidingLeft = True
             else:
                 Player.collidingLeft = False
@@ -224,10 +230,17 @@ class Player:
             elif Player.rect.collidepoint(placeholder_hitbox.center) and Player.facingRight == True:
                 while Player.rect.colliderect(placeholder_hitbox):
                     Player.rect.x -= 1
+
             if Player.rect.collidepoint(placeholder_hitbox.centerx, placeholder_hitbox.top):
                 Player.collidingTop = True
+            elif Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.top) and not Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.rect.y >= placeholder_hitbox.y + placeholder.get_height():
+                print("collisions are weird")
+            elif Player.rect.collidepoint(placeholder_hitbox.topleft) and Player.collidingRight == False: #jumping is temporary
+                print("why???")
+                Player.e = True
             else:
                 Player.collidingTop = False
+                Player.e = False
         
 
 #Loading element textures
@@ -239,7 +252,7 @@ placeholder3 = registries.elements.registerElements("environment/blocks/cobble",
 print(tree_stump.get_width())
 
 #Loading element hitboxes
-placeholder_hitbox = pygame.Rect((400, 800),(int(placeholder.get_width()), int(placeholder.get_height())))
+placeholder_hitbox = pygame.Rect((400, 700),(int(placeholder.get_width()), int(placeholder.get_height())))
 tree_stump_hitbox = pygame.Rect((800, 730),(int(placeholder.get_width()), int(placeholder.get_width())))
 
 #Loading floor and background
@@ -286,6 +299,8 @@ def Main(screen,clock):
         
         if walkingValue >= len(registries.animations.walking_sprite):
             walkingValue = 0
+
+        print(int(Player.rect.y + (Player.jumpvar**2)*0.17*Player.n))
 
         #Player collision detection
         player.collisionsUpdated()
