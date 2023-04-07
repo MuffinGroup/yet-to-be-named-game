@@ -212,8 +212,9 @@ wooden_sign = registries.elements.registerElements("environment/blocks/wooden_si
 tree_stump = registries.elements.registerElements("environment/blocks/tree_stump", 5)
 placeholder3 = registries.elements.registerElements("environment/blocks/cobble", 5)
 
-grassElement = pygame.image.load("src\main/assets/textures\elements\Environment\Blocks\grass_dirt.png")
-dirtElement = pygame.image.load("src\main/assets/textures\elements\Environment\Blocks\dirt.png")
+grassElement = pygame.image.load("src\main/assets/textures\elements\Environment/blocks\grass_dirt.png")
+dirtElement = pygame.image.load("src\main/assets/textures\elements\Environment/blocks\dirt.png")
+cobbleElement = pygame.image.load("src\main/assets/textures\elements\Environment/blocks\cobble.png")
 
 print(tree_stump.get_width())
 
@@ -261,7 +262,7 @@ game_map = [['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'
             ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
             ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
             ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
+            ['0','0','0','0','0','3','3','3','3','3','3','3','3','0','0','0','0','0','0'],
             ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
             ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
             ['2','2','2','2','2','2','2','2','2','2','2','2','2','2','2','2','2','2','2'],
@@ -325,6 +326,8 @@ def Main(screen,clock):
                     world.blit(dirtElement, tileRect)
                 if tile == '2':
                     world.blit(grassElement, tileRect)
+                if tile == '3':
+                    world.blit(cobbleElement, tileRect)
                 x += 1
             y += 1
 
