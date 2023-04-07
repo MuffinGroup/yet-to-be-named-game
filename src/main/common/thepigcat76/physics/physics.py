@@ -3,9 +3,9 @@ import pygame
 screen = pygame.display.set_mode((800,800), pygame.RESIZABLE)
 player = pygame.Rect(100, 500, 100, 100)
 jumping = False
-x = 16
+x = 12
 modifier = 1
-mewo = False
+jumped = False
 
 while True:
 	clock = pygame.time.Clock()
@@ -18,19 +18,19 @@ while True:
 	if keys[pygame.K_LEFT]:
 		player.x -= 10
 	
-	if keys[pygame.K_UP] and x == 16: #Jumping
-		if modifier < 2:
+	if keys[pygame.K_UP] and x == 12: #Jumping
+		if modifier < 2.5: #Jump modifier cap
 			modifier += 0.05
 		print(modifier)
-		mewo = True
-	elif modifier != 1 and not x == -14.3 and mewo == True:
-		x = -14.3
+		jumped = True
+	elif modifier != 1 and not x == -10.3 and jumped == True:
+		x = -10.3
 		print(player.y)
-		mewo = False
-	elif x == 16:
+		jumped = False
+	elif x == 12:
 		modifier = 1
 	
-	if x <= 15: #Jumping movement
+	if x <= 11: #Jumping movement
 		n = -1
 		if x < 0:
 			n = 1
@@ -38,7 +38,7 @@ while True:
 		jumping = True
 		x += 1
 	else:
-		x = 16
+		x = 12
 		jumping = False
     
 	screen.fill((90, 90, 90))
