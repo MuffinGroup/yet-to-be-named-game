@@ -31,6 +31,8 @@ class Player:
         Player.debuggingMenu = False
         Player.flying = 0
         Player.colliding = 0
+        Player.jumpModifier = 1
+        Player.jumpModified = False
 
     def keybinds(self,camera_pos):
         global player_x
@@ -42,15 +44,28 @@ class Player:
         player_x, player_y = camera_pos #Assign variables to the camera position
 
         key = pygame.key.get_pressed() #Receive keyboard input
+        keys = pygame.key.stop_text_input()
         if key[pygame.K_UP] and Player.jumpvar == 16 and Player.visible == True and Player.locked == False: #Jumping
             Player.jumpvar = -14.3
-        elif key[pygame.K_SPACE] and Player.jumpvar == 16 and Player.visible == True and Player.locked == False: #Alternative jumping keybind
-            Player.jumpvar = -14.3
+        if key[pygame.K_SPACE] and Player.jumpvar == 16 and Player.visible == True and Player.locked == False: #Alternative jumping keybind
+            if Player.jumpModifier < 1.75:
+                Player.jumpModifier += 0.05
+            print(Player.jumpModifier)
+        elif Player.jumpModifier != 1 and Player.visible == True:
+            Player.jumpModified = True
+            Player.jumpvar = -14.3 * Player.jumpModifier
+            Player.jumpModifier = 1
+        
+        if Player.jumpModified == True:
+            pygame.mixer.Sound.play(Player.jumpsound)
+            Player.jumpModified = False
 
-        if Player.jumpvar == -14.3: #Play jump sound when the player jumps
+
+
+        if Player.jumpvar == -15: #Play jump sound when the player jumps
             pygame.mixer.Sound.play(Player.jumpsound)
 
-        if Player.jumpvar <= 15: #Jumping movement
+        if Player.jumpvar <= -Player.jumpvar: #Jumping movement
             n = -1
             if Player.jumpvar < 0:
                 n = 1
