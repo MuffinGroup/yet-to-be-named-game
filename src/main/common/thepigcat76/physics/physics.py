@@ -28,7 +28,7 @@ while True:
 		print(player.y)
 		mewo = False
 	elif x == 16:
-		modifier = 1	
+		modifier = 1
 	
 	if x <= 15: #Jumping movement
 		n = -1
