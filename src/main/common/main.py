@@ -27,14 +27,9 @@ class Player:
         Player.visible = True
         Player.locked = False
         Player.debuggingMenu = False
-        Player.test = False
         Player.flying = 0
         Player.colliding = 0
-        Player.allowJump = True
         Player.collidingTop = False
-        Player.test2 = 0
-        Player.n = 0
-        Player.e = False
 
     def keybinds(self,camera_pos):
         global player_x
@@ -46,19 +41,19 @@ class Player:
         player_x, player_y = camera_pos #Assign variables to the camera position
 
         key = pygame.key.get_pressed() #Receive keyboard input
-        if key[pygame.K_UP] and Player.jumpvar == 16 and Player.visible == True and Player.locked == False and Player.allowJump == True: #Jumping
+        if key[pygame.K_UP] and Player.jumpvar == 16 and Player.visible == True and Player.locked == False: #Jumping
             Player.jumpvar = -14.3
-        elif key[pygame.K_SPACE] and Player.jumpvar == 16 and Player.visible == True and Player.locked == False and Player.allowJump == True: #Alternative jumping keybind
+        elif key[pygame.K_SPACE] and Player.jumpvar == 16 and Player.visible == True and Player.locked == False: #Alternative jumping keybind
             Player.jumpvar = -14.3
 
         if Player.jumpvar == -14.3: #Play jump sound when the player jumps
             pygame.mixer.Sound.play(Player.jumpsound)
 
         if Player.jumpvar <= 15: #Jumping movement
-            Player.n = -1
+            n = -1
             if Player.jumpvar < 0:
-                Player.n = 1
-            Player.rect.y -= (Player.jumpvar**2)*0.17*Player.n
+                n = 1
+            Player.rect.y -= (Player.jumpvar**2)*0.17*n
             Player.jumping = True
             Player.jumpvar += 1
         else:
@@ -150,7 +145,7 @@ class Player:
         if Player.visible == True:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite,(250,250))
             screen.blit(self.currentSprite,(self.rect.x - 75,self.rect.y-50)) #Drawing the player to the screen
-            if Player.debuggingMode == True or Player.e == True:
+            if Player.debuggingMode == True:
                 pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4) #Drawing the hitbox to the screen	
 
     def renderDebugMenu(self):
@@ -239,10 +234,28 @@ class Player:
             if Player.rect.collidepoint(placeholder_hitbox.topleft) and not Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.rect.y > placeholder_hitbox.y + placeholder.get_height(): #jumping is temporary
                 print("why???")
                 Player.collidingTop = True
-                Player.e = True
+                pass
             else:
-                Player.e = False
-        
+                pass
+    
+    def collisionsUpdated2(self):
+        if Player.colliding == 0:
+            if Player.rect.colliderect(placeholder_hitbox):
+                if abs(Player.rect.bottom - placeholder_hitbox.top) < 10:
+                    Player.speed = 0
+                else: 
+                    Player.speed = Player.defaultSpeed
+
+                if abs(Player.rect.top - placeholder_hitbox.bottom) < 10:
+                    Player.speed = 0
+                else: 
+                    Player.speed = Player.defaultSpeed
+       
+                if abs(Player.rect.right - placeholder_hitbox.left) < 10:
+                    print("e")
+
+                if abs(Player.rect.left - placeholder_hitbox.right) < 10:
+                    Player.speed = 0
 
 #Loading element textures
 placeholder = registries.elements.registerElements("environment/blocks/cobble", 5)
@@ -301,10 +314,7 @@ def Main(screen,clock):
         if walkingValue >= len(registries.animations.walking_sprite):
             walkingValue = 0
 
-        print(int(Player.rect.y + (Player.jumpvar**2)*0.17*Player.n))
-
-        #Player collision detection
-        player.collisionsUpdated()
+        player.collisionsUpdated2()
         
         #Player movement
         camera_pos = player.keybinds(camera_pos) 
