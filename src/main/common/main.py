@@ -13,7 +13,7 @@ class Player:
         Player.jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
         Player.jumpsound.set_volume(0.25)
         Player.speed = Player.defaultSpeed
-        Player.jumpvar = -16 #Important for jumping calculation
+        Player.jumpvar = 16 #Important for jumping calculation
         Player.facingRight = True
         Player.facingLeft = False
         Player.standing = True
@@ -21,16 +21,15 @@ class Player:
         Player.walking = False
         Player.collidingLeft = False
         Player.collidingRight = False
-        Player.rect = pygame.Rect((180,301),(100, 200)) # Create the players hitbox
+        Player.rect = pygame.Rect((180,650),(100, 200)) # Create the players hitbox
         Player.animationFrameUpdate = 1
         Player.debuggingMode = False
         Player.visible = True
         Player.locked = False
         Player.debuggingMenu = False
-        Player.test = False
         Player.flying = 0
         Player.colliding = 0
-        Player.allowJump = True
+        Player.collidingTop = False
 
     def keybinds(self,camera_pos):
         global player_x
@@ -42,23 +41,23 @@ class Player:
         player_x, player_y = camera_pos #Assign variables to the camera position
 
         key = pygame.key.get_pressed() #Receive keyboard input
-        if key[pygame.K_UP] and Player.jumpvar == -16 and Player.visible == True and Player.locked == False and Player.allowJump == True: #Jumping
-            Player.jumpvar = 14.3
-        elif key[pygame.K_SPACE] and Player.jumpvar == -16 and Player.visible == True and Player.locked == False and Player.allowJump == True: #Alternative jumping keybind
-            Player.jumpvar = 14.3
+        if key[pygame.K_UP] and Player.jumpvar == 16 and Player.visible == True and Player.locked == False: #Jumping
+            Player.jumpvar = -14.3
+        elif key[pygame.K_SPACE] and Player.jumpvar == 16 and Player.visible == True and Player.locked == False: #Alternative jumping keybind
+            Player.jumpvar = -14.3
 
-        if Player.jumpvar == 14.3: #Play jump sound when the player jumps
+        if Player.jumpvar == -14.3: #Play jump sound when the player jumps
             pygame.mixer.Sound.play(Player.jumpsound)
 
-        if Player.jumpvar >= -15: #Jumping movement
-            n = 1
+        if Player.jumpvar <= 15: #Jumping movement
+            n = -1
             if Player.jumpvar < 0:
-                n = -1
-            self.rect.y -= (Player.jumpvar**2)*0.17*n
+                n = 1
+            Player.rect.y -= (Player.jumpvar**2)*0.17*n
             Player.jumping = True
-            Player.jumpvar -= 1
+            Player.jumpvar += 1
         else:
-            Player.jumpvar = -16
+            Player.jumpvar = 16
             Player.jumping = False
 
         if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
@@ -76,7 +75,7 @@ class Player:
         if key[pygame.K_LEFT] and Player.visible == True and Player.collidingLeft == True and Player.locked == False: #Player walking
             Player.facingLeft = True
             Player.facingRight = False
-        elif key[pygame.K_LEFT] and Player.collidingLeft == False and Player.locked == False:
+        elif key[pygame.K_LEFT] and Player.collidingLeft == False and Player.locked == False and Player.collidingLeft == False:
             Player.facingLeft = True
             Player.facingRight = False
             Player.standing = False
@@ -94,24 +93,21 @@ class Player:
         if key[pygame.K_d] and Player.debuggingMode == False:
             pygame.time.wait(200)
             Player.debuggingMode = True
-            print("e")
         elif key[pygame.K_d] and Player.debuggingMode == True and Player.debuggingMenu == False:
             pygame.time.wait(200)
             Player.debuggingMode = False
-            print("a")
+            Player.flying == 0
 
         if key[pygame.K_0] and Player.debuggingMode == True and Player.debuggingMenu == False:
             pygame.time.wait(200)
             Player.locked = True
             Player.debuggingMenu = True
-            print("e")
         elif key[pygame.K_0] and Player.debuggingMode == True:
             pygame.time.wait(200)
             Player.locked = False
             Player.debuggingMenu = False
-            print("o")
 
-        if key[pygame.K_DOWN] and Player.visible == True and registries.elements.registerElements.colliding == False and Player.debuggingMode == True and Player.locked == False and Player.flying == 1:
+        if key[pygame.K_DOWN] and Player.visible == True and Player.debuggingMode == True and Player.locked == False and Player.flying == 1:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -120,7 +116,7 @@ class Player:
             Player.standing = True
             Player.walking = False
             
-        if key[pygame.K_u] and Player.visible == True and registries.elements.registerElements.colliding == False and Player.debuggingMode == True and Player.locked == False and Player.flying == 1:
+        if key[pygame.K_u] and Player.visible == True and Player.debuggingMode == True and Player.locked == False and Player.flying == 1:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -174,7 +170,6 @@ class Player:
                     print("not selected") 
             screen.blit(toggleCollisionsText, (80, 235))
 
-        
     def collisions(self):
         #Checking for collisions with element hitboxes
         if Player.rect.colliderect(placeholder_hitbox) or Player.rect.colliderect(tree_stump_hitbox):
@@ -194,17 +189,73 @@ class Player:
         else:
             Player.collidingRight = False
 
-        if Player.debuggingMode == False:
-            if not Player.rect.colliderect(floor_hitbox) and not Player.rect.colliderect(placeholder_hitbox) and Player.jumping == False:
-                Player.rect.y += 10
+        if Player.rect.colliderect(floor_hitbox):
+            Player.rect.y = 650
+        if Player.rect.collidepoint(placeholder_hitbox.centerx, placeholder_hitbox.top):
+            Player.rect.y -= placeholder.get_height()/1.6
+        if not Player.rect.colliderect(placeholder_hitbox) and not Player.rect.colliderect(floor_hitbox) and Player.jumping == False:
+            Player.rect.y += 0.1
 
-            if Player.rect.colliderect(floor_hitbox):
-                Player.rect.y = 650
-                Player.standing = True
-            if Player.rect.colliderect(placeholder_hitbox) and Player.standing == False and Player.collidingRight == False or Player.collidingLeft == False:
-                Player.collidingLeft = False
+    def collisionsUpdated(self):
+        if Player.flying == 0:    
+            if not Player.rect.colliderect(floor_hitbox) and not Player.rect.colliderect(placeholder_hitbox) and Player.jumping == False:
+                Player.rect.y += 7
+            elif Player.collidingTop == True:
+                Player.rect.y -= 10
+                print("b")
+
+            if Player.rect.collidepoint(placeholder_hitbox.topleft) and Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.facingRight == True and Player.collidingLeft == False:
+                Player.collidingRight = True
+            elif Player.rect.collidepoint(placeholder_hitbox.topleft) and not Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.rect.y < 650 + placeholder.get_height():
+                Player.collidingRight = True
+            else:
                 Player.collidingRight = False
-                Player.rect.y = placeholder_hitbox.y - placeholder.get_height() * 1.3
+
+            if Player.rect.collidepoint(placeholder_hitbox.topright) and Player.rect.collidepoint(placeholder_hitbox.x + placeholder.get_width(), placeholder_hitbox.centery) and Player.facingLeft == True and Player.collidingRight == False:
+                Player.collidingLeft = True
+            elif Player.rect.collidepoint(placeholder_hitbox.topright) and not Player.rect.collidepoint(placeholder_hitbox.x + placeholder.get_width(), placeholder_hitbox.centery) and Player.rect.y < 650 + placeholder.get_height():
+                Player.collidingLeft = True
+            else:
+                Player.collidingLeft = False
+
+            if Player.rect.collidepoint(placeholder_hitbox.center) and Player.facingLeft == True:
+                while Player.rect.colliderect(placeholder_hitbox):
+                    Player.rect.x += 1
+                print("colliding center")
+            elif Player.rect.collidepoint(placeholder_hitbox.center) and Player.facingRight == True:
+                while Player.rect.colliderect(placeholder_hitbox):
+                    Player.rect.x -= 1
+
+            if Player.rect.collidepoint(placeholder_hitbox.centerx, placeholder_hitbox.top):
+                Player.collidingTop = True
+            elif Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.top) and not Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.rect.y >= placeholder_hitbox.y + placeholder.get_height():
+                Player.collidingTop = True
+
+            if Player.rect.collidepoint(placeholder_hitbox.topleft) and not Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.rect.y > placeholder_hitbox.y + placeholder.get_height(): #jumping is temporary
+                print("why???")
+                Player.collidingTop = True
+                pass
+            else:
+                pass
+    
+    def collisionsUpdated2(self):
+        if Player.colliding == 0:
+            if Player.rect.colliderect(placeholder_hitbox):
+                if abs(Player.rect.bottom - placeholder_hitbox.top) < 10:
+                    Player.speed = 0
+                else: 
+                    Player.speed = Player.defaultSpeed
+
+                if abs(Player.rect.top - placeholder_hitbox.bottom) < 10:
+                    Player.speed = 0
+                else: 
+                    Player.speed = Player.defaultSpeed
+       
+                if abs(Player.rect.right - placeholder_hitbox.left) < 10:
+                    print("e")
+
+                if abs(Player.rect.left - placeholder_hitbox.right) < 10:
+                    Player.speed = 0
 
 #Loading element textures
 placeholder = registries.elements.registerElements("environment/blocks/cobble", 5)
@@ -215,7 +266,7 @@ placeholder3 = registries.elements.registerElements("environment/blocks/cobble",
 print(tree_stump.get_width())
 
 #Loading element hitboxes
-placeholder_hitbox = pygame.Rect((400, 750),(int(placeholder.get_width()), int(placeholder.get_height())))
+placeholder_hitbox = pygame.Rect((400, 700),(int(placeholder.get_width()), int(placeholder.get_height())))
 tree_stump_hitbox = pygame.Rect((800, 730),(int(placeholder.get_width()), int(placeholder.get_width())))
 
 #Loading floor and background
@@ -263,8 +314,7 @@ def Main(screen,clock):
         if walkingValue >= len(registries.animations.walking_sprite):
             walkingValue = 0
 
-        #Player collision detection
-        player.collisions()
+        player.collisionsUpdated2()
         
         #Player movement
         camera_pos = player.keybinds(camera_pos) 
