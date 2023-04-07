@@ -21,6 +21,8 @@ class Player:
         Player.walking = False
         Player.collidingLeft = False
         Player.collidingRight = False
+        Player.collidingTop = False
+        Player.collidingBottom = False
         Player.rect = pygame.Rect((180,650),(100, 200)) # Create the players hitbox
         Player.animationFrameUpdate = 1
         Player.debuggingMode = False
@@ -29,7 +31,6 @@ class Player:
         Player.debuggingMenu = False
         Player.flying = 0
         Player.colliding = 0
-        Player.collidingTop = False
 
     def keybinds(self,camera_pos):
         global player_x
