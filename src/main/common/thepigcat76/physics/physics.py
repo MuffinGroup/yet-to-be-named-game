@@ -19,7 +19,7 @@ while True:
 		player.x -= 10
 	
 	if keys[pygame.K_UP] and x == 16: #Jumping
-		if modifier < 10:
+		if modifier < 2:
 			modifier += 0.05
 		print(modifier)
 		mewo = True
