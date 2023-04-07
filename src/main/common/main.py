@@ -212,6 +212,9 @@ wooden_sign = registries.elements.registerElements("environment/blocks/wooden_si
 tree_stump = registries.elements.registerElements("environment/blocks/tree_stump", 5)
 placeholder3 = registries.elements.registerElements("environment/blocks/cobble", 5)
 
+grassElement = pygame.image.load("src\main/assets/textures\elements\Environment\Blocks\grass_dirt.png")
+dirtElement = pygame.image.load("src\main/assets/textures\elements\Environment\Blocks\dirt.png")
+
 print(tree_stump.get_width())
 
 #Loading element hitboxes
@@ -239,19 +242,19 @@ toggleAdvMove = registries.buttons.registerButton("toggle", 300, 150,  12.0, "",
 screen_width = 1000
 screen_height = 600
 
-game_map = [['0','0','0','0','0','0','2','0','2','2','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','1','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','0','0','0'],
-            ['0','0','0','0','0','2','2','2','2','2','2','2','0','0','0','1','0','0','0'],
-            ['0','0','0','0','0','1','1','1','1','1','1','1','0','0','1','1','1','0','0'],
-            ['2','2','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','2','2'],
-            ['1','1','2','2','2','2','2','2','2','2','2','2','0','0','0','0','0','1','1'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','3','1','1'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','3','1','1']]
+"""game_map = [['0','0','0','2','2','2','0','0','2','2','2','2','0','0','2','2','2','2','0'],
+            ['0','0','1','0','0','0','0','2','0','0','0','0','0','2','0','0','0','0','0'],
+            ['0','1','0','0','0','0','0','1','0','0','0','0','0','1','0','0','0','0','0'],
+            ['0','1','0','0','0','0','0','1','0','0','0','0','0','1','0','0','0','0','0'],
+            ['2','0','0','0','0','0','0','1','0','0','0','0','0','1','0','0','0','0','0'],
+            ['1','0','0','0','0','0','0','1','0','0','0','0','0','1','0','0','0','0','0'],
+            ['1','0','0','0','0','0','0','0','2','2','2','2','0','0','2','2','2','2','0'],
+            ['1','0','0','0','0','0','0','0','0','0','0','0','2','0','0','0','0','0','2'],
+            ['1','0','0','0','0','0','0','0','0','0','0','0','1','0','0','0','0','0','1'],
+            ['0','1','0','0','0','0','0','0','0','0','0','0','1','0','0','0','0','0','1'],
+            ['0','1','0','0','0','0','0','0','0','0','0','0','1','0','0','0','0','0','1'],
+            ['0','0','1','0','0','0','0','0','0','0','0','0','1','0','0','0','0','0','1'],
+            ['0','0','0','2','2','2','0','2','2','2','2','2','0','0','2','2','2','2','0']]""" #Lovely css map
 
 def Main(screen,clock):
     world = pygame.Surface((8000,8000)) # Create Map
@@ -263,6 +266,7 @@ def Main(screen,clock):
     walkingValue = 0
 
     while True:
+        key = pygame.key.get_pressed()
         for event in pygame.event.get():
             if event.type == pygame.QUIT or(event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE):
                 pygame.quit()
@@ -292,20 +296,27 @@ def Main(screen,clock):
         #Render background
         world.fill(registries.colors.AQUA)
 
-        #Render floor
-        world.blit(floor, floor_hitbox)
-
-        #pygame.draw.rect(world, registries.colors.GREEN, floor_hitbox, 10) #<-- debugging purposes
-        
-        #Draw elements to the screen
-        placeholder.draw(world, placeholder_hitbox)
-
-        pygame.draw.rect(world, registries.colors.WHITE, placeholder_hitbox, 1000)
-
-        tree_stump.draw(world, tree_stump_hitbox)
-
         #Fill the background outside of the map
         screen.fill(registries.colors.AQUA)
+
+        tile_rects = []
+        y = 0
+        for row in game_map:
+            x = 0
+            for tile in row:
+                if tile != '0':
+                    tileRect = pygame.Rect(x * dirtElement.get_width(), y * dirtElement.get_width(), dirtElement.get_width(), dirtElement.get_width())
+                    tile_rects.append(tileRect)
+                if tile == '1':
+                    world.blit(dirtElement, tileRect)
+                if tile == '2':
+                    world.blit(grassElement, tileRect)
+                x += 1
+            y += 1
+
+        if key[pygame.K_9]:
+            Player.rect.y = tileRect.y
+            Player.rect.x = tileRect.x
 
         #Render the player
         player.render(world)
