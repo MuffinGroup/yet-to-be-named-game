@@ -1,9 +1,11 @@
 import pygame
 
 pygame.init()
-class Rect():
+class registerGui():
     def __init__(self, x, y, width, height):
-        self.object = pygame.Rect((x, y), (width, height))
-            
-    def drawRect(self, menu, color, outline):
-        pygame.draw.rect(menu, color, self.object, outline)
+        self.window = pygame.Surface((width, height))
+        self.x, self.y = x,y
+    
+    def draw(self, surface, color):
+        surface.blit(self.window, (self.x, self.y))
+        self.window.fill(color)
