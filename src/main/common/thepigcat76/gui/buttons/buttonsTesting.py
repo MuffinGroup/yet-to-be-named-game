@@ -8,6 +8,7 @@ icon = pygame.image.load('src\main/assets/textures/elements\gui/icon\muffin_icon
 pygame.display.set_icon(icon)
 pygame.display.set_caption("Muffin Group")
 test = registerButton.Button("toggle", 350, 450,  12.0, "", colors.BLACK, "joystixmonospaceregular")
+test2 = registerButton.Button("toggle", 350, 150,  12.0, "", colors.BLACK, "joystixmonospaceregular")
 clock = pygame.time.Clock()
 
 while True:
@@ -15,6 +16,9 @@ while True:
 	screen.fill(colors.PURPLE)
 
 	if test.drawToggle(screen):
+		print("toggled")
+
+	if test2.drawToggle(screen):
 		print("toggled")
 
 	for event in pygame.event.get():
