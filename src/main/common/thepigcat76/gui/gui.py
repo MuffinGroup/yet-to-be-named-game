@@ -10,11 +10,22 @@ class registerGui():
             self.backgroundImage = False
         self.window = pygame.Surface((width, height))
         self.x, self.y = x,y
+        self.rectCount = 0    
     
-    def draw(self, surface, color):
+    def registerRect(self, color, x, y, width, height, borderThickness, rectArray):
+        self.rect = pygame.Rect(x, y, width, height)
+        rectArray.append(self.rect)
+        self.rectCount += 1
+        self.rectColor = color
+        self.borderThickness = borderThickness
+        print(self.rectCount)
+        
+    def draw(self, surface, color, rectArray):
         surface.blit(self.window, (self.x, self.y))
+        self.rect.x += 1
         if self.backgroundImage == True:
-            self.window.blit(self.bgImage, (0, 0))
-            print("we")
-        else:
             self.window.fill(color)
+            self.window.blit(self.bgImage, (0, 0))
+        for loads in rectArray:
+            self.window.blit(self.bgImage, (self.rect.x, self.rect.y))
+            
