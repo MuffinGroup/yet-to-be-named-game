@@ -7,7 +7,7 @@ pygame.init()
 
 # Create a screen surface
 screen = pygame.display.set_mode((1280, 800), pygame.RESIZABLE)
-test = gui.registerGui(100, 100, 100, 100)
+test = gui.registerGui(100, 100, 100, 100, True, "placeholder_startscreen")
 
 while True:
     for event in pygame.event.get():
