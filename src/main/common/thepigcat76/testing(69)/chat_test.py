@@ -6,6 +6,7 @@ clock = pygame.time.Clock()
 
 user_input = ""
 message_sent = ""
+sample = "i"
 inputLocked = False
 renderMarker = 0
 defaultPos = 330
@@ -17,7 +18,7 @@ background = pygame.image.load("src\main/assets/textures\elements/background\pla
 # Create a screen surface
 screen = pygame.display.set_mode((1280, 800), pygame.RESIZABLE)
 
-textfont = pygame.font.SysFont('joystixmonospaceregular', 30)
+textfont = pygame.font.SysFont('joystixmonospaceregular', 60)
 
 while True:
     key = pygame.key.get_pressed()
@@ -28,21 +29,22 @@ while True:
         if event.type == pygame.KEYDOWN and not inputLocked == True:
             if event.key == pygame.K_BACKSPACE and user_text.get_width() >= 25:
                 user_input = user_input[0:-1]
-                x -= 25
+                x -= sample_text.get_width()
             elif event.key == pygame.K_RETURN and user_text.get_width() >= 25:
                 message_sent = user_input
                 user_input = ""
                 x = defaultPos
             elif not event.key == pygame.K_BACKSPACE and not event.key == pygame.K_RETURN:
                 user_input += event.unicode
-                x += 25
+                x += sample_text.get_width()
             
     screen.fill((0,0,0))
+    sample_text = textfont.render(sample, False, (0, 0, 0))
     user_text = textfont.render(user_input, True, (255, 255, 255))
     message_text = textfont.render(message_sent, True, (255, 255, 255))
     screen.blit(user_text, (330,310))
     screen.blit(message_text, (330,210))
-    print(user_text.get_width())
+    print(sample_text.get_width())
     
     if renderMarker >= 99:
         renderMarker = 0
