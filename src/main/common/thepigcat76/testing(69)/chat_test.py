@@ -26,10 +26,10 @@ while True:
             pygame.quit()
             exit()
         if event.type == pygame.KEYDOWN and not inputLocked == True:
-            if event.key == pygame.K_BACKSPACE and not x == 330:
+            if event.key == pygame.K_BACKSPACE and user_text.get_width() >= 25:
                 user_input = user_input[0:-1]
                 x -= 25
-            elif event.key == pygame.K_RETURN and user_text.get_width() > 25:
+            elif event.key == pygame.K_RETURN and user_text.get_width() >= 25:
                 message_sent = user_input
                 user_input = ""
                 x = defaultPos
