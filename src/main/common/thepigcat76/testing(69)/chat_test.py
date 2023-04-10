@@ -29,11 +29,11 @@ while True:
             if event.key == pygame.K_BACKSPACE and not x == 330:
                 user_input = user_input[0:-1]
                 x -= 25
-            elif event.key == pygame.K_RETURN:
+            elif event.key == pygame.K_RETURN and user_text.get_width() > 25:
                 message_sent = user_input
                 user_input = ""
                 x = defaultPos
-            elif not event.key == pygame.K_BACKSPACE:
+            elif not event.key == pygame.K_BACKSPACE and not event.key == pygame.K_RETURN:
                 user_input += event.unicode
                 x += 25
             
@@ -42,6 +42,7 @@ while True:
     message_text = textfont.render(message_sent, True, (255, 255, 255))
     screen.blit(user_text, (330,310))
     screen.blit(message_text, (330,210))
+    print(user_text.get_width())
     
     if renderMarker >= 99:
         renderMarker = 0
