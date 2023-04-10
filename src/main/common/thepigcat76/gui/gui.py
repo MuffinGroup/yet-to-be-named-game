@@ -9,7 +9,7 @@ class registerGui():
         else:
             self.backgroundImage = False
         self.window = pygame.Surface((width, height))
-        self.x, self.y = x,y   
+        self.x, self.y = x,y
         
     def draw(self, surface, color):
         surface.blit(self.window, (self.x, self.y))
@@ -27,7 +27,7 @@ class registerObject():
 
     def drawObject(self, surface):
         pygame.draw.rect(surface, self.color, self.rect, self.borderWidth)
-    
+
 class registerButton():
 	clock = pygame.time.Clock()
 	def __init__(self, button_name, x, y, scale, display_text, text_color, font_type):
@@ -44,36 +44,37 @@ class registerButton():
 		self.selected_display_text2 = smallfont.render(display_text , True , (80, 80, 80))
 		self.selected_display_text3 = smallfont.render(display_text , True , (171, 171, 171))
 		self.selected_display_text4 = smallfont.render(display_text , True , (255, 255, 255))
-		self.rect = pygame.Rect(x, y, self.image.get_width(), self.image.get_height())
-		self.rect.centerx, self.rect.top = x, y
+		self.rect = self.image.get_rect()
+		self.rect.center = (x, y)
 		self.clicked = False
+		self.toggled = False
 		self.selected = False
+		self.test = 0
 
 	#draw function is not used atm 
-	def draw(self, surface, xTextOffset, yTextOffset):
+	def draw(self, surface, xTextOffset, yTextOffset, xTextureOffset, yTextureOffset):
 		action = False
 		#get mouse position
 		pos = pygame.mouse.get_pos()
 
 		#check mouseover and clicked conditions
+		surface.blit(self.image, (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset))
 		if not self.rect.collidepoint(pos):
-			surface.blit(self.image , (self.rect.x, self.rect.y))
-			surface.blit(self.display_text , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
+			surface.blit(self.display_text , (self.rect.x - xTextOffset - xTextureOffset, self.rect.y - yTextOffset - yTextureOffset))
 		elif self.rect.collidepoint(pos):
-			surface.blit(self.selected_image, (self.rect.x, self.rect.y))
-			surface.blit(self.selected_display_text4 , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
+			pygame.draw.rect(surface, (255, 255, 255), (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset, self.rect.width, self.rect.height), 5)
+			surface.blit(self.selected_display_text4 , (self.rect.x - xTextOffset - xTextureOffset, self.rect.y - yTextOffset - yTextureOffset))
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
 				self.clicked = True
 				action = True
 		
-		pygame.draw.rect(surface, (255, 255, 255), self.rect, 10)
 
 		if pygame.mouse.get_pressed()[0] == 0:
 			self.clicked = False
 
 		return action
 	
-	def drawAnimated(self, surface, animationArray, xOffset, yOffset, scale, xTextOffset, yTextOffset):
+	def drawAnimated(self, surface, animationArray, xOffset, yOffset, scale, xTextOffset, yTextOffset, xTextureOffset, yTextureOffset):
 		action = False
 		pos = pygame.mouse.get_pos()
 		image = animationArray[self.value]
@@ -114,6 +115,32 @@ class registerButton():
 
 		if pygame.mouse.get_pressed()[0] == 0:
 			self.clicked = False
+
+		return action
+
+	def drawToggle(self, surface, xTextureOffset, yTextureOffset):
+		action = False
+		pos = pygame.mouse.get_pos()
+
+		if self.toggled == False or self.test == 0:
+			surface.blit(self.image, (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset))
+			self.selected = False
+		if self.toggled == True and self.test == 1:
+			surface.blit(self.selected_image, (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset))
+			self.selected = True
+		if self.toggled == True and self.test > 1:
+			surface.blit(self.image, (self.rect.x, self.rect.y))
+			self.test = 0
+			self.selected = False
+
+		if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False and self.rect.collidepoint(pos):
+			self.test += 1
+			self.toggled = True
+			action = True
+			pygame.time.wait(100)
+
+		if self.rect.collidepoint(pos):
+			pygame.draw.rect(surface, (255, 255, 255), (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset, self.rect.width, self.rect.height), 4)
 
 		return action
 

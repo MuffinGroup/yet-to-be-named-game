@@ -1,5 +1,5 @@
 import pygame
-import registerButton
+import buttons
 import colors
 import animations
 
@@ -8,12 +8,12 @@ screen = pygame.display.set_mode((720,720), pygame.RESIZABLE)
 icon = pygame.image.load('src\main/assets/textures/elements\gui/icon\muffin_icon.png')
 pygame.display.set_icon(icon)
 pygame.display.set_caption("Muffin Group")
-start_button = registerButton.Button("button" ,350, 250, 6.0, "start", colors.BLACK, "joystixmonospaceregular")
-options_button = registerButton.Button("button", 350, 450,  6.0, "options", colors.BLACK, "joystixmonospaceregular")
-quit_button = registerButton.Button("button", 350, 650,  6.0, "quit", colors.BLACK, "joystixmonospaceregular")
+start_button = buttons.registerButton("button" ,350, 250, 6.0, "start", colors.BLACK, "joystixmonospaceregular")
+options_button = buttons.registerButton("button", 350, 450,  6.0, "options", colors.BLACK, "joystixmonospaceregular")
+quit_button = buttons.registerButton("button", 350, 650,  6.0, "quit", colors.BLACK, "joystixmonospaceregular")
 smallfont = pygame.font.SysFont("joystixmonospaceregular", 40)
 name = smallfont.render("YET TO BE NAMED GAME" , True , colors.DARKER_GRAY)
-start_background = pygame.image.load("src/main/assets/textures/elements/background/placeholder_startscreen.jpg")
+start_background = pygame.image.load("src/main/assets/textures/elements/background/placeholder_startscreen.png")
 clock = pygame.time.Clock()
 
 while True:
