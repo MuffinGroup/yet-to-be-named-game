@@ -5,7 +5,11 @@ pygame.init()
 clock = pygame.time.Clock()
 
 user_input = ""
-message_sent = ""
+message_sent4 = "4"
+message_sent3 = "3"
+message_sent2 = "2"
+message_sent1 = "1"
+message_sent = "0"
 sample = "i"
 inputLocked = False
 renderMarker = 0
@@ -36,10 +40,6 @@ while True:
             if event.key == pygame.K_BACKSPACE and lessThanOneChar == False:
                 user_input = user_input[0:-1]
                 x -= sample_text.get_width()
-            elif event.key == pygame.K_RETURN and lessThanOneChar == False:
-                message_sent = user_input
-                user_input = ""
-                x = defaultPos
             elif event.key == pygame.K_TAB and user_text.get_width() < chat_box.width - sample_text.get_width() * 4:
                 user_input += "    "
                 x += sample_text.get_width() * 4
@@ -47,11 +47,25 @@ while True:
                 user_input += event.unicode
                 x += sample_text.get_width()
             
+        #Very obvious easter eggs
+        if message_sent == "/joke":
+            message_sent = "ReadyPlayerOne14"
+        elif message_sent == "css":
+            message_sent = "not so god stuff stop it!"
+            
     screen.fill((0,0,0))
     sample_text = textfont.render(sample, False, (0, 0, 0))
     user_text = textfont.render(user_input, True, (255, 255, 255))
     message_text = textfont.render(message_sent, True, (255, 255, 255))
+    message_text1 = textfont.render(message_sent1, True, (255, 0, 255))
+    message_text2 = textfont.render(message_sent2, True, (255, 0, 255))
+    message_text3 = textfont.render(message_sent3, True, (255, 255, 255))
+    message_text4 = textfont.render(message_sent4, True, (255, 255, 255))
     screen.blit(user_text, (330 ,600))
+    screen.blit(message_text4, (330, 300))
+    screen.blit(message_text3, (330, 350))
+    screen.blit(message_text2, (330, 400))
+    screen.blit(message_text1, (330, 450))
     screen.blit(message_text, (330, 500))
     pygame.draw.rect(screen, (255, 255, 255), frame, 5)
     pygame.draw.rect(screen, (255, 255, 255), chat_box, 5)
