@@ -40,7 +40,7 @@ while True:
                 message_sent = user_input
                 user_input = ""
                 x = defaultPos
-            elif event.key == pygame.K_TAB:
+            elif event.key == pygame.K_TAB and user_text.get_width() < chat_box.width - sample_text.get_width() * 4:
                 user_input += "    "
                 x += sample_text.get_width() * 4
             elif not event.key == pygame.K_BACKSPACE and not event.key == pygame.K_LALT and not event.key == pygame.K_RALT and not event.key == pygame.K_LSHIFT and not event.key == pygame.K_RIGHT and not event.key == pygame.K_LEFT and not event.key == pygame.K_UP and not event.key == pygame.K_DOWN and not event.key == pygame.K_LCTRL and not event.key == pygame.K_RCTRL and not event.key == pygame.K_RSHIFT and not event.key == pygame.K_RETURN and user_text.get_width() < chat_box.width - sample_text.get_width() * 4:
@@ -65,8 +65,6 @@ while True:
         inputLocked = True
     else:
         inputLocked = False
-        
-    print(sample_text.get_width())
     
     if renderMarker >= 99:
         renderMarker = 0
