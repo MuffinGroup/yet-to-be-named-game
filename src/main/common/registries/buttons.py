@@ -32,11 +32,11 @@ class registerButton():
 		pos = pygame.mouse.get_pos()
 
 		#check mouseover and clicked conditions
+		surface.blit(self.image, (self.rect.x, self.rect.y))
 		if not self.rect.collidepoint(pos):
-			surface.blit(self.image, (self.rect.x, self.rect.y))
 			surface.blit(self.display_text , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
 		elif self.rect.collidepoint(pos):
-			surface.blit(self.selected_image, (self.rect.x, self.rect.y))
+			pygame.draw.rect(surface, (255, 255, 255), (self.rect.x, self.rect.y, self.rect.width, self.rect.height), 5)
 			surface.blit(self.selected_display_text4 , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
 				self.clicked = True
@@ -94,9 +94,6 @@ class registerButton():
 		action = False
 		pos = pygame.mouse.get_pos()
 
-		if self.rect.collidepoint(pos):
-			print("mouse collides")
-
 		if self.toggled == False or self.test == 0:
 			surface.blit(self.image, (self.rect.x, self.rect.y))
 			self.selected = False
@@ -108,11 +105,14 @@ class registerButton():
 			self.test = 0
 			self.selected = False
 
-		if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+		if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False and self.rect.collidepoint(pos):
 			self.test += 1
 			self.toggled = True
 			action = True
 			pygame.time.wait(100)
+
+		if self.rect.collidepoint(pos):
+			pygame.draw.rect(surface, (255, 255, 255),self.rect, 4)
 
 		return action
 
