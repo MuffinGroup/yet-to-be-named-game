@@ -1,29 +1,33 @@
 import pygame
-import buttons.colors
-import buttons.registerButton
 import gui
+import colors
 
 # Initialize Pygame
 pygame.init()
 
-#Load background
-menu = pygame.Surface((800, 800))
-element = gui.Rect(500, 100, 100, 100)
-buttonTest = buttons.registerButton.Button("button", 300, 300, 6.0, "ererer", buttons.colors.PURPLE, "joystixmonospaceregular")
-
+x = 100
+y = 100
 # Create a screen surface
 screen = pygame.display.set_mode((1280, 800), pygame.RESIZABLE)
+test = gui.registerGui(x, y, 1000, 1000, True, "placeholder_startscreen")
+test2 = gui.registerObject(100, 100, 100, 100, colors.DARK_ORANGE, 10)
+test3 = gui.registerObject(200, 100, 100, 100, colors.DARK_ORANGE, 10)
+test4 = gui.registerButton("button", 300, 500, 5, "test", colors.YELLOW, "joystixmonospaceregular")
+test5 = gui.registerButton("toggle", 300, 700, 10, "test", colors.YELLOW, "joystixmonospaceregular")
+test6 = gui.registerFont(30, "uwu", colors.GREEN)
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT or (event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE):
             pygame.quit()
             exit()
-
-    menu.fill(buttons.colors.BLUE)
-    element.drawRect(menu, buttons.colors.ORANGE, 100)
-    if buttonTest.draw(menu, 0, 0):
+    test.draw(screen, colors.BLUISH_GRAY)
+    test2.drawObject(test.window)
+    test3.drawObject(test.window)
+    test6.drawFont(test.window, 100, 300)
+    if test4.draw(test.window, 0, 0, x, y):
         print("e")
-    screen.blit(menu, (100, 100))
-    
+    if test5.drawToggle(test.window, x, y):
+        print("weeee")
+
     pygame.display.update()
