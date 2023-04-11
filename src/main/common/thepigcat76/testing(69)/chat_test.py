@@ -30,7 +30,7 @@ background = pygame.image.load("src\main/assets/textures\elements/background\pla
 # Create a screen surface
 screen = pygame.display.set_mode((1280, 800), pygame.RESIZABLE)
 
-textfont = pygame.font.SysFont('joystixmonospaceregular', 30)
+textfont = pygame.font.Font("src\main/assets/fonts/joystixmonospaceregular.otf", 30)
 
 while True:
     key = pygame.key.get_pressed()
@@ -50,7 +50,7 @@ while True:
             elif not event.key == pygame.K_BACKSPACE and not event.key == pygame.K_LALT and not event.key == pygame.K_RALT and not event.key == pygame.K_LSHIFT and not event.key == pygame.K_RIGHT and not event.key == pygame.K_LEFT and not event.key == pygame.K_UP and not event.key == pygame.K_DOWN and not event.key == pygame.K_LCTRL and not event.key == pygame.K_RCTRL and not event.key == pygame.K_RSHIFT and not event.key == pygame.K_RETURN and user_text.get_width() < chat_box.width - sample_text.get_width() * 4:
                 user_input += event.unicode
                 x += sample_text.get_width()
-            if event.key == pygame.K_RETURN:
+            if event.key == pygame.K_RETURN and lessThanOneChar == False:
                 print("ew")
                 message_sent8 = message_sent7
                 message_sent7 = message_sent6

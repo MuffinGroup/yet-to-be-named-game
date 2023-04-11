@@ -145,4 +145,13 @@ class registerButton():
 		return action
 
 	clock.tick(60)
-            
+ 
+class registerFont():
+    def __init__(self, fontSize, displayText, color):
+        self.font = pygame.font.Font("src\main/assets/fonts/joystixmonospaceregular.otf", fontSize)
+        self.displayText = displayText
+        self.color = color
+        
+    def drawFont(self, surface, x, y):
+        self.text = self.font.render(self.displayText, True, self.color)
+        surface.blit(self.text, (x, y))
