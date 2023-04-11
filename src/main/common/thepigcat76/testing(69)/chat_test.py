@@ -12,9 +12,9 @@ renderMarker = 0
 defaultPos = 330
 lessThanOneChar = True
 x = defaultPos
-selected = False
-frame = pygame.Rect(270, 100, 800, 400)
-chat_box = pygame.Rect(300, 100, 800, 400)
+selected = True
+frame = pygame.Rect(270, 100, 800, 600)
+chat_box = pygame.Rect(300, 575, 735, 100)
 
 #Load background
 background = pygame.image.load("src\main/assets/textures\elements/background\placeholder_background_1.jpg")
@@ -40,7 +40,10 @@ while True:
                 message_sent = user_input
                 user_input = ""
                 x = defaultPos
-            elif not event.key == pygame.K_BACKSPACE and not event.key == pygame.K_RETURN and user_text.get_width() < chat_box.width - sample_text.get_width() * 4:
+            elif event.key == pygame.K_TAB:
+                user_input += "    "
+                x += sample_text.get_width() * 4
+            elif not event.key == pygame.K_BACKSPACE and not event.key == pygame.K_LALT and not event.key == pygame.K_RALT and not event.key == pygame.K_LSHIFT and not event.key == pygame.K_RIGHT and not event.key == pygame.K_LEFT and not event.key == pygame.K_UP and not event.key == pygame.K_DOWN and not event.key == pygame.K_LCTRL and not event.key == pygame.K_RCTRL and not event.key == pygame.K_RSHIFT and not event.key == pygame.K_RETURN and user_text.get_width() < chat_box.width - sample_text.get_width() * 4:
                 user_input += event.unicode
                 x += sample_text.get_width()
             
@@ -48,8 +51,8 @@ while True:
     sample_text = textfont.render(sample, False, (0, 0, 0))
     user_text = textfont.render(user_input, True, (255, 255, 255))
     message_text = textfont.render(message_sent, True, (255, 255, 255))
-    screen.blit(user_text, (330,310))
-    screen.blit(message_text, (330,210))
+    screen.blit(user_text, (330 ,600))
+    screen.blit(message_text, (330, 500))
     pygame.draw.rect(screen, (255, 255, 255), frame, 5)
     pygame.draw.rect(screen, (255, 255, 255), chat_box, 5)
     
@@ -72,6 +75,6 @@ while True:
         renderMarker += 1
     
     if renderMarker <= 60 and inputLocked == False:
-        pygame.draw.line(screen, (255, 255, 255), (x, 310), (x, 310 + user_text.get_height()), 5)
+        pygame.draw.line(screen, (255, 255, 255), (x, 600), (x, 600 + user_text.get_height()), 5)
     clock.tick(600)
     pygame.display.update()
