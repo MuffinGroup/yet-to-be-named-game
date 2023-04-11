@@ -51,7 +51,6 @@ while True:
                 user_input += event.unicode
                 x += sample_text.get_width()
             if event.key == pygame.K_RETURN and lessThanOneChar == False:
-                print("ew")
                 message_sent8 = message_sent7
                 message_sent7 = message_sent6
                 message_sent6 = message_sent5
@@ -68,7 +67,7 @@ while True:
         if message_sent == "/joke":
             message_sent = "ReadyPlayerOne14"
         elif message_sent == "css":
-            message_sent = "not so god stuff stop it!"
+            message_sent = "completly surreal sience"
             
     screen.fill((0,0,0))
     sample_text = textfont.render(sample, False, (0, 0, 0))
