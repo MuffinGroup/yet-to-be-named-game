@@ -155,3 +155,10 @@ class registerFont():
     def drawFont(self, surface, x, y):
         self.text = self.font.render(self.displayText, True, self.color)
         surface.blit(self.text, (x, y))
+        
+class registerImages():
+	def __init__(self):
+		pass
+	
+	def drawImage(self):
+		pass
