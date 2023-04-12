@@ -369,6 +369,11 @@ def Main(screen,clock):
                 screen.blit(halfHealthScaled, (i * halfHealthScaled.get_width()//2, 0))
             else:
                 screen.blit(healthScaled, (i * healthScaled.get_width()//2 - halfHealthScaled.get_width()//2, 0))
+                
+        Player.health = 30
+                
+        if Player.health > Player.defaultHealth:
+            Player.health = Player.defaultHealth
 
         #Idle animations
         if Player.standing == True:
