@@ -1,8 +1,9 @@
 import pygame
+import animations
 
 #button class
 
-class Button():
+class registerButton():
 	clock = pygame.time.Clock()
 	def __init__(self, button_name, x, y, scale, display_text, text_color, font_type): #If you are creating a toggle button, fill the display_test field with ""
 		image = pygame.image.load('src//main//assets//textures//elements//gui//' + button_name + '.png')
@@ -32,11 +33,11 @@ class Button():
 		pos = pygame.mouse.get_pos()
 
 		#check mouseover and clicked conditions
+		surface.blit(self.image, (self.rect.x, self.rect.y))
 		if not self.rect.collidepoint(pos):
-			surface.blit(self.image, (self.rect.x, self.rect.y))
 			surface.blit(self.display_text , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
 		elif self.rect.collidepoint(pos):
-			surface.blit(self.selected_image, (self.rect.x, self.rect.y))
+			pygame.draw.rect(surface, (255, 255, 255), (self.rect.x, self.rect.y, self.rect.width, self.rect.height), 5)
 			surface.blit(self.selected_display_text4 , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
 				self.clicked = True
@@ -69,7 +70,6 @@ class Button():
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
 				self.clicked = True
 				action = True
-			print("mouse collides")
 
 		if self.selected == True and self.value < len(animationArray) - 1:
 			self.value += 1
@@ -91,10 +91,9 @@ class Button():
 
 		return action
 	
-	def drawToggle(self, surface, boolean):
+	def drawToggle(self, surface):
 		action = False
 		pos = pygame.mouse.get_pos()
-		boolean = False
 
 		if self.toggled == False or self.test == 0:
 			surface.blit(self.image, (self.rect.x, self.rect.y))
@@ -107,19 +106,14 @@ class Button():
 			self.test = 0
 			self.selected = False
 
-		if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+		if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False and self.rect.collidepoint(pos):
 			self.test += 1
 			self.toggled = True
 			action = True
 			pygame.time.wait(100)
 
-		if self.selected == True:
-			boolean = True
-		elif self.selected == False:
-			boolean = False
-
-		if boolean == False:
-			print("bool")
+		if self.rect.collidepoint(pos):
+			pygame.draw.rect(surface, (255, 255, 255),self.rect, 4)
 
 		return action
 
