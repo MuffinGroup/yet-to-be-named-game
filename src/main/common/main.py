@@ -21,7 +21,7 @@ class Player:
         Player.walking = False
         Player.collidingLeft = False
         Player.collidingRight = False
-        Player.rect = pygame.Rect((1728, 1152),(100, 200)) # Create the players hitbox
+        Player.rect = pygame.Rect((200, 562),(100, 200)) # Create the players hitbox
         Player.animationFrameUpdate = 1
         Player.debuggingMode = False
         Player.visible = True
@@ -298,9 +298,6 @@ def Main(screen,clock):
         
         if walkingValue >= len(registries.animations.walking_sprite):
             walkingValue = 0
-
-        #Player collision detection
-        player.collisions()
         
         #Player movement
         camera_pos = player.keybinds(camera_pos) 
