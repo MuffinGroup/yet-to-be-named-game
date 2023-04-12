@@ -304,13 +304,16 @@ def Main(screen,clock):
                     tile_rects.append(tileRect)
                 if tile == 1:
                     world.blit(dirtElementScaled, (tileRect.x, tileRect.y))
-                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    if Player.debuggingMode == True:
+                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
                 if tile == 2:
                     world.blit(grassElementScaled, (tileRect.x, tileRect.y))
-                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    if Player.debuggingMode == True:
+                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
                 if tile == 3:
                     world.blit(cobbleElementScaled, (tileRect.x, tileRect.y))
-                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    if Player.debuggingMode == True:
+                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
                 x += 1
             y += 1
 
