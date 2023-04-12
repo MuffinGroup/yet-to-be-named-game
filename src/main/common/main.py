@@ -21,7 +21,7 @@ class Player:
         Player.walking = False
         Player.collidingLeft = False
         Player.collidingRight = False
-        Player.rect = pygame.Rect((200, 562),(100, 200)) # Create the players hitbox
+        Player.rect = pygame.Rect((800, 562),(100, 200)) # Create the players hitbox
         Player.animationFrameUpdate = 1
         Player.debuggingMode = False
         Player.visible = True
@@ -143,7 +143,7 @@ class Player:
         else:
             Player.speed = Player.defaultSpeed
 
-        return (-self.rect.x + 380, -self.rect.y + 300) # Return new player position
+        return (-self.rect.x + 680, -self.rect.y + 450) # Return new player position
     
     def render(self,screen): #Player and player hitbox rendering
         if Player.visible == True:
@@ -176,35 +176,11 @@ class Player:
 
         
     def collisions(self):
-        #Checking for collisions with element hitboxes
-        if Player.rect.colliderect(placeholder_hitbox) or Player.rect.colliderect(tree_stump_hitbox):
-            registries.elements.registerElements.colliding = True
-        else:
-            registries.elements.registerElements.colliding = False
-
-        #Collisions on the left side
-        if Player.facingLeft == True and Player.collidingRight == False and registries.elements.registerElements.colliding == True:
+        #Wall collisions, do not delete!!!!
+        if Player.rect.x < 700:
             Player.collidingLeft = True
         else:
             Player.collidingLeft = False
-    
-        #Collisions on the right side
-        if Player.facingRight == True and Player.facingLeft == False and registries.elements.registerElements.colliding == True:
-            Player.collidingRight = True
-        else:
-            Player.collidingRight = False
-
-        if Player.debuggingMode == False:
-            if not Player.rect.colliderect(floor_hitbox) and not Player.rect.colliderect(placeholder_hitbox) and Player.jumping == False:
-                Player.rect.y += 10
-
-            if Player.rect.colliderect(floor_hitbox):
-                Player.rect.y = 650
-                Player.standing = True
-            if Player.rect.colliderect(placeholder_hitbox) and Player.standing == False and Player.collidingRight == False or Player.collidingLeft == False:
-                Player.collidingLeft = False
-                Player.collidingRight = False
-                Player.rect.y = placeholder_hitbox.y - placeholder.get_height() * 1.3
 
 #Loading element textures
 placeholder = registries.elements.registerElements("environment/blocks/cobble", 5)
@@ -244,7 +220,7 @@ toggleAdvMoveText = font.render("flying", True, registries.colors.BLACK)
 toggleAdvMove = registries.buttons.registerButton("toggle", 300, 150,  12.0, "", registries.colors.BLACK, "")
 
 screen_width = 1000
-screen_height = 600
+screen_height = 800
 
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
             [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
@@ -260,24 +236,28 @@ screen_height = 600
             [0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
             [0,0,0,2,2,2,0,2,2,2,2,2,0,0,2,2,2,2,0]]""" #Lovely css map
 
-game_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+game_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 
 def Main(screen,clock):
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
-    camera_pos = (-100,-312) #camera starting position
+    camera_pos = (0, 0) #camera starting position
 
     #values for animation calculation
     idleValue = 0
@@ -340,6 +320,8 @@ def Main(screen,clock):
 
         #Render the player
         player.render(world)
+        
+        player.collisions()
 
         #Render the map to the screen
         screen.blit(world, (player_x,player_y))
