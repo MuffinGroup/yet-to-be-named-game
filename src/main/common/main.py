@@ -31,7 +31,8 @@ class Player:
         Player.debuggingMenu = False
         Player.flying = 0
         Player.colliding = 0
-        Player.health = 5
+        Player.defaultHealth = 6
+        Player.health = Player.defaultHealth
 
     def keybinds(self,camera_pos):
         global player_x
