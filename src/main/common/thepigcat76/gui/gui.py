@@ -157,8 +157,8 @@ class registerFont():
         surface.blit(self.text, (x, y))
         
 class registerImages():
-	def __init__(self):
-		pass
+	def __init__(self, imagePath):
+		self.image = pygame.image.load("src/main/assets/textures/" + imagePath + ".png")
 	
-	def drawImage(self):
-		pass
+	def drawImage(self, surface, x, y):
+		surface.blit(self.image, (x, y))

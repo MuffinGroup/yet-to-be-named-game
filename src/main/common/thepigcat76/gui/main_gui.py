@@ -15,6 +15,7 @@ test3 = gui.registerObject(200, 100, 100, 100, colors.DARK_ORANGE, 10)
 test4 = gui.registerButton("button", 300, 500, 5, "test", colors.YELLOW, "joystixmonospaceregular")
 test5 = gui.registerButton("toggle", 300, 700, 10, "test", colors.YELLOW, "joystixmonospaceregular")
 test6 = gui.registerFont(30, "uwu", colors.GREEN)
+test7 = gui.registerImages("elements/gui/icon/icon")
 
 while True:
     for event in pygame.event.get():
@@ -29,5 +30,5 @@ while True:
         print("e")
     if test5.drawToggle(test.window, x, y):
         print("weeee")
-
+    test7.drawImage(screen, 300, 400)
     pygame.display.update()
