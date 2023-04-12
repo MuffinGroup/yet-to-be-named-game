@@ -162,3 +162,10 @@ class registerImages():
 	
 	def drawImage(self, surface, x, y):
 		surface.blit(self.image, (x, y))
+  
+class registerChat():
+    def __init__(self, lines, fontSize, markerPos, frameX, frameY, framwWidth, frameHeight, chatBoxX, chatBoxY, chatBoxWidth, chatBoxHeight):
+        pass
+    
+    def drawChat(self, surface):
+        pass
