@@ -327,10 +327,13 @@ def Main(screen,clock):
                     tile_rects.append(tileRect)
                 if tile == 1:
                     world.blit(dirtElementScaled, (tileRect.x, tileRect.y))
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
                 if tile == 2:
                     world.blit(grassElementScaled, (tileRect.x, tileRect.y))
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
                 if tile == 3:
                     world.blit(cobbleElementScaled, (tileRect.x, tileRect.y))
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
                 x += 1
             y += 1
 
@@ -343,9 +346,6 @@ def Main(screen,clock):
 
         #Render the map to the screen
         screen.blit(world, (player_x,player_y))
-        
-        for i in tile_rects:
-            pygame.draw.rect(screen, registries.colors.WHITE, tileRect, 10)
 
         if Player.debuggingMode == True:
             screen.blit(text, (320, 30))

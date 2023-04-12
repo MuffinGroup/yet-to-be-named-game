@@ -209,6 +209,8 @@ def Main(screen,clock):
                     moving_right = False
                 if event.key == K_LEFT:
                     moving_left = False
+                    
+        print(str(Player.rect.x) + " " + str(Player.rect.y))
 
         screen.blit(world, (0, 0))
         world.fill(registries.colors.AQUA)
