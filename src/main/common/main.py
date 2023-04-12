@@ -21,9 +21,7 @@ class Player:
         Player.walking = False
         Player.collidingLeft = False
         Player.collidingRight = False
-        Player.collidingTop = False
-        Player.collidingBottom = False
-        Player.rect = pygame.Rect((180,650),(100, 200)) # Create the players hitbox
+        Player.rect = pygame.Rect((800, 562),(100, 200)) # Create the players hitbox
         Player.animationFrameUpdate = 1
         Player.debuggingMode = False
         Player.visible = True
@@ -142,11 +140,11 @@ class Player:
         else:
             Player.speed = Player.defaultSpeed
 
-        return (-self.rect.x + 380, -self.rect.y + 300) # Return new player position
+        return (-self.rect.x + 680, -self.rect.y + 450) # Return new player position
     
     def render(self,screen): #Player and player hitbox rendering
         if Player.visible == True:
-            Player.currentSprite = pygame.transform.scale(Player.currentSprite,(250,250))
+            Player.currentSprite = pygame.transform.scale(Player.currentSprite,(32 * 8,32 * 8))
             screen.blit(self.currentSprite,(self.rect.x - 75,self.rect.y-50)) #Drawing the player to the screen
             if Player.debuggingMode == True:
                 pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4) #Drawing the hitbox to the screen
@@ -174,91 +172,12 @@ class Player:
             screen.blit(toggleCollisionsText, (80, 235))
 
     def collisions(self):
-        #Checking for collisions with element hitboxes
-        if Player.rect.colliderect(placeholder_hitbox) or Player.rect.colliderect(tree_stump_hitbox):
-            registries.elements.registerElements.colliding = True
-        else:
-            registries.elements.registerElements.colliding = False
-
-        #Collisions on the left side
-        if Player.facingLeft == True and Player.collidingRight == False and registries.elements.registerElements.colliding == True:
+        #Wall collisions, do not delete!!!!
+        if Player.rect.x < 700:
             Player.collidingLeft = True
         else:
             Player.collidingLeft = False
-    
-        #Collisions on the right side
-        if Player.facingRight == True and Player.facingLeft == False and registries.elements.registerElements.colliding == True:
-            Player.collidingRight = True
-        else:
-            Player.collidingRight = False
 
-        if Player.rect.colliderect(floor_hitbox):
-            Player.rect.y = 650
-        if Player.rect.collidepoint(placeholder_hitbox.centerx, placeholder_hitbox.top):
-            Player.rect.y -= placeholder.get_height()/1.6
-        if not Player.rect.colliderect(placeholder_hitbox) and not Player.rect.colliderect(floor_hitbox) and Player.jumping == False:
-            Player.rect.y += 0.1
-
-    def collisionsUpdated(self):
-        if Player.flying == 0:    
-            if not Player.rect.colliderect(floor_hitbox) and not Player.rect.colliderect(placeholder_hitbox) and Player.jumping == False:
-                Player.rect.y += 7
-            elif Player.collidingTop == True:
-                Player.rect.y -= 10
-                print("b")
-
-            if Player.rect.collidepoint(placeholder_hitbox.topleft) and Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.facingRight == True and Player.collidingLeft == False:
-                Player.collidingRight = True
-            elif Player.rect.collidepoint(placeholder_hitbox.topleft) and not Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.rect.y < 650 + placeholder.get_height():
-                Player.collidingRight = True
-            else:
-                Player.collidingRight = False
-
-            if Player.rect.collidepoint(placeholder_hitbox.topright) and Player.rect.collidepoint(placeholder_hitbox.x + placeholder.get_width(), placeholder_hitbox.centery) and Player.facingLeft == True and Player.collidingRight == False:
-                Player.collidingLeft = True
-            elif Player.rect.collidepoint(placeholder_hitbox.topright) and not Player.rect.collidepoint(placeholder_hitbox.x + placeholder.get_width(), placeholder_hitbox.centery) and Player.rect.y < 650 + placeholder.get_height():
-                Player.collidingLeft = True
-            else:
-                Player.collidingLeft = False
-
-            if Player.rect.collidepoint(placeholder_hitbox.center) and Player.facingLeft == True:
-                while Player.rect.colliderect(placeholder_hitbox):
-                    Player.rect.x += 1
-                print("colliding center")
-            elif Player.rect.collidepoint(placeholder_hitbox.center) and Player.facingRight == True:
-                while Player.rect.colliderect(placeholder_hitbox):
-                    Player.rect.x -= 1
-
-            if Player.rect.collidepoint(placeholder_hitbox.centerx, placeholder_hitbox.top):
-                Player.collidingTop = True
-            elif Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.top) and not Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.rect.y >= placeholder_hitbox.y + placeholder.get_height():
-                Player.collidingTop = True
-
-            if Player.rect.collidepoint(placeholder_hitbox.topleft) and not Player.rect.collidepoint(placeholder_hitbox.x, placeholder_hitbox.centery) and Player.rect.y > placeholder_hitbox.y + placeholder.get_height(): #jumping is temporary
-                print("why???")
-                Player.collidingTop = True
-                pass
-            else:
-                pass
-    
-    def collisionsUpdated2(self):
-        if Player.colliding == 0:
-            if Player.rect.colliderect(placeholder_hitbox):
-                if abs(Player.rect.bottom - placeholder_hitbox.top) < 10:
-                    Player.speed = 0
-                else: 
-                    Player.speed = Player.defaultSpeed
-
-                if abs(Player.rect.top - placeholder_hitbox.bottom) < 10:
-                    Player.speed = 0
-                else: 
-                    Player.speed = Player.defaultSpeed
-       
-                if abs(Player.rect.right - placeholder_hitbox.left) < 10:
-                    print("e")
-
-                if abs(Player.rect.left - placeholder_hitbox.right) < 10:
-                    Player.speed = 0
 
 #Loading element textures
 placeholder = registries.elements.registerElements("environment/blocks/cobble", 5)
@@ -266,11 +185,19 @@ wooden_sign = registries.elements.registerElements("environment/blocks/wooden_si
 tree_stump = registries.elements.registerElements("environment/blocks/tree_stump", 5)
 placeholder3 = registries.elements.registerElements("environment/blocks/cobble", 5)
 
+grassElement = pygame.image.load("src\main/assets/textures\elements\Environment/blocks\grass_dirt.png")
+grassElementScaled = pygame.transform.scale(grassElement, (grassElement.get_width() * 3, grassElement.get_width() * 3))
+dirtElement = pygame.image.load("src\main/assets/textures\elements\Environment/blocks\dirt.png")
+dirtElementScaled = pygame.transform.scale(dirtElement, (dirtElement.get_width() * 3, dirtElement.get_width() * 3))
+cobbleElement = pygame.image.load("src\main/assets/textures\elements\Environment/blocks\cobble.png")
+cobbleElementScaled = pygame.transform.scale(cobbleElement, (cobbleElement.get_width() * 3, cobbleElement.get_width() * 3))
+
 health = pygame.image.load("src\main/assets/textures/elements\gui\player\heart.png")
 healthScaled = pygame.transform.scale(health, (health.get_width() * 3, health.get_height() * 3))
 
 halfHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\half_heart.png")
 halfHealthScaled = pygame.transform.scale(halfHealth, (halfHealth.get_width() * 3, halfHealth.get_height() * 3))
+
 
 print(tree_stump.get_width())
 
@@ -286,29 +213,62 @@ floor = pygame.transform.scale(floor, (int(floor_width * 8), int(floor_height * 
 floor_hitbox = pygame.Rect((0, 850), (floor_width * 8, floor_height * 8))
 
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
-text = font.render('Press 0 to open/close the debug menu', True, registries.colors.DARK_ORANGE)
+text = font.render("Press 0 to open/close the debug menu", True, registries.colors.DARK_ORANGE)
 
 debug_menu = pygame.Rect((70, 70), (300, 400))
 
-toggleCollisionsText = font.render('collides', True, registries.colors.BLACK)
+toggleCollisionsText = font.render("collides", True, registries.colors.BLACK)
 toggleCollisions = registries.buttons.registerButton("toggle", 300, 250,  12.0, "", registries.colors.BLACK, "")
 
-toggleAdvMoveText = font.render('flying', True, registries.colors.BLACK)
+toggleAdvMoveText = font.render("flying", True, registries.colors.BLACK)
 toggleAdvMove = registries.buttons.registerButton("toggle", 300, 150,  12.0, "", registries.colors.BLACK, "")
 
 screen_width = 1000
-screen_height = 600
+screen_height = 800
+
+"""game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
+            [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
+            [0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0],
+            [0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0],
+            [2,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0],
+            [1,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0],
+            [1,0,0,0,0,0,0,0,2,2,2,2,0,0,2,2,2,2,0],
+            [1,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,2],
+            [1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
+            [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
+            [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
+            [0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
+            [0,0,0,2,2,2,0,2,2,2,2,2,0,0,2,2,2,2,0]]""" #Lovely css map
+
+game_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 
 def Main(screen,clock):
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
-    camera_pos = (-100,-312) #camera starting position
+    camera_pos = (0, 0) #camera starting position
 
     #values for animation calculation
     idleValue = 0
     walkingValue = 0
 
     while True:
+        key = pygame.key.get_pressed()
         for event in pygame.event.get():
             if event.type == pygame.QUIT or(event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE):
                 pygame.quit()
@@ -322,8 +282,6 @@ def Main(screen,clock):
         
         if walkingValue >= len(registries.animations.walking_sprite):
             walkingValue = 0
-
-        player.collisionsUpdated2()
         
         #Player movement
         camera_pos = player.keybinds(camera_pos) 
@@ -337,23 +295,40 @@ def Main(screen,clock):
         #Render background
         world.fill(registries.colors.AQUA)
 
-        #Render floor
-        world.blit(floor, floor_hitbox)
-
-        #pygame.draw.rect(world, registries.colors.GREEN, floor_hitbox, 10) #<-- debugging purposes
-        
-        #Draw elements to the screen
-        placeholder.draw(world, placeholder_hitbox)
-
-        pygame.draw.rect(world, registries.colors.WHITE, placeholder_hitbox, 1000)
-
-        tree_stump.draw(world, tree_stump_hitbox)
-
         #Fill the background outside of the map
         screen.fill(registries.colors.AQUA)
 
+        tile_rects = []
+        y = 0
+        for row in game_map:
+            x = 0
+            for tile in row:
+                if tile != 00:
+                    tileRect = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                    tile_rects.append(tileRect)
+                if tile == 1:
+                    world.blit(dirtElementScaled, (tileRect.x, tileRect.y))
+                    if Player.debuggingMode == True:
+                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                if tile == 2:
+                    world.blit(grassElementScaled, (tileRect.x, tileRect.y))
+                    if Player.debuggingMode == True:
+                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                if tile == 3:
+                    world.blit(cobbleElementScaled, (tileRect.x, tileRect.y))
+                    if Player.debuggingMode == True:
+                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                x += 1
+            y += 1
+
+        if key[pygame.K_9]:
+            Player.rect.y = tileRect.y
+            Player.rect.x = tileRect.x
+
         #Render the player
         player.render(world)
+        
+        player.collisions()
 
         #Render the map to the screen
         screen.blit(world, (player_x,player_y))
@@ -363,6 +338,9 @@ def Main(screen,clock):
 
         #Rendering the debug menu
         player.renderDebugMenu()	
+        
+        print(str(Player.rect.x) + ", " + str(Player.rect.y))
+        print(str(tileRect.x) + ", " + str(tileRect.y))
         
         for i in range(Player.health):
             if (i % 2) == 0:
