@@ -31,6 +31,7 @@ class Player:
         Player.debuggingMenu = False
         Player.flying = 0
         Player.colliding = 0
+        Player.health = 5
 
     def keybinds(self,camera_pos):
         global player_x
@@ -147,7 +148,7 @@ class Player:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite,(250,250))
             screen.blit(self.currentSprite,(self.rect.x - 75,self.rect.y-50)) #Drawing the player to the screen
             if Player.debuggingMode == True:
-                pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4) #Drawing the hitbox to the screen	
+                pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4) #Drawing the hitbox to the screen
 
     def renderDebugMenu(self):
         if Player.debuggingMenu == True:
@@ -264,6 +265,12 @@ wooden_sign = registries.elements.registerElements("environment/blocks/wooden_si
 tree_stump = registries.elements.registerElements("environment/blocks/tree_stump", 5)
 placeholder3 = registries.elements.registerElements("environment/blocks/cobble", 5)
 
+health = pygame.image.load("src\main/assets/textures/elements\gui\player\heart.png")
+healthScaled = pygame.transform.scale(health, (health.get_width() * 3, health.get_height() * 3))
+
+halfHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\half_heart.png")
+halfHealthScaled = pygame.transform.scale(halfHealth, (halfHealth.get_width() * 3, halfHealth.get_height() * 3))
+
 print(tree_stump.get_width())
 
 #Loading element hitboxes
@@ -354,7 +361,13 @@ def Main(screen,clock):
             screen.blit(text, (320, 30))
 
         #Rendering the debug menu
-        player.renderDebugMenu()
+        player.renderDebugMenu()	
+        
+        for i in range(Player.health):
+            if (i % 2) == 0:
+                screen.blit(halfHealthScaled, (i * halfHealthScaled.get_width()//2, 0))
+            else:
+                screen.blit(healthScaled, (i * healthScaled.get_width()//2 - halfHealthScaled.get_width()//2, 0))
 
         #Idle animations
         if Player.standing == True:
