@@ -9,9 +9,13 @@ pygame.init()
 class Player:
     #Initial Player attribute assignment
     def __init__(currentImage):
-        Player.defaultSpeed = 10
+        Player.defaultSpeed = 11
         Player.jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
         Player.jumpsound.set_volume(0.25)
+        Player.deathSound = pygame.mixer.Sound("src\main/assets\sounds\death.mp3")
+        Player.deathSound.set_volume(0.25)
+        Player.hurtSound = pygame.mixer.Sound("src\main/assets\sounds\hurt.mp3")
+        Player.hurtSound.set_volume(0.25)
         Player.speed = Player.defaultSpeed
         Player.jumpvar = 16 #Important for jumping calculation
         Player.facingRight = True
@@ -31,6 +35,9 @@ class Player:
         Player.colliding = 0
         Player.defaultHealth = 6
         Player.health = Player.defaultHealth
+        Player.dead = False
+        Player.playedDeathSound = False
+        Player.worldGenTest = True
 
     def keybinds(self,camera_pos):
         global player_x
@@ -125,9 +132,6 @@ class Player:
         else:
             Player.standing = True
             Player.walking = False
-
-        if key[pygame.K_p] and Player.debuggingMode == True:
-            print(Player.rect.x)
     
     #End of debugging mode functions
 
@@ -161,6 +165,16 @@ class Player:
                 if Player.flying == 2:
                     print("not selected") 
             screen.blit(toggleAdvMoveText, (100, 135))
+            if damage.draw(screen, -35, -7.5):
+                print("button pressed")
+                if Player.health > 0:
+                    Player.health -= 1
+                    if Player.health > 0.5:
+                        pygame.mixer.Sound.play(Player.hurtSound)
+            if heal.draw(screen, -60, -7.5):
+                print("pressed other button")
+                if Player.health < Player.defaultHealth:
+                    Player.health += 1
             if toggleCollisions.drawToggle(screen):
                 if Player.colliding > 1:
                     Player.colliding = 0
@@ -198,8 +212,8 @@ healthScaled = pygame.transform.scale(health, (health.get_width() * 3, health.ge
 halfHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\half_heart.png")
 halfHealthScaled = pygame.transform.scale(halfHealth, (halfHealth.get_width() * 3, halfHealth.get_height() * 3))
 
-
-print(tree_stump.get_width())
+emptyHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\empty_heart.png")
+emptyHealthScaled = pygame.transform.scale(emptyHealth, (emptyHealth.get_width() * 3, emptyHealth.get_height() * 3))
 
 #Loading element hitboxes
 placeholder_hitbox = pygame.Rect((400, 700),(int(placeholder.get_width()), int(placeholder.get_height())))
@@ -213,9 +227,13 @@ floor = pygame.transform.scale(floor, (int(floor_width * 8), int(floor_height * 
 floor_hitbox = pygame.Rect((0, 850), (floor_width * 8, floor_height * 8))
 
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
-text = font.render("Press 0 to open/close the debug menu", True, registries.colors.DARK_ORANGE)
+debugMenuText = font.render("Press 0 to open/close the debug menu", True, registries.colors.DARK_ORANGE)
+debugModeText = font.render("Press d to enter/leave debug mode", True, registries.colors.BLUE)
 
 debug_menu = pygame.Rect((70, 70), (300, 400))
+
+damage = registries.buttons.registerButton("button", 225, 325,  4.0, "damage", registries.colors.BLACK, "joystixmonospaceregular")
+heal = registries.buttons.registerButton("button", 225, 425,  4.0, "heal", registries.colors.BLACK, "joystixmonospaceregular")
 
 toggleCollisionsText = font.render("collides", True, registries.colors.BLACK)
 toggleCollisions = registries.buttons.registerButton("toggle", 300, 250,  12.0, "", registries.colors.BLACK, "")
@@ -300,26 +318,27 @@ def Main(screen,clock):
 
         tile_rects = []
         y = 0
-        for row in game_map:
-            x = 0
-            for tile in row:
-                if tile != 00:
-                    tileRect = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                    tile_rects.append(tileRect)
-                if tile == 1:
-                    world.blit(dirtElementScaled, (tileRect.x, tileRect.y))
-                    if Player.debuggingMode == True:
-                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
-                if tile == 2:
-                    world.blit(grassElementScaled, (tileRect.x, tileRect.y))
-                    if Player.debuggingMode == True:
-                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
-                if tile == 3:
-                    world.blit(cobbleElementScaled, (tileRect.x, tileRect.y))
-                    if Player.debuggingMode == True:
-                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
-                x += 1
-            y += 1
+        if Player.worldGenTest == True:
+            for row in game_map:
+                x = 0
+                for tile in row:
+                    if tile != 00:
+                        tileRect = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                        tile_rects.append(tileRect)
+                    if tile == 1:
+                        world.blit(dirtElementScaled, (tileRect.x, tileRect.y))
+                        if Player.debuggingMode == True:
+                            pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    if tile == 2:
+                        world.blit(grassElementScaled, (tileRect.x, tileRect.y))
+                        if Player.debuggingMode == True:
+                            pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    if tile == 3:
+                        world.blit(cobbleElementScaled, (tileRect.x, tileRect.y))
+                        if Player.debuggingMode == True:
+                            pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    x += 1
+                y += 1
 
         if key[pygame.K_9]:
             Player.rect.y = tileRect.y
@@ -334,13 +353,19 @@ def Main(screen,clock):
         screen.blit(world, (player_x,player_y))
 
         if Player.debuggingMode == True:
-            screen.blit(text, (320, 30))
+            screen.blit(debugMenuText, (320, 90))
+            
+        screen.blit(debugModeText, (320, 30))
 
         #Rendering the debug menu
         player.renderDebugMenu()	
         
-        print(str(Player.rect.x) + ", " + str(Player.rect.y))
-        print(str(tileRect.x) + ", " + str(tileRect.y))
+        #print(str(Player.rect.x) + ", " + str(Player.rect.y)) Player coordinates
+        #print(str(tileRect.x) + ", " + str(tileRect.y)) World generator last generation coordinate
+        
+        for i in range(Player.defaultHealth):
+            if (i%2) == 0:
+                screen.blit(emptyHealthScaled, (i * emptyHealthScaled.get_width()//2 , 0))
         
         for i in range(Player.health):
             if (i % 2) == 0:
@@ -348,10 +373,26 @@ def Main(screen,clock):
             else:
                 screen.blit(healthScaled, (i * healthScaled.get_width()//2 - halfHealthScaled.get_width()//2, 0))
                 
-        Player.health = 30
+        print("Current Health: " + str(Player.health) + ", Damage taken: " + str(Player.defaultHealth - Player.health))
                 
         if Player.health > Player.defaultHealth:
             Player.health = Player.defaultHealth
+            
+        if Player.health <= 0:
+            Player.dead = True
+        else:
+            Player.dead = False
+            
+        if Player.dead == True:
+            Player.locked = True
+            print("uwu")
+        else:
+            Player.locked = False
+            
+        if Player.playedDeathSound == False and Player.dead == True:
+            pygame.mixer.Sound.play(Player.deathSound)
+            print("sudden death")
+            Player.playedDeathSound = True    
 
         #Idle animations
         if Player.standing == True:
