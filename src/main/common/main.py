@@ -12,6 +12,10 @@ class Player:
         Player.defaultSpeed = 11
         Player.jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
         Player.jumpsound.set_volume(0.25)
+        Player.deathSound = pygame.mixer.Sound("src\main/assets\sounds\death.mp3")
+        Player.deathSound.set_volume(0.25)
+        Player.hurtSound = pygame.mixer.Sound("src\main/assets\sounds\hurt.mp3")
+        Player.hurtSound.set_volume(0.25)
         Player.speed = Player.defaultSpeed
         Player.jumpvar = 16 #Important for jumping calculation
         Player.facingRight = True
@@ -32,6 +36,7 @@ class Player:
         Player.defaultHealth = 6
         Player.health = Player.defaultHealth
         Player.dead = False
+        Player.playedDeathSound = False
         Player.worldGenTest = True
 
     def keybinds(self,camera_pos):
@@ -164,6 +169,8 @@ class Player:
                 print("button pressed")
                 if Player.health > 0:
                     Player.health -= 1
+                    if Player.health > 0.5:
+                        pygame.mixer.Sound.play(Player.hurtSound)
             if heal.draw(screen, -60, -7.5):
                 print("pressed other button")
                 if Player.health < Player.defaultHealth:
@@ -373,10 +380,19 @@ def Main(screen,clock):
             
         if Player.health <= 0:
             Player.dead = True
+        else:
+            Player.dead = False
             
         if Player.dead == True:
             Player.locked = True
+            print("uwu")
+        else:
+            Player.locked = False
+            
+        if Player.playedDeathSound == False and Player.dead == True:
+            pygame.mixer.Sound.play(Player.deathSound)
             print("sudden death")
+            Player.playedDeathSound = True    
 
         #Idle animations
         if Player.standing == True:
