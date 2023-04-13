@@ -125,9 +125,6 @@ class Player:
         else:
             Player.standing = True
             Player.walking = False
-
-        if key[pygame.K_p] and Player.debuggingMode == True:
-            print(Player.rect.x)
     
     #End of debugging mode functions
 
@@ -163,8 +160,10 @@ class Player:
             screen.blit(toggleAdvMoveText, (100, 135))
             if damage.draw(screen, -35, -7.5):
                 print("button pressed")
+                Player.health -= 1
             if heal.draw(screen, -60, -7.5):
                 print("pressed other button")
+                Player.health += 1
             if toggleCollisions.drawToggle(screen):
                 if Player.colliding > 1:
                     Player.colliding = 0
@@ -201,9 +200,6 @@ healthScaled = pygame.transform.scale(health, (health.get_width() * 3, health.ge
 
 halfHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\half_heart.png")
 halfHealthScaled = pygame.transform.scale(halfHealth, (halfHealth.get_width() * 3, halfHealth.get_height() * 3))
-
-
-print(tree_stump.get_width())
 
 #Loading element hitboxes
 placeholder_hitbox = pygame.Rect((400, 700),(int(placeholder.get_width()), int(placeholder.get_height())))
@@ -346,8 +342,8 @@ def Main(screen,clock):
         #Rendering the debug menu
         player.renderDebugMenu()	
         
-        print(str(Player.rect.x) + ", " + str(Player.rect.y))
-        print(str(tileRect.x) + ", " + str(tileRect.y))
+        #print(str(Player.rect.x) + ", " + str(Player.rect.y)) Player coordinates
+        #print(str(tileRect.x) + ", " + str(tileRect.y)) World generator last generation coordinate
         
         for i in range(Player.health):
             if (i % 2) == 0:
@@ -355,7 +351,7 @@ def Main(screen,clock):
             else:
                 screen.blit(healthScaled, (i * healthScaled.get_width()//2 - halfHealthScaled.get_width()//2, 0))
                 
-        Player.health = 30
+        print("Current Health: " + str(Player.health) + ", Damage taken: " + str(Player.defaultHealth - Player.health))
                 
         if Player.health > Player.defaultHealth:
             Player.health = Player.defaultHealth
