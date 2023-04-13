@@ -161,6 +161,10 @@ class Player:
                 if Player.flying == 2:
                     print("not selected") 
             screen.blit(toggleAdvMoveText, (100, 135))
+            if damage.draw(screen, -35, -7.5):
+                print("button pressed")
+            if heal.draw(screen, -60, -7.5):
+                print("pressed other button")
             if toggleCollisions.drawToggle(screen):
                 if Player.colliding > 1:
                     Player.colliding = 0
@@ -216,6 +220,9 @@ font = pygame.font.SysFont('joystixmonospaceregular', 25)
 text = font.render("Press 0 to open/close the debug menu", True, registries.colors.DARK_ORANGE)
 
 debug_menu = pygame.Rect((70, 70), (300, 400))
+
+damage = registries.buttons.registerButton("button", 225, 325,  4.0, "damage", registries.colors.BLACK, "joystixmonospaceregular")
+heal = registries.buttons.registerButton("button", 225, 425,  4.0, "heal", registries.colors.BLACK, "joystixmonospaceregular")
 
 toggleCollisionsText = font.render("collides", True, registries.colors.BLACK)
 toggleCollisions = registries.buttons.registerButton("toggle", 300, 250,  12.0, "", registries.colors.BLACK, "")
