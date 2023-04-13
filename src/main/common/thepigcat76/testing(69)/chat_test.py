@@ -34,13 +34,13 @@ textfont = pygame.font.Font("src\main/assets/fonts/joystixmonospaceregular.otf",
 
 while True:
     key = pygame.key.get_pressed()
-    
     for event in pygame.event.get():
         if event.type == pygame.QUIT or (event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE):
             pygame.quit()
             exit()
             
-        if event.type == pygame.KEYDOWN and not inputLocked == True:
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN and inputLocked == False:
             if event.key == pygame.K_BACKSPACE and lessThanOneChar == False:
                 user_input = user_input[0:-1]
                 x -= sample_text.get_width()
@@ -67,7 +67,7 @@ while True:
         if message_sent == "/joke":
             message_sent = "ReadyPlayerOne14"
         elif message_sent == "css":
-            message_sent = "completly surreal sience"
+            message_sent = "completly surreal science"
             
     screen.fill((0,0,0))
     sample_text = textfont.render(sample, False, (0, 0, 0))
