@@ -37,7 +37,6 @@ class Player:
         Player.health = Player.defaultHealth
         Player.dead = False
         Player.playedDeathSound = False
-        Player.worldGenTest = True
 
     def keybinds(self,camera_pos):
         global player_x
@@ -318,27 +317,26 @@ def Main(screen,clock):
 
         tile_rects = []
         y = 0
-        if Player.worldGenTest == True:
-            for row in game_map:
-                x = 0
-                for tile in row:
-                    if tile != 00:
-                        tileRect = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                        tile_rects.append(tileRect)
-                    if tile == 1:
-                        world.blit(dirtElementScaled, (tileRect.x, tileRect.y))
-                        if Player.debuggingMode == True:
-                            pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
-                    if tile == 2:
-                        world.blit(grassElementScaled, (tileRect.x, tileRect.y))
-                        if Player.debuggingMode == True:
-                            pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
-                    if tile == 3:
-                        world.blit(cobbleElementScaled, (tileRect.x, tileRect.y))
-                        if Player.debuggingMode == True:
-                            pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
-                    x += 1
-                y += 1
+        for row in game_map:
+            x = 0
+            for tile in row:
+                if tile != 00:
+                    tileRect = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                    tile_rects.append(tileRect)
+                if tile == 1:
+                    world.blit(dirtElementScaled, (tileRect.x, tileRect.y))
+                    if Player.debuggingMode == True:
+                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                if tile == 2:
+                    world.blit(grassElementScaled, (tileRect.x, tileRect.y))
+                    if Player.debuggingMode == True:
+                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                if tile == 3:
+                    world.blit(cobbleElementScaled, (tileRect.x, tileRect.y))
+                    if Player.debuggingMode == True:
+                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                x += 1
+            y += 1
 
         if key[pygame.K_9]:
             Player.rect.y = tileRect.y
