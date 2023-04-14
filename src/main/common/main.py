@@ -6,6 +6,7 @@ import registries.buttons
 
 #pygame initialization
 pygame.init()
+gameStarted = False
 class Player:
     #Initial Player attribute assignment
     def __init__(currentImage):
@@ -275,6 +276,16 @@ game_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 
+def Start(surface):
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.KEYDOWN:
+                Main(screen, clock)
+        surface.blit(cobbleElementScaled, (0,0))
+        pygame.display.flip()
+        
 def Main(screen,clock):
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
@@ -405,4 +416,4 @@ if __name__ in "__main__":
     screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
     pygame.display.set_caption("CameraView")
     clock = pygame.time.Clock()
-    Main(screen,clock) # Run Main Loop
+    Start(screen)
