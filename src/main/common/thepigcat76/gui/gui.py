@@ -196,31 +196,36 @@ class registerChat():
             elif not event.key == pygame.K_BACKSPACE and not event.key == pygame.K_LALT and not event.key == pygame.K_RALT and not event.key == pygame.K_LSHIFT and not event.key == pygame.K_RIGHT and not event.key == pygame.K_LEFT and not event.key == pygame.K_UP and not event.key == pygame.K_DOWN and not event.key == pygame.K_LCTRL and not event.key == pygame.K_RCTRL and not event.key == pygame.K_RSHIFT and not event.key == pygame.K_RETURN and self.userText.get_width() < self.chatBox.width - self.sampleText.get_width() * 4:
                 self.userInput += event.unicode
                 self.x += self.sampleText.get_width()
+                
             if event.key == pygame.K_RETURN and self.lessThanOneChar == False:
                 for i in range(len(self.linesLoaded)):
-                    if int(i) < len(self.linesLoaded) - 1:
-                        self.linesLoaded[i] = self.linesLoaded[i + 1]
-                self.linesLoaded[1] = self.userInput
+                        self.linesLoaded[i] = self.linesLoaded[i]
+                self.linesLoaded[0] = self.userInput
                 self.userInput = ""
                 self.x = self.markerDefaultPos
             
     def drawChat(self, surface):
         self.sampleText = self.font.render(self.sample, False, (0, 0, 0))
         self.userText = self.font.render(self.userInput, True, self.textColor)
+        
         for i in range(len(self.linesLoaded)):
             self.message_text = self.font.render(self.linesLoaded[i], True, self.textColor)
-            surface.blit(self.message_text, (self.markerDefaultPos, self.chatBox.y + 75))
+            surface.blit(self.message_text, (self.markerDefaultPos, self.chatBox.y - 75))
+            
         surface.blit(self.userText, (330 ,600))
         pygame.draw.rect(surface, self.frameColor, self.frame, 5)
         pygame.draw.rect(surface, self.chatBoxColor, self.chatBox, 5)
+        
         if self.userText.get_width() >= self.sampleText.get_width():
             self.lessThanOneChar = False
         else:
             self.lessThanOneChar = True
+            
         if self.renderMarker >= 99:
             self.renderMarker = 0
         else:
             pygame.time.wait(10)
             self.renderMarker += 1
+            
         if self.renderMarker <= 60 and self.inputLocked == False:
             pygame.draw.line(surface, (255, 255, 255), (self.x, 600), (self.x, 600 + self.userText.get_height()), 5)
