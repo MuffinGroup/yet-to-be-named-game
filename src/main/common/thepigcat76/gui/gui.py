@@ -181,8 +181,8 @@ class registerChat():
         self.markerDefaultPos = markerDefaultPos
         self.x = self.markerDefaultPos
         self.lines = lines
-        for i in range(lines):
-            self.line = ""
+        for i in range(lines + 1):
+            self.line = "p"
             self.linesLoaded.append(self.line)
     
     def event(self, event): #this has to be executed withing the event for loop look at main_gui for an example
@@ -198,8 +198,8 @@ class registerChat():
                 self.x += self.sampleText.get_width()
                 
             if event.key == pygame.K_RETURN and self.lessThanOneChar == False:
-                for i in range(len(self.linesLoaded)):
-                        self.linesLoaded[i] = self.linesLoaded[i]
+                for i in range(len(self.linesLoaded)): #len in main_gui is 3
+                        self.linesLoaded[len(self.linesLoaded) - i] = self.linesLoaded[len(self.linesLoaded) - i]
                 self.linesLoaded[0] = self.userInput
                 self.userInput = ""
                 self.x = self.markerDefaultPos
@@ -210,7 +210,7 @@ class registerChat():
         
         for i in range(len(self.linesLoaded)):
             self.message_text = self.font.render(self.linesLoaded[i], True, self.textColor)
-            surface.blit(self.message_text, (self.markerDefaultPos, self.chatBox.y - 75))
+            surface.blit(self.message_text, (self.markerDefaultPos, self.chatBox.y - 75 - 75 * i))
             
         surface.blit(self.userText, (330 ,600))
         pygame.draw.rect(surface, self.frameColor, self.frame, 5)
@@ -229,3 +229,4 @@ class registerChat():
             
         if self.renderMarker <= 60 and self.inputLocked == False:
             pygame.draw.line(surface, (255, 255, 255), (self.x, 600), (self.x, 600 + self.userText.get_height()), 5)
+        print(len(self.linesLoaded))
