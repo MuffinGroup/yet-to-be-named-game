@@ -198,8 +198,8 @@ class registerChat():
                 self.x += self.sampleText.get_width()
                 
             if event.key == pygame.K_RETURN and self.lessThanOneChar == False:
-                for i in range(len(self.linesLoaded)): #len in main_gui is 3
-                        self.linesLoaded[len(self.linesLoaded) - i] = self.linesLoaded[len(self.linesLoaded) - i]
+                for i in range(self.lines): #len in main_gui is 3
+                        self.linesLoaded[self.lines - i] = self.linesLoaded[self.lines - i - 1]
                 self.linesLoaded[0] = self.userInput
                 self.userInput = ""
                 self.x = self.markerDefaultPos
