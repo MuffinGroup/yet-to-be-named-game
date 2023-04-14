@@ -208,7 +208,7 @@ class registerChat():
         self.sampleText = self.font.render(self.sample, False, (0, 0, 0))
         self.userText = self.font.render(self.userInput, True, self.textColor)
         
-        for i in range(len(self.linesLoaded)):
+        for i in range(self.lines):
             self.message_text = self.font.render(self.linesLoaded[i], True, self.textColor)
             surface.blit(self.message_text, (self.markerDefaultPos, self.chatBox.y - 75 - 75 * i))
             
