@@ -11,9 +11,12 @@ class registerGui():
         self.window = pygame.Surface((width, height))
         self.x, self.y = x,y
         
-    def draw(self, surface, color):
+    def draw(self, surface, color=None):
         surface.blit(self.window, (self.x, self.y))
-        self.window.fill(color)
+        if color == None:
+            self.window.fill((0, 0, 0))
+        else:
+            self.window.fill(color)
         if self.backgroundImage == True:
             self.window.blit(self.bgImage, (0, 0))
 

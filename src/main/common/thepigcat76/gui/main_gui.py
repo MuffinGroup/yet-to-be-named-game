@@ -18,6 +18,6 @@ while True:
             pygame.quit()
             exit()
         test8.event(event)
-    test.draw(screen, colors.BLUISH_GRAY)
+    test.draw(screen)
     test8.drawChat(test.window)
     pygame.display.update()
