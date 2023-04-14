@@ -111,6 +111,6 @@ while True:
         renderMarker += 1
     
     if renderMarker <= 60 and inputLocked == False:
-        pygame.draw.line(screen, (255, 255, 255), (x, 600), (x, 600 + user_text.get_height()), 5)
+        pygame.drawv
     clock.tick(600)
     pygame.display.update()

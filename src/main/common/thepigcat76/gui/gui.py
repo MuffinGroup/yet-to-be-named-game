@@ -197,12 +197,12 @@ class registerChat():
                 self.userInput += event.unicode
                 self.x += self.sampleText.get_width()
             if event.key == pygame.K_RETURN and self.lessThanOneChar == False:
-                for i in len(self.linesLoaded) - 1:
-                    if i < self.linesLoaded:
-                        self.linesLoaded[self.lines - i] = self.lines[self.lines - i - 1]
-                self.linesLoaded[0] = self.userInput
+                for i in range(len(self.linesLoaded)):
+                    if int(i) < len(self.linesLoaded) - 1:
+                        self.linesLoaded[i] = self.linesLoaded[i + 1]
+                self.linesLoaded[1] = self.userInput
                 self.userInput = ""
-                x = self.markerDefaultPos
+                self.x = self.markerDefaultPos
             
     def drawChat(self, surface):
         self.sampleText = self.font.render(self.sample, False, (0, 0, 0))
@@ -213,3 +213,14 @@ class registerChat():
         surface.blit(self.userText, (330 ,600))
         pygame.draw.rect(surface, self.frameColor, self.frame, 5)
         pygame.draw.rect(surface, self.chatBoxColor, self.chatBox, 5)
+        if self.userText.get_width() >= self.sampleText.get_width():
+            self.lessThanOneChar = False
+        else:
+            self.lessThanOneChar = True
+        if self.renderMarker >= 99:
+            self.renderMarker = 0
+        else:
+            pygame.time.wait(10)
+            self.renderMarker += 1
+        if self.renderMarker <= 60 and self.inputLocked == False:
+            pygame.draw.line(surface, (255, 255, 255), (self.x, 600), (self.x, 600 + self.userText.get_height()), 5)
