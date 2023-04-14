@@ -11,9 +11,12 @@ class registerGui():
         self.window = pygame.Surface((width, height))
         self.x, self.y = x,y
         
-    def draw(self, surface, color):
+    def draw(self, surface, color=None):
         surface.blit(self.window, (self.x, self.y))
-        self.window.fill(color)
+        if color == None:
+            self.window.fill((0, 0, 0))
+        else:
+            self.window.fill(color)
         if self.backgroundImage == True:
             self.window.blit(self.bgImage, (0, 0))
 
@@ -155,3 +158,83 @@ class registerFont():
     def drawFont(self, surface, x, y):
         self.text = self.font.render(self.displayText, True, self.color)
         surface.blit(self.text, (x, y))
+    
+class registerImages():
+	def __init__(self, imagePath):
+		self.image = pygame.image.load("src/main/assets/textures/" + imagePath + ".png")
+	
+	def drawImage(self, surface, x, y):
+		surface.blit(self.image, (x, y))
+  
+class registerChat():
+    def __init__(self, lines, fontSize, textColor, frameColor, chatBoxColor, markerDefaultPos, frameX, frameY, frameWidth, frameHeight, chatBoxX, chatBoxY, chatBoxWidth, chatBoxHeight):
+        self.linesLoaded = []
+        self.userInput = ""
+        self.sample = "i"
+        self.inputLocked = False
+        self.selected = True
+        self.frame = pygame.Rect((frameX, frameY), (frameWidth, frameHeight))
+        self.chatBox = pygame.Rect((chatBoxX, chatBoxY), (chatBoxWidth, chatBoxHeight))
+        self.font = pygame.font.Font("src\main/assets/fonts/joystixmonospaceregular.otf", fontSize)
+        self.textColor = textColor
+        self.frameColor = frameColor
+        self.chatBoxColor = chatBoxColor
+        self.renderMarker = 0
+        self.lessThanOneChar = True
+        self.markerDefaultPos = markerDefaultPos
+        self.x = self.markerDefaultPos
+        self.lines = lines
+        self.sentMessage = False
+        for i in range(lines + 1):
+            self.line = "p"
+            self.linesLoaded.append(self.line)
+    
+    def event(self, event): #this has to be executed withing the event for loop look at main_gui for an example
+        if event.type == pygame.KEYDOWN and self.inputLocked == False:
+            if event.key == pygame.K_BACKSPACE and self.lessThanOneChar == False:
+                self.userInput = self.userInput[0:-1]
+                self.x -= self.sampleText.get_width()
+            elif event.key == pygame.K_TAB and self.userText.get_width() < self.chatBox.width - self.sampleText.get_width() * 4:
+                self.userInput += "    "
+                self.x += self.sampleText.get_width() * 4
+            elif not event.key == pygame.K_BACKSPACE and not event.key == pygame.K_LALT and not event.key == pygame.K_RALT and not event.key == pygame.K_LSHIFT and not event.key == pygame.K_RIGHT and not event.key == pygame.K_LEFT and not event.key == pygame.K_UP and not event.key == pygame.K_DOWN and not event.key == pygame.K_LCTRL and not event.key == pygame.K_RCTRL and not event.key == pygame.K_RSHIFT and not event.key == pygame.K_RETURN and self.userText.get_width() < self.chatBox.width - self.sampleText.get_width() * 4:
+                self.userInput += event.unicode
+                self.x += self.sampleText.get_width()
+                
+            if event.key == pygame.K_RETURN and self.lessThanOneChar == False:
+                for i in range(self.lines): #len in main_gui is 3
+                        self.linesLoaded[self.lines - i] = self.linesLoaded[self.lines - i - 1]
+                self.linesLoaded[0] = self.userInput
+                self.userInput = ""
+                self.x = self.markerDefaultPos
+                self.sentMessage = True
+            else:
+                self.sentMessage = False
+            
+    def drawChat(self, surface):
+        self.sampleText = self.font.render(self.sample, False, (0, 0, 0))
+        self.userText = self.font.render(self.userInput, True, self.textColor)
+        
+        for i in range(self.lines):
+            self.message_text = self.font.render(self.linesLoaded[i], True, self.textColor)
+            surface.blit(self.message_text, (self.markerDefaultPos, self.chatBox.y - 75 - 75 * i))
+            
+        surface.blit(self.userText, (330 ,600))
+        pygame.draw.rect(surface, self.frameColor, self.frame, 5)
+        pygame.draw.rect(surface, self.chatBoxColor, self.chatBox, 5)
+        
+        if self.userText.get_width() >= self.sampleText.get_width():
+            self.lessThanOneChar = False
+        else:
+            self.lessThanOneChar = True
+            
+        if self.renderMarker >= 99:
+            self.renderMarker = 0
+        else:
+            pygame.time.wait(10)
+            self.renderMarker += 1
+            
+        if self.renderMarker <= 60 and self.inputLocked == False:
+            pygame.draw.line(surface, (255, 255, 255), (self.x, 600), (self.x, 600 + self.userText.get_height()), 5)
+        print(len(self.linesLoaded))
+ 
