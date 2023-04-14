@@ -19,4 +19,7 @@ walkingLoaded = 3
 
 #walking_sprite = load_animation("1running", 8, 5, "src\main/assets/textures\entities\characters\character_1/animations/1Running", "png" ) 
 idle_sprite = load_animation("1idle", 8, 5, "src\main/assets/textures\entities\characters\character_1/animations/1Idle", "png")
-walking_sprite = load_animation("1running", 8, walkingLoaded, "src\main/assets/textures\entities\characters\character_1/animations/1Running", "png" ) 
+walking_sprite = load_animation("1running", 8, walkingLoaded, "src\main/assets/textures\entities\characters\character_1/animations/1Running", "png" )
+startButton = load_animation("StartButtonSel", 9, 10, "src/main/assets/textures/elements/gui/StartButtonSel")
+optionsButton = load_animation("OptionButtonSel", 9, 10, "src/main/assets/textures/elements/gui/OptionsButtonSel")
+quitButton = load_animation("QuitButtonSel", 9, 10, "src/main/assets/textures/elements/gui/QuitButtonSel")

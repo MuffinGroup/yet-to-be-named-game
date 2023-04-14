@@ -1,8 +1,9 @@
 import pygame
-import registries.colors
+from registries.colors import *
 import registries.animations
 import registries.elements
 import registries.buttons
+import registries.gui
 
 #pygame initialization
 pygame.init()
@@ -155,7 +156,7 @@ class Player:
 
     def renderDebugMenu(self):
         if Player.debuggingMenu == True:
-            pygame.draw.rect(screen, registries.colors.BLUISH_GRAY, debug_menu, 10000)
+            pygame.draw.rect(screen, BLUISH_GRAY, debug_menu, 10000)
             if toggleAdvMove.drawToggle(screen):
                 if Player.flying > 1:
                     Player.flying = 0
@@ -227,22 +228,27 @@ floor = pygame.transform.scale(floor, (int(floor_width * 8), int(floor_height * 
 floor_hitbox = pygame.Rect((0, 850), (floor_width * 8, floor_height * 8))
 
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
-debugMenuText = font.render("Press 0 to open/close the debug menu", True, registries.colors.DARK_ORANGE)
-debugModeText = font.render("Press d to enter/leave debug mode", True, registries.colors.BLUE)
+debugMenuText = font.render("Press 0 to open/close the debug menu", True, DARK_ORANGE)
+debugModeText = font.render("Press d to enter/leave debug mode", True, BLUE)
 
 debug_menu = pygame.Rect((70, 70), (300, 400))
 
-damage = registries.buttons.registerButton("button", 225, 325,  4.0, "damage", registries.colors.BLACK, "joystixmonospaceregular")
-heal = registries.buttons.registerButton("button", 225, 425,  4.0, "heal", registries.colors.BLACK, "joystixmonospaceregular")
+damage = registries.buttons.registerButton("button", 225, 325,  4.0, "damage", BLACK, "joystixmonospaceregular")
+heal = registries.buttons.registerButton("button", 225, 425,  4.0, "heal", BLACK, "joystixmonospaceregular")
 
-toggleCollisionsText = font.render("collides", True, registries.colors.BLACK)
-toggleCollisions = registries.buttons.registerButton("toggle", 300, 250,  12.0, "", registries.colors.BLACK, "")
+toggleCollisionsText = font.render("collides", True, BLACK)
+toggleCollisions = registries.buttons.registerButton("toggle", 300, 250,  12.0, "", BLACK, "")
 
-toggleAdvMoveText = font.render("flying", True, registries.colors.BLACK)
-toggleAdvMove = registries.buttons.registerButton("toggle", 300, 150,  12.0, "", registries.colors.BLACK, "")
+toggleAdvMoveText = font.render("flying", True, BLACK)
+toggleAdvMove = registries.buttons.registerButton("toggle", 300, 150,  12.0, "", BLACK, "")
 
 screen_width = 1000
 screen_height = 800
+
+startScreen = registries.gui.registerGui(0, 0, 1000, 800, False, "")
+startButton = registries.gui.registerButton("button", 350, 250, 6.0, "start", BLACK, "joystixmonospaceregular")
+optionsButton = registries.gui.registerButton("button", 350, 450, 6.0, "options", BLACK, "joystixmonospaceregular")
+quitButton = registries.gui.registerButton("button", 350, 650, 6.0, "quit", BLACK, "joystixmonospaceregular")
 
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
             [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
@@ -283,7 +289,13 @@ def Start(surface):
                 pygame.quit()
             if event.type == pygame.KEYDOWN:
                 Main(screen, clock)
-        surface.blit(cobbleElementScaled, (0,0))
+        startScreen.draw(screen, BLUISH_GRAY)
+        if startButton.drawAnimated(startScreen.window, registries.animations.startButton, 0, 0, 6, -125, -25, 0, 0):
+            Main(screen, clock)
+        if optionsButton.drawAnimated(startScreen.window, registries.animations.optionsButton, 48, 48, 6, -125, -25, 0, 0):
+            print("NYI")
+        if quitButton.drawAnimated(startScreen.window, registries.animations.quitButton, 0, 0, 6, -125, -25, 0, 0):
+            pygame.quit()
         pygame.display.flip()
         
 def Main(screen,clock):
@@ -298,9 +310,11 @@ def Main(screen,clock):
     while True:
         key = pygame.key.get_pressed()
         for event in pygame.event.get():
-            if event.type == pygame.QUIT or(event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE):
+            if event.type == pygame.QUIT:
                 pygame.quit()
                 return
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                Start(screen)
         #idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
             idleValue = 0
@@ -321,10 +335,10 @@ def Main(screen,clock):
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
         #Render background
-        world.fill(registries.colors.AQUA)
+        world.fill(AQUA)
 
         #Fill the background outside of the map
-        screen.fill(registries.colors.AQUA)
+        screen.fill(AQUA)
 
         tile_rects = []
         y = 0
@@ -382,8 +396,6 @@ def Main(screen,clock):
             else:
                 screen.blit(healthScaled, (i * healthScaled.get_width()//2 - halfHealthScaled.get_width()//2, 0))
                 
-        print("Current Health: " + str(Player.health) + ", Damage taken: " + str(Player.defaultHealth - Player.health))
-                
         if Player.health > Player.defaultHealth:
             Player.health = Player.defaultHealth
             
@@ -394,13 +406,11 @@ def Main(screen,clock):
             
         if Player.dead == True:
             Player.locked = True
-            print("uwu")
         else:
             Player.locked = False
             
         if Player.playedDeathSound == False and Player.dead == True:
             pygame.mixer.Sound.play(Player.deathSound)
-            print("sudden death")
             Player.playedDeathSound = True    
 
         #Idle animations
