@@ -24,6 +24,17 @@ selected = True
 frame = pygame.Rect(270, 100, 800, 600)
 chat_box = pygame.Rect(300, 575, 735, 100)
 
+test = []
+test.append(message_sent)
+test.append(message_sent1)
+test.append(message_sent2)
+test.append(message_sent3)
+test.append(message_sent4)
+test.append(message_sent5)
+test.append(message_sent6)
+test.append(message_sent7)
+test.append(message_sent8)
+
 #Load background
 background = pygame.image.load("src\main/assets/textures\elements/background\placeholder_background_1.jpg")
 
@@ -38,8 +49,6 @@ while True:
         if event.type == pygame.QUIT or (event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE):
             pygame.quit()
             exit()
-            
-    for event in pygame.event.get():
         if event.type == pygame.KEYDOWN and inputLocked == False:
             if event.key == pygame.K_BACKSPACE and lessThanOneChar == False:
                 user_input = user_input[0:-1]
@@ -51,15 +60,15 @@ while True:
                 user_input += event.unicode
                 x += sample_text.get_width()
             if event.key == pygame.K_RETURN and lessThanOneChar == False:
-                message_sent8 = message_sent7
-                message_sent7 = message_sent6
-                message_sent6 = message_sent5
-                message_sent5 = message_sent4
-                message_sent4 = message_sent3
-                message_sent3 = message_sent2
-                message_sent2 = message_sent1
-                message_sent1 = message_sent
-                message_sent = user_input
+                test[8] = test[7]
+                test[7] = test[6]
+                test[6] = test[5]
+                test[5] = test[4]
+                test[4] = test[3]
+                test[3] = test[2]
+                test[2] = test[1]
+                test[1] = test[0]
+                test[0] = user_input
                 user_input = ""
                 x = defaultPos
                 
@@ -72,15 +81,15 @@ while True:
     screen.fill((0,0,0))
     sample_text = textfont.render(sample, False, (0, 0, 0))
     user_text = textfont.render(user_input, True, (255, 255, 255))
-    message_text = textfont.render(message_sent, True, (255, 255, 255))
-    message_text1 = textfont.render(message_sent1, True, (255, 255, 255))
-    message_text2 = textfont.render(message_sent2, True, (255, 255, 255))
-    message_text3 = textfont.render(message_sent3, True, (255, 255, 255))
-    message_text4 = textfont.render(message_sent4, True, (255, 255, 255))
-    message_text5 = textfont.render(message_sent5, True, (255, 255, 255))
-    message_text6 = textfont.render(message_sent6, True, (255, 255, 255))
-    message_text7 = textfont.render(message_sent7, True, (255, 255, 255))
-    message_text8 = textfont.render(message_sent8, True, (255, 255, 255))
+    message_text = textfont.render(test[0], True, (255, 255, 255))
+    message_text1 = textfont.render(test[1], True, (255, 255, 255))
+    message_text2 = textfont.render(test[2], True, (255, 255, 255))
+    message_text3 = textfont.render(test[3], True, (255, 255, 255))
+    message_text4 = textfont.render(test[4], True, (255, 255, 255))
+    message_text5 = textfont.render(test[5], True, (255, 255, 255))
+    message_text6 = textfont.render(test[6], True, (255, 255, 255))
+    message_text7 = textfont.render(test[7], True, (255, 255, 255))
+    message_text8 = textfont.render(test[8], True, (255, 255, 255))
     screen.blit(user_text, (330 ,600))
     screen.blit(message_text8, (330, 100))
     screen.blit(message_text7, (330, 150))
@@ -111,6 +120,6 @@ while True:
         renderMarker += 1
     
     if renderMarker <= 60 and inputLocked == False:
-        pygame.drawv
+        pygame.draw.line(screen, (255, 255, 255), (x, 600), (x, 600 + user_text.get_height()), 5)
     clock.tick(600)
     pygame.display.update()

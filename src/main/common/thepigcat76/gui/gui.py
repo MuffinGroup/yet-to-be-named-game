@@ -207,8 +207,8 @@ class registerChat():
     def drawChat(self, surface):
         self.sampleText = self.font.render(self.sample, False, (0, 0, 0))
         self.userText = self.font.render(self.userInput, True, self.textColor)
-        for i in self.linesLoaded:
-            self.message_text = self.font.render("", True, self.textColor)
+        for i in range(len(self.linesLoaded)):
+            self.message_text = self.font.render(self.linesLoaded[i], True, self.textColor)
             surface.blit(self.message_text, (self.markerDefaultPos, self.chatBox.y + 75))
         surface.blit(self.userText, (330 ,600))
         pygame.draw.rect(surface, self.frameColor, self.frame, 5)
