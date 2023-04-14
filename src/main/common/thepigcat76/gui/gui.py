@@ -184,6 +184,7 @@ class registerChat():
         self.markerDefaultPos = markerDefaultPos
         self.x = self.markerDefaultPos
         self.lines = lines
+        self.sentMessage = False
         for i in range(lines + 1):
             self.line = "p"
             self.linesLoaded.append(self.line)
@@ -206,6 +207,9 @@ class registerChat():
                 self.linesLoaded[0] = self.userInput
                 self.userInput = ""
                 self.x = self.markerDefaultPos
+                self.sentMessage = True
+            else:
+                self.sentMessage = False
             
     def drawChat(self, surface):
         self.sampleText = self.font.render(self.sample, False, (0, 0, 0))
@@ -233,3 +237,4 @@ class registerChat():
         if self.renderMarker <= 60 and self.inputLocked == False:
             pygame.draw.line(surface, (255, 255, 255), (self.x, 600), (self.x, 600 + self.userText.get_height()), 5)
         print(len(self.linesLoaded))
+ 

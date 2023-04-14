@@ -17,6 +17,9 @@ while True:
         if event.type == pygame.QUIT or (event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE):
             pygame.quit()
             exit()
+        if event.type == pygame.KEYDOWN:
+            if test8.userInput == "/floppa" and event.key == pygame.K_RETURN:
+                test8.userInput = "Gigantous floppus"
         test8.event(event)
     test.draw(screen)
     test8.drawChat(test.window)
