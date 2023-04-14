@@ -249,6 +249,7 @@ startScreen = registries.gui.registerGui(0, 0, 1000, 800, False, "")
 startButton = registries.gui.registerButton("button", 350, 250, 6.0, "start", BLACK, "joystixmonospaceregular")
 optionsButton = registries.gui.registerButton("button", 350, 450, 6.0, "options", BLACK, "joystixmonospaceregular")
 quitButton = registries.gui.registerButton("button", 350, 650, 6.0, "quit", BLACK, "joystixmonospaceregular")
+startFont = registries.gui.registerFont(30, "YET-BE-NAMED-GAME", DARKER_GRAY)
 
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
             [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
@@ -296,6 +297,7 @@ def Start(surface):
             print("NYI")
         if quitButton.drawAnimated(startScreen.window, registries.animations.quitButton, 0, 0, 6, -125, -25, 0, 0):
             pygame.quit()
+        startFont.drawFont(startScreen.window, 100, 100)
         pygame.display.flip()
         
 def Main(screen,clock):
