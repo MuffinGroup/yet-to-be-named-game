@@ -2,7 +2,7 @@ import pygame
 
 pygame.init()
 class registerGui():
-    def __init__(self, x, y, width, height, backgroundImage, imagePath):
+    def __init__(self, x, y, width, height, backgroundImage, imagePath=None):
         if backgroundImage == True:
             self.bgImage = pygame.image.load("src/main/assets/textures/elements/background/" + imagePath + ".png")
             self.backgroundImage = True
@@ -221,7 +221,7 @@ class registerChat():
             self.message_text = self.font.render(self.linesLoaded[i], True, self.textColor)
             surface.blit(self.message_text, (self.markerDefaultPos, self.chatBox.y - 75 - 75 * i))
             
-        surface.blit(self.userText, (330 ,600))
+        surface.blit(self.userText, (self.markerDefaultPos ,600))
         pygame.draw.rect(surface, self.frameColor, self.frame, 5)
         pygame.draw.rect(surface, self.chatBoxColor, self.chatBox, 5)
         
