@@ -2,7 +2,7 @@ import pygame
 
 pygame.init()
 class registerGui():
-    def __init__(self, x, y, width, height, backgroundImage, imagePath):
+    def __init__(self, x, y, width, height, backgroundImage, imagePath=None):
         if backgroundImage == True:
             self.bgImage = pygame.image.load("src/main/assets/textures/elements/background/" + imagePath + ".png")
             self.backgroundImage = True
@@ -33,7 +33,7 @@ class registerObject():
 
 class registerButton():
 	clock = pygame.time.Clock()
-	def __init__(self, button_name, x, y, scale, display_text, text_color, font_type):
+	def __init__(self, button_name, scale, display_text, text_color, font_type):
 		image = pygame.image.load('src//main//assets//textures//elements//gui//' + button_name + '.png')
 		self.value = 0
 		selected_image = pygame.image.load('src//main//assets//textures//elements//gui//' + button_name + '_selected.png')
@@ -48,17 +48,17 @@ class registerButton():
 		self.selected_display_text3 = smallfont.render(display_text , True , (171, 171, 171))
 		self.selected_display_text4 = smallfont.render(display_text , True , (255, 255, 255))
 		self.rect = self.image.get_rect()
-		self.rect.center = (x, y)
 		self.clicked = False
 		self.toggled = False
 		self.selected = False
 		self.test = 0
 
 	#draw function is not used atm 
-	def draw(self, surface, xTextOffset, yTextOffset, xTextureOffset, yTextureOffset):
+	def draw(self, surface, x, y, xTextOffset, yTextOffset, xTextureOffset, yTextureOffset):
 		action = False
 		#get mouse position
 		pos = pygame.mouse.get_pos()
+		self.rect.center = (x, y)
 
 		#check mouseover and clicked conditions
 		surface.blit(self.image, (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset))
@@ -77,13 +77,14 @@ class registerButton():
 
 		return action
 	
-	def drawAnimated(self, surface, animationArray, xOffset, yOffset, scale, xTextOffset, yTextOffset, xTextureOffset, yTextureOffset):
+	def drawAnimated(self, surface, x, y, animationArray, xOffset, yOffset, scale, xTextOffset, yTextOffset, xTextureOffset, yTextureOffset):
 		action = False
 		pos = pygame.mouse.get_pos()
 		image = animationArray[self.value]
 		width = image.get_width()
 		height = image.get_height()
 		buttonSprite = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
+		self.rect.center = (x, y)
 
 		if self.value >= len(animationArray) - 1 and self.selected == True:
 			self.value = len(animationArray) - 2
@@ -150,14 +151,14 @@ class registerButton():
 	clock.tick(60)
  
 class registerFont():
-    def __init__(self, fontSize, displayText, color):
+    def __init__(self, fontSize, displayText, color, x, y):
         self.font = pygame.font.Font("src\main/assets/fonts/joystixmonospaceregular.otf", fontSize)
-        self.displayText = displayText
-        self.color = color
+        self.text = self.font.render(displayText, True, color)
+        self.rect = self.text.get_rect()
+        self.rect.center = (x, y)
         
-    def drawFont(self, surface, x, y):
-        self.text = self.font.render(self.displayText, True, self.color)
-        surface.blit(self.text, (x, y))
+    def drawFont(self, surface):
+        surface.blit(self.text, (self.rect.center))
     
 class registerImages():
 	def __init__(self, imagePath):
@@ -167,9 +168,10 @@ class registerImages():
 		surface.blit(self.image, (x, y))
   
 class registerChat():
-    def __init__(self, lines, fontSize, textColor, frameColor, chatBoxColor, markerDefaultPos, frameX, frameY, frameWidth, frameHeight, chatBoxX, chatBoxY, chatBoxWidth, chatBoxHeight):
+    def __init__(self, lines, fontSize, textColor, markerColor, frameColor, chatBoxColor, markerDefaultPos, frameX, frameY, frameWidth, frameHeight, chatBoxX, chatBoxY, chatBoxWidth, chatBoxHeight):
         self.linesLoaded = []
         self.userInput = ""
+        self.markerColor = markerColor
         self.sample = "i"
         self.inputLocked = False
         self.selected = True
@@ -186,7 +188,7 @@ class registerChat():
         self.lines = lines
         self.sentMessage = False
         for i in range(lines + 1):
-            self.line = "p"
+            self.line = ""
             self.linesLoaded.append(self.line)
     
     def event(self, event): #this has to be executed withing the event for loop look at main_gui for an example
@@ -219,7 +221,7 @@ class registerChat():
             self.message_text = self.font.render(self.linesLoaded[i], True, self.textColor)
             surface.blit(self.message_text, (self.markerDefaultPos, self.chatBox.y - 75 - 75 * i))
             
-        surface.blit(self.userText, (330 ,600))
+        surface.blit(self.userText, (self.markerDefaultPos ,600))
         pygame.draw.rect(surface, self.frameColor, self.frame, 5)
         pygame.draw.rect(surface, self.chatBoxColor, self.chatBox, 5)
         
@@ -234,7 +236,13 @@ class registerChat():
             pygame.time.wait(10)
             self.renderMarker += 1
             
-        if self.renderMarker <= 60 and self.inputLocked == False:
-            pygame.draw.line(surface, (255, 255, 255), (self.x, 600), (self.x, 600 + self.userText.get_height()), 5)
+        if self.renderMarker <= 40 and self.inputLocked == False:
+            pygame.draw.line(surface, self.markerColor, (self.x, 600), (self.x, 600 + self.userText.get_height()), 5)
         print(len(self.linesLoaded))
+        
+    def clear(self):
+        self.userInput = ""
+        for i in range(self.lines):
+            self.linesLoaded[i] = ""
+        self.x = self.markerDefaultPos
  

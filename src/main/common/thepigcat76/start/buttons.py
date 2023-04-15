@@ -11,7 +11,7 @@ class registerButton():
 		selected_image = pygame.image.load('src//main//assets//textures//elements//gui//' + button_name + '_selected.png')
 		width = image.get_width()
 		height = image.get_height()
-		smallfont = pygame.font.SysFont(font_type,35)
+		smallfont = pygame.font.SysFont(font_type, 35)
 		self.selected_image = pygame.transform.scale(selected_image, (int(width * scale), int(height * scale)))
 		self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
 		self.display_text = smallfont.render(display_text , True , text_color)
