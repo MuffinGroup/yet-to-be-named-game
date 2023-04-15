@@ -405,7 +405,7 @@ def Main(screen,clock):
         if Player.health > Player.defaultHealth:
             Player.health = Player.defaultHealth
             
-        if Player.health <= 0:
+        if Player.health <= 0 and Player.defaultHealth != 0:
             Player.dead = True
         else:
             Player.dead = False
