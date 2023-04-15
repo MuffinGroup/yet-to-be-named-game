@@ -186,7 +186,7 @@ class registerChat():
         self.lines = lines
         self.sentMessage = False
         for i in range(lines + 1):
-            self.line = "p"
+            self.line = ""
             self.linesLoaded.append(self.line)
     
     def event(self, event): #this has to be executed withing the event for loop look at main_gui for an example
