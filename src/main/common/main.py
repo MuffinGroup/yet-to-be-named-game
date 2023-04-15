@@ -426,7 +426,9 @@ def Main(screen,clock):
             
         if Player.playedDeathSound == False and Player.dead == True:
             pygame.mixer.Sound.play(Player.deathSound)
-            Player.playedDeathSound = True    
+            Player.playedDeathSound = True
+        elif Player.dead == False:
+            Player.playedDeathSound = False
 
         #Idle animations
         if Player.standing == True:
