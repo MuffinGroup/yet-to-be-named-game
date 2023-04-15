@@ -150,14 +150,14 @@ class registerButton():
 	clock.tick(60)
  
 class registerFont():
-    def __init__(self, fontSize, displayText, color):
+    def __init__(self, fontSize, displayText, color, x, y):
         self.font = pygame.font.Font("src\main/assets/fonts/joystixmonospaceregular.otf", fontSize)
-        self.displayText = displayText
-        self.color = color
+        self.text = self.font.render(displayText, True, color)
+        self.rect = self.text.get_rect()
+        self.rect.center = (x, y)
         
-    def drawFont(self, surface, x, y):
-        self.text = self.font.render(self.displayText, True, self.color)
-        surface.blit(self.text, (x, y))
+    def drawFont(self, surface):
+        surface.blit(self.text, (self.rect.center))
     
 class registerImages():
 	def __init__(self, imagePath):
@@ -167,9 +167,10 @@ class registerImages():
 		surface.blit(self.image, (x, y))
   
 class registerChat():
-    def __init__(self, lines, fontSize, textColor, frameColor, chatBoxColor, markerDefaultPos, frameX, frameY, frameWidth, frameHeight, chatBoxX, chatBoxY, chatBoxWidth, chatBoxHeight):
+    def __init__(self, lines, fontSize, textColor, markerColor, frameColor, chatBoxColor, markerDefaultPos, frameX, frameY, frameWidth, frameHeight, chatBoxX, chatBoxY, chatBoxWidth, chatBoxHeight):
         self.linesLoaded = []
         self.userInput = ""
+        self.markerColor = markerColor
         self.sample = "i"
         self.inputLocked = False
         self.selected = True
@@ -234,8 +235,8 @@ class registerChat():
             pygame.time.wait(10)
             self.renderMarker += 1
             
-        if self.renderMarker <= 60 and self.inputLocked == False:
-            pygame.draw.line(surface, (255, 255, 255), (self.x, 600), (self.x, 600 + self.userText.get_height()), 5)
+        if self.renderMarker <= 40 and self.inputLocked == False:
+            pygame.draw.line(surface, self.markerColor, (self.x, 600), (self.x, 600 + self.userText.get_height()), 5)
         print(len(self.linesLoaded))
         
     def clear(self):

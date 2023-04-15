@@ -31,6 +31,7 @@ class Player:
         Player.animationFrameUpdate = 1
         Player.debuggingMode = False
         Player.visible = True
+        Player.movementLocked = False
         Player.locked = False
         Player.debuggingMenu = False
         Player.flying = 0
@@ -51,9 +52,9 @@ class Player:
         player_x, player_y = camera_pos #Assign variables to the camera position
 
         key = pygame.key.get_pressed() #Receive keyboard input
-        if key[pygame.K_UP] and Player.jumpvar == 16 and Player.visible == True and Player.locked == False: #Jumping
+        if key[pygame.K_UP] and Player.jumpvar == 16 and Player.visible == True and Player.movementLocked == False and Player.locked == False: #Jumping
             Player.jumpvar = -14.3
-        elif key[pygame.K_SPACE] and Player.jumpvar == 16 and Player.visible == True and Player.locked == False: #Alternative jumping keybind
+        elif key[pygame.K_SPACE] and Player.jumpvar == 16 and Player.visible == True and Player.movementLocked == False and Player.locked == False: #Alternative jumping keybind
             Player.jumpvar = -14.3
 
         if Player.jumpvar == -14.3: #Play jump sound when the player jumps
@@ -70,10 +71,10 @@ class Player:
             Player.jumpvar = 16
             Player.jumping = False
 
-        if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
+        if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.movementLocked == False and Player.movementLocked == False and Player.locked == False: #Player walking
             Player.facingLeft = False
             Player.facingRight = True
-        elif key[pygame.K_RIGHT] and Player.collidingRight == False and Player.locked == False:
+        elif key[pygame.K_RIGHT] and Player.collidingRight == False and Player.movementLocked == False and Player.locked == False:
             Player.facingLeft = False
             Player.facingRight = True
             Player.standing = False
@@ -82,10 +83,10 @@ class Player:
             Player.standing = True
             Player.walking = False
 
-        if key[pygame.K_LEFT] and Player.visible == True and Player.collidingLeft == True and Player.locked == False: #Player walking
+        if key[pygame.K_LEFT] and Player.visible == True and Player.collidingLeft == True and Player.movementLocked == False and Player.locked == False: #Player walking
             Player.facingLeft = True
             Player.facingRight = False
-        elif key[pygame.K_LEFT] and Player.collidingLeft == False and Player.locked == False and Player.collidingLeft == False:
+        elif key[pygame.K_LEFT] and Player.collidingLeft == False and Player.movementLocked == False and Player.collidingLeft == False and Player.locked == False:
             Player.facingLeft = True
             Player.facingRight = False
             Player.standing = False
@@ -100,10 +101,10 @@ class Player:
             print("colliding right")
 
         #Debug mode to help developers
-        if key[pygame.K_d] and Player.debuggingMode == False:
+        if key[pygame.K_d] and Player.debuggingMode == False and Player.locked == False:
             pygame.time.wait(200)
             Player.debuggingMode = True
-        elif key[pygame.K_d] and Player.debuggingMode == True and Player.debuggingMenu == False:
+        elif key[pygame.K_d] and Player.debuggingMode == True and Player.debuggingMenu == False and Player.locked == False:
             pygame.time.wait(200)
             Player.debuggingMode = False
         
@@ -112,22 +113,25 @@ class Player:
             pygame.time.wait(200)
             Player.chatOpen = True
             chat.inputLocked = False
+            Player.locked = True
+            
         elif key[pygame.K_ESCAPE] and Player.chatOpen == True:
             pygame.time.wait(200)
             Player.chatOpen = False
             chat.inputLocked = True
             chat.clear()
-
-        if key[pygame.K_0] and Player.debuggingMode == True and Player.debuggingMenu == False:
-            pygame.time.wait(200)
-            Player.locked = True
-            Player.debuggingMenu = True
-        elif key[pygame.K_0] and Player.debuggingMode == True:
-            pygame.time.wait(200)
             Player.locked = False
+
+        if key[pygame.K_0] and Player.debuggingMode == True and Player.debuggingMenu == False and Player.locked == False:
+            pygame.time.wait(200)
+            Player.movementLocked = True
+            Player.debuggingMenu = True
+        elif key[pygame.K_0] and Player.debuggingMode == True and Player.locked == False:
+            pygame.time.wait(200)
+            Player.movementLocked = False
             Player.debuggingMenu = False
 
-        if key[pygame.K_DOWN] and Player.visible == True and Player.debuggingMode == True and Player.locked == False and Player.flying == 1:
+        if key[pygame.K_DOWN] and Player.visible == True and Player.debuggingMode == True and Player.movementLocked == False and Player.flying == 1 and Player.locked == False:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -136,7 +140,7 @@ class Player:
             Player.standing = True
             Player.walking = False
             
-        if key[pygame.K_u] and Player.visible == True and Player.debuggingMode == True and Player.locked == False and Player.flying == 1:
+        if key[pygame.K_u] and Player.visible == True and Player.debuggingMode == True and Player.movementLocked == False and Player.flying == 1 and Player.locked == False:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -147,10 +151,10 @@ class Player:
     
     #End of debugging mode functions
 
-        if key[pygame.K_LEFT] and Player.visible == True and Player.locked == False or key[pygame.K_RIGHT] and Player.visible == True  and Player.locked == False: #Walking animations
+        if key[pygame.K_LEFT] and Player.visible == True and Player.movementLocked == False and Player.locked == False or key[pygame.K_RIGHT] and Player.visible == True  and Player.movementLocked == False and Player.locked == False: #Walking animations
             Player.walking = True
 
-        if Player.walking == True and key[pygame.K_RSHIFT] or key[pygame.K_LSHIFT]: #Sprinting
+        if Player.walking == True and key[pygame.K_RSHIFT] or key[pygame.K_LSHIFT] and Player.locked == False: #Sprinting
             Player.speed = 18
             Player.countUp = 2
         else:
@@ -256,13 +260,7 @@ toggleAdvMove = registries.buttons.registerButton("toggle", 300, 150,  12.0, "",
 screen_width = 1000
 screen_height = 800
 
-startScreen = registries.gui.registerGui(0, 0, 1000, 800, False, "")
-startButton = registries.gui.registerButton("button", 350, 250, 6.0, "start", BLACK, "joystixmonospaceregular")
-optionsButton = registries.gui.registerButton("button", 350, 450, 6.0, "options", BLACK, "joystixmonospaceregular")
-quitButton = registries.gui.registerButton("button", 350, 650, 6.0, "quit", BLACK, "joystixmonospaceregular")
-startFont = registries.gui.registerFont(30, "YET-BE-NAMED-GAME", DARKER_GRAY)
-
-chat = registries.gui.registerChat(8, 30, WHITE, BLACK, BLACK, 330, 270, 100, 800, 600, 300, 575, 735, 100)
+chat = registries.gui.registerChat(8, 30, WHITE, BLACK, BLACK, BLACK, 330, 270, 100, 800, 600, 300, 575, 735, 100)
 chat.inputLocked = True
 
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
@@ -298,18 +296,27 @@ game_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 
 def Start(surface):
-    while True:
+    running = True
+    
+    while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-        startScreen.draw(screen, BLUISH_GRAY)
-        if startButton.drawAnimated(startScreen.window, registries.animations.startButton, 0, 0, 6, -125, -25, 0, 0):
+                running = False
+                exit()
+        startButton = registries.gui.registerButton("button", surface.get_width()//2, surface.get_height()//8 * 2.75, 6.0, "start", BLACK, "joystixmonospaceregular")
+        optionsButton = registries.gui.registerButton("button", surface.get_width()//2, surface.get_height()//2, 6.0, "options", BLACK, "joystixmonospaceregular")
+        quitButton = registries.gui.registerButton("button", surface.get_width()//2, surface.get_height()//8 * 5.25, 6.0, "quit", BLACK, "joystixmonospaceregular")
+        startFont = registries.gui.registerFont(40, "YET-BE-NAMED-GAME", DARKER_GRAY, surface.get_width()//2 - 250, surface.get_height()//9)
+        screen.fill(BLUISH_GRAY)
+        if startButton.drawAnimated(surface, registries.animations.startButton, 0, 0, 6, -125, -25, 0, 0):
             Main(screen, clock)
-        if optionsButton.drawAnimated(startScreen.window, registries.animations.optionsButton, 48, 48, 6, -125, -25, 0, 0):
+        if optionsButton.drawAnimated(screen, registries.animations.optionsButton, 48, 48, 6, -125, -25, 0, 0):
             print("NYI")
-        if quitButton.drawAnimated(startScreen.window, registries.animations.quitButton, 0, 0, 6, -125, -25, 0, 0):
+        if quitButton.drawAnimated(screen, registries.animations.quitButton, 0, 0, 6, -125, -25, 0, 0):
             pygame.quit()
-        startFont.drawFont(startScreen.window, 100, 100)
+        startFont.drawFont(screen)
+        print(str(screen.get_width()) + str(screen.get_height()))
         pygame.display.flip()
         
 def Main(screen,clock):
@@ -320,13 +327,16 @@ def Main(screen,clock):
     #values for animation calculation
     idleValue = 0
     walkingValue = 0
-
-    while True:
+    
+    running = True
+    
+    while running:
         key = pygame.key.get_pressed()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                return
+                running = False
+                exit()
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False:
                 Start(screen)
@@ -420,9 +430,9 @@ def Main(screen,clock):
             Player.dead = False
             
         if Player.dead == True:
-            Player.locked = True
+            Player.movementLocked = True
         else:
-            Player.locked = False
+            Player.movementLocked = False
             
         if Player.playedDeathSound == False and Player.dead == True:
             pygame.mixer.Sound.play(Player.deathSound)
