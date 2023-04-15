@@ -109,7 +109,7 @@ class Player:
             Player.debuggingMode = False
         
         #The chat    
-        if key[pygame.K_c] and Player.chatOpen == False:
+        if key[pygame.K_c] and Player.chatOpen == False and Player.debuggingMenu == False:
             pygame.time.wait(200)
             Player.chatOpen = True
             chat.inputLocked = False
