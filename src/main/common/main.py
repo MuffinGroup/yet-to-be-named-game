@@ -39,6 +39,7 @@ class Player:
         Player.health = Player.defaultHealth
         Player.dead = False
         Player.playedDeathSound = False
+        Player.chatOpen = False
 
     def keybinds(self,camera_pos):
         global player_x
@@ -105,7 +106,17 @@ class Player:
         elif key[pygame.K_d] and Player.debuggingMode == True and Player.debuggingMenu == False:
             pygame.time.wait(200)
             Player.debuggingMode = False
-            Player.flying == 0
+        
+        #The chat    
+        if key[pygame.K_c] and Player.chatOpen == False:
+            pygame.time.wait(200)
+            Player.chatOpen = True
+            chat.inputLocked = False
+        elif key[pygame.K_ESCAPE] and Player.chatOpen == True:
+            pygame.time.wait(200)
+            Player.chatOpen = False
+            chat.inputLocked = True
+            chat.clear()
 
         if key[pygame.K_0] and Player.debuggingMode == True and Player.debuggingMenu == False:
             pygame.time.wait(200)
@@ -252,6 +263,7 @@ quitButton = registries.gui.registerButton("button", 350, 650, 6.0, "quit", BLAC
 startFont = registries.gui.registerFont(30, "YET-BE-NAMED-GAME", DARKER_GRAY)
 
 chat = registries.gui.registerChat(8, 30, WHITE, BLACK, BLACK, 330, 270, 100, 800, 600, 300, 575, 735, 100)
+chat.inputLocked = True
 
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
             [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
@@ -290,8 +302,6 @@ def Start(surface):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-            if event.type == pygame.KEYDOWN:
-                Main(screen, clock)
         startScreen.draw(screen, BLUISH_GRAY)
         if startButton.drawAnimated(startScreen.window, registries.animations.startButton, 0, 0, 6, -125, -25, 0, 0):
             Main(screen, clock)
@@ -317,9 +327,9 @@ def Main(screen,clock):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                Start(screen)
             chat.event(event)
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False:
+                Start(screen)
         #idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
             idleValue = 0
@@ -424,7 +434,8 @@ def Main(screen,clock):
         if Player.walking == True:
             walkingValue += Player.animationFrameUpdate
             
-        chat.drawChat(screen)
+        if Player.chatOpen == True:
+            chat.drawChat(screen)
 
         clock.tick(200)
         pygame.display.flip()
