@@ -100,7 +100,6 @@ class registerButton():
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
 				self.clicked = True
 				action = True
-				print("mouse collides")
 
 		if self.selected == True and self.value < len(animationArray) - 1:
 			self.value += 1
@@ -238,7 +237,6 @@ class registerChat():
             
         if self.renderMarker <= 40 and self.inputLocked == False:
             pygame.draw.line(surface, self.markerColor, (self.x, 600), (self.x, 600 + self.userText.get_height()), 5)
-        print(len(self.linesLoaded))
         
     def clear(self):
         self.userInput = ""

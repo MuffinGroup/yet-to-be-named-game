@@ -303,6 +303,7 @@ def Start(surface):
     quitButton = registries.gui.registerButton("button", 6.0, "quit", BLACK, "joystixmonospaceregular")
     
     while running:
+        key = pygame.key.get_pressed()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -316,6 +317,14 @@ def Start(surface):
             print("NYI")
         if quitButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//8 * 5.25, registries.animations.quitButton, 0, 0, 6, -125, -25, 0, 0):
             pygame.quit()
+            running = False
+            exit()
+            
+        if key[pygame.K_ESCAPE]:
+            pygame.quit()
+            running = False
+            exit()
+            
         startFont.drawFont(screen)
         print(str(screen.get_width()) + str(screen.get_height()))
         pygame.display.flip()
