@@ -237,4 +237,16 @@ class registerChat():
         if self.renderMarker <= 60 and self.inputLocked == False:
             pygame.draw.line(surface, (255, 255, 255), (self.x, 600), (self.x, 600 + self.userText.get_height()), 5)
         print(len(self.linesLoaded))
- 
+
+class registerSlots():
+    def __init__(self, slotCount, x, y):
+        self.slotCount = slotCount
+        self.slots = []
+        for i in range(self.slotCount):
+            self.rect = pygame.Rect((x + 100 * i, y), (100, 100))
+            self.slots.append(self.rect)
+            print(i)
+    
+    def drawSlots(self, surface, slotColor):
+        for i in range(self.slotCount):
+            pygame.draw.rect(surface, slotColor, self.slots[i], 6)

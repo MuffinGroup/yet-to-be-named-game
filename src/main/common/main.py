@@ -35,7 +35,7 @@ class Player:
         Player.debuggingMenu = False
         Player.flying = 0
         Player.colliding = 0
-        Player.defaultHealth = 6
+        Player.defaultHealth = 0
         Player.health = Player.defaultHealth
         Player.dead = False
         Player.playedDeathSound = False
@@ -251,6 +251,8 @@ optionsButton = registries.gui.registerButton("button", 350, 450, 6.0, "options"
 quitButton = registries.gui.registerButton("button", 350, 650, 6.0, "quit", BLACK, "joystixmonospaceregular")
 startFont = registries.gui.registerFont(30, "YET-BE-NAMED-GAME", DARKER_GRAY)
 
+hotbar = registries.gui.registerSlots(4, 0, 50)
+
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
             [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
             [0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0],
@@ -378,9 +380,9 @@ def Main(screen,clock):
         screen.blit(world, (player_x,player_y))
 
         if Player.debuggingMode == True:
-            screen.blit(debugMenuText, (320, 90))
+            screen.blit(debugMenuText, (440, 90))
             
-        screen.blit(debugModeText, (320, 30))
+        screen.blit(debugModeText, (440, 30))
 
         #Rendering the debug menu
         player.renderDebugMenu()	
@@ -398,6 +400,8 @@ def Main(screen,clock):
             else:
                 screen.blit(healthScaled, (i * healthScaled.get_width()//2 - halfHealthScaled.get_width()//2, 0))
                 
+        hotbar.drawSlots(screen, BLACK)
+        
         if Player.health > Player.defaultHealth:
             Player.health = Player.defaultHealth
             
@@ -411,9 +415,9 @@ def Main(screen,clock):
         else:
             Player.locked = False
             
-        if Player.playedDeathSound == False and Player.dead == True:
+        if Player.dead == True and Player.playedDeathSound == False:
             pygame.mixer.Sound.play(Player.deathSound)
-            Player.playedDeathSound = True    
+            Player.playedDeathSound = True
 
         #Idle animations
         if Player.standing == True:
