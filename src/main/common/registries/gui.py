@@ -33,7 +33,7 @@ class registerObject():
 
 class registerButton():
 	clock = pygame.time.Clock()
-	def __init__(self, button_name, x, y, scale, display_text, text_color, font_type):
+	def __init__(self, button_name, scale, display_text, text_color, font_type):
 		image = pygame.image.load('src//main//assets//textures//elements//gui//' + button_name + '.png')
 		self.value = 0
 		selected_image = pygame.image.load('src//main//assets//textures//elements//gui//' + button_name + '_selected.png')
@@ -48,17 +48,17 @@ class registerButton():
 		self.selected_display_text3 = smallfont.render(display_text , True , (171, 171, 171))
 		self.selected_display_text4 = smallfont.render(display_text , True , (255, 255, 255))
 		self.rect = self.image.get_rect()
-		self.rect.center = (x, y)
 		self.clicked = False
 		self.toggled = False
 		self.selected = False
 		self.test = 0
 
 	#draw function is not used atm 
-	def draw(self, surface, xTextOffset, yTextOffset, xTextureOffset, yTextureOffset):
+	def draw(self, surface, x, y, xTextOffset, yTextOffset, xTextureOffset, yTextureOffset):
 		action = False
 		#get mouse position
 		pos = pygame.mouse.get_pos()
+		self.rect.center = (x, y)
 
 		#check mouseover and clicked conditions
 		surface.blit(self.image, (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset))
@@ -77,13 +77,14 @@ class registerButton():
 
 		return action
 	
-	def drawAnimated(self, surface, animationArray, xOffset, yOffset, scale, xTextOffset, yTextOffset, xTextureOffset, yTextureOffset):
+	def drawAnimated(self, surface, x, y, animationArray, xOffset, yOffset, scale, xTextOffset, yTextOffset, xTextureOffset, yTextureOffset):
 		action = False
 		pos = pygame.mouse.get_pos()
 		image = animationArray[self.value]
 		width = image.get_width()
 		height = image.get_height()
 		buttonSprite = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
+		self.rect.center = (x, y)
 
 		if self.value >= len(animationArray) - 1 and self.selected == True:
 			self.value = len(animationArray) - 2
