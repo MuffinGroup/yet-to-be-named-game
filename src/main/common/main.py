@@ -251,6 +251,8 @@ optionsButton = registries.gui.registerButton("button", 350, 450, 6.0, "options"
 quitButton = registries.gui.registerButton("button", 350, 650, 6.0, "quit", BLACK, "joystixmonospaceregular")
 startFont = registries.gui.registerFont(30, "YET-BE-NAMED-GAME", DARKER_GRAY)
 
+chat = registries.gui.registerChat(8, 30, WHITE, BLACK, BLACK, 330, 270, 100, 800, 600, 300, 575, 735, 100)
+
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
             [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
             [0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0],
@@ -317,6 +319,7 @@ def Main(screen,clock):
                 return
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 Start(screen)
+            chat.event(event)
         #idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
             idleValue = 0
@@ -420,6 +423,8 @@ def Main(screen,clock):
             idleValue += 1
         if Player.walking == True:
             walkingValue += Player.animationFrameUpdate
+            
+        chat.drawChat(screen)
 
         clock.tick(200)
         pygame.display.flip()
