@@ -239,14 +239,20 @@ class registerChat():
         print(len(self.linesLoaded))
 
 class registerSlots():
-    def __init__(self, slotCount, x, y):
+    def __init__(self, slotCount, x, y, texture=None):
         self.slotCount = slotCount
         self.slots = []
+        self.texture = texture
         for i in range(self.slotCount):
             self.rect = pygame.Rect((x + 100 * i, y), (100, 100))
             self.slots.append(self.rect)
             print(i)
+        if texture != None:
+         self.texture = pygame.image.load('src/main/assets/textures/elements/gui/' + texture + '.png') #weird indentation
+         self.texture = pygame.transform.scale(self.texture, (100, 100))
     
     def drawSlots(self, surface, slotColor):
         for i in range(self.slotCount):
             pygame.draw.rect(surface, slotColor, self.slots[i], 6)
+            if self.texture != None:
+                surface.blit(self.texture, self.slots[i])

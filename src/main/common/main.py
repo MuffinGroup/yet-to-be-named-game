@@ -251,7 +251,7 @@ optionsButton = registries.gui.registerButton("button", 350, 450, 6.0, "options"
 quitButton = registries.gui.registerButton("button", 350, 650, 6.0, "quit", BLACK, "joystixmonospaceregular")
 startFont = registries.gui.registerFont(30, "YET-BE-NAMED-GAME", DARKER_GRAY)
 
-hotbar = registries.gui.registerSlots(4, 0, 50)
+hotbar = registries.gui.registerSlots(4, 0, 50,'slot')
 
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
             [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
