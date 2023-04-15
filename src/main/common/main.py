@@ -126,7 +126,7 @@ class Player:
             pygame.time.wait(200)
             Player.movementLocked = True
             Player.debuggingMenu = True
-        elif key[pygame.K_0] and Player.debuggingMode == True and Player.locked == False:
+        elif key[pygame.K_0] or key[pygame.K_ESCAPE] and Player.debuggingMode == True and Player.locked == False:
             pygame.time.wait(200)
             Player.movementLocked = False
             Player.debuggingMenu = False
@@ -339,7 +339,7 @@ def Main(screen,clock):
                 running = False
                 exit()
             chat.event(event)
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False:
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
                 Start(screen)
         #idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
