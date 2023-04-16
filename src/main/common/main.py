@@ -4,6 +4,7 @@ import registries.animations
 import registries.elements
 import registries.buttons
 import registries.gui
+import registries.item
 
 #pygame initialization
 pygame.init()
@@ -253,6 +254,8 @@ startFont = registries.gui.registerFont(30, "YET-BE-NAMED-GAME", DARKER_GRAY)
 
 hotbar = registries.gui.registerSlots(4, 0, 50,'slot')
 
+item = registries.item.registerItem("item", "Item", "Decoration\ASSets\Chain\Chain")
+
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
             [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
             [0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0],
@@ -371,6 +374,7 @@ def Main(screen,clock):
             Player.rect.y = tileRect.y
             Player.rect.x = tileRect.x
 
+        item.drawItem(world, 800, 562)
         #Render the player
         player.render(world)
         
@@ -424,6 +428,8 @@ def Main(screen,clock):
             idleValue += 1
         if Player.walking == True:
             walkingValue += Player.animationFrameUpdate
+            
+        print(str(Player.rect.x) + ", " + str(Player.rect.y))
 
         clock.tick(200)
         pygame.display.flip()
