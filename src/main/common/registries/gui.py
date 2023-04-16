@@ -235,6 +235,29 @@ class registerChat():
             pygame.time.wait(10)
             self.renderMarker += 1
             
+        if self.renderMarker <= 60 and self.inputLocked == False:
+            pygame.draw.line(surface, (255, 255, 255), (self.x, 600), (self.x, 600 + self.userText.get_height()), 5)
+        print(len(self.linesLoaded))
+
+class registerSlots():
+    def __init__(self, slotCount, x, y, texture=None):
+        self.slotCount = slotCount
+        self.slots = []
+        self.texture = texture
+        for i in range(self.slotCount):
+            self.rect = pygame.Rect((x + 100 * i, y), (100, 100))
+            self.slots.append(self.rect)
+            print(i)
+        if texture != None:
+         self.texture = pygame.image.load('src/main/assets/textures/elements/gui/' + texture + '.png') #weird indentation
+         self.texture = pygame.transform.scale(self.texture, (100, 100))
+    
+    def drawSlots(self, surface, slotColor):
+        for i in range(self.slotCount):
+            pygame.draw.rect(surface, slotColor, self.slots[i], 6)
+            if self.texture != None:
+                surface.blit(self.texture, self.slots[i])
+
         if self.renderMarker <= 40 and self.inputLocked == False:
             pygame.draw.line(surface, self.markerColor, (self.x, 600), (self.x, 600 + self.userText.get_height()), 5)
         

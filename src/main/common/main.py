@@ -4,6 +4,7 @@ import registries.animations
 import registries.elements
 import registries.buttons
 import registries.gui
+import registries.item
 
 #pygame initialization
 pygame.init()
@@ -36,7 +37,7 @@ class Player:
         Player.debuggingMenu = False
         Player.flying = 0
         Player.colliding = 0
-        Player.defaultHealth = 6
+        Player.defaultHealth = 0
         Player.health = Player.defaultHealth
         Player.dead = False
         Player.playedDeathSound = False
@@ -264,6 +265,10 @@ chatBackground = registries.gui.registerGui(110, 100, 800, 600, False, None)
 chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 100, 800, 600, 140, 575, 735, 100)
 chat.inputLocked = True
 
+hotbar = registries.gui.registerSlots(4, 0, 50,'slot')
+
+item = registries.item.registerItem("item", "Item", "Decoration\ASSets\Chain\Chain")
+
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
             [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
             [0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0],
@@ -402,6 +407,7 @@ def Main(screen,clock):
             Player.rect.y = tileRect.y
             Player.rect.x = tileRect.x
 
+        item.drawItem(world, 800, 562)
         #Render the player
         player.render(world)
         
@@ -411,9 +417,9 @@ def Main(screen,clock):
         screen.blit(world, (player_x,player_y))
 
         if Player.debuggingMode == True:
-            screen.blit(debugMenuText, (320, 90))
+            screen.blit(debugMenuText, (440, 90))
             
-        screen.blit(debugModeText, (320, 30))
+        screen.blit(debugModeText, (440, 30))
 
         #Rendering the debug menu
         player.renderDebugMenu()	
@@ -431,10 +437,12 @@ def Main(screen,clock):
             else:
                 screen.blit(healthScaled, (i * healthScaled.get_width()//2 - halfHealthScaled.get_width()//2, 0))
                 
+        hotbar.drawSlots(screen, BLACK)
+        
         if Player.health > Player.defaultHealth:
             Player.health = Player.defaultHealth
             
-        if Player.health <= 0:
+        if Player.health <= 0 and Player.defaultHealth != 0:
             Player.dead = True
         else:
             Player.dead = False
@@ -444,9 +452,10 @@ def Main(screen,clock):
         else:
             Player.movementLocked = False
             
-        if Player.playedDeathSound == False and Player.dead == True:
+        if Player.dead == True and Player.playedDeathSound == False:
             pygame.mixer.Sound.play(Player.deathSound)
             Player.playedDeathSound = True
+
         elif Player.dead == False:
             Player.playedDeathSound = False
 
@@ -456,6 +465,7 @@ def Main(screen,clock):
         if Player.walking == True:
             walkingValue += Player.animationFrameUpdate
             
+        print(str(Player.rect.x) + ", " + str(Player.rect.y))
         if Player.chatOpen == True:
             chatBackground.draw(screen, BLUISH_GRAY)
             chat.drawChat(screen)
