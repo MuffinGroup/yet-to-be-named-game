@@ -234,11 +234,15 @@ class registerChat():
         else:
             pygame.time.wait(10)
             self.renderMarker += 1
-            
-        if self.renderMarker <= 60 and self.inputLocked == False:
-            pygame.draw.line(surface, (255, 255, 255), (self.x, 600), (self.x, 600 + self.userText.get_height()), 5)
-        print(len(self.linesLoaded))
 
+        if self.renderMarker <= 40 and self.inputLocked == False:
+            pygame.draw.line(surface, self.markerColor, (self.x, 600), (self.x, 600 + self.userText.get_height()), 5)
+        
+    def clear(self):
+        self.userInput = ""
+        for i in range(self.lines):
+            self.linesLoaded[i] = ""
+        self.x = self.markerDefaultPos
 class registerSlots():
     def __init__(self, slotCount, x, y, texture=None):
         self.slotCount = slotCount
@@ -258,12 +262,4 @@ class registerSlots():
             if self.texture != None:
                 surface.blit(self.texture, self.slots[i])
 
-        if self.renderMarker <= 40 and self.inputLocked == False:
-            pygame.draw.line(surface, self.markerColor, (self.x, 600), (self.x, 600 + self.userText.get_height()), 5)
-        
-    def clear(self):
-        self.userInput = ""
-        for i in range(self.lines):
-            self.linesLoaded[i] = ""
-        self.x = self.markerDefaultPos
  
