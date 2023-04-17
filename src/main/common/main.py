@@ -267,7 +267,7 @@ chat.inputLocked = True
 
 hotbar = registries.gui.registerSlots(4, 0, 50,'slot')
 
-item = registries.item.registerItem("item", "Item", "Decoration\ASSets\Chain\Chain")
+item = registries.item.registerItem("item", "Item", "Environment\decoration\poppy")
 
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
             [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
@@ -331,7 +331,7 @@ def Start(surface):
             exit()
             
         startFont.drawFont(screen)
-        print(str(screen.get_width()) + str(screen.get_height()))
+        #print(str(screen.get_width()) + str(screen.get_height()))
         pygame.display.flip()
         
 def Main(screen,clock):
@@ -407,7 +407,6 @@ def Main(screen,clock):
             Player.rect.y = tileRect.y
             Player.rect.x = tileRect.x
 
-        item.drawItem(world, 800, 562)
         #Render the player
         player.render(world)
         
@@ -465,10 +464,12 @@ def Main(screen,clock):
         if Player.walking == True:
             walkingValue += Player.animationFrameUpdate
             
-        print(str(Player.rect.x) + ", " + str(Player.rect.y))
+        #print(str(Player.rect.x) + ", " + str(Player.rect.y))
         if Player.chatOpen == True:
             chatBackground.draw(screen, BLUISH_GRAY)
             chat.drawChat(screen)
+        
+        item.drawItem(screen, 800, 562)
 
         clock.tick(200)
         pygame.display.flip()
