@@ -262,4 +262,10 @@ class registerSlots():
             if self.texture != None:
                 surface.blit(self.texture, self.slots[i])
 
- 
+class registerExitButton():
+    def __init__(self, texturePath = None):
+        if texturePath == None:
+            self.texture = pygame.image.load("")
+        else:
+            self.texture = pygame.image.load()
+        
