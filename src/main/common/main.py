@@ -264,9 +264,9 @@ screen_height = 800
 chatBackground = registries.gui.registerGui(110, 100, 800, 600, False, None)
 chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 100, 800, 600, 140, 575, 735, 100)
 chat.inputLocked = True
-exitChat = registries.gui.registerExitButton()
+exitChat = registries.gui.registerExitButton(85, 80, None)
 
-hotbar = registries.gui.registerSlots(4, 0, 50,'slot')
+hotbar = registries.gui.registerSlots(4, 0, 50, 'slot')
 
 item = registries.item.registerItem("item", "Item", "Environment\decoration\poppy", 800, 562)
 
@@ -464,13 +464,20 @@ def Main(screen,clock):
             idleValue += 1
         if Player.walking == True:
             walkingValue += Player.animationFrameUpdate
+        
+        item.drawItem(world)
             
         #print(str(Player.rect.x) + ", " + str(Player.rect.y))
         if Player.chatOpen == True:
             chatBackground.draw(screen, BLUISH_GRAY)
             chat.drawChat(screen)
-        
-        item.drawItem(screen)
+            if exitChat.draw(screen):
+                Player.chatOpen = False
+                chat.inputLocked = True
+                chat.clear()
+                Player.locked = False
+        elif Player.chatOpen == False:
+            print("uwu")
 
         clock.tick(200)
         pygame.display.flip()
