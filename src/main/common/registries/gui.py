@@ -15,6 +15,8 @@ class registerGui():
         surface.blit(self.window, (self.x, self.y))
         if color == None:
             self.window.fill((0, 0, 0))
+        elif color == "default":
+            self.window.fill((124, 133, 156))
         else:
             self.window.fill(color)
         if self.backgroundImage == True:
@@ -263,9 +265,13 @@ class registerSlots():
                 surface.blit(self.texture, self.slots[i])
 
 class registerExitButton():
-    def __init__(self, texturePath = None):
+    def __init__(self, x, y, texturePath = None):
         if texturePath == None:
-            self.texture = pygame.image.load("")
+            self.texture = pygame.image.load("src\main/assets/textures\elements/" + texturePath + ".png")
         else:
-            self.texture = pygame.image.load()
+            self.texture = pygame.image.load("src\main/assets/textures\elements\gui\exit_button.png")
+        self.x = x
+        self.y = y
         
+    def draw(self, surface):
+        surface.blit(self.texture, self.x, self.y)
