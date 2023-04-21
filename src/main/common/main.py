@@ -37,7 +37,7 @@ class Player:
         Player.debuggingMenu = False
         Player.flying = 0
         Player.colliding = 0
-        Player.defaultHealth = 0
+        Player.defaultHealth = 6 #most of the time it's 6
         Player.health = Player.defaultHealth
         Player.dead = False
         Player.playedDeathSound = False
@@ -262,7 +262,7 @@ chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 
 chat.inputLocked = True
 exitChat = registries.gui.registerExitButton(85, 80, None)
 
-hotbar = registries.gui.registerSlots(4, 0, 50, 'slot')
+hotbar = registries.gui.registerSlots(4, 0, 0, 'slot')
 
 item = registries.item.registerItem("item", "Item", "Environment\decoration\poppy", 800, 562)
 
@@ -425,14 +425,14 @@ def Main(screen,clock):
         #print(str(tileRect.x) + ", " + str(tileRect.y)) World generator last generation coordinate
         
         for i in range(Player.defaultHealth):
-            if (i%2) == 0:
-                screen.blit(emptyHealthScaled, (i * emptyHealthScaled.get_width()//2 , 0))
+            if (i % 2) == 0:
+                screen.blit(emptyHealthScaled, (i * emptyHealthScaled.get_width()//2 , 100))
         
         for i in range(Player.health):
             if (i % 2) == 0:
-                screen.blit(halfHealthScaled, (i * halfHealthScaled.get_width()//2, 0))
+                screen.blit(halfHealthScaled, (i * halfHealthScaled.get_width()//2, 100))
             else:
-                screen.blit(healthScaled, (i * healthScaled.get_width()//2 - halfHealthScaled.get_width()//2, 0))
+                screen.blit(healthScaled, (i * healthScaled.get_width()//2 - halfHealthScaled.get_width()//2, 100))
                 
         hotbar.drawSlots(screen, BLACK)
         
@@ -472,6 +472,7 @@ def Main(screen,clock):
             Player.locked = True
             if exitChat.draw(screen):
                 Player.chatOpen = False
+        else:
                 chat.inputLocked = True
                 Player.locked = False
 
