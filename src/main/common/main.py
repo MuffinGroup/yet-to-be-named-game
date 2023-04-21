@@ -1,4 +1,5 @@
 import pygame
+import random
 from registries.colors import *
 import registries.animations
 import registries.elements
@@ -280,7 +281,7 @@ item = registries.item.registerItem("item", "Item", "Environment\decoration\popp
             [0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
             [0,0,0,2,2,2,0,2,2,2,2,2,0,0,2,2,2,2,0]]""" #Lovely css map
 
-game_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
@@ -298,6 +299,24 @@ game_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 
+tut2_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]
+
 def Start(surface):
     running = True
     startButton = registries.gui.registerButton("button", 6.0, "start", BLACK, "joystixmonospaceregular")
@@ -314,7 +333,7 @@ def Start(surface):
         startFont = registries.gui.registerFont(40, "YET-BE-NAMED-GAME", DARKER_GRAY, surface.get_width()//2 - 250, surface.get_height()//9)
         screen.fill(BLUISH_GRAY)
         if startButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//8 * 2.75, registries.animations.startButton, 0, 0, 6, -125, -25, 0, 0):
-            Main(screen, clock)
+            Tut1()
         if optionsButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -125, -25, 0, 0):
             print("NYI")
         if quitButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//8 * 5.25, registries.animations.quitButton, 0, 0, 6, -125, -25, 0, 0):
@@ -331,7 +350,7 @@ def Start(surface):
         #print(str(screen.get_width()) + str(screen.get_height()))
         pygame.display.flip()
         
-def Main(screen,clock):
+def Tut1():
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
     camera_pos = (0, 0) #camera starting position
@@ -349,6 +368,8 @@ def Main(screen,clock):
                 pygame.quit()
                 running = False
                 exit()
+            if chat.userInput == "/world tut2":
+                Tut2()
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
                 Start(screen)
@@ -380,7 +401,157 @@ def Main(screen,clock):
 
         tile_rects = []
         y = 0
-        for row in game_map:
+        for row in tut1_map:
+            x = 0
+            for tile in row:
+                if tile != 00:
+                    tileRect = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                    tile_rects.append(tileRect)
+                if tile == 1:
+                    world.blit(dirtElementScaled, (tileRect.x, tileRect.y))
+                    if Player.debuggingMode == True:
+                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                if tile == 2:
+                    world.blit(grassElementScaled, (tileRect.x, tileRect.y))
+                    if Player.debuggingMode == True:
+                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                if tile == 3:
+                    world.blit(cobbleElementScaled, (tileRect.x, tileRect.y))
+                    if Player.debuggingMode == True:
+                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                x += 1
+            y += 1
+
+        if key[pygame.K_9]:
+            Player.rect.y = tileRect.y
+            Player.rect.x = tileRect.x
+
+        #Render the player
+        player.render(world)
+        
+        player.collisions()
+
+        #Render the map to the screen
+        screen.blit(world, (player_x,player_y))
+
+        if Player.debuggingMode == True:
+            screen.blit(debugMenuText, (440, 90))
+            
+        screen.blit(debugModeText, (440, 30))
+
+        #Rendering the debug menu
+        player.renderDebugMenu()	
+        
+        #print(str(Player.rect.x) + ", " + str(Player.rect.y)) Player coordinates
+        #print(str(tileRect.x) + ", " + str(tileRect.y)) World generator last generation coordinate
+        
+        for i in range(Player.defaultHealth):
+            if (i % 2) == 0:
+                screen.blit(emptyHealthScaled, (i * emptyHealthScaled.get_width()//2 , 100))
+        
+        for i in range(Player.health):
+            if (i % 2) == 0:
+                screen.blit(halfHealthScaled, (i * halfHealthScaled.get_width()//2, 100))
+            else:
+                screen.blit(healthScaled, (i * healthScaled.get_width()//2 - halfHealthScaled.get_width()//2, 100))
+                
+        hotbar.drawSlots(screen, BLACK)
+        
+        if Player.health > Player.defaultHealth:
+            Player.health = Player.defaultHealth
+            
+        if Player.health <= 0 and Player.defaultHealth != 0:
+            Player.dead = True
+        else:
+            Player.dead = False
+            
+        if Player.dead == True:
+            Player.movementLocked = True
+        else:
+            Player.movementLocked = False
+            
+        if Player.dead == True and Player.playedDeathSound == False:
+            pygame.mixer.Sound.play(Player.deathSound)
+            Player.playedDeathSound = True
+
+        elif Player.dead == False:
+            Player.playedDeathSound = False
+
+        #Idle animations
+        if Player.standing == True:
+            idleValue += 1
+        if Player.walking == True:
+            walkingValue += Player.animationFrameUpdate
+        
+        item.drawItem(world)
+            
+        #print(str(Player.rect.x) + ", " + str(Player.rect.y))
+        if Player.chatOpen == True:
+            chatBackground.draw(screen, BLUISH_GRAY)
+            chat.drawChat(screen)
+            chat.inputLocked = False
+            Player.locked = True
+            if exitChat.draw(screen):
+                Player.chatOpen = False
+        else:
+                chat.inputLocked = True
+                Player.locked = False
+
+        clock.tick(200)
+        pygame.display.flip()
+        
+def Tut2():
+    world = pygame.Surface((8000,8000)) # Create Map
+    player = Player() # Initialize Player Class
+    camera_pos = (0, 0) #camera starting position
+
+    #values for animation calculation
+    idleValue = 0
+    walkingValue = 0
+    
+    running = True
+    
+    while running:
+        key = pygame.key.get_pressed()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                running = False
+                exit()
+            if chat.userInput == "/world tut1" and event.type == pygame.KEYDOWN:
+                Tut1()
+            chat.event(event)
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
+                Start(screen)
+        
+        #idle animation calculation
+        if idleValue >= len(registries.animations.idle_sprite):
+            idleValue = 0
+
+        #loading the idle animation
+        Player.currentSprite = registries.animations.idle_sprite[idleValue]
+        
+        if walkingValue >= len(registries.animations.walking_sprite):
+            walkingValue = 0
+        
+        #Player movement
+        camera_pos = player.keybinds(camera_pos) 
+
+        #Movement animation rendering
+        if Player.walking == True:
+            Player.currentSprite = registries.animations.walking_sprite[walkingValue]
+        if Player.facingLeft == True:
+            Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
+
+        #Render background
+        world.fill(AQUA)
+
+        #Fill the background outside of the map
+        screen.fill(AQUA)
+
+        tile_rects = []
+        y = 0
+        for row in tut2_map:
             x = 0
             for tile in row:
                 if tile != 00:
