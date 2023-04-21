@@ -220,14 +220,14 @@ dirtElementScaled = pygame.transform.scale(dirtElement, (dirtElement.get_width()
 cobbleElement = pygame.image.load("src\main/assets/textures\elements\Environment/blocks\cobble.png")
 cobbleElementScaled = pygame.transform.scale(cobbleElement, (cobbleElement.get_width() * 3, cobbleElement.get_width() * 3))
 
-health = pygame.image.load("src\main/assets/textures/elements\gui\player\heart.png")
-healthScaled = pygame.transform.scale(health, (health.get_width() * 3, health.get_height() * 3))
+health = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(full).png")
+healthScaled = pygame.transform.scale(health, (100, 100))
 
-halfHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\half_heart.png")
-halfHealthScaled = pygame.transform.scale(halfHealth, (halfHealth.get_width() * 3, halfHealth.get_height() * 3))
+halfHealth = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(half).png")
+halfHealthScaled = pygame.transform.scale(halfHealth, (100, 100))
 
 emptyHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\empty_heart.png")
-emptyHealthScaled = pygame.transform.scale(emptyHealth, (emptyHealth.get_width() * 3, emptyHealth.get_height() * 3))
+emptyHealthScaled = pygame.transform.scale(emptyHealth, (100, 100))
 
 #Loading element hitboxes
 placeholder_hitbox = pygame.Rect((400, 700),(int(placeholder.get_width()), int(placeholder.get_height())))
@@ -263,7 +263,7 @@ chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 
 chat.inputLocked = True
 exitChat = registries.gui.registerExitButton(85, 80, None)
 
-hotbar = registries.gui.registerSlots(4, 0, 0, 'slot')
+hotbar = registries.gui.registerSlots(4, 0, 100, 'slot')
 
 item = registries.item.registerItem("item", "Item", "Environment\decoration\poppy", 800, 562)
 
@@ -317,6 +317,42 @@ tut2_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]
 
+def genWorld(world, map):
+    tile_rects = []
+    y = 0
+    for row in map:
+        x = 0
+        for tile in row:
+            if tile != 00 and tile != float:
+                tileRect = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                tile_rects.append(tileRect)
+            if tile == 1:
+                world.blit(dirtElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
+                if Player.debuggingMode == True:
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+            if tile == 2:
+                world.blit(grassElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
+                if Player.debuggingMode == True:
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+            if tile == 3:
+                world.blit(cobbleElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
+                if Player.debuggingMode == True:
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+            x += 1
+        y += 1
+        
+def health():
+        for i in range(Player.defaultHealth):
+            if (i % 2) == 0:
+                screen.blit(emptyHealthScaled, (10 + i * emptyHealthScaled.get_width()//2, 0))
+        
+        for i in range(Player.health):
+            if (i % 2) == 0:
+                screen.blit(halfHealthScaled, (10 + i * halfHealthScaled.get_width()//2, 0))
+            else:
+                screen.blit(healthScaled, (10 + i * healthScaled.get_width()//2 - halfHealthScaled.get_width()//2, 0))
+
+
 def Start(surface):
     running = True
     startButton = registries.gui.registerButton("button", 6.0, "start", BLACK, "joystixmonospaceregular")
@@ -333,7 +369,7 @@ def Start(surface):
         startFont = registries.gui.registerFont(40, "YET-BE-NAMED-GAME", DARKER_GRAY, surface.get_width()//2 - 250, surface.get_height()//9)
         screen.fill(BLUISH_GRAY)
         if startButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//8 * 2.75, registries.animations.startButton, 0, 0, 6, -125, -25, 0, 0):
-            Tut1()
+            Tut2()
         if optionsButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -125, -25, 0, 0):
             print("NYI")
         if quitButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//8 * 5.25, registries.animations.quitButton, 0, 0, 6, -125, -25, 0, 0):
@@ -368,8 +404,12 @@ def Tut1():
                 pygame.quit()
                 running = False
                 exit()
-            if chat.userInput == "/world tut2":
-                Tut2()
+            if Player.debuggingMode == True:
+                if chat.userInput == "/world tut2" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    chat.userInput = ""
+                    chat.linesLoaded[0] = "teleported to tut2"
+                    chat.x = chat.markerDefaultPos
+                    Tut2()
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
                 Start(screen)
@@ -399,32 +439,7 @@ def Tut1():
         #Fill the background outside of the map
         screen.fill(AQUA)
 
-        tile_rects = []
-        y = 0
-        for row in tut1_map:
-            x = 0
-            for tile in row:
-                if tile != 00:
-                    tileRect = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                    tile_rects.append(tileRect)
-                if tile == 1:
-                    world.blit(dirtElementScaled, (tileRect.x, tileRect.y))
-                    if Player.debuggingMode == True:
-                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
-                if tile == 2:
-                    world.blit(grassElementScaled, (tileRect.x, tileRect.y))
-                    if Player.debuggingMode == True:
-                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
-                if tile == 3:
-                    world.blit(cobbleElementScaled, (tileRect.x, tileRect.y))
-                    if Player.debuggingMode == True:
-                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
-                x += 1
-            y += 1
-
-        if key[pygame.K_9]:
-            Player.rect.y = tileRect.y
-            Player.rect.x = tileRect.x
+        genWorld(world, tut1_map)
 
         #Render the player
         player.render(world)
@@ -440,21 +455,13 @@ def Tut1():
         screen.blit(debugModeText, (440, 30))
 
         #Rendering the debug menu
-        player.renderDebugMenu()	
+        player.renderDebugMenu()
         
         #print(str(Player.rect.x) + ", " + str(Player.rect.y)) Player coordinates
         #print(str(tileRect.x) + ", " + str(tileRect.y)) World generator last generation coordinate
         
-        for i in range(Player.defaultHealth):
-            if (i % 2) == 0:
-                screen.blit(emptyHealthScaled, (i * emptyHealthScaled.get_width()//2 , 100))
+        health()        
         
-        for i in range(Player.health):
-            if (i % 2) == 0:
-                screen.blit(halfHealthScaled, (i * halfHealthScaled.get_width()//2, 100))
-            else:
-                screen.blit(healthScaled, (i * healthScaled.get_width()//2 - halfHealthScaled.get_width()//2, 100))
-                
         hotbar.drawSlots(screen, BLACK)
         
         if Player.health > Player.defaultHealth:
@@ -511,6 +518,8 @@ def Tut2():
     
     running = True
     
+    Player.rect.y = 850
+    
     while running:
         key = pygame.key.get_pressed()
         for event in pygame.event.get():
@@ -542,39 +551,11 @@ def Tut2():
             Player.currentSprite = registries.animations.walking_sprite[walkingValue]
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
-
-        #Render background
-        world.fill(AQUA)
-
-        #Fill the background outside of the map
-        screen.fill(AQUA)
-
-        tile_rects = []
-        y = 0
-        for row in tut2_map:
-            x = 0
-            for tile in row:
-                if tile != 00:
-                    tileRect = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                    tile_rects.append(tileRect)
-                if tile == 1:
-                    world.blit(dirtElementScaled, (tileRect.x, tileRect.y))
-                    if Player.debuggingMode == True:
-                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
-                if tile == 2:
-                    world.blit(grassElementScaled, (tileRect.x, tileRect.y))
-                    if Player.debuggingMode == True:
-                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
-                if tile == 3:
-                    world.blit(cobbleElementScaled, (tileRect.x, tileRect.y))
-                    if Player.debuggingMode == True:
-                        pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
-                x += 1
-            y += 1
-
-        if key[pygame.K_9]:
-            Player.rect.y = tileRect.y
-            Player.rect.x = tileRect.x
+            
+        screen.fill(DARK_GRAY)
+        world.fill(DARK_GRAY)
+            
+        genWorld(world, tut2_map)
 
         #Render the player
         player.render(world)
@@ -595,15 +576,7 @@ def Tut2():
         #print(str(Player.rect.x) + ", " + str(Player.rect.y)) Player coordinates
         #print(str(tileRect.x) + ", " + str(tileRect.y)) World generator last generation coordinate
         
-        for i in range(Player.defaultHealth):
-            if (i % 2) == 0:
-                screen.blit(emptyHealthScaled, (i * emptyHealthScaled.get_width()//2 , 100))
-        
-        for i in range(Player.health):
-            if (i % 2) == 0:
-                screen.blit(halfHealthScaled, (i * halfHealthScaled.get_width()//2, 100))
-            else:
-                screen.blit(healthScaled, (i * healthScaled.get_width()//2 - halfHealthScaled.get_width()//2, 100))
+        health()
                 
         hotbar.drawSlots(screen, BLACK)
         
@@ -644,8 +617,8 @@ def Tut2():
             if exitChat.draw(screen):
                 Player.chatOpen = False
         else:
-                chat.inputLocked = True
-                Player.locked = False
+            chat.inputLocked = True
+            Player.locked = False
 
         clock.tick(200)
         pygame.display.flip()

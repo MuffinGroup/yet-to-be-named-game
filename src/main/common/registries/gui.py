@@ -171,6 +171,7 @@ class registerImages():
 class registerChat():
     def __init__(self, lines, fontSize, textColor, markerColor, frameColor, chatBoxColor, markerDefaultPos, frameX, frameY, frameWidth, frameHeight, chatBoxX, chatBoxY, chatBoxWidth, chatBoxHeight):
         self.linesLoaded = []
+        self.keyBlacklist = ()
         self.userInput = ""
         self.markerColor = markerColor
         self.sample = "i"
@@ -200,7 +201,7 @@ class registerChat():
             elif event.key == pygame.K_TAB and self.userText.get_width() < self.chatBox.width - self.sampleText.get_width() * 4:
                 self.userInput += "    "
                 self.x += self.sampleText.get_width() * 4
-            elif not event.key == pygame.K_BACKSPACE and not event.key == pygame.K_LALT and not event.key == pygame.K_RALT and not event.key == pygame.K_LSHIFT and not event.key == pygame.K_RIGHT and not event.key == pygame.K_LEFT and not event.key == pygame.K_UP and not event.key == pygame.K_DOWN and not event.key == pygame.K_LCTRL and not event.key == pygame.K_RCTRL and not event.key == pygame.K_RSHIFT and not event.key == pygame.K_RETURN and self.userText.get_width() < self.chatBox.width - self.sampleText.get_width() * 4:
+            elif not event.key == pygame.K_ESCAPE and not event.key == pygame.K_BACKSPACE and not event.key == pygame.K_LALT and not event.key == pygame.K_RALT and not event.key == pygame.K_LSHIFT and not event.key == pygame.K_RIGHT and not event.key == pygame.K_LEFT and not event.key == pygame.K_UP and not event.key == pygame.K_DOWN and not event.key == pygame.K_LCTRL and not event.key == pygame.K_RCTRL and not event.key == pygame.K_RSHIFT and not event.key == pygame.K_RETURN and self.userText.get_width() < self.chatBox.width - self.sampleText.get_width() * 4:
                 self.userInput += event.unicode
                 self.x += self.sampleText.get_width()
                 
@@ -251,12 +252,12 @@ class registerSlots():
         self.slots = []
         self.texture = texture
         for i in range(self.slotCount):
-            self.rect = pygame.Rect((x + 100 * i, y), (100, 100))
+            self.rect = pygame.Rect((x + 80 * i, y), (80, 80))
             self.slots.append(self.rect)
             print(i)
         if texture != None:
          self.texture = pygame.image.load('src/main/assets/textures/elements/gui/' + texture + '.png') #weird indentation
-         self.texture = pygame.transform.scale(self.texture, (100, 100))
+         self.texture = pygame.transform.scale(self.texture, (80, 80))
     
     def drawSlots(self, surface, slotColor):
         for i in range(self.slotCount):
