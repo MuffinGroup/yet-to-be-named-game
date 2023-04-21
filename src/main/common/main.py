@@ -113,15 +113,10 @@ class Player:
         if key[pygame.K_c] and Player.chatOpen == False and Player.debuggingMenu == False:
             pygame.time.wait(200)
             Player.chatOpen = True
-            chat.inputLocked = False
-            Player.locked = True
             
         elif key[pygame.K_ESCAPE] and Player.chatOpen == True:
             pygame.time.wait(200)
             Player.chatOpen = False
-            chat.inputLocked = True
-            chat.clear()
-            Player.locked = False
 
         if key[pygame.K_0] and Player.debuggingMode == True and Player.debuggingMenu == False and Player.locked == False:
             pygame.time.wait(200)
@@ -208,6 +203,7 @@ class Player:
             Player.collidingLeft = True
         else:
             Player.collidingLeft = False
+    
 
 
 #Loading element textures
@@ -356,6 +352,7 @@ def Main(screen,clock):
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
                 Start(screen)
+        
         #idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
             idleValue = 0
@@ -471,13 +468,12 @@ def Main(screen,clock):
         if Player.chatOpen == True:
             chatBackground.draw(screen, BLUISH_GRAY)
             chat.drawChat(screen)
+            chat.inputLocked = False
+            Player.locked = True
             if exitChat.draw(screen):
                 Player.chatOpen = False
                 chat.inputLocked = True
-                chat.clear()
                 Player.locked = False
-        elif Player.chatOpen == False:
-            print("uwu")
 
         clock.tick(200)
         pygame.display.flip()
