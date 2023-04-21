@@ -1,8 +1,5 @@
 {
-"introduction_1": "Hello! Nice to see you!",
-"introduction_2": "In this game you will find ",
-"introduction_3": "some nice levels with enemys, interesting tasks and much more!",
-"introduction_5": "Press -Enter- to continue",
-
-"toast_1": "Before you start, you schould learn how to move and act, these things you will learn in the following tutorial. Please press enter."
+"button.start": "start",
+"button.options": "options",
+"button.quit": "quit"
 }

@@ -6,6 +6,7 @@ import registries.elements
 import registries.buttons
 import registries.gui
 import registries.item
+import thepigcat76.json.json_testing
 
 #pygame initialization
 pygame.init()
@@ -43,6 +44,7 @@ class Player:
         Player.dead = False
         Player.playedDeathSound = False
         Player.chatOpen = False
+        Player.world = None
 
     def keybinds(self,camera_pos):
         global player_x
@@ -208,6 +210,8 @@ class Player:
 
 
 #Loading element textures
+com = thepigcat76.json.json_testing.component("de_de")
+
 placeholder = registries.elements.registerElements("environment/blocks/cobble", 5)
 wooden_sign = registries.elements.registerElements("environment/blocks/wooden_sign", 5)
 tree_stump = registries.elements.registerElements("environment/blocks/tree_stump", 5)
@@ -354,17 +358,16 @@ def health():
 
 
 def Start(surface):
-    running = True
-    startButton = registries.gui.registerButton("button", 6.0, "start", BLACK, "joystixmonospaceregular")
-    optionsButton = registries.gui.registerButton("button", 6.0, "options", BLACK, "joystixmonospaceregular")
-    quitButton = registries.gui.registerButton("button", 6.0, "quit", BLACK, "joystixmonospaceregular")
+    startButton = registries.gui.registerButton("button", 6.0, com.translatableComponent("button.start"), BLACK, "joystixmonospaceregular")
+    optionsButton = registries.gui.registerButton("button", 6.0, com.translatableComponent("button.options"), BLACK, "joystixmonospaceregular")
+    quitButton = registries.gui.registerButton("button", 6.0, com.translatableComponent("button.quit"), BLACK, "joystixmonospaceregular")
+    Player.world = None
     
-    while running:
+    while True:
         key = pygame.key.get_pressed()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                running = False
                 exit()
         startFont = registries.gui.registerFont(40, "YET-BE-NAMED-GAME", DARKER_GRAY, surface.get_width()//2 - 250, surface.get_height()//9)
         screen.fill(BLUISH_GRAY)
@@ -374,18 +377,30 @@ def Start(surface):
             print("NYI")
         if quitButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//8 * 5.25, registries.animations.quitButton, 0, 0, 6, -125, -25, 0, 0):
             pygame.quit()
-            running = False
             exit()
             
         if key[pygame.K_ESCAPE]:
             pygame.quit()
-            running = False
             exit()
             
         startFont.drawFont(screen)
         #print(str(screen.get_width()) + str(screen.get_height()))
         pygame.display.flip()
         
+def commandEvent(event):
+            if chat.userInput == "/world tut2" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut2" and Player.debuggingMode == True:
+                chat.userInput = ""
+                chat.linesLoaded[0] = "teleported to tut2"
+                chat.x = chat.markerDefaultPos
+                Tut2()
+                
+            if chat.userInput == "/world tut1" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut1" and Player.debuggingMode == True:
+                chat.userInput = ""
+                chat.linesLoaded[0] = "teleported to tut1"
+                chat.x = chat.markerDefaultPos
+                Tut1() 
+                
+    
 def Tut1():
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
@@ -394,22 +409,14 @@ def Tut1():
     #values for animation calculation
     idleValue = 0
     walkingValue = 0
+    Player.world = "tut1"
     
-    running = True
-    
-    while running:
-        key = pygame.key.get_pressed()
+    while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                running = False
                 exit()
-            if Player.debuggingMode == True:
-                if chat.userInput == "/world tut2" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                    chat.userInput = ""
-                    chat.linesLoaded[0] = "teleported to tut2"
-                    chat.x = chat.markerDefaultPos
-                    Tut2()
+            commandEvent(event)
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
                 Start(screen)
@@ -501,8 +508,10 @@ def Tut1():
             if exitChat.draw(screen):
                 Player.chatOpen = False
         else:
-                chat.inputLocked = True
-                Player.locked = False
+            chat.inputLocked = True
+            Player.locked = False
+            
+        print(Player.world)
 
         clock.tick(200)
         pygame.display.flip()
@@ -516,19 +525,15 @@ def Tut2():
     idleValue = 0
     walkingValue = 0
     
-    running = True
-    
     Player.rect.y = 850
+    Player.world = "tut2"
     
-    while running:
-        key = pygame.key.get_pressed()
+    while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                running = False
                 exit()
-            if chat.userInput == "/world tut1" and event.type == pygame.KEYDOWN:
-                Tut1()
+            commandEvent(event)
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
                 Start(screen)
@@ -619,6 +624,8 @@ def Tut2():
         else:
             chat.inputLocked = True
             Player.locked = False
+            
+        print(Player.world)
 
         clock.tick(200)
         pygame.display.flip()

@@ -1,9 +1,11 @@
 import json
 
-with open("src\main/assets\lang\en_us.json", "r") as f:
-    data = json.load(f)
-
-test = data["introduction_1"]
-test2 = data["toast_1"]
-
-print(str(test))
+class component:
+    def __init__(self, language):
+        with open("src\main/assets\lang/" + language + ".json", "r") as f:
+            self.data = json.load(f)
+    
+    def translatableComponent(self, path):
+        rawText = self.data[path]
+        text = str(rawText)
+        return text
