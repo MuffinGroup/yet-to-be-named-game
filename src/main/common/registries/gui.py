@@ -252,12 +252,12 @@ class registerSlots():
         self.slots = []
         self.texture = texture
         for i in range(self.slotCount):
-            self.rect = pygame.Rect((x + 80 * i, y), (80, 80))
+            self.rect = pygame.Rect((x + 60 * i, y), (60, 60))
             self.slots.append(self.rect)
             print(i)
         if texture != None:
          self.texture = pygame.image.load('src/main/assets/textures/elements/gui/' + texture + '.png') #weird indentation
-         self.texture = pygame.transform.scale(self.texture, (80, 80))
+         self.texture = pygame.transform.scale(self.texture, (60, 60))
     
     def drawSlots(self, surface, slotColor):
         for i in range(self.slotCount):

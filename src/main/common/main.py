@@ -224,13 +224,13 @@ cobbleElement = pygame.image.load("src\main/assets/textures\elements\Environment
 cobbleElementScaled = pygame.transform.scale(cobbleElement, (cobbleElement.get_width() * 3, cobbleElement.get_width() * 3))
 
 health = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(full).png")
-healthScaled = pygame.transform.scale(health, (100, 100))
+healthScaled = pygame.transform.scale(health, (70, 70))
 
 halfHealth = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(half).png")
-halfHealthScaled = pygame.transform.scale(halfHealth, (100, 100))
+halfHealthScaled = pygame.transform.scale(halfHealth, (70, 70))
 
 emptyHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\empty_heart.png")
-emptyHealthScaled = pygame.transform.scale(emptyHealth, (100, 100))
+emptyHealthScaled = pygame.transform.scale(emptyHealth, (70, 70))
 
 #Loading element hitboxes
 placeholder_hitbox = pygame.Rect((400, 700),(int(placeholder.get_width()), int(placeholder.get_height())))
