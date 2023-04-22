@@ -1,12 +1,12 @@
 import pygame
 import random
 from registries.colors import *
+from registries.json_lang import *
 import registries.animations
 import registries.elements
 import registries.buttons
 import registries.gui
 import registries.item
-import thepigcat76.json.json_testing
 
 #pygame initialization
 pygame.init()
@@ -45,6 +45,7 @@ class Player:
         Player.playedDeathSound = False
         Player.chatOpen = False
         Player.world = None
+        Player.language = "en_us"
 
     def keybinds(self,camera_pos):
         global player_x
@@ -210,8 +211,6 @@ class Player:
 
 
 #Loading element textures
-com = thepigcat76.json.json_testing.component("de_de")
-
 placeholder = registries.elements.registerElements("environment/blocks/cobble", 5)
 wooden_sign = registries.elements.registerElements("environment/blocks/wooden_sign", 5)
 tree_stump = registries.elements.registerElements("environment/blocks/tree_stump", 5)
@@ -358,9 +357,9 @@ def health():
 
 
 def Start(surface):
-    startButton = registries.gui.registerButton("button", 6.0, com.translatableComponent("button.start"), BLACK, "joystixmonospaceregular")
-    optionsButton = registries.gui.registerButton("button", 6.0, com.translatableComponent("button.options"), BLACK, "joystixmonospaceregular")
-    quitButton = registries.gui.registerButton("button", 6.0, com.translatableComponent("button.quit"), BLACK, "joystixmonospaceregular")
+    startButton = registries.gui.registerButton("button", 6.0, translatableComponent("button.start", Player.language), BLACK, "joystixmonospaceregular")
+    optionsButton = registries.gui.registerButton("button", 6.0, translatableComponent("button.options", Player.language), BLACK, "joystixmonospaceregular")
+    quitButton = registries.gui.registerButton("button", 6.0, translatableComponent("button.quit", Player.language), BLACK, "joystixmonospaceregular")
     Player.world = None
     
     while True:
@@ -390,13 +389,13 @@ def Start(surface):
 def commandEvent(event):
             if chat.userInput == "/world tut2" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut2" and Player.debuggingMode == True:
                 chat.userInput = ""
-                chat.linesLoaded[0] = "teleported to tut2"
+                chat.linesLoaded[0] = translatableComponent("command.teleport.tut2")
                 chat.x = chat.markerDefaultPos
                 Tut2()
                 
             if chat.userInput == "/world tut1" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut1" and Player.debuggingMode == True:
                 chat.userInput = ""
-                chat.linesLoaded[0] = "teleported to tut1"
+                chat.linesLoaded[0] = translatableComponent("command.teleport.tut1", Player.language)
                 chat.x = chat.markerDefaultPos
                 Tut1() 
                 
@@ -467,7 +466,7 @@ def Tut1():
         #print(str(Player.rect.x) + ", " + str(Player.rect.y)) Player coordinates
         #print(str(tileRect.x) + ", " + str(tileRect.y)) World generator last generation coordinate
         
-        health()        
+        health()
         
         hotbar.drawSlots(screen, BLACK)
         
