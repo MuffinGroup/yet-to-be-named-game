@@ -1,5 +1,8 @@
 {
 "button.start": "start",
 "button.options": "optionen",
-"button.quit": "beenden"
+"button.quit": "beenden",
+
+"command.teleport.tut1": "Zu tut1 teleportiert",
+"command.teleport.tut2": "Zu tut2 teleportiert"
 }

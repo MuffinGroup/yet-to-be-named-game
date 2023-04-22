@@ -357,10 +357,11 @@ def health():
 
 
 def Start(surface):
+    player = Player()
+    Player.world = None
     startButton = registries.gui.registerButton("button", 6.0, translatableComponent("button.start", Player.language), BLACK, "joystixmonospaceregular")
     optionsButton = registries.gui.registerButton("button", 6.0, translatableComponent("button.options", Player.language), BLACK, "joystixmonospaceregular")
     quitButton = registries.gui.registerButton("button", 6.0, translatableComponent("button.quit", Player.language), BLACK, "joystixmonospaceregular")
-    Player.world = None
     
     while True:
         key = pygame.key.get_pressed()
@@ -373,7 +374,7 @@ def Start(surface):
         if startButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//8 * 2.75, registries.animations.startButton, 0, 0, 6, -125, -25, 0, 0):
             Tut2()
         if optionsButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -125, -25, 0, 0):
-            print("NYI")
+            Player.language = "de_de"
         if quitButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//8 * 5.25, registries.animations.quitButton, 0, 0, 6, -125, -25, 0, 0):
             pygame.quit()
             exit()
