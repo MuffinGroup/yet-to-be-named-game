@@ -1,7 +1,7 @@
 import openai
-openai.api_key = "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"
+openai.api_key = "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"
 
-prompt = "What time is now in Berlin"
+prompt = "Write a python code for a chat for persons in wich ChatGPT can be used"
 model = "text-davinci-002"
 response = openai.Completion.create(engine=model, prompt=prompt, max_tokens=1000)
 
