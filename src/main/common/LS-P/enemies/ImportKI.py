@@ -1,7 +1,7 @@
 import openai
-openai.api_key = "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"
+openai.api_key = "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"
 
-prompt = "Whats the Time"
+prompt = "What time is now in Berlin"
 model = "text-davinci-002"
 response = openai.Completion.create(engine=model, prompt=prompt, max_tokens=1000)
 
