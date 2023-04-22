@@ -45,9 +45,8 @@ class Player:
         Player.playedDeathSound = False
         Player.chatOpen = False
         Player.world = None
+        Player.langCounter = 0
         Player.languageList = ["en_us", "de_de"]
-        Player.language = Player.languageList[0]
-
     def keybinds(self,camera_pos):
         global player_x
         global player_y
@@ -364,7 +363,6 @@ def Start(surface):
     optionsButton = registries.gui.registerButton("button", 6.0)
     quitButton = registries.gui.registerButton("button", 6.0)
     clock = pygame.time.Clock()
-    i = 0
     while True:
         key = pygame.key.get_pressed()
         for event in pygame.event.get():
@@ -373,12 +371,15 @@ def Start(surface):
                 exit()
         startFont = registries.gui.registerFont(40, "YET-BE-NAMED-GAME", DARKER_GRAY, surface.get_width()//2 - 250, surface.get_height()//9)
         screen.fill(BLUISH_GRAY)
-        if startButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//8 * 2.75, registries.animations.startButton, 0, 0, 6, -125, -25, translatableComponent("button.start", Player.language), BLACK, "joystixmonospaceregular"):
+        if startButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//8 * 2.75, registries.animations.startButton, 0, 0, 6, -125, -25, translatableComponent("button.start", Player.languageList[Player.langCounter]), BLACK, "joystixmonospaceregular"):
             Tut2()
-        if optionsButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -125, -25, translatableComponent("button.options", Player.language), BLACK, "joystixmonospaceregular"):
-            i += 1
-            Player.languageList[i]
-        if quitButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//8 * 5.25, registries.animations.quitButton, 0, 0, 6, -125, -25, translatableComponent("button.quit", Player.language), BLACK, "joystixmonospaceregular"):
+        if optionsButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -125, -25, translatableComponent("button.options", Player.languageList[Player.langCounter]), BLACK, "joystixmonospaceregular"):
+            if not Player.langCounter >= len(Player.languageList) - 1:
+                Player.langCounter += 1
+            else:
+                Player.langCounter = 0
+            print(Player.langCounter)
+        if quitButton.drawAnimated(surface, surface.get_width()//2, surface.get_height()//8 * 5.25, registries.animations.quitButton, 0, 0, 6, -125, -25, translatableComponent("button.quit", Player.languageList[Player.langCounter]), BLACK, "joystixmonospaceregular"):
             pygame.quit()
             exit()
             
@@ -400,7 +401,8 @@ def commandEvent(event):
                 
             if chat.userInput == "/world tut1" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut1" and Player.debuggingMode == True:
                 chat.userInput = ""
-                chat.linesLoaded[0] = translatableComponent("command.teleport.tut1", Player.language)
+                chat.linesLoaded[0] = translatableComponent(
+                    "command.teleport.tut1", Player.languageList[Player.langCounter])
                 chat.x = chat.markerDefaultPos
                 Tut1() 
                 
