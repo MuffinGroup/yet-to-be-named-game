@@ -1,7 +1,7 @@
 import openai
 openai.api_key = "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"
 
-prompt = "Write a python code for a chat for persons in wich ChatGPT can be used"
+prompt = "Write a poem"
 model = "text-davinci-002"
 response = openai.Completion.create(engine=model, prompt=prompt, max_tokens=1000)
 
