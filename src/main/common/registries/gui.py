@@ -246,6 +246,7 @@ class registerChat():
         for i in range(self.lines):
             self.linesLoaded[i] = ""
         self.x = self.markerDefaultPos
+"""
 class registerSlots():
     def __init__(self, slotCount, x, y, texture=None):
         self.slotCount = slotCount
@@ -264,7 +265,7 @@ class registerSlots():
             pygame.draw.rect(surface, slotColor, self.slots[i], 6)
             if self.texture != None:
                 surface.blit(self.texture, self.slots[i])
-
+"""
 class registerExitButton():
     def __init__(self, x, y, texturePath = None):
         self.x = x
