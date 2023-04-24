@@ -246,6 +246,8 @@ floor_width = floor.get_width()
 floor_height = floor.get_height()
 floor = pygame.transform.scale(floor, (int(floor_width * 8), int(floor_height * 8)))
 floor_hitbox = pygame.Rect((0, 850), (floor_width * 8, floor_height * 8))
+npc = pygame.image.load('src/main/assets/textures/entities/npc/npc.png')
+door = pygame.image.load('src/main/assets/textures/elements/doors/door_1_closed.png')
 
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
 
@@ -483,12 +485,14 @@ def Tut1(language):
         player.collisions()
 
         #Render the map to the screen
-        screen.blit(world, (player_x,player_y))
+        screen.blit(world, (player_x, player_y))
+        world.blit(door, (1000, 600))
 
         if Player.debuggingMode == True:
             screen.blit(renderText(0, language), (440, 90))
             
         screen.blit(renderText(1, language), (440, 30))
+        
 
         #Rendering the debug menu
         player.renderDebugMenu()
@@ -667,4 +671,4 @@ if __name__ in "__main__":
     screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
     pygame.display.set_caption("CameraView")
     clock = pygame.time.Clock()
-    Tut2(Player.language)
+    Tut1(Player.language)
