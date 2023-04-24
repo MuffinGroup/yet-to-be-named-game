@@ -340,7 +340,7 @@ def genWorld(world, map):
                 if Player.debuggingMode == True:
                     pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             if tile == 3:
-                if map[11][tile + 1] == 0:
+                if row[tile+1] == 0:
                     print("uwu")
                 else:
                     world.blit(cobbleElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
