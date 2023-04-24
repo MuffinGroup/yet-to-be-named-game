@@ -237,7 +237,6 @@ npc = pygame.image.load('src/main/assets/textures/entities/npc/npc.png')
 door_closed = pygame.image.load('src/main/assets/textures/elements/doors/door_1_closed.png')
 door_open = pygame.image.load('src/main/assets/textures/elements/doors/door_1_open.png')
 door_sprite = door_closed
-n = 0
 
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
 
@@ -321,7 +320,7 @@ tut2_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]
 
 def genWorld(world, map):
-    global door_sprite, tileRect2, n, doorhandling
+    global door_sprite, tileRect2, n
     tile_rects = []
     y = 0
     
@@ -373,18 +372,18 @@ def genWorld(world, map):
             x += 1
         y += 1
 
-    if Player.rect.colliderect(tileRect2) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
+    if Player.rect.colliderect(tileRect2) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e] and n == 0:
         door_sprite = door_open
         n += 1
-    if n == 50:
-        Player.visible = False
+    if n >= 50 and n != 70 and n > 0:
+        Player.visible == False
         door_sprite = door_closed
     if n == 70:
         n = 0
         Tut2(Player.language)
-    if n >= 1 and n <= 70:
+    if n > 0 and n != 70:
         n += 1
-        print(n)
+    print(n)
         
         
 def health():
@@ -429,8 +428,6 @@ def Start(language):
         if key[pygame.K_RETURN] and Player.world == None:
             pygame.quit()
             exit()
-            
-        print(language)
 
         startFont.drawFont(screen)
         #print(str(screen.get_width()) + str(screen.get_height()))
@@ -506,6 +503,12 @@ def Tut1(language):
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
+        if Player.visible == True:
+            Player.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
+            screen.blit(Player.currentSprite, (Player.rect.x - 75, Player.rect.y-50))
+            if Player.debuggingMode == True:
+                pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4)
+
         #Render background
         world.fill(AQUA)
 
@@ -514,15 +517,6 @@ def Tut1(language):
 
         genWorld(world, tut1_map)
 
-        if Player.visible == True:
-            Player.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
-            # Drawing the player to the screen
-            world.blit(Player.currentSprite,(player.rect.x - 75, player.rect.y-50))
-            if Player.debuggingMode == True:
-                # Drawing the hitbox to the screen
-                pygame.draw.rect(world, (0, 255, 0), Player.rect, 4)
-
-        #Render the player
         
         player.collisions()
 
@@ -586,7 +580,6 @@ def Tut1(language):
             chat.inputLocked = True
             Player.locked = False
 
-        print(language)
         world.blit(door_sprite, (Player.rect.x, Player.rect.y))
 
         clock.tick(200)
@@ -646,21 +639,15 @@ def Tut2(language):
         genWorld(world, tut2_map)
 
         if Player.visible == True:
-            Player.currentSprite = pygame.transform.scale(
-                Player.currentSprite, (32 * 8, 32 * 8))
-            # Drawing the player to the screen
-            world.blit(Player.currentSprite,
-                       (player.rect.x - 75, player.rect.y-50))
+            Player.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
+            screen.blit(Player.currentSprite, (Player.rect.x - 75, Player.rect.y-50))
             if Player.debuggingMode == True:
-                # Drawing the hitbox to the screen
-                pygame.draw.rect(world, (0, 255, 0), Player.rect, 4)
-
-        #Render the player
+                pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4)
         
         player.collisions()
 
         #Render the map to the screen
-        screen.blit(world, (player_x, player_y))
+        screen.blit(world, (player_x,player_y))
 
         if Player.debuggingMode == True:
             screen.blit(renderText(0, language), (440, 90))
@@ -714,8 +701,6 @@ def Tut2(language):
         else:
             chat.inputLocked = True
             Player.locked = False
-
-        print(language)
 
         clock.tick(200)
         pygame.display.flip()
