@@ -162,7 +162,7 @@ class Player:
         else:
             Player.speed = Player.defaultSpeed
 
-        return (-self.rect.x + 680, -self.rect.y + 450) # Return new player position
+        return (-self.rect.x + 680, -self.rect.y + 350) # Return new player position
     
     def render(self,screen): #Player and player hitbox rendering
         if Player.visible == True:
@@ -246,6 +246,9 @@ floor_width = floor.get_width()
 floor_height = floor.get_height()
 floor = pygame.transform.scale(floor, (int(floor_width * 8), int(floor_height * 8)))
 floor_hitbox = pygame.Rect((0, 850), (floor_width * 8, floor_height * 8))
+npc = pygame.image.load('src/main/assets/textures/entities/npc/npc.png')
+door = pygame.image.load('src/main/assets/textures/elements/doors/door_1_closed.png')
+door_scaled = pygame.transform.scale(door, (int(door.get_width() * 5), int(door.get_height() * 5)))
 
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
 
@@ -295,7 +298,7 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [ 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 1, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
@@ -332,7 +335,7 @@ def genWorld(world, map):
     for row in map:
         x = 0
         for tile in row:
-            if tile != 00 and tile != float:
+            if tile != 00 and tile != float and tile != 9:
                 tileRect = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
                 tile_rects.append(tileRect)
             if tile == 1:
@@ -350,7 +353,7 @@ def genWorld(world, map):
             if tile == 4:
                 world.blit(waterFluidScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+
             if tile == 5:
                 world.blit(waterFluidTopScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
@@ -365,6 +368,12 @@ def genWorld(world, map):
                     pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             if tile == 8:
                 world.blit(leverScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
+
+            if tile == 9:
+                tileRect = pygame.Rect(x * dirtElementScaled.get_width() + 50, y * dirtElementScaled.get_width(), door_scaled.get_width() - 100, door_scaled.get_width())
+                tile_rects.append(tileRect)
+                world.blit(door_scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
+
                 if Player.debuggingMode == True:
                     pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             x += 1
@@ -505,6 +514,7 @@ def Tut1(language):
             screen.blit(renderText(0, language), (440, 90))
             
         screen.blit(renderText(1, language), (440, 30))
+        
 
         e = pygame.image.load("src\main/assets/textures/elements\gui\player\empty_heart.png").convert_alpha()
         ee = pygame.mask.from_surface(e)
@@ -686,4 +696,4 @@ if __name__ in "__main__":
     screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
     pygame.display.set_caption("CameraView")
     clock = pygame.time.Clock()
-    Start(Player.language)
+    Tut1(Player.language)

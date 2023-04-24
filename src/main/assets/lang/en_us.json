@@ -7,6 +7,6 @@
 "command.teleport.tut2": "teleported to tut2",
 "command.lang": "Current language: ",
 
-"text.debug_mode": "Press 0 to enable debug mode",
+"text.debug_mode": "Press D to enable debug mode",
 "text.debug_menu": "Press 0 to open debug menu"
 }
