@@ -581,6 +581,7 @@ def Tut1(language):
             Player.locked = False
 
         print(language)
+        world.blit(door_sprite, (Player.rect.x, Player.rect.y))
 
         clock.tick(200)
         pygame.display.flip()
