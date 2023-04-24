@@ -247,6 +247,11 @@ floor_height = floor.get_height()
 floor = pygame.transform.scale(floor, (int(floor_width * 8), int(floor_height * 8)))
 floor_hitbox = pygame.Rect((0, 850), (floor_width * 8, floor_height * 8))
 
+#Loading Enemy
+enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
+enemy_img=pygame.transform.scale(enemy_img,(400,400))
+
+
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
 
 def renderText(entry, language):
@@ -462,7 +467,7 @@ def Tut1(language):
         
         #Player movement
         camera_pos = player.keybinds(camera_pos) 
-
+    
         #Movement animation rendering
         if Player.walking == True:
             Player.currentSprite = registries.animations.walking_sprite[walkingValue]
@@ -525,6 +530,7 @@ def Tut1(language):
             walkingValue += Player.animationFrameUpdate
         
         item.drawItem(world)
+        
             
         #print(str(Player.rect.x) + ", " + str(Player.rect.y))
         if Player.chatOpen == True:
