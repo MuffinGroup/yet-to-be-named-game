@@ -375,7 +375,7 @@ def genWorld(world, map):
                 tile_rects.append(tileRect2)
                 world.blit(door_scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect2, 2)
             x += 1
         y += 1
         
