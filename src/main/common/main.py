@@ -271,6 +271,8 @@ chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 
 chat.inputLocked = True
 exitChat = registries.gui.registerExitButton(85, 80, None)
 
+doorsound = pygame.mixer.Sound('src/main/assets/sounds/Door_Closing.wav')
+
 item = registries.item.registerItem("item", "Item", "Environment\decoration\poppy", 800, 562)
 
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
@@ -324,6 +326,7 @@ tut2_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]
 
 def genWorld(world, map):
+    global door_sprite, tileRect2, n
     tile_rects = []
     y = 0
     for row in map:
@@ -373,6 +376,20 @@ def genWorld(world, map):
                     pygame.draw.rect(world, (255, 255, 255), tileRect2, 2)
             x += 1
         y += 1
+
+    if Player.rect.colliderect(tileRect2) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
+        door_sprite = pygame.image.load('src/main/assets/textures/elements/doors/door_1_open.png')
+        if n >=1:    
+            pygame.time.wait(500)
+            pygame.mixer.Sound.play(doorsound)
+            door_sprite = door
+            Tut2(Player.language)
+        
+        else:
+            n += 1
+
+    else:
+        door_sprite = door
         
 def health():
         for i in range(Player.defaultHealth):
@@ -454,12 +471,13 @@ def Tut1(language):
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
     camera_pos = (0, 0) #camera starting position
-    global door_sprite #allow door use
+    global door_sprite, n #allow door use
 
     #values for animation calculation
     idleValue = 0
     walkingValue = 0
-    Player.world = "tut1"    
+    Player.world = "tut1" 
+    n = 0   
     while True:
         door_sprite = pygame.transform.scale(door_sprite, (int(door.get_width() * 5), int(door.get_height() * 5)))
 
