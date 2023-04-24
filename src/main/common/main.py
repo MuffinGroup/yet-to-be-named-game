@@ -363,7 +363,8 @@ def genWorld(world, map):
                     pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             if tile == 8:
                 world.blit(leverScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-
+                if Player.debuggingMode == True:
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             if tile == 9:
                 tileRect2 = pygame.Rect(x * dirtElementScaled.get_width() + 50, y * dirtElementScaled.get_width(), door_sprite.get_width() - 100, door_sprite.get_width())
                 tile_rects.append(tileRect2)
