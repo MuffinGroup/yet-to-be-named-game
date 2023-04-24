@@ -326,9 +326,15 @@ tut2_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]
 
 def genWorld(world, map):
-    global door_sprite, tileRect2, n
+    global door_sprite, tileRect2, n, doorhandling
     tile_rects = []
     y = 0
+
+    if Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
+        if Player.rect.colliderect(tileRect2):
+            door_sprite = pygame.image.load('src/main/assets/textures/elements/doors/door_1_open.png')
+            doorhandling = 1
+    
     for row in map:
         x = 0
         for tile in row:
@@ -377,9 +383,9 @@ def genWorld(world, map):
             x += 1
         y += 1
 
-    if Player.rect.colliderect(tileRect2) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
-        door_sprite = pygame.image.load('src/main/assets/textures/elements/doors/door_1_open.png')
-        if n >=1:    
+        
+    if doorhandling == 1:
+        if n >=2:    
             pygame.time.wait(500)
             pygame.mixer.Sound.play(doorsound)
             door_sprite = door
@@ -469,13 +475,14 @@ def Tut1(language):
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
     camera_pos = (0, 0) #camera starting position
-    global door_sprite, n #allow door use
+    global door_sprite, n, doorhandling #allow door use
 
     #values for animation calculation
     idleValue = 0
     walkingValue = 0
     Player.world = "tut1" 
-    n = 0   
+    n = 0
+    doorhandling = 0
     while True:
         door_sprite = pygame.transform.scale(door_sprite, (int(door.get_width() * 5), int(door.get_height() * 5)))
 
