@@ -388,9 +388,10 @@ def genWorld(world, map):
     if Player.rect.colliderect(tileRect2) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         door_sprite = door_open
         n += 1
-    elif n == 99:
+    elif n == 50:
         door_sprite = door_closed
         n = 0
+        Tut2(Player.language)
     elif n >= 1 and n <= 99:
         n += 1
         print(n)
