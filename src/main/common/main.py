@@ -240,15 +240,10 @@ emptyHealthScaled = pygame.transform.scale(emptyHealth, (70, 70))
 placeholder_hitbox = pygame.Rect((400, 700),(int(placeholder.get_width()), int(placeholder.get_height())))
 tree_stump_hitbox = pygame.Rect((800, 730),(int(placeholder.get_width()), int(placeholder.get_width())))
 
-#Loading floor and background
-floor = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
-floor_width = floor.get_width()
-floor_height = floor.get_height()
-floor = pygame.transform.scale(floor, (int(floor_width * 8), int(floor_height * 8)))
-floor_hitbox = pygame.Rect((0, 850), (floor_width * 8, floor_height * 8))
+#Loading textures
 npc = pygame.image.load('src/main/assets/textures/entities/npc/npc.png')
 door = pygame.image.load('src/main/assets/textures/elements/doors/door_1_closed.png')
-door_scaled = pygame.transform.scale(door, (int(door.get_width() * 5), int(door.get_height() * 5)))
+door_sprite = door
 
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
 
@@ -355,9 +350,9 @@ def genWorld(world, map):
                 if Player.debuggingMode == True:
                     pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             if tile == 9:
-                tileRect = pygame.Rect(x * dirtElementScaled.get_width() + 50, y * dirtElementScaled.get_width(), door_scaled.get_width() - 100, door_scaled.get_width())
+                tileRect = pygame.Rect(x * dirtElementScaled.get_width() + 50, y * dirtElementScaled.get_width(), door_sprite.get_width() - 100, door_sprite.get_width())
                 tile_rects.append(tileRect)
-                world.blit(door_scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
+                world.blit(door_sprite, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
                     pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             x += 1
@@ -443,13 +438,15 @@ def Tut1(language):
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
     camera_pos = (0, 0) #camera starting position
+    global door_sprite #allow door use
 
     #values for animation calculation
     idleValue = 0
     walkingValue = 0
-    Player.world = "tut1"
-    
+    Player.world = "tut1"    
     while True:
+        door_sprite = pygame.transform.scale(door_sprite, (int(door.get_width() * 5), int(door.get_height() * 5)))
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
