@@ -388,8 +388,6 @@ def genWorld(world, map):
         else:
             n += 1
 
-    else:
-        door_sprite = door
         
 def health():
         for i in range(Player.defaultHealth):
