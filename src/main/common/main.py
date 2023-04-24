@@ -213,10 +213,6 @@ class Player:
 
 Player()
 #Loading element textures
-placeholder = registries.elements.registerElements("environment/blocks/cobble", 5)
-wooden_sign = registries.elements.registerElements("environment/blocks/wooden_sign", 5)
-tree_stump = registries.elements.registerElements("environment/blocks/tree_stump", 5)
-placeholder3 = registries.elements.registerElements("environment/blocks/cobble", 5)
 
 grassCoarseElement = pygame.image.load("src\main/assets/textures\elements\Environment/blocks\Coarse_Grass.png")
 grassCoarseElementScaled = pygame.transform.scale(grassCoarseElement, (grassCoarseElement.get_width() * 3, grassCoarseElement.get_width() * 3))
@@ -243,10 +239,6 @@ halfHealthScaled = pygame.transform.scale(halfHealth, (70, 70))
 
 emptyHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\empty_heart.png")
 emptyHealthScaled = pygame.transform.scale(emptyHealth, (70, 70))
-
-#Loading element hitboxes
-placeholder_hitbox = pygame.Rect((400, 700),(int(placeholder.get_width()), int(placeholder.get_height())))
-tree_stump_hitbox = pygame.Rect((800, 730),(int(placeholder.get_width()), int(placeholder.get_width())))
 
 #Loading floor and background
 floor = pygame.image.load("src\main/assets/textures\levels\grass_floor.png")
@@ -507,7 +499,7 @@ def Tut1(language):
         player.collisions()
 
         #Render the map to the screen
-        screen.blit(world, (player_x,player_y))
+        screen.blit(world, (player_x, player_y))
 
         if Player.debuggingMode == True:
             screen.blit(renderText(0, language), (440, 90))
@@ -516,8 +508,6 @@ def Tut1(language):
 
         e = pygame.image.load("src\main/assets/textures/elements\gui\player\empty_heart.png").convert_alpha()
         ee = pygame.mask.from_surface(e)
-        eee = ee.to_surface().convert_alpha()
-        screen.blit(eee, (500, 500))
 
         #Rendering the debug menu
         player.renderDebugMenu()
