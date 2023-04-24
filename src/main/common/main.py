@@ -365,11 +365,11 @@ def genWorld(world, map):
                 world.blit(leverScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
 
             if tile == 9:
-                tileRect = pygame.Rect(x * dirtElementScaled.get_width() + 50, y * dirtElementScaled.get_width(), door_sprite.get_width() - 100, door_sprite.get_width())
-                tile_rects.append(tileRect)
+                tileRect2 = pygame.Rect(x * dirtElementScaled.get_width() + 50, y * dirtElementScaled.get_width(), door_sprite.get_width() - 100, door_sprite.get_width())
+                tile_rects.append(tileRect2)
                 world.blit(door_sprite, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRec2, 2)
             x += 1
         y += 1
         
