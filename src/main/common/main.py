@@ -224,6 +224,11 @@ door_sprite = door
 door_closed = pygame.image.load('src/main/assets/textures/elements/doors/door_1_closed.png')
 door_open = pygame.image.load('src/main/assets/textures/elements/doors/door_1_open.png')
 door_sprite = door_closed
+
+#Loading Enemy
+enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
+enemy_img=pygame.transform.scale(enemy_img,(400,400))
+
 n = 0
 
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
@@ -470,6 +475,7 @@ def Tut1(language):
         
         #Player movement
         camera_pos = player.keybinds(camera_pos) 
+
         #Movement animation rendering
         if Player.walking == True:
             Player.currentSprite = registries.animations.walking_sprite[walkingValue]
@@ -526,6 +532,7 @@ def Tut1(language):
             walkingValue += Player.animationFrameUpdate
         
         item.drawItem(world)
+        
             
         #print(str(Player.rect.x) + ", " + str(Player.rect.y))
         if Player.chatOpen == True:
