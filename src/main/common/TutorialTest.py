@@ -2,8 +2,6 @@ import pygame
 import math
 import registries.colors
 import registries.animations
-import registerText
-import registerKEYS
 
 
 # Initialize Pygame
@@ -35,7 +33,7 @@ leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
 rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
 
 #Create Text
-doorfont = pygame.font.SysFont('joystixmonospaceregular', 30)
+doorfont = pygame.font.Font('src/main/assets/fonts/joystixmonospaceregular.otf', 30)
 text = doorfont.render('To Castle', True, registries.colors.BLACK)
 
 
@@ -76,7 +74,7 @@ character_speed = 5
 
 #define all functions
 
-textfont = pygame.font.SysFont('joystixmonospaceregular', 20)
+textfont = pygame.font.Font('src/main/assets/fonts/joystixmonospaceregular.otf', 20)
 
 int10 = textfont.render('Hello!', True, registries.colors.BLACK)
 int11 = textfont.render('Nice to see you!', True, registries.colors.BLACK)
