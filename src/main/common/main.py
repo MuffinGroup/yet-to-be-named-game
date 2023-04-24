@@ -241,6 +241,7 @@ emptyHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\em
 emptyHealthScaled = pygame.transform.scale(emptyHealth, (70, 70))
 
 npc = pygame.image.load('src/main/assets/textures/entities/npc/npc.png')
+npc_scaled = pygame.transform.scale(npc, (npc.get_width() * 10, npc.get_height() * 10))
 door_closed = pygame.image.load('src/main/assets/textures/elements/doors/door_1_closed.png')
 door_open = pygame.image.load('src/main/assets/textures/elements/doors/door_1_open.png')
 door_sprite = door_closed
@@ -296,7 +297,7 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00,00,00,00,00,00,00,00,00,00],
+            [ 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10, 9,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 1, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
@@ -377,6 +378,10 @@ def genWorld(world, map):
                 world.blit(door_sprite, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
                     pygame.draw.rect(world, (255, 255, 255), tileRect2, 2)
+            if tile == 10:
+                world.blit(npc_scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
+                if Player.debuggingMode == True:
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             x += 1
         y += 1
 
