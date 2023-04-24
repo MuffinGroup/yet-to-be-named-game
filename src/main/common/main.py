@@ -353,7 +353,7 @@ def genWorld(world, map):
             if tile == 4:
                 world.blit(waterFluidScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             if tile == 5:
                 world.blit(waterFluidTopScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
@@ -368,12 +368,12 @@ def genWorld(world, map):
                     pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             if tile == 8:
                 world.blit(leverScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-
+                if Player.debuggingMode == True:
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             if tile == 9:
-                tileRect = pygame.Rect(x * dirtElementScaled.get_width() + 50, y * dirtElementScaled.get_width(), door_scaled.get_width() - 100, door_scaled.get_width())
-                tile_rects.append(tileRect)
+                tileRect2 = pygame.Rect(x * dirtElementScaled.get_width() + 50, y * dirtElementScaled.get_width(), door_scaled.get_width() - 100, door_scaled.get_width())
+                tile_rects.append(tileRect2)
                 world.blit(door_scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-
                 if Player.debuggingMode == True:
                     pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             x += 1
@@ -568,6 +568,7 @@ def Tut1(language):
             Player.locked = False
 
         print(language)
+        world.blit.
 
         clock.tick(200)
         pygame.display.flip()
