@@ -328,14 +328,9 @@ tut2_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]
 
 def genWorld(world, map):
-    global door_sprite, tileRect2, n, doorhandling
+    global door_sprite, tileRect2, n
     tile_rects = []
     y = 0
-
-    if Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
-        if Player.rect.colliderect(tileRect2):
-            door_sprite = pygame.image.load('src/main/assets/textures/elements/doors/door_1_open.png')
-            doorhandling = 1
     
     for row in map:
         x = 0
