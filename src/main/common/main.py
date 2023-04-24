@@ -241,8 +241,10 @@ emptyHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\em
 emptyHealthScaled = pygame.transform.scale(emptyHealth, (70, 70))
 
 npc = pygame.image.load('src/main/assets/textures/entities/npc/npc.png')
-door = pygame.image.load('src/main/assets/textures/elements/doors/door_1_closed.png')
-door_sprite = door
+door_closed = pygame.image.load('src/main/assets/textures/elements/doors/door_1_closed.png')
+door_open = pygame.image.load('src/main/assets/textures/elements/doors/door_1_open.png')
+door_sprite = door_closed
+n = 0
 
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
 
@@ -378,18 +380,15 @@ def genWorld(world, map):
         y += 1
 
     if Player.rect.colliderect(tileRect2) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
-        door_sprite = pygame.image.load('src/main/assets/textures/elements/doors/door_1_open.png')
-        if n >=1:    
-            pygame.time.wait(500)
-            pygame.mixer.Sound.play(doorsound)
-            door_sprite = door
-            Tut2(Player.language)
+        door_sprite = door_open
+        n += 1
+    elif n == 99:
+        door_sprite = door_closed
+        n = 0
+    elif n >= 1 and n <= 99:
+        n += 1
+        print(n)
         
-        else:
-            n += 1
-
-    else:
-        door_sprite = door
         
 def health():
         for i in range(Player.defaultHealth):
@@ -479,7 +478,7 @@ def Tut1(language):
     Player.world = "tut1" 
     n = 0   
     while True:
-        door_sprite = pygame.transform.scale(door_sprite, (int(door.get_width() * 5), int(door.get_height() * 5)))
+        door_sprite = pygame.transform.scale(door_sprite, (int(door_open.get_width() * 5), int(door_open.get_height() * 5)))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
