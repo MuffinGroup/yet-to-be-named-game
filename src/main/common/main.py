@@ -162,7 +162,7 @@ class Player:
         else:
             Player.speed = Player.defaultSpeed
 
-        return (-self.rect.x + 680, -self.rect.y + 450) # Return new player position
+        return (-self.rect.x + 680, -self.rect.y + 350) # Return new player position
     
     def render(self,screen): #Player and player hitbox rendering
         if Player.visible == True:
