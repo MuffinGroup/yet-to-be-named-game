@@ -679,9 +679,6 @@ def Tut2(language):
         
         player.collisions()
 
-        #blitng to the world
-        world.blit(npc, (Player.rect.x, Player.rect.y))
-
         #Render the map to the screen
         screen.blit(world, (player_x, player_y))
 
