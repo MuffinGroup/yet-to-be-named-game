@@ -310,6 +310,7 @@ def Main(screen,clock):
     #values for animation calculation
     idleValue = 0
     walkingValue = 0
+    jumpValue = 0
 
     while True:
         for event in pygame.event.get():
