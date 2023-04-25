@@ -165,6 +165,7 @@ class Player:
         return (-self.rect.x + 680, -self.rect.y + 350) # Return new player position
 
     def renderDebugMenu(self):
+        debugMenu.draw(screen, BLUISH_GRAY)
         if Player.debuggingMenu == True:
             pygame.draw.rect(screen, BLUISH_GRAY, debug_menu, 10000)
             if toggleAdvMove.drawToggle(screen):
@@ -238,6 +239,8 @@ door_closed = pygame.image.load('src/main/assets/textures/elements/doors/door_1_
 door_open = pygame.image.load('src/main/assets/textures/elements/doors/door_1_open.png')
 door_sprite = door_closed
 n = 0
+
+debugMenu = registries.gui.registerGui(70, 100, 300, 400, False)
 
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
 
@@ -512,6 +515,9 @@ def Tut1(language):
 
         genWorld(world, tut1_map)
 
+        #blitng to the world
+        world.blit(npc, (Player.rect.x, Player.rect.y))
+
         if Player.visible == True:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
             # Drawing the player to the screen
@@ -574,7 +580,7 @@ def Tut1(language):
             
         #print(str(Player.rect.x) + ", " + str(Player.rect.y))
         if Player.chatOpen == True:
-            chatBackground.draw(screen, BLUISH_GRAY)
+            chatBackground.draw(screen)
             chat.drawChat(screen)
             chat.inputLocked = False
             Player.locked = True
@@ -656,6 +662,9 @@ def Tut2(language):
         
         player.collisions()
 
+        #blitng to the world
+        world.blit(npc, (Player.rect.x, Player.rect.y))
+
         #Render the map to the screen
         screen.blit(world, (player_x, player_y))
 
@@ -702,7 +711,7 @@ def Tut2(language):
             
         #print(str(Player.rect.x) + ", " + str(Player.rect.y))
         if Player.chatOpen == True:
-            chatBackground.draw(screen, BLUISH_GRAY)
+            chatBackground.draw(screen)
             chat.drawChat(screen)
             chat.inputLocked = False
             Player.locked = True
