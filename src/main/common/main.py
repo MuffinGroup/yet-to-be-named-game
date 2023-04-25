@@ -331,52 +331,66 @@ def genWorld(world, map):
     for row in map:
         x = 0
         for tile in row:
-            if tile != 00 and tile != float and tile != 9:
-                tileRect = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect)
             if tile == 1:
+                tileRect1 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                tile_rects.append(tileRect1)
                 world.blit(dirtElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect1, 2)
             if tile == 2:
+                tileRect2 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                tile_rects.append(tileRect2)
                 world.blit(grassElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect2, 2)
             if tile == 3:
+                tileRect3 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                tile_rects.append(tileRect3)
                 world.blit(cobbleElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect3, 2)
             if tile == 4:
+                tileRect4 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                tile_rects.append(tileRect4)
                 world.blit(waterFluidScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
-                    
+                    pygame.draw.rect(world, (255, 255, 255), tileRect4, 2)
             if tile == 5:
+                tileRect5 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                tile_rects.append(tileRect5)
                 world.blit(waterFluidTopScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect5, 2)
             if tile == 6:
+                tileRect6 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                tile_rects.append(tileRect6)
                 world.blit(dirtCoarseElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect6, 2)
             if tile == 7:
+                tileRect7 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                tile_rects.append(tileRect7)
                 world.blit(grassCoarseElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect7, 2)
             if tile == 8:
+                tileRect8 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                tile_rects.append(tileRect8)
                 world.blit(leverScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect8, 2)
             if tile == 9:
-                tileRect2 = pygame.Rect(x * dirtElementScaled.get_width() + 50, y * dirtElementScaled.get_width(), door_sprite.get_width() - 100, door_sprite.get_width())
-                tile_rects.append(tileRect2)
+                tileRect9 = pygame.Rect(x * dirtElementScaled.get_width() + 50, y * dirtElementScaled.get_width(), door_sprite.get_width() - 100, door_sprite.get_width())
+                tile_rects.append(tileRect9)
                 world.blit(door_sprite, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect2, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect9, 2)
             if tile == 10:
+                tileRect10 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                tile_rects.append(tileRect10)
                 world.blit(npc_scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect10, 2)
             x += 1
         y += 1
     door_sprite = pygame.transform.scale(door_sprite, (int(door_open.get_width() * 5), int(door_open.get_height() * 5)))
