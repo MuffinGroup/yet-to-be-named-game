@@ -394,12 +394,13 @@ def genWorld(world, map):
         y += 1
     door_sprite = pygame.transform.scale(door_sprite, (int(door_open.get_width() * 5), int(door_open.get_height() * 5)))
 
-    if Player.rect.colliderect(tileRect10) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
+    if Player.rect.colliderect(tileRect9) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         door_sprite = door_open
         n += 1
     if n == 40:
         Player.visible = False
         door_sprite = door_closed
+        pygame.mixer.Sound.play(doorsound)
     if n == 50:
         n = 0
         Tut2(Player.language)
