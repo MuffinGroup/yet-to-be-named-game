@@ -49,10 +49,13 @@ class registerButton():
 		self.test = 0 #Important for toggle buttons
 
 	#draw function is not used atm 
-	def draw(self, surface, x, y, xTextOffset, yTextOffset, xTextureOffset, yTextureOffset):
+	def draw(self, surface, x, y, xTextOffset, yTextOffset, xTextureOffset, yTextureOffset, display_text, text_color, font_type):
 		action = False
 		#get mouse position
 		pos = pygame.mouse.get_pos()
+		smallfont = pygame.font.SysFont(font_type, 35)
+		self.display_text1 = smallfont.render(display_text, True, text_color)
+		self.selected_display_text1 = smallfont.render(display_text, True, (56, 56, 56))
 		self.rect = self.image.get_rect()
 		self.rect.center = (x, y)
 		
@@ -62,7 +65,7 @@ class registerButton():
 			surface.blit(self.display_text1 , (self.rect.x - xTextOffset - xTextureOffset, self.rect.y - yTextOffset - yTextureOffset))
 		elif self.rect.collidepoint(pos):
 			pygame.draw.rect(surface, (255, 255, 255), (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset, self.rect.width, self.rect.height), 5)
-			surface.blit(self.selected_display_text4 , (self.rect.x - xTextOffset - xTextureOffset, self.rect.y - yTextOffset - yTextureOffset))
+			surface.blit(self.selected_display_text1 , (self.rect.x - xTextOffset - xTextureOffset, self.rect.y - yTextOffset - yTextureOffset))
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
 				self.clicked = True
 				action = True
@@ -80,7 +83,7 @@ class registerButton():
 		width = image.get_width()
 		height = image.get_height()
 		buttonSprite = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
-		smallfont = pygame.font.SysFont(font_type,35)
+		smallfont = pygame.font.SysFont(font_type, 35)
 		self.display_text1 = smallfont.render(display_text , True , text_color)
 		self.selected_display_text1 = smallfont.render(display_text , True , (56, 56, 56))
 		self.selected_display_text2 = smallfont.render(display_text , True , (80, 80, 80))

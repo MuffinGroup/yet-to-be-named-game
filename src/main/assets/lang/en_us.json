@@ -8,5 +8,8 @@
 "command.lang": "Current language: ",
 
 "text.debug_mode": "Press D to enable debug mode",
-"text.debug_menu": "Press 0 to open debug menu"
+"text.debug_menu": "Press 0 to open debug menu",
+
+"button.debug_menu.damage": "Damage",
+"button.debug_menu.heal": "Heal"
 }
