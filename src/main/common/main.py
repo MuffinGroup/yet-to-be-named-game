@@ -43,10 +43,10 @@ class Player:
 
         player_x, player_y = camera_pos #Assign variables to the camera position
 
-        key = pygame.key.get_pressed() #Receive keyboard input
+        key = pygame.key.get_pressed()  # Receive keyboard input
 
         if key[pygame.K_UP] and Player.jumpvar == 12 and Player.visible == True and Player.locked == False: #Jumping
-            if Player.jumpModifier < 2.5: #Jump modifier cap
+            if Player.jumpModifier < 3.5: #Jump modifier cap
                 Player.jumpModifier += 0.05
                 print(Player.jumpModifier)
                 Player.jumped = True
