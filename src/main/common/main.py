@@ -165,9 +165,8 @@ class Player:
         return (-self.rect.x + 680, -self.rect.y + 350) # Return new player position
 
     def renderDebugMenu(self):
-        debugMenu.draw(screen, BLUISH_GRAY)
         if Player.debuggingMenu == True:
-            pygame.draw.rect(screen, BLUISH_GRAY, debug_menu, 10000)
+            debugMenu.draw(screen, BLUISH_GRAY)
             if toggleAdvMove.drawToggle(screen):
                 if Player.flying > 1:
                     Player.flying = 0
@@ -259,13 +258,14 @@ toggleCollisionsText = font.render("collides", True, BLACK)
 toggleCollisions = registries.buttons.registerButton("toggle", 300, 250,  12.0, "", BLACK, "")
 
 toggleAdvMoveText = font.render("flying", True, BLACK)
-toggleAdvMove = registries.buttons.registerButton("toggle", 300, 150,  12.0, "", BLACK, "")
+toggleAdvMove = registries.gui.registerButton("toggle", 12.0) #300, 150
 
 screen_width = 1000
 screen_height = 800
 
-chatBackground = registries.gui.registerGui(110, 100, 800, 600, False, None)
-chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 100, 800, 600, 140, 575, 735, 100)
+chatBackground = registries.gui.registerGui(110, 100, 800, 600, False)
+chat = registries.gui.registerChat(
+    6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 100, 800, 600, 140, 575, 735, 100)
 chat.inputLocked = True
 exitChat = registries.gui.registerExitButton(85, 80, None)
 
@@ -580,7 +580,7 @@ def Tut1(language):
             
         #print(str(Player.rect.x) + ", " + str(Player.rect.y))
         if Player.chatOpen == True:
-            chatBackground.draw(screen)
+            chatBackground.draw(screen, "default")
             chat.drawChat(screen)
             chat.inputLocked = False
             Player.locked = True
@@ -711,7 +711,7 @@ def Tut2(language):
             
         #print(str(Player.rect.x) + ", " + str(Player.rect.y))
         if Player.chatOpen == True:
-            chatBackground.draw(screen)
+            chatBackground.draw(screen, "default")
             chat.drawChat(screen)
             chat.inputLocked = False
             Player.locked = True
