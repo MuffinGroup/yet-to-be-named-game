@@ -167,7 +167,7 @@ class Player:
     def renderDebugMenu(self):
         if Player.debuggingMenu == True:
             debugMenu.draw(screen, BLUISH_GRAY)
-            if toggleAdvMove.drawToggle(screen, 300, 150, 0, 0):
+            if toggleAdvMove.drawToggle(debugMenu, 300, 150, 0, 0):
                 if Player.flying > 1:
                     Player.flying = 0
                 Player.flying += 1
@@ -175,18 +175,18 @@ class Player:
                     print("selected")
                 if Player.flying == 2:
                     print("not selected") 
-            screen.blit(toggleAdvMoveText, (100, 135))
-            if damage.draw(screen, -35, -7.5, 0, 0, 0, 0, translatableComponent("button.debug_menu.damage", Player.language), BLACK, "joystixmonospaceregular"):
+            debugMenu.blit(toggleAdvMoveText, (100, 135))
+            if damage.draw(debugMenu, -35, -7.5, 0, 0, 0, 0, translatableComponent("button.debug_menu.damage", Player.language), BLACK, "joystixmonospaceregular"):
                 print("button pressed")
                 if Player.health > 0:
                     Player.health -= 1
                     if Player.health > 0.5:
                         pygame.mixer.Sound.play(Player.hurtSound)
-            if heal.draw(screen, -60, -7.5, 0, 0, 0, 0, translatableComponent("button.debug_menu.damage", Player.language), BLACK, "joystixmonospaceregular"):
+            if heal.draw(debugMenu, -60, -7.5, 0, 0, 0, 0, translatableComponent("button.debug_menu.damage", Player.language), BLACK, "joystixmonospaceregular"):
                 print("pressed other button")
                 if Player.health < Player.defaultHealth:
                     Player.health += 1
-            if toggleCollisions.drawToggle(screen, 300, 250, 0, 0):
+            if toggleCollisions.drawToggle(debugMenu, 300, 250, 0, 0):
                 if Player.colliding > 1:
                     Player.colliding = 0
                 Player.colliding += 1
@@ -194,7 +194,7 @@ class Player:
                     print("selected")
                 if Player.colliding == 2:
                     print("not selected") 
-            screen.blit(toggleCollisionsText, (80, 235))
+            debugMenu.blit(toggleCollisionsText, (80, 235))
 
     def collisions(self):
         #Wall collisions, do not delete!!!!
@@ -258,7 +258,7 @@ heal = registries.gui.registerButton("button", 6.0)
 toggleCollisionsText = font.render("collides", True, BLACK)
 toggleCollisions = registries.gui.registerButton("toggle", 12.0)
 
-toggleAdvMoveText = font.render("flying", True, BLACK)
+toggleAdvMoveText = registries.gui.registerFont(35, )
 toggleAdvMove = registries.gui.registerButton("toggle", 12.0)
 
 screen_width = 1000
@@ -395,7 +395,7 @@ def genWorld(world, map):
         y += 1
     door_sprite = pygame.transform.scale(door_sprite, (int(door_open.get_width() * 5), int(door_open.get_height() * 5)))
 
-    if Player.rect.colliderect(tileRect2) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
+    if Player.rect.colliderect(tileRect10) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         door_sprite = door_open
         n += 1
     if n == 40:
