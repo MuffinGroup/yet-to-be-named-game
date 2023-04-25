@@ -204,7 +204,10 @@ class Player:
             Player.collidingLeft = True
         else:
             Player.collidingLeft = False
-    
+        if Player.rect.x > 3200:
+            Player.collidingRight = True
+        else:
+            Player.collidingRight = False
 
 Player()
 #Loading element textures
@@ -607,7 +610,7 @@ def Tut1(language):
             chat.inputLocked = True
             Player.locked = False
 
-        print(language)
+        print(Player.rect.x)
 
         clock.tick(200)
         pygame.display.flip()
