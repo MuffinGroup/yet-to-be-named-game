@@ -167,7 +167,7 @@ class Player:
     def renderDebugMenu(self):
         if Player.debuggingMenu == True:
             debugMenu.draw(screen, BLUISH_GRAY)
-            if toggleAdvMove.drawToggle(screen):
+            if toggleAdvMove.drawToggle(screen, 300, 150, 0, 0):
                 if Player.flying > 1:
                     Player.flying = 0
                 Player.flying += 1
@@ -259,7 +259,7 @@ toggleCollisionsText = font.render("collides", True, BLACK)
 toggleCollisions = registries.buttons.registerButton("toggle", 300, 250,  12.0, "", BLACK, "")
 
 toggleAdvMoveText = font.render("flying", True, BLACK)
-toggleAdvMove = registries.gui.registerButton("toggle", 12.0) #300, 150
+toggleAdvMove = registries.gui.registerButton("toggle", 12.0)
 
 screen_width = 1000
 screen_height = 800

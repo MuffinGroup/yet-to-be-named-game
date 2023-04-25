@@ -23,3 +23,4 @@ walking_sprite = load_animation("1running", 8, walkingLoaded, "src\main/assets/t
 startButton = load_animation("StartButtonSel", 9, 3, "src/main/assets/textures/elements/gui/StartButtonSel")
 optionsButton = load_animation("OptionButtonSel", 9, 3, "src/main/assets/textures/elements/gui/OptionsButtonSel")
 quitButton = load_animation("QuitButtonSel", 9, 3, "src/main/assets/textures/elements/gui/QuitButtonSel")
+#talkingAnimation = load_animation("")

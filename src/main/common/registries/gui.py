@@ -53,6 +53,7 @@ class registerButton():
 		action = False
 		#get mouse position
 		pos = pygame.mouse.get_pos()
+		self.rect = self.image.get_rect()
 		self.rect.center = (x, y)
 		
 		#check mouseover and clicked conditions
@@ -123,9 +124,11 @@ class registerButton():
 
 		return action
 
-	def drawToggle(self, surface, xTextureOffset, yTextureOffset):
+	def drawToggle(self, surface, x, y, xTextureOffset, yTextureOffset):
 		action = False
 		pos = pygame.mouse.get_pos()
+		self.rect = self.image.get_rect()
+		self.rect.center = (x, y)
 
 		if self.toggled == False or self.test == 0:
 			surface.blit(self.image, (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset))
