@@ -252,8 +252,8 @@ def renderText(entry, language):
 
 debug_menu = pygame.Rect((70, 70), (300, 400))
 
-damage = registries.gui.registerButton("button", 12.0)
-heal = registries.gui.registerButton("button", 12.0)
+damage = registries.gui.registerButton("button", 6.0)
+heal = registries.gui.registerButton("button", 6.0)
 
 toggleCollisionsText = font.render("collides", True, BLACK)
 toggleCollisions = registries.gui.registerButton("toggle", 12.0)
