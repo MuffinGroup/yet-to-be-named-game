@@ -165,9 +165,11 @@ class Player:
         return (-self.rect.x + 680, -self.rect.y + 350) # Return new player position
 
     def renderDebugMenu(self):
+        toggleCollisionsText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.collide", Player.language), BLACK, 15, 30)
+        toggleAdvMoveText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.fly", Player.language), BLACK, 15, 130)
         if Player.debuggingMenu == True:
             debugMenu.draw(screen, BLUISH_GRAY)
-            if toggleAdvMove.drawToggle(debugMenu, 300, 150, 0, 0):
+            if toggleAdvMove.drawToggle(debugMenu.window, 320, 250, 75, 100):
                 if Player.flying > 1:
                     Player.flying = 0
                 Player.flying += 1
@@ -175,29 +177,29 @@ class Player:
                     print("selected")
                 if Player.flying == 2:
                     print("not selected") 
-            debugMenu.blit(toggleAdvMoveText, (100, 135))
-            if damage.draw(debugMenu, -35, -7.5, 0, 0, 0, 0, translatableComponent("button.debug_menu.damage", Player.language), BLACK, "joystixmonospaceregular"):
+            toggleAdvMoveText.drawFont(debugMenu.window)
+            if damage.draw(debugMenu.window, 225, 350, -35, -10, 75, 100, translatableComponent("button.debug_menu.damage", Player.language), BLACK, "joystixmonospaceregular"):
                 print("button pressed")
                 if Player.health > 0:
                     Player.health -= 1
                     if Player.health > 0.5:
                         pygame.mixer.Sound.play(Player.hurtSound)
-            if heal.draw(debugMenu, -60, -7.5, 0, 0, 0, 0, translatableComponent("button.debug_menu.damage", Player.language), BLACK, "joystixmonospaceregular"):
+            if heal.draw(debugMenu.window, 225, 450, -60, -10, 75, 100, translatableComponent("button.debug_menu.heal", Player.language), BLACK, "joystixmonospaceregular"):
                 print("pressed other button")
                 if Player.health < Player.defaultHealth:
                     Player.health += 1
-            if toggleCollisions.drawToggle(debugMenu, 300, 250, 0, 0):
+            if toggleCollisions.drawToggle(debugMenu.window, 320, 150, 75, 100):
                 if Player.colliding > 1:
                     Player.colliding = 0
                 Player.colliding += 1
                 if Player.colliding == 1:
                     print("selected")
                 if Player.colliding == 2:
-                    print("not selected") 
-            debugMenu.blit(toggleCollisionsText, (80, 235))
+                    print("not selecteduwu")
+            toggleCollisionsText.drawFont(debugMenu.window)
 
     def collisions(self):
-        #Wall collisions, do not delete!!!!
+        #Wall collisions, do not delete!!!
         if Player.rect.x < 600:
             Player.collidingLeft = True
         else:
@@ -252,13 +254,10 @@ def renderText(entry, language):
 
 debug_menu = pygame.Rect((70, 70), (300, 400))
 
-damage = registries.gui.registerButton("button", 6.0)
-heal = registries.gui.registerButton("button", 6.0)
+damage = registries.gui.registerButton("button", 4.0)
+heal = registries.gui.registerButton("button", 4.0)
 
-toggleCollisionsText = font.render("collides", True, BLACK)
 toggleCollisions = registries.gui.registerButton("toggle", 12.0)
-
-toggleAdvMoveText = registries.gui.registerFont(35, )
 toggleAdvMove = registries.gui.registerButton("toggle", 12.0)
 
 screen_width = 1000

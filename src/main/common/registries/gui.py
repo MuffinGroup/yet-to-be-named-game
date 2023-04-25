@@ -55,7 +55,7 @@ class registerButton():
 		pos = pygame.mouse.get_pos()
 		smallfont = pygame.font.SysFont(font_type, 35)
 		self.display_text1 = smallfont.render(display_text, True, text_color)
-		self.selected_display_text1 = smallfont.render(display_text, True, (56, 56, 56))
+		self.selected_display_text4 = smallfont.render(display_text, True, (255, 255, 255))
 		self.rect = self.image.get_rect()
 		self.rect.center = (x, y)
 		
@@ -65,7 +65,7 @@ class registerButton():
 			surface.blit(self.display_text1 , (self.rect.x - xTextOffset - xTextureOffset, self.rect.y - yTextOffset - yTextureOffset))
 		elif self.rect.collidepoint(pos):
 			pygame.draw.rect(surface, (255, 255, 255), (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset, self.rect.width, self.rect.height), 5)
-			surface.blit(self.selected_display_text1 , (self.rect.x - xTextOffset - xTextureOffset, self.rect.y - yTextOffset - yTextureOffset))
+			surface.blit(self.selected_display_text4 , (self.rect.x - xTextOffset - xTextureOffset, self.rect.y - yTextOffset - yTextureOffset))
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
 				self.clicked = True
 				action = True
@@ -140,7 +140,7 @@ class registerButton():
 			surface.blit(self.selected_image, (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset))
 			self.selected = True
 		if self.toggled == True and self.test > 1:
-			surface.blit(self.image, (self.rect.x, self.rect.y))
+			surface.blit(self.image, (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset))
 			self.test = 0
 			self.selected = False
 

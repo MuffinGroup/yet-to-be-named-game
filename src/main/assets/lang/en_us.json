@@ -11,5 +11,8 @@
 "text.debug_menu": "Press 0 to open debug menu",
 
 "button.debug_menu.damage": "Damage",
-"button.debug_menu.heal": "Heal"
+"button.debug_menu.heal": "Heal",
+
+"text.debug_menu.collide": "collide",
+"text.debug_menu.fly": "flight"
 }
