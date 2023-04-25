@@ -386,7 +386,7 @@ def genWorld(world, map):
                 if Player.debuggingMode == True:
                     pygame.draw.rect(world, (255, 255, 255), tileRect9, 2)
             if tile == 10:
-                tileRect10 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                tileRect10 = pygame.Rect(x * dirtElementScaled.get_width() + 100, y * dirtElementScaled.get_width() + 125, npc_scaled.get_width() - 175, npc_scaled.get_width() - 150)
                 tile_rects.append(tileRect10)
                 world.blit(npc_scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
