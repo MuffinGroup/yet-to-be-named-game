@@ -17,4 +17,5 @@ def load_animation(AlphaImageName, numberofsprites, timesLoaded, dictionary = No
 
 #walking_sprite = load_animation("1running", 8, 5, "src\main/assets/textures\entities\characters\character_1/animations/1Running", "png" ) 
 idle_sprite = load_animation("1idle", 8, 5, "src\main/assets/textures\entities\characters\character_1/animations/1Idle", "png")
-walking_sprite = load_animation("1running", 8, 5, "src\main/assets/textures\entities\characters\character_1/animations/1Running", "png" ) 
+walking_sprite = load_animation("1running", 8, 5, "src\main/assets/textures\entities\characters\character_1/animations/1Running", "png") 
+jump_sprite = load_animation("1jump", 8, 5, "src\main/assets/textures\entities\characters\character_1/animations/1Jump")
