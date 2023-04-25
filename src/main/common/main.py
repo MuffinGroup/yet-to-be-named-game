@@ -264,8 +264,7 @@ screen_width = 1000
 screen_height = 800
 
 chatBackground = registries.gui.registerGui(110, 100, 800, 600, False)
-chat = registries.gui.registerChat(
-    6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 100, 800, 600, 140, 575, 735, 100)
+chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 100, 800, 600, 140, 575, 735, 100)
 chat.inputLocked = True
 exitChat = registries.gui.registerExitButton(85, 80, None)
 
