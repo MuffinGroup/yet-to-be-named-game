@@ -233,7 +233,7 @@ poppyScaled = pygame.transform.scale(poppy, (poppy.get_width() * 3, poppy.get_he
 grass = pygame.image.load("src\main/assets/textures\elements\Environment\decoration\grass.png")
 grassScaled = pygame.transform.scale(grass, (grass.get_width() * 3, grass.get_height() * 3))
 torchWall = pygame.image.load("src\main/assets/textures\elements\Environment\decoration\ASSets\Torches\Torch(wall=left).png")
-torchWallScaled = pygame.transform.scale(lever, (torchWall.get_width() * 3, torchWall.get_height() * 3))
+torchWallScaled = pygame.transform.scale(torchWall, (torchWall.get_width() * 3, torchWall.get_height() * 3))
 
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
