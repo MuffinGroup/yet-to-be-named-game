@@ -253,8 +253,8 @@ door_scaled = pygame.transform.scale(door, (int(door.get_width() * 5), int(door.
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
 
 def renderText(entry, language):
-    debugMenuText = font.render(translatableComponent("text.debug_menu", language), True, DARK_ORANGE)
-    debugModeText = font.render(translatableComponent("text.debug_mode", language), True, BLUE)
+    debugMenuText = font.render(translatableComponent("text.debug_menu", Player.language), True, DARK_ORANGE)
+    debugModeText = font.render(translatableComponent("text.debug_mode", Player.language), True, BLUE)
     texts = [debugMenuText, debugModeText]
     return texts[entry]
 
@@ -390,7 +390,7 @@ def health():
             else:
                 screen.blit(healthScaled, (10 + i * healthScaled.get_width()//2 - halfHealthScaled.get_width()//2, 0))
 
-def Start(language):
+def Start():
     Player()
     Player.world = None
     startButton = registries.gui.registerButton("button", 6.0)
@@ -409,53 +409,51 @@ def Start(language):
 
         startFont = registries.gui.registerFont(40, "YET-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
         screen.fill(BLUISH_GRAY)
-        if startButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 2.75, registries.animations.startButton, 0, 0, 6, -125, -25, translatableComponent("button.start", language), BLACK, "joystixmonospaceregular"):
-            Tut1(language)
-        if optionsButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -125, -25, translatableComponent("button.options", language), BLACK, "joystixmonospaceregular"):
-            language = Player.languageList[1]
+        if startButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 2.75, registries.animations.startButton, 0, 0, 6, -125, -25, translatableComponent("button.start", Player.language), BLACK, "joystixmonospaceregular"):
+            Tut1()
+        if optionsButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -125, -25, translatableComponent("button.options", Player.language), BLACK, "joystixmonospaceregular"):
+            Player.language = Player.languageList[1]
             print(Player.langCounter)
-        if quitButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 5.25, registries.animations.quitButton, 0, 0, 6, -125, -25, translatableComponent("button.quit", language), BLACK, "joystixmonospaceregular"):
+        if quitButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 5.25, registries.animations.quitButton, 0, 0, 6, -125, -25, translatableComponent("button.quit", Player.language), BLACK, "joystixmonospaceregular"):
             pygame.quit()
             exit()
             
         if key[pygame.K_RETURN] and Player.world == None:
             pygame.quit()
             exit()
-            
-        print(language)
 
         startFont.drawFont(screen)
         #print(str(screen.get_width()) + str(screen.get_height()))
         pygame.display.flip()
         clock.tick(1000)
         
-def commandEvent(event, language):
+def commandEvent(event):
             if chat.userInput.lower() == "/world tut2" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut2" and Player.debuggingMode == True:
                 chat.userInput = ""
-                chat.linesLoaded[0] = translatableComponent("command.teleport.tut2", language)
+                chat.linesLoaded[0] = translatableComponent("command.teleport.tut2", Player.language)
                 chat.x = chat.markerDefaultPos
-                Tut2(language)
+                Tut2()
                 
             if chat.userInput.lower() == "/world tut1" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut1" and Player.debuggingMode == True:
                 chat.userInput = ""
-                chat.linesLoaded[0] = translatableComponent("command.teleport.tut1", language)
+                chat.linesLoaded[0] = translatableComponent("command.teleport.tut1", Player.language)
                 chat.x = chat.markerDefaultPos
-                Tut1(language)
+                Tut1()
 
             if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
                 chat.x = chat.markerDefaultPos
-                language = Player.languageList[1]
-                chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
+                Player.language = Player.languageList[1]
+                chat.linesLoaded[0] = translatableComponent("command.lang", Player.language) + Player.language
 
             if chat.userInput.lower() == "/lang en_us" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
                 chat.x = chat.markerDefaultPos
-                language = Player.languageList[0]
-                chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
+                Player.language = Player.languageList[0]
+                chat.linesLoaded[0] = translatableComponent("command.lang", Player.language) + Player.language
     
 
-def Tut1(language):
+def Tut1():
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
     camera_pos = (0, 0) #camera starting position
@@ -470,10 +468,10 @@ def Tut1(language):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-            commandEvent(event, language)
+            commandEvent(event)
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
-                Start(language)
+                Start()
         
         #idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
@@ -511,9 +509,9 @@ def Tut1(language):
         screen.blit(world, (player_x, player_y))
 
         if Player.debuggingMode == True:
-            screen.blit(renderText(0, language), (440, 90))
+            screen.blit(renderText(0, Player.language), (440, 90))
             
-        screen.blit(renderText(1, language), (440, 30))
+        screen.blit(renderText(1, Player.language), (440, 30))
         
 
         e = pygame.image.load("src\main/assets/textures/elements\gui\player\empty_heart.png").convert_alpha()
@@ -567,13 +565,12 @@ def Tut1(language):
             chat.inputLocked = True
             Player.locked = False
 
-        print(language)
-        world.blit.
+        print(Player.language)
 
         clock.tick(200)
         pygame.display.flip()
         
-def Tut2(language):
+def Tut2():
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
     camera_pos = (0, 0) #camera starting position
@@ -594,13 +591,13 @@ def Tut2(language):
             if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
                 chat.x = chat.markerDefaultPos
-                language = Player.languageList[1]
-                chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
+                Player.language = Player.languageList[1]
+                chat.linesLoaded[0] = translatableComponent("command.lang", Player.language) + Player.language
                 
-            commandEvent(event, language)
+            commandEvent(event)
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
-                Start(language)
+                Start(Player.language)
         
         #idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
@@ -635,9 +632,9 @@ def Tut2(language):
         screen.blit(world, (player_x,player_y))
 
         if Player.debuggingMode == True:
-            screen.blit(renderText(0, language), (440, 90))
+            screen.blit(renderText(0, Player.language), (440, 90))
             
-        screen.blit(renderText(1, language), (440, 30))
+        screen.blit(renderText(1, Player.language), (440, 30))
 
         #Rendering the debug menu
         player.renderDebugMenu()	
@@ -687,8 +684,6 @@ def Tut2(language):
             chat.inputLocked = True
             Player.locked = False
 
-        print(language)
-
         clock.tick(200)
         pygame.display.flip()
 
@@ -697,4 +692,4 @@ if __name__ in "__main__":
     screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
     pygame.display.set_caption("CameraView")
     clock = pygame.time.Clock()
-    Tut1(Player.language)
+    Tut1()
