@@ -587,12 +587,6 @@ def Tut2():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-
-            if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                chat.userInput = ""
-                chat.x = chat.markerDefaultPos
-                Player.language = Player.languageList[1]
-                chat.linesLoaded[0] = translatableComponent("command.lang", Player.language) + Player.language
                 
             commandEvent(event)
             chat.event(event)
