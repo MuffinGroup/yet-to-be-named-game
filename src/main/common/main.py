@@ -228,6 +228,12 @@ waterFluidTop = pygame.image.load("src\main/assets/textures\elements\Environment
 waterFluidTopScaled = pygame.transform.scale(waterFluidTop, (waterFluidTop.get_width() * 3, waterFluidTop.get_height() * 3))
 lever = pygame.image.load("src\main/assets/textures\elements\Environment\decoration\lever_0.png")
 leverScaled = pygame.transform.scale(lever, (lever.get_width() * 3, lever.get_height() * 3))
+poppy = pygame.image.load("src\main/assets/textures\elements\Environment\decoration\poppy.png")
+poppyScaled = pygame.transform.scale(poppy, (poppy.get_width() * 3, poppy.get_height() * 3))
+grass = pygame.image.load("src\main/assets/textures\elements\Environment\decoration\grass.png")
+grassScaled = pygame.transform.scale(grass, (grass.get_width() * 3, grass.get_height() * 3))
+torchWall = pygame.image.load("src\main/assets/textures\elements\Environment\decoration\ASSets\Torches\Torch(wall=left).png")
+torchWallScaled = pygame.transform.scale(lever, (torchWall.get_width() * 3, torchWall.get_height() * 3))
 
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
@@ -242,7 +248,7 @@ emptyHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\He
 emptyHealthScaled = pygame.transform.scale(emptyHealth, (70, 70))
 
 npc = pygame.image.load('src/main/assets/textures/entities/npc/npc.png')
-npc_scaled = pygame.transform.scale(npc, (npc.get_width() * 10, npc.get_height() * 10))
+npc_scaled = pygame.transform.scale(npc, (npc.get_width() * 8, npc.get_height() * 8))
 door_closed = pygame.image.load('src/main/assets/textures/elements/doors/door_1_closed.png')
 door_open = pygame.image.load('src/main/assets/textures/elements/doors/door_1_open.png')
 door_sprite = door_closed
@@ -297,9 +303,9 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10,00, 9,00,00,00,00,00,00,00,00,00,00,00],
+            [ 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10, 9,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 1, 1, 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [ 1, 1, 1, 2,00,12,12,12,13,12,12,12,12,00,00,12,12,00,12,12,12,00,13,12,12,00,12,12,12,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 1, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
             [ 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 1],
             [ 1, 1, 1, 1, 6, 6, 6, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 1],
@@ -319,7 +325,7 @@ tut2_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 3 ,3 ,3 ,3 ,3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3 ,3 ,3 ,3 ,3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3],
             [ 3 ,3 ,3 ,3 ,3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3],
-            [ 3 ,3 ,3 ,3 ,3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 8, 3],
+            [ 3 ,3 ,3 ,3 ,3,14,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 8, 3],
             [ 3 ,3 ,3 ,3 ,3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3],
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -402,6 +408,36 @@ def genWorld(world, map):
                 world.blit(enemy_img_Scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width() +15))
                 if Player.debuggingMode == True:
                     pygame.draw.rect(world, (255, 255, 255), tileRect11, 3)
+            if tile == 12:
+                tileRect12 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())       
+                tile_rects.append(tileRect12)
+                world.blit(grassScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
+                if Player.debuggingMode == True:
+                    pygame.draw.rect(world, (255, 255, 255), tileRect12, 3)
+            if tile == 13:
+                tileRect13 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())       
+                tile_rects.append(tileRect13)
+                world.blit(poppyScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
+                if Player.debuggingMode == True:
+                    pygame.draw.rect(world, (255, 255, 255), tileRect13, 3)
+            if tile == 14:
+                tileRect14 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())       
+                tile_rects.append(tileRect14)
+                world.blit(torchWallScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
+                if Player.debuggingMode == True:
+                    pygame.draw.rect(world, (255, 255, 255), tileRect14, 3)
+            if tile == 15:
+                tileRect15 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())       
+                tile_rects.append(tileRect15)
+                world.blit(enemy_img_Scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
+                if Player.debuggingMode == True:
+                    pygame.draw.rect(world, (255, 255, 255), tileRect15, 3)
+            if tile == 16:
+                tileRect16 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                tile_rects.append(tileRect16)
+                world.blit(enemy_img_Scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
+                if Player.debuggingMode == True:
+                    pygame.draw.rect(world, (255, 255, 255), tileRect16, 3)
 
             x += 1
         y += 1
@@ -435,12 +471,14 @@ def health():
 
 def Start(language):
     Player()
+    i = 0
     Player.world = None
     startButton = registries.gui.registerButton("button", 6.0)
     optionsButton = registries.gui.registerButton("button", 6.0)
     quitButton = registries.gui.registerButton("button", 6.0)
     clock = pygame.time.Clock()
     while True:
+        language = Player.languageList[i]
         key = pygame.key.get_pressed()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -455,8 +493,10 @@ def Start(language):
         if startButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 2.75, registries.animations.startButton, 0, 0, 6, -125, -25, translatableComponent("button.start", language), BLACK, "joystixmonospaceregular"):
             Tut1(language)
         if optionsButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -125, -25, translatableComponent("button.options", language), BLACK, "joystixmonospaceregular"):
-            language = Player.languageList[1]
-            print(Player.langCounter)
+            if i < len(Player.languageList) -1:
+                i += 1
+            else:
+                i = 0
         if quitButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 5.25, registries.animations.quitButton, 0, 0, 6, -125, -25, translatableComponent("button.quit", language), BLACK, "joystixmonospaceregular"):
             pygame.quit()
             exit()
@@ -565,16 +605,9 @@ def Tut1(language):
             screen.blit(renderText(0, language), (440, 90))
             
         screen.blit(renderText(1, language), (440, 30))
-        
-
-        e = pygame.image.load("src\main/assets/textures/elements\gui\player\empty_heart.png").convert_alpha()
-        ee = pygame.mask.from_surface(e)
 
         #Rendering the debug menu
         player.renderDebugMenu()
-        
-        #print(str(Player.rect.x) + ", " + str(Player.rect.y)) Player coordinates
-        #print(str(tileRect.x) + ", " + str(tileRect.y)) World generator last generation coordinate
         
         health()
         
@@ -681,11 +714,9 @@ def Tut2(language):
         genWorld(world, tut2_map)
 
         if Player.visible == True:
-            Player.currentSprite = pygame.transform.scale(
-                Player.currentSprite, (32 * 8, 32 * 8))
+            Player.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
             # Drawing the player to the screen
-            world.blit(Player.currentSprite,
-                       (player.rect.x - 75, player.rect.y-50))
+            world.blit(Player.currentSprite,(player.rect.x - 75, player.rect.y-50))
             if Player.debuggingMode == True:
                 # Drawing the hitbox to the screen
                 pygame.draw.rect(world, (0, 255, 0), Player.rect, 4)
