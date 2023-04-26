@@ -401,7 +401,7 @@ def genWorld(world, map):
             if tile == 11:
                 tileRect11 = pygame.Rect(x * dirtElementScaled.get_width() +220, y * dirtElementScaled.get_width() +300, enemy_img_Scaled.get_width() -290 , enemy_img_Scaled.get_width() -300)       
                 tile_rects.append(tileRect11)
-                world.blit(enemy_img_Scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width() +15 + 20))
+                world.blit(enemy_img_Scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width() +15))
                 if Player.debuggingMode == True:
                     pygame.draw.rect(world, (255, 255, 255), tileRect11, 3)
 
@@ -541,10 +541,10 @@ def Tut1(language):
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
         #Render background
-        world.fill(BLACK)
+        world.fill(AQUA)
 
         #Fill the background outside of the map
-        screen.fill(BLACK)
+        screen.fill(AQUA)
 
         genWorld(world, tut1_map)
 
