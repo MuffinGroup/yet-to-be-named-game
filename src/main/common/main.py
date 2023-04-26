@@ -1,6 +1,5 @@
 import pygame
 import random
-import math
 from registries.colors import *
 from registries.json_lang import *
 import registries.animations
