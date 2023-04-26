@@ -57,7 +57,7 @@ while True:
             pygame.quit()
             quit()
 
-    # Get character movement an attack input
+    # Get character movement and attack input
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
         character_x -= character_img_speed
