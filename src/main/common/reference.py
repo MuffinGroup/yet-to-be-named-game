@@ -1,7 +1,5 @@
-from turtle import distance
 import pygame
 import random
-import math
 from registries.colors import *
 from registries.json_lang import *
 import registries.animations
@@ -167,11 +165,9 @@ class Player:
         return (-self.rect.x + 680, -self.rect.y + 350) # Return new player position
 
     def renderDebugMenu(self):
-        toggleCollisionsText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.collide", Player.language), BLACK, 15, 30)
-        toggleAdvMoveText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.fly", Player.language), BLACK, 15, 130)
         if Player.debuggingMenu == True:
-            debugMenu.draw(screen, BLUISH_GRAY)
-            if toggleAdvMove.drawToggle(debugMenu.window, 320, 250, 75, 100):
+            pygame.draw.rect(screen, BLUISH_GRAY, debug_menu, 10000)
+            if toggleAdvMove.drawToggle(screen):
                 if Player.flying > 1:
                     Player.flying = 0
                 Player.flying += 1
@@ -179,37 +175,34 @@ class Player:
                     print("selected")
                 if Player.flying == 2:
                     print("not selected") 
-            toggleAdvMoveText.drawFont(debugMenu.window)
-            if damage.draw(debugMenu.window, 225, 350, -35, -10, 75, 100, translatableComponent("button.debug_menu.damage", Player.language), BLACK, "joystixmonospaceregular"):
+            screen.blit(toggleAdvMoveText, (100, 135))
+            if damage.draw(screen, -35, -7.5):
                 print("button pressed")
                 if Player.health > 0:
                     Player.health -= 1
                     if Player.health > 0.5:
                         pygame.mixer.Sound.play(Player.hurtSound)
-            if heal.draw(debugMenu.window, 225, 450, -60, -10, 75, 100, translatableComponent("button.debug_menu.heal", Player.language), BLACK, "joystixmonospaceregular"):
+            if heal.draw(screen, -60, -7.5):
                 print("pressed other button")
                 if Player.health < Player.defaultHealth:
                     Player.health += 1
-            if toggleCollisions.drawToggle(debugMenu.window, 320, 150, 75, 100):
+            if toggleCollisions.drawToggle(screen):
                 if Player.colliding > 1:
                     Player.colliding = 0
                 Player.colliding += 1
                 if Player.colliding == 1:
                     print("selected")
                 if Player.colliding == 2:
-                    print("not selecteduwu")
-            toggleCollisionsText.drawFont(debugMenu.window)
+                    print("not selected") 
+            screen.blit(toggleCollisionsText, (80, 235))
 
     def collisions(self):
-        #Wall collisions, do not delete!!!
-        if Player.rect.x < 500:
+        #Wall collisions, do not delete!!!!
+        if Player.rect.x < 600:
             Player.collidingLeft = True
         else:
             Player.collidingLeft = False
-        if Player.rect.x > 3780:
-            Player.collidingRight = True
-        else:
-            Player.collidingRight = False
+    
 
 Player()
 #Loading element textures
@@ -231,47 +224,43 @@ waterFluidTopScaled = pygame.transform.scale(waterFluidTop, (waterFluidTop.get_w
 lever = pygame.image.load("src\main/assets/textures\elements\Environment\decoration\lever_0.png")
 leverScaled = pygame.transform.scale(lever, (lever.get_width() * 3, lever.get_height() * 3))
 
-enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
-enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
-
 health = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(full).png")
 healthScaled = pygame.transform.scale(health, (70, 70))
 
 halfHealth = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(half).png")
 halfHealthScaled = pygame.transform.scale(halfHealth, (70, 70))
 
-emptyHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\Heart(empty).png")
+emptyHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\empty_heart.png")
 emptyHealthScaled = pygame.transform.scale(emptyHealth, (70, 70))
 
 npc = pygame.image.load('src/main/assets/textures/entities/npc/npc.png')
-npc_scaled = pygame.transform.scale(npc, (npc.get_width() * 10, npc.get_height() * 10))
 door_closed = pygame.image.load('src/main/assets/textures/elements/doors/door_1_closed.png')
 door_open = pygame.image.load('src/main/assets/textures/elements/doors/door_1_open.png')
 door_sprite = door_closed
-n = 0
-
-debugMenu = registries.gui.registerGui(70, 100, 300, 400, False)
 
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
 
 def renderText(entry, language):
-    debugMenuText = font.render(translatableComponent("text.debug_menu", Player.language), True, DARK_ORANGE)
-    debugModeText = font.render(translatableComponent("text.debug_mode", Player.language), True, BLUE)
+    debugMenuText = font.render(translatableComponent("text.debug_menu", language), True, DARK_ORANGE)
+    debugModeText = font.render(translatableComponent("text.debug_mode", language), True, BLUE)
     texts = [debugMenuText, debugModeText]
     return texts[entry]
 
 debug_menu = pygame.Rect((70, 70), (300, 400))
 
-damage = registries.gui.registerButton("button", 4.0)
-heal = registries.gui.registerButton("button", 4.0)
+damage = registries.buttons.registerButton("button", 225, 325,  4.0, "damage", BLACK, "joystixmonospaceregular")
+heal = registries.buttons.registerButton("button", 225, 425,  4.0, "heal", BLACK, "joystixmonospaceregular")
 
-toggleCollisions = registries.gui.registerButton("toggle", 12.0)
-toggleAdvMove = registries.gui.registerButton("toggle", 12.0)
+toggleCollisionsText = font.render("collides", True, BLACK)
+toggleCollisions = registries.buttons.registerButton("toggle", 300, 250,  12.0, "", BLACK, "")
+
+toggleAdvMoveText = font.render("flying", True, BLACK)
+toggleAdvMove = registries.buttons.registerButton("toggle", 300, 150,  12.0, "", BLACK, "")
 
 screen_width = 1000
 screen_height = 800
 
-chatBackground = registries.gui.registerGui(110, 100, 800, 600, False)
+chatBackground = registries.gui.registerGui(110, 100, 800, 600, False, None)
 chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 100, 800, 600, 140, 575, 735, 100)
 chat.inputLocked = True
 exitChat = registries.gui.registerExitButton(85, 80, None)
@@ -297,9 +286,9 @@ item = registries.item.registerItem("item", "Item", "Environment\decoration\popp
 tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10,00, 9,00,00,00,00,00,00,00,00,00,00,00],
+            [ 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 1, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
@@ -315,14 +304,14 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
 tut2_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 3 ,3 ,3 ,3 ,3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00],
-            [ 3 ,3 ,3 ,3 ,3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 3 ,3 ,3 ,3 ,3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 3 ,3 ,3 ,3 ,3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3 ,3 ,3 ,3 ,3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3],
-            [ 3 ,3 ,3 ,3 ,3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3],
-            [ 3 ,3 ,3 ,3 ,3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 8, 3],
-            [ 3 ,3 ,3 ,3 ,3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 8, 3],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3],
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 5, 5, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -331,112 +320,84 @@ tut2_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]
 
 def genWorld(world, map):
-    global door_sprite, tileRect2, n, doorhandling
+    global door_sprite, tileRect2, n
     tile_rects = []
     y = 0
     
     for row in map:
         x = 0
         for tile in row:
+            if tile != 00 and tile != float and tile != 9:
+                tileRect = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                tile_rects.append(tileRect)
             if tile == 1:
-                tileRect1 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect1)
                 world.blit(dirtElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect1, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             if tile == 2:
-                tileRect2 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect2)
                 world.blit(grassElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect2, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             if tile == 3:
-                tileRect3 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect3)
                 world.blit(cobbleElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect3, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             if tile == 4:
-                tileRect4 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect4)
                 world.blit(waterFluidScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-                if Player.debuggingMode == True
-                    pygame.draw.rect(world, (255, 255, 255), tileRect4, 2)
+                if Player.debuggingMode == True:
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
+                    
             if tile == 5:
-                tileRect5 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect5)
                 world.blit(waterFluidTopScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect5, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             if tile == 6:
-                tileRect6 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect6)
                 world.blit(dirtCoarseElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect6, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             if tile == 7:
-                tileRect7 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect7)
                 world.blit(grassCoarseElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect7, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             if tile == 8:
-                tileRect8 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect8)
                 world.blit(leverScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect8, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect, 2)
             if tile == 9:
-                tileRect9 = pygame.Rect(x * dirtElementScaled.get_width() + 50, y * dirtElementScaled.get_width(), door_sprite.get_width() - 100, door_sprite.get_width())
-                tile_rects.append(tileRect9)
+                tileRect2 = pygame.Rect(x * dirtElementScaled.get_width() + 50, y * dirtElementScaled.get_width(), door_sprite.get_width() - 100, door_sprite.get_width())
+                tile_rects.append(tileRect2)
                 world.blit(door_sprite, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect9, 2)
-            if tile == 10:
-                tileRect10 = pygame.Rect(x * dirtElementScaled.get_width() + 100, y * dirtElementScaled.get_width() + 100, npc_scaled.get_width() - 175, npc_scaled.get_width() - 75)
-                tile_rects.append(tileRect10)
-                world.blit(npc_scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width() - 30))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect10, 2)
-            if tile == 11:
-                tileRect11 = pygame.Rect(x * dirtElementScaled.get_width() +220, y * dirtElementScaled.get_width() +300, enemy_img_Scaled.get_width() -290 , enemy_img_Scaled.get_width() -300)       
-                tile_rects.append(tileRect11)
-                world.blit(enemy_img_Scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width() +15))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect11, 3)
-
+                    pygame.draw.rect(world, (255, 255, 255), tileRect2, 2)
             x += 1
         y += 1
-    door_sprite = pygame.transform.scale(door_sprite, (int(door_open.get_width() * 5), int(door_open.get_height() * 5)))
 
-    if Player.rect.colliderect(tileRect9) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
+    if Player.rect.colliderect(tileRect2) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e] and n == 0:
         door_sprite = door_open
         n += 1
-    if n == 40:
-        Player.visible = False
+    if n >= 50 and n != 70 and n > 0:
+        Player.visible == False
         door_sprite = door_closed
-        pygame.mixer.Sound.play(doorsound)
-    if n == 50:
+    if n == 70:
         n = 0
         Tut2(Player.language)
-    if n >= 1 and n <= 70:
+    if n > 0 and n != 70:
         n += 1
-        print(n)
-    door_sprite = pygame.transform.scale(door_sprite, (int(door_open.get_width() * 5), int(door_open.get_height() * 5)))
+    print(n)
         
         
 def health():
         for i in range(Player.defaultHealth):
             if (i % 2) == 0:
                 screen.blit(emptyHealthScaled, (10 + i * emptyHealthScaled.get_width()//2, 0))
-
+        
         for i in range(Player.health):
             if (i % 2) == 0:
                 screen.blit(halfHealthScaled, (10 + i * halfHealthScaled.get_width()//2, 0))
             else:
                 screen.blit(healthScaled, (10 + i * healthScaled.get_width()//2 - halfHealthScaled.get_width()//2, 0))
 
-def Start():
+def Start(language):
     Player()
     Player.world = None
     startButton = registries.gui.registerButton("button", 6.0)
@@ -455,12 +416,12 @@ def Start():
 
         startFont = registries.gui.registerFont(40, "YET-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
         screen.fill(BLUISH_GRAY)
-        if startButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 2.75, registries.animations.startButton, 0, 0, 6, -125, -25, translatableComponent("button.start", Player.language), BLACK, "joystixmonospaceregular"):
-            Tut1()
-        if optionsButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -125, -25, translatableComponent("button.options", Player.language), BLACK, "joystixmonospaceregular"):
-            Player.language = Player.languageList[1]
+        if startButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 2.75, registries.animations.startButton, 0, 0, 6, -125, -25, translatableComponent("button.start", language), BLACK, "joystixmonospaceregular"):
+            Tut1(language)
+        if optionsButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -125, -25, translatableComponent("button.options", language), BLACK, "joystixmonospaceregular"):
+            language = Player.languageList[1]
             print(Player.langCounter)
-        if quitButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 5.25, registries.animations.quitButton, 0, 0, 6, -125, -25, translatableComponent("button.quit", Player.language), BLACK, "joystixmonospaceregular"):
+        if quitButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 5.25, registries.animations.quitButton, 0, 0, 6, -125, -25, translatableComponent("button.quit", language), BLACK, "joystixmonospaceregular"):
             pygame.quit()
             exit()
             
@@ -473,51 +434,56 @@ def Start():
         pygame.display.flip()
         clock.tick(1000)
         
-def commandEvent(event):
+def commandEvent(event, language):
             if chat.userInput.lower() == "/world tut2" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut2" and Player.debuggingMode == True:
                 chat.userInput = ""
-                chat.linesLoaded[0] = translatableComponent("command.teleport.tut2", Player.language)
+                chat.linesLoaded[0] = translatableComponent("command.teleport.tut2", language)
                 chat.x = chat.markerDefaultPos
-                Tut2()
+                Tut2(language)
                 
             if chat.userInput.lower() == "/world tut1" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut1" and Player.debuggingMode == True:
                 chat.userInput = ""
-                chat.linesLoaded[0] = translatableComponent("command.teleport.tut1", Player.language)
+                chat.linesLoaded[0] = translatableComponent("command.teleport.tut1", language)
                 chat.x = chat.markerDefaultPos
-                Tut1()
+                Tut1(language)
 
             if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
                 chat.x = chat.markerDefaultPos
-                Player.language = Player.languageList[1]
-                chat.linesLoaded[0] = translatableComponent("command.lang", Player.language) + Player.language
+                language = Player.languageList[1]
+                chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
 
             if chat.userInput.lower() == "/lang en_us" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
                 chat.x = chat.markerDefaultPos
-                Player.language = Player.languageList[0]
-                chat.linesLoaded[0] = translatableComponent("command.lang", Player.language) + Player.language
+                language = Player.languageList[0]
+                chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
     
 
-def Tut1():
+def Tut1(language):
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
     camera_pos = (0, 0) #camera starting position
+    global door_sprite, n, doorhandling #allow door use
 
     #values for animation calculation
     idleValue = 0
     walkingValue = 0
     Player.world = "tut1" 
+    n = 0
+    doorhandling = 0
     while True:
+        door_sprite = pygame.transform.scale(door_sprite, (int(door_open.get_width() * 5), int(door_open.get_height() * 5)))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-            commandEvent(event)
+            commandEvent(event, language)
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
-                Start()
+                Start(language)
+        
         #idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
             idleValue = 0
@@ -537,6 +503,12 @@ def Tut1():
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
+        if Player.visible == True:
+            Player.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
+            screen.blit(Player.currentSprite, (Player.rect.x - 75, Player.rect.y-50))
+            if Player.debuggingMode == True:
+                pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4)
+
         #Render background
         world.fill(AQUA)
 
@@ -545,17 +517,6 @@ def Tut1():
 
         genWorld(world, tut1_map)
 
-        #blitng to the world
-
-        if Player.visible == True:
-            Player.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
-            # Drawing the player to the screen
-            world.blit(Player.currentSprite,(player.rect.x - 75, player.rect.y-50))
-            if Player.debuggingMode == True:
-                # Drawing the hitbox to the screen
-                pygame.draw.rect(world, (0, 255, 0), Player.rect, 4)
-
-        #Render the player
         
         player.collisions()
 
@@ -563,9 +524,9 @@ def Tut1():
         screen.blit(world, (player_x, player_y))
 
         if Player.debuggingMode == True:
-            screen.blit(renderText(0, Player.language), (440, 90))
+            screen.blit(renderText(0, language), (440, 90))
             
-        screen.blit(renderText(1, Player.language), (440, 30))
+        screen.blit(renderText(1, language), (440, 30))
         
 
         e = pygame.image.load("src\main/assets/textures/elements\gui\player\empty_heart.png").convert_alpha()
@@ -609,7 +570,7 @@ def Tut1():
             
         #print(str(Player.rect.x) + ", " + str(Player.rect.y))
         if Player.chatOpen == True:
-            chatBackground.draw(screen, "default")
+            chatBackground.draw(screen, BLUISH_GRAY)
             chat.drawChat(screen)
             chat.inputLocked = False
             Player.locked = True
@@ -619,10 +580,12 @@ def Tut1():
             chat.inputLocked = True
             Player.locked = False
 
-        clock.tick(400)
+        world.blit(door_sprite, (Player.rect.x, Player.rect.y))
+
+        clock.tick(200)
         pygame.display.flip()
         
-def Tut2():
+def Tut2(language):
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
     camera_pos = (0, 0) #camera starting position
@@ -639,11 +602,17 @@ def Tut2():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+
+            if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                chat.userInput = ""
+                chat.x = chat.markerDefaultPos
+                language = Player.languageList[1]
+                chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
                 
-            commandEvent(event)
+            commandEvent(event, language)
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
-                Start(Player.language)
+                Start(language)
         
         #idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
@@ -670,26 +639,20 @@ def Tut2():
         genWorld(world, tut2_map)
 
         if Player.visible == True:
-            Player.currentSprite = pygame.transform.scale(
-                Player.currentSprite, (32 * 8, 32 * 8))
-            # Drawing the player to the screen
-            world.blit(Player.currentSprite,
-                       (player.rect.x - 75, player.rect.y-50))
+            Player.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
+            screen.blit(Player.currentSprite, (Player.rect.x - 75, Player.rect.y-50))
             if Player.debuggingMode == True:
-                # Drawing the hitbox to the screen
-                pygame.draw.rect(world, (0, 255, 0), Player.rect, 4)
-
-        #Render the player
+                pygame.draw.rect(screen, (0, 255, 0), Player.rect, 4)
         
         player.collisions()
 
         #Render the map to the screen
-        screen.blit(world, (player_x, player_y))
+        screen.blit(world, (player_x,player_y))
 
         if Player.debuggingMode == True:
-            screen.blit(renderText(0, Player.language), (440, 90))
+            screen.blit(renderText(0, language), (440, 90))
             
-        screen.blit(renderText(1, Player.language), (440, 30))
+        screen.blit(renderText(1, language), (440, 30))
 
         #Rendering the debug menu
         player.renderDebugMenu()	
@@ -729,7 +692,7 @@ def Tut2():
             
         #print(str(Player.rect.x) + ", " + str(Player.rect.y))
         if Player.chatOpen == True:
-            chatBackground.draw(screen, "default")
+            chatBackground.draw(screen, BLUISH_GRAY)
             chat.drawChat(screen)
             chat.inputLocked = False
             Player.locked = True
@@ -739,7 +702,7 @@ def Tut2():
             chat.inputLocked = True
             Player.locked = False
 
-        clock.tick(400)
+        clock.tick(200)
         pygame.display.flip()
 
 if __name__ in "__main__":
@@ -747,4 +710,4 @@ if __name__ in "__main__":
     screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
     pygame.display.set_caption("CameraView")
     clock = pygame.time.Clock()
-    Tut1()
+    Tut1(Player.language)

@@ -49,10 +49,14 @@ class registerButton():
 		self.test = 0 #Important for toggle buttons
 
 	#draw function is not used atm 
-	def draw(self, surface, x, y, xTextOffset, yTextOffset, xTextureOffset, yTextureOffset):
+	def draw(self, surface, x, y, xTextOffset, yTextOffset, xTextureOffset, yTextureOffset, display_text, text_color, font_type):
 		action = False
 		#get mouse position
 		pos = pygame.mouse.get_pos()
+		smallfont = pygame.font.SysFont(font_type, 35)
+		self.display_text1 = smallfont.render(display_text, True, text_color)
+		self.selected_display_text4 = smallfont.render(display_text, True, (255, 255, 255))
+		self.rect = self.image.get_rect()
 		self.rect.center = (x, y)
 		
 		#check mouseover and clicked conditions
@@ -79,7 +83,7 @@ class registerButton():
 		width = image.get_width()
 		height = image.get_height()
 		buttonSprite = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
-		smallfont = pygame.font.SysFont(font_type,35)
+		smallfont = pygame.font.SysFont(font_type, 35)
 		self.display_text1 = smallfont.render(display_text , True , text_color)
 		self.selected_display_text1 = smallfont.render(display_text , True , (56, 56, 56))
 		self.selected_display_text2 = smallfont.render(display_text , True , (80, 80, 80))
@@ -123,9 +127,11 @@ class registerButton():
 
 		return action
 
-	def drawToggle(self, surface, xTextureOffset, yTextureOffset):
+	def drawToggle(self, surface, x, y, xTextureOffset, yTextureOffset):
 		action = False
 		pos = pygame.mouse.get_pos()
+		self.rect = self.image.get_rect()
+		self.rect.center = (x, y)
 
 		if self.toggled == False or self.test == 0:
 			surface.blit(self.image, (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset))
@@ -134,7 +140,7 @@ class registerButton():
 			surface.blit(self.selected_image, (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset))
 			self.selected = True
 		if self.toggled == True and self.test > 1:
-			surface.blit(self.image, (self.rect.x, self.rect.y))
+			surface.blit(self.image, (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset))
 			self.test = 0
 			self.selected = False
 
