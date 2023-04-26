@@ -416,7 +416,7 @@ def genWorld(world, map):
         pygame.mixer.Sound.play(doorsound)
     if n == 50:
         n = 0
-        Tut2()
+        Tut2(Player.language)
     if n >= 1 and n <= 70:
         n += 1
         print(n)
@@ -484,18 +484,6 @@ def commandEvent(event, language):
                 chat.linesLoaded[0] = translatableComponent("command.teleport.tut1", language)
                 chat.x = chat.markerDefaultPos
                 Tut1(language)
-
-            if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                chat.userInput = ""
-                chat.x = chat.markerDefaultPos
-                language = Player.languageList[1]
-                chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
-
-            if chat.userInput.lower() == "/lang en_us" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                chat.userInput = ""
-                chat.x = chat.markerDefaultPos
-                language = Player.languageList[0]
-                chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
     
 
 def Tut1(language):
@@ -513,6 +501,17 @@ def Tut1(language):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+            if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                chat.userInput = ""
+                chat.x = chat.markerDefaultPos
+                language = Player.languageList[1]
+                chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
+
+            if chat.userInput.lower() == "/lang en_us" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                chat.userInput = ""
+                chat.x = chat.markerDefaultPos
+                language = Player.languageList[0]
+                chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
             commandEvent(event, language)
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
@@ -641,13 +640,17 @@ def Tut2(language):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-
             if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
                 chat.x = chat.markerDefaultPos
                 language = Player.languageList[1]
                 chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
-                
+
+            if chat.userInput.lower() == "/lang en_us" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                chat.userInput = ""
+                chat.x = chat.markerDefaultPos
+                language = Player.languageList[0]
+                chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
             commandEvent(event, language)
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
