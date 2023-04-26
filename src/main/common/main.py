@@ -416,12 +416,11 @@ def genWorld(world, map):
         pygame.mixer.Sound.play(doorsound)
     if n == 50:
         n = 0
-        Tut2(Player.language)
+        Tut2()
     if n >= 1 and n <= 70:
         n += 1
         print(n)
     door_sprite = pygame.transform.scale(door_sprite, (int(door_open.get_width() * 5), int(door_open.get_height() * 5)))
-        
         
 def health():
         for i in range(Player.defaultHealth):

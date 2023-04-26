@@ -8,5 +8,11 @@
 "command.lang": "Ausgewaehlte Sprache: ",
 
 "text.debug_mode": "Schalte den debug-mode mit d ein",
-"text.debug_menu": "Oeffne den debug-menu mit 0"
+"text.debug_menu": "Oeffne den debug-menu mit 0",
+
+"button.debug_menu.damage": "Damage",
+"button.debug_menu.heal": "Heal",
+
+"text.debug_menu.collide": "collide",
+"text.debug_menu.fly": "flight"
 }
