@@ -1,20 +1,9 @@
 import pygame
 
 class registerElements():
-	colliding = False
 	def __init__(self, elementLocation, scale):
-		image = pygame.image.load("src\main/assets/textures\elements/" + elementLocation + ".png")
-		width = image.get_width()
-		height = image.get_height()
-		self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
+		self.texture = pygame.image.load("src/main/assets/textures/" + elementLocation + ".png")
+		self.scaledTexture = pygame.transform.scale(self.texture, (self.texture.get_width() * scale, self.texture.get_height() * scale))
 
-	def draw(self, surface, hitbox):
-			surface.blit(self.image, (hitbox))
-
-	def get_width(self):
-		width = self.image.get_width()
-		return width
-	
-	def get_height(self):
-		heigth = self.image.get_height()
-		return heigth
+	def drawElement(self, x, y):
+		self.rect = pygame.Rect((x * self.scaledTexture.get_width()), (y * self.scaledTexture.get_height()),(self.scaledTexture.get_width(), self.scaledTexture.get_height()))
