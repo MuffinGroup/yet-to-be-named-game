@@ -240,7 +240,7 @@ healthScaled = pygame.transform.scale(health, (70, 70))
 halfHealth = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(half).png")
 halfHealthScaled = pygame.transform.scale(halfHealth, (70, 70))
 
-emptyHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\empty_heart.png")
+emptyHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\Heart(empty).png")
 emptyHealthScaled = pygame.transform.scale(emptyHealth, (70, 70))
 
 npc = pygame.image.load('src/main/assets/textures/entities/npc/npc.png')
@@ -429,7 +429,7 @@ def health():
         for i in range(Player.defaultHealth):
             if (i % 2) == 0:
                 screen.blit(emptyHealthScaled, (10 + i * emptyHealthScaled.get_width()//2, 0))
-        
+
         for i in range(Player.health):
             if (i % 2) == 0:
                 screen.blit(halfHealthScaled, (10 + i * halfHealthScaled.get_width()//2, 0))
@@ -624,7 +624,7 @@ def Tut1(language):
 
         print(Player.rect.x)
 
-        clock.tick(200)
+        clock.tick(400)
         pygame.display.flip()
         
 def Tut2(language):
@@ -752,7 +752,7 @@ def Tut2(language):
 
         print(language)
 
-        clock.tick(200)
+        clock.tick(400)
         pygame.display.flip()
 
 if __name__ in "__main__":
