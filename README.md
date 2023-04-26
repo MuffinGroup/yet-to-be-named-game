@@ -17,10 +17,8 @@ To run the project, install python and the pygame library,
 open it in VSC and run the main.py file using the python extension.
 
 Good to know:
-
     We have created a very easy way to load animations using pygame. If you want
     to check it out go to one of the animations.py files.
-    
     We have also made it easy to add buttons, toggles and chats to your game.
     If you want to use this go to gui.py
 
