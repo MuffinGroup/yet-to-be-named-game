@@ -358,7 +358,7 @@ def genWorld(world, map):
                 tileRect4 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
                 tile_rects.append(tileRect4)
                 world.blit(waterFluidScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-                if Player.debuggingMode == True
+                if Player.debuggingMode == True:
                     pygame.draw.rect(world, (255, 255, 255), tileRect4, 2)
             if tile == 5:
                 tileRect5 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
