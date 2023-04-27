@@ -234,9 +234,8 @@ shieldDamagedDeco = registries.elements.registerElement("elements/Environment/de
 bannerRedDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner1", 3)
 bannerBlueDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner2", 3)
 bannerYellowDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner3", 3)
-doorOpenLargeElement = registries.elements.registerElement("elements/doors/door_1_open", 3)
-doorClosedLargeElement = registries.elements.registerElement("elements/doors/door_1_closed", 3)
-leverDeco = leverOffDeco
+doorOpenLargeElement = registries.elements.registerElement("elements/doors/door_1_open", 5)
+doorClosedLargeElement = registries.elements.registerElement("elements/doors/door_1_closed", 5)
 
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
@@ -363,6 +362,7 @@ def genWorld(world, map):
                 grassElement.drawElement(world, x, y, Player.debuggingMode)
             if tile == 9:
                 doorClosedLargeElement.drawElement(world, x, y, Player.debuggingMode)
+                doorClosedLargeElement.yModifier = -22
             if tile == 10:
                 doorClosedLargeElement.drawElement(world, x, y, Player.debuggingMode)
             if tile == 11:
@@ -493,6 +493,7 @@ def Tut1(language):
                 chat.x = chat.markerDefaultPos
                 language = Player.languageList[0]
                 chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
+
             commandEvent(event, language)
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
