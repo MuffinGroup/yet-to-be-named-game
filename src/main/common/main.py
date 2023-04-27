@@ -364,7 +364,7 @@ def genWorld(world, map):
             if tile == 9:
                 doorClosedLargeElement.drawElement(world, x, y, Player.debuggingMode)
             if tile == 10:
-                grassElement.drawElement(world, x, y, Player.debuggingMode)
+                doorClosedLargeElement.drawElement(world, x, y, Player.debuggingMode)
             if tile == 11:
                 grassDeco.drawElement(world, x, y, Player.debuggingMode)
             if tile == 12:
@@ -538,7 +538,6 @@ def Tut1(language):
                 pygame.draw.rect(world, (0, 255, 0), Player.rect, 4)
 
         #Render the player
-        
         player.collisions()
 
         #Render the map to the screen
