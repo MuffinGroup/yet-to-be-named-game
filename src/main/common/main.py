@@ -30,7 +30,7 @@ class Player:
         Player.walking = False
         Player.collidingLeft = False
         Player.collidingRight = False
-        Player.rect = pygame.Rect((800, 562),(100, 200)) # Create the players hitbox
+        Player.rect = pygame.Rect((800, 562), (100, 200)) # Create the players hitbox
         Player.animationFrameUpdate = 1
         Player.debuggingMode = False
         Player.visible = True
@@ -164,9 +164,9 @@ class Player:
 
         return (-self.rect.x + 680, -self.rect.y + 350) # Return new player position
 
-    def renderDebugMenu(self):
-        toggleCollisionsText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.collide", Player.language), BLACK, 15, 30)
-        toggleAdvMoveText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.fly", Player.language), BLACK, 15, 130)
+    def renderDebugMenu(self, language):
+        toggleCollisionsText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.collide", language), BLACK, 15, 30)
+        toggleAdvMoveText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.fly", language), BLACK, 15, 130)
         if Player.debuggingMenu == True:
             debugMenu.draw(screen, BLUISH_GRAY)
             if toggleAdvMove.drawToggle(debugMenu.window, 320, 250, 75, 100):
@@ -178,13 +178,13 @@ class Player:
                 if Player.flying == 2:
                     print("not selected") 
             toggleAdvMoveText.drawFont(debugMenu.window)
-            if damage.draw(debugMenu.window, 225, 350, -35, -10, 75, 100, translatableComponent("button.debug_menu.damage", Player.language), BLACK, "joystixmonospaceregular"):
+            if damage.draw(debugMenu.window, 225, 350, -35, -10, 75, 100, translatableComponent("button.debug_menu.damage", language), BLACK, "joystixmonospaceregular"):
                 print("button pressed")
                 if Player.health > 0:
                     Player.health -= 1
                     if Player.health > 0.5:
                         pygame.mixer.Sound.play(Player.hurtSound)
-            if heal.draw(debugMenu.window, 225, 450, -60, -10, 75, 100, translatableComponent("button.debug_menu.heal", Player.language), BLACK, "joystixmonospaceregular"):
+            if heal.draw(debugMenu.window, 225, 450, -60, -10, 75, 100, translatableComponent("button.debug_menu.heal", language), BLACK, "joystixmonospaceregular"):
                 print("pressed other button")
                 if Player.health < Player.defaultHealth:
                     Player.health += 1
@@ -551,7 +551,7 @@ def Tut1(language):
         screen.blit(renderText(1, language), (440, 30))
 
         #Rendering the debug menu
-        player.renderDebugMenu()
+        player.renderDebugMenu(language)
         
         health()
         
@@ -678,7 +678,7 @@ def Tut2(language):
         screen.blit(renderText(1, language), (440, 30))
 
         #Rendering the debug menu
-        player.renderDebugMenu()	
+        player.renderDebugMenu(language)	
         
         #print(str(Player.rect.x) + ", " + str(Player.rect.y)) Player coordinates
         #print(str(tileRect.x) + ", " + str(tileRect.y)) World generator last generation coordinate

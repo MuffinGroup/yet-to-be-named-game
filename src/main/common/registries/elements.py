@@ -16,7 +16,7 @@ class registerLargeElement():
 		self.texture = pygame.image.load("src/main/assets/textures/" + elementLocation + ".png")
 		self.scaledTexture = pygame.transform.scale(self.texture, (self.texture.get_width() * scale, self.texture.get_height() * scale))
 
-	def drawLargeElement(self, surface, x, y, debuggingMode):
+	def drawLargeElement(self, surface, x, y, debuggingmode):
 		self.rect = pygame.Rect((x * self.scaledTexture.get_width(), y * self.scaledTexture.get_height()), (self.scaledTexture.get_width(), self.scaledTexture.get_height()))
 		surface.blit(self.scaledTexture, (x * self.scaledTexture.get_width(), y * self.scaledTexture.get_height()))
 		if debuggingmode == True:
