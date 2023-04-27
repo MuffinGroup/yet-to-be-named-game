@@ -339,7 +339,7 @@ tut2_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]
 
 def genWorld(world, map):
-    global door_sprite, tileRect2, n
+    global door_sprite, doorCurrent, n
     tile_rects = []
     y = 0
     
@@ -390,11 +390,11 @@ def genWorld(world, map):
     door_sprite = pygame.transform.scale(door_sprite, (int(door_open.get_width() * 5), int(door_open.get_height() * 5)))
 
     if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
-        door_sprite = door_open
+        doorCurrent = doorOpenLargeElement
         n += 1
     if n == 40:
         Player.visible = False
-        door_sprite = door_closed
+        doorCurrent = doorClosedLargeElement
         pygame.mixer.Sound.play(doorsound)
     if n == 50:
         n = 0
