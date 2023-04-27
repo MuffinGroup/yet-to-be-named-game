@@ -363,6 +363,8 @@ def genWorld(world, map):
             if tile == 9:
                 doorClosedLargeElement.drawElement(world, x, y, Player.debuggingMode)
                 doorClosedLargeElement.yModifier = -22
+                doorClosedLargeElement.widthModifier = -75
+                doorClosedLargeElement.xRectModifier = 50
             if tile == 10:
                 doorClosedLargeElement.drawElement(world, x, y, Player.debuggingMode)
             if tile == 11:
