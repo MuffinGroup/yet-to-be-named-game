@@ -211,7 +211,7 @@ class Player:
 
 Player()
 #Loading element textures
-
+grassElement2 = registries.elements.registerElement("elements/Environment/blocks/grass_dirt", 3)
 grassCoarseElement = pygame.image.load("src\main/assets/textures\elements\Environment/blocks\Coarse_Grass.png")
 grassCoarseElementScaled = pygame.transform.scale(grassCoarseElement, (grassCoarseElement.get_width() * 3, grassCoarseElement.get_width() * 3))
 dirtCoarseElement = pygame.image.load("src\main/assets/textures\elements\Environment/blocks\Coarse_Dirt.png")
@@ -347,11 +347,13 @@ def genWorld(world, map):
         x = 0
         for tile in row:
             if tile == 1:
-                tileRect1 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
+                grassElement2.drawElement(world, x, y, Player.debuggingMode)
+
+                """tileRect1 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
                 tile_rects.append(tileRect1)
                 world.blit(dirtElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
                 if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect1, 2)
+                    pygame.draw.rect(world, (255, 255, 255), tileRect1, 2)"""
             if tile == 2:
                 tileRect2 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
                 tile_rects.append(tileRect2)
