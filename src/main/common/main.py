@@ -573,10 +573,6 @@ def Tut1(language):
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
-
-        enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
-        enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8)) 
-
         #Render background
         world.fill(AQUA)
 
