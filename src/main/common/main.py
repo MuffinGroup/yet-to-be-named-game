@@ -239,9 +239,6 @@ torchWallScaledLeft = pygame.transform.scale(torchWallLeft, (torchWallLeft.get_w
 torchWallRight = pygame.image.load("src\main/assets/textures\elements\Environment\decoration\ASSets\Torches\Torch(wall=right).png")
 torchWallScaledRight = pygame.transform.scale(torchWallRight, (torchWallRight.get_width() * 3, torchWallRight.get_height() * 3))
 
-enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
-enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
-
 health = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(full).png")
 healthScaled = pygame.transform.scale(health, (70, 70))
 
@@ -307,8 +304,8 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00,00,00,00,00,00,00,00,00,00],
-            [ 1, 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10,00,00,00,00,00,00,00,00,00,00,00,00],
+            [ 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10, 9,00,00,00,00,00,00,00,00,00,00,00],
+            [ 1, 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 1, 2,00,12,12,12,13,12,12,12,12,00,00,12,12,00,12,12,12,00,13,12,12,00,12,12,12,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 1, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
             [ 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 1],
@@ -408,12 +405,6 @@ def genWorld(world, map):
                 world.blit(npc_scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width() - 30))
                 if Player.debuggingMode == True:
                     pygame.draw.rect(world, (255, 255, 255), tileRect10, 2)
-            if tile == 11:
-                tileRect11 = pygame.Rect(x * dirtElementScaled.get_width() +220, y * dirtElementScaled.get_width() +300, enemy_img_Scaled.get_width() -290 , enemy_img_Scaled.get_width() -300)       
-                tile_rects.append(tileRect11)
-                world.blit(enemy_img_Scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width() +15))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect11, 3)
             if tile == 12:
                 tileRect12 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())       
                 tile_rects.append(tileRect12)
@@ -552,7 +543,7 @@ def Tut1(language):
                 chat.x = chat.markerDefaultPos
                 language = Player.languageList[1]
                 chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
-
+            
             if chat.userInput.lower() == "/lang en_us" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
                 chat.x = chat.markerDefaultPos
@@ -582,6 +573,10 @@ def Tut1(language):
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
+
+        enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
+        enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8)) 
+
         #Render background
         world.fill(AQUA)
 
@@ -595,7 +590,7 @@ def Tut1(language):
         if Player.visible == True:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
             # Drawing the player to the screen
-            world.blit(Player.currentSprite,(player.rect.x - 75, player.rect.y-50))
+            world.blit(Player.currentSprite,(player.rect.x - 75, player.rect.y -50))
             if Player.debuggingMode == True:
                 # Drawing the hitbox to the screen
                 pygame.draw.rect(world, (0, 255, 0), Player.rect, 4)
