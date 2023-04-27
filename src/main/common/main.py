@@ -211,33 +211,35 @@ class Player:
 
 Player()
 #Loading element textures
-grassElement2 = registries.elements.registerElement("elements/Environment/blocks/grass_dirt", 3)
-grassCoarseElement = pygame.image.load("src\main/assets/textures\elements\Environment/blocks\Coarse_Grass.png")
-grassCoarseElementScaled = pygame.transform.scale(grassCoarseElement, (grassCoarseElement.get_width() * 3, grassCoarseElement.get_width() * 3))
-dirtCoarseElement = pygame.image.load("src\main/assets/textures\elements\Environment/blocks\Coarse_Dirt.png")
-dirtCoarseElementScaled = pygame.transform.scale(dirtCoarseElement, (dirtCoarseElement.get_width() * 3, dirtCoarseElement.get_width() * 3))
-grassElement = pygame.image.load("src\main/assets/textures\elements\Environment/blocks\grass_dirt.png")
-grassElementScaled = pygame.transform.scale(grassElement, (grassElement.get_width() * 3, grassElement.get_width() * 3))
-dirtElement = pygame.image.load("src\main/assets/textures\elements\Environment/blocks\dirt.png")
-dirtElementScaled = pygame.transform.scale(dirtElement, (dirtElement.get_width() * 3, dirtElement.get_width() * 3))
-cobbleElement = pygame.image.load("src\main/assets/textures\elements\Environment/blocks\cobble.png")
-cobbleElementScaled = pygame.transform.scale(cobbleElement, (cobbleElement.get_width() * 3, cobbleElement.get_width() * 3))
-cobbleMossyElement = pygame.image.load("src\main/assets/textures\elements\Environment/blocks\cobble_mossy.png")
-cobbleMossyElementScaled = pygame.transform.scale(cobbleMossyElement, (cobbleMossyElement.get_width() * 3, cobbleMossyElement.get_width() * 3))
-waterFluid = pygame.image.load("src\main/assets/textures\elements\Environment/fluids\water.png")
-waterFluidScaled = pygame.transform.scale(waterFluid, (waterFluid.get_width() * 3, waterFluid.get_width() * 3))
-waterFluidTop = pygame.image.load("src\main/assets/textures\elements\Environment/fluids\water_top.png")
-waterFluidTopScaled = pygame.transform.scale(waterFluidTop, (waterFluidTop.get_width() * 3, waterFluidTop.get_height() * 3))
-lever = pygame.image.load("src\main/assets/textures\elements\Environment\decoration\lever_0.png")
-leverScaled = pygame.transform.scale(lever, (lever.get_width() * 3, lever.get_height() * 3))
-poppy = pygame.image.load("src\main/assets/textures\elements\Environment\decoration\poppy.png")
-poppyScaled = pygame.transform.scale(poppy, (poppy.get_width() * 3, poppy.get_height() * 3))
-grass = pygame.image.load("src\main/assets/textures\elements\Environment\decoration\grass.png")
-grassScaled = pygame.transform.scale(grass, (grass.get_width() * 3, grass.get_height() * 3))
-torchWallLeft = pygame.image.load("src\main/assets/textures\elements\Environment\decoration\ASSets\Torches\Torch(wall=left).png")
-torchWallScaledLeft = pygame.transform.scale(torchWallLeft, (torchWallLeft.get_width() * 3, torchWallLeft.get_height() * 3))
-torchWallRight = pygame.image.load("src\main/assets/textures\elements\Environment\decoration\ASSets\Torches\Torch(wall=right).png")
-torchWallScaledRight = pygame.transform.scale(torchWallRight, (torchWallRight.get_width() * 3, torchWallRight.get_height() * 3))
+grassElement = registries.elements.registerElement("elements/Environment/blocks/grass_dirt", 3)
+dirtElement = registries.elements.registerElement("elements/Environment/blocks/Dirt", 3)
+coarseDirtElement = registries.elements.registerElement("elements/Environment/blocks/Coarse_Dirt", 3)
+coarseGrassElement = registries.elements.registerElement("elements/Environment/blocks/Coarse_Grass", 3)
+cobbleElement = registries.elements.registerElement("elements/Environment/blocks/cobble", 3)
+cobbleMossyElement = registries.elements.registerElement("elements/Environment/blocks/cobble_mossy", 3)
+waterFluid = registries.elements.registerElement("elements/Environment/fluids/water", 3)
+waterWavingFluid = registries.elements.registerElement("elements/Environment/fluids/water_top", 3)
+leverOffDeco = registries.elements.registerElement("elements/Environment/decoration/lever_0", 3)
+leverOnDeco = registries.elements.registerElement("elements/Environment/decoration/lever_1", 3)
+poppyDeco = registries.elements.registerElement("elements/Environment/decoration/poppy", 3)
+grassDeco = registries.elements.registerElement("elements/Environment/decoration/grass", 3)
+torchLeftDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=left)", 3)
+torchRightDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=right)", 3)
+torchTopDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=top)", 3)
+torchDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch", 3)
+chainDeco = registries.elements.registerElement("elements/Environment/decoration/Chain/Chain", 3)
+chainPartedDeco = registries.elements.registerElement("elements/Environment/decoration/Chain/Chain(parted)", 3) 
+shieldDeco = registries.elements.registerElement("elements/Environment/decoration/Shields/Shield1", 3)
+shieldDamagedDeco = registries.elements.registerElement("elements/Environment/decoration/Shields/Shield1(harmed)", 3)
+bannerRedDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner1", 3)
+bannerBlueDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner2", 3)
+bannerYellowDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner3", 3)
+doorOpenLargeElement = registries.elements.registerElement("elements/doors/door_1_open", 3)
+doorClosedLargeElement = registries.elements.registerElement("elements/doors/door_1_closed", 3)
+leverDeco = leverOffDeco
+
+enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
+enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
 
 health = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(full).png")
 healthScaled = pygame.transform.scale(health, (70, 70))
@@ -302,11 +304,11 @@ item = registries.item.registerItem("item", "Item", "Environment\decoration\popp
 tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10, 9,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 1, 1, 1, 2,00,12,12,12,13,12,12,12,12,00,00,12,12,00,12,12,12,00,13,12,12,00,12,12,12,00,00,00,00,00,00,00,00,00,00,00,00],
+            [ 1, 1, 1, 2,00,11,11,11,12,11,11,11,11,00,00,11,11,00,11,11,11,00,12,11,11,00,11,11,11,00,00,11,11,00,00,00,11,00,11,12,00],
             [ 1, 1, 1, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
             [ 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 1],
             [ 1, 1, 1, 1, 6, 6, 6, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 1],
@@ -344,103 +346,43 @@ def genWorld(world, map):
         x = 0
         for tile in row:
             if tile == 1:
-                grassElement2.drawElement(world, x, y, Player.debuggingMode)
-
-                """tileRect1 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect1)
-                world.blit(dirtElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect1, 2)"""
+                dirtElement.drawElement(world, x, y, Player.debuggingMode)
             if tile == 2:
-                tileRect2 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect2)
-                world.blit(grassElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect2, 2)
+                grassElement.drawElement(world, x, y, Player.debuggingMode)
             if tile == 3:
-                tileRect3 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect3)
-                world.blit(cobbleElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect3, 2)
+                cobbleElement.drawElement(world, x, y, Player.debuggingMode)
             if tile == 4:
-                tileRect4 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect4)
-                world.blit(waterFluidScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect4, 2)
+                waterFluid.drawElement(world, x, y, Player.debuggingMode)
             if tile == 5:
-                tileRect5 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect5)
-                world.blit(waterFluidTopScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect5, 2)
+                waterWavingFluid.drawElement(world, x, y, Player.debuggingMode)
             if tile == 6:
-                tileRect6 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect6)
-                world.blit(dirtCoarseElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect6, 2)
+                coarseDirtElement.drawElement(world, x, y, Player.debuggingMode)
             if tile == 7:
-                tileRect7 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect7)
-                world.blit(grassCoarseElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect7, 2)
+                coarseGrassElement.drawElement(world, x, y, Player.debuggingMode)
             if tile == 8:
-                tileRect8 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect8)
-                world.blit(leverScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect8, 2)
+                grassElement.drawElement(world, x, y, Player.debuggingMode)
             if tile == 9:
-                tileRect9 = pygame.Rect(x * dirtElementScaled.get_width() + 50, y * dirtElementScaled.get_width(), door_sprite.get_width() - 100, door_sprite.get_width())
-                tile_rects.append(tileRect9)
-                world.blit(door_sprite, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect9, 2)
+                doorClosedLargeElement.drawElement(world, x, y, Player.debuggingMode)
             if tile == 10:
-                tileRect10 = pygame.Rect(x * dirtElementScaled.get_width() + 100, y * dirtElementScaled.get_width() + 100, npc_scaled.get_width() - 175, npc_scaled.get_width() - 75)
-                tile_rects.append(tileRect10)
-                world.blit(npc_scaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width() - 30))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect10, 2)
+                grassElement.drawElement(world, x, y, Player.debuggingMode)
+            if tile == 11:
+                grassDeco.drawElement(world, x, y, Player.debuggingMode)
             if tile == 12:
-                tileRect12 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())       
-                tile_rects.append(tileRect12)
-                world.blit(grassScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect12, 3)
+                poppyDeco.drawElement(world, x, y, Player.debuggingMode)
             if tile == 13:
-                tileRect13 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())       
-                tile_rects.append(tileRect13)
-                world.blit(poppyScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect13, 3)
+                leverOffDeco.drawElement(world, x, y, Player.debuggingMode)
             if tile == 14:
-                tileRect14 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())       
-                tile_rects.append(tileRect14)
-                world.blit(torchWallScaledLeft, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect14, 3)
+                torchLeftDeco.drawElement(world, x, y, Player.debuggingMode)
             if tile == 15:
-                tileRect15 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())       
-                tile_rects.append(tileRect15)
-                world.blit(torchWallScaledRight, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect15, 3)
+                torchRightDeco.drawElement(world, x, y, Player.debuggingMode)
             if tile == 16:
-                tileRect16 = pygame.Rect(x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width(), dirtElementScaled.get_width(), dirtElementScaled.get_width())
-                tile_rects.append(tileRect16)
-                world.blit(cobbleMossyElementScaled, (x * dirtElementScaled.get_width(), y * dirtElementScaled.get_width()))
-                if Player.debuggingMode == True:
-                    pygame.draw.rect(world, (255, 255, 255), tileRect16, 3)
+                torchDeco.drawElement(world, x, y, Player.debuggingMode)
 
             x += 1
         y += 1
     door_sprite = pygame.transform.scale(door_sprite, (int(door_open.get_width() * 5), int(door_open.get_height() * 5)))
 
-    if Player.rect.colliderect(tileRect9) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
+    if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         door_sprite = door_open
         n += 1
     if n == 40:
