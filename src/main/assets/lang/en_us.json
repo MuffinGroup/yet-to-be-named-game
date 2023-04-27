@@ -14,5 +14,10 @@
 "button.debug_menu.heal": "Heal",
 
 "text.debug_menu.collide": "collide",
-"text.debug_menu.fly": "flight"
+"text.debug_menu.fly": "flight",
+
+"text.tutorial.welcome": "Welcome to yet-to-be-named-game!",
+"text.tutorial.welcome1": "In this game you will find some interesting things to do.",
+"text.tutorial.welcome2": "For example some nice levels, enemies and tasks.",
+"text.tutorial.welcome3": "-Please press Enter-"
 }
