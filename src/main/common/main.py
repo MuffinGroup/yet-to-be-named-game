@@ -237,6 +237,7 @@ bannerBlueDeco = registries.elements.registerElement("elements/Environment/decor
 bannerYellowDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner3", 3)
 doorOpenLargeElement = registries.elements.registerElement("elements/doors/door_1_open", 5)
 doorClosedLargeElement = registries.elements.registerElement("elements/doors/door_1_closed", 5)
+doorCurrent = doorClosedLargeElement
 
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
@@ -362,10 +363,11 @@ def genWorld(world, map):
             if tile == 8:
                 grassElement.drawElement(world, x, y, Player.debuggingMode)
             if tile == 9:
-                doorClosedLargeElement.drawElement(world, x, y, Player.debuggingMode)
-                doorClosedLargeElement.yModifier = -22
-                doorClosedLargeElement.widthModifier = -75
-                doorClosedLargeElement.xRectModifier = 50
+                doorCurrent.drawElement(world, x, y, Player.debuggingMode)
+                doorCurrent.yModifier = -22
+                doorCurrent.widthModifier = -75
+                doorCurrent.xRectModifier = 50
+                doorCurrent.yRectModifier = -22
             if tile == 10:
                 doorClosedLargeElement.drawElement(world, x, y, Player.debuggingMode)
             if tile == 11:
