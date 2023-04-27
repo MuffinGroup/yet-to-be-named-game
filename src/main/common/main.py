@@ -485,7 +485,7 @@ def Tut1(language):
                 chat.x = chat.markerDefaultPos
                 language = Player.languageList[1]
                 chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
-
+            
             if chat.userInput.lower() == "/lang en_us" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
                 chat.x = chat.markerDefaultPos
@@ -515,6 +515,10 @@ def Tut1(language):
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
+
+        enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
+        enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8)) 
+
         #Render background
         world.fill(AQUA)
 
@@ -528,7 +532,7 @@ def Tut1(language):
         if Player.visible == True:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
             # Drawing the player to the screen
-            world.blit(Player.currentSprite,(player.rect.x - 75, player.rect.y-50))
+            world.blit(Player.currentSprite,(player.rect.x - 75, player.rect.y -50))
             if Player.debuggingMode == True:
                 # Drawing the hitbox to the screen
                 pygame.draw.rect(world, (0, 255, 0), Player.rect, 4)
