@@ -536,6 +536,11 @@ def Tut1(language):
         #Render the player
         player.collisions()
 
+        enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
+        enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
+        world.blit(enemy_img_Scaled,(3000, 305))
+
+
         #Render the map to the screen
         screen.blit(world, (player_x, player_y))
 
