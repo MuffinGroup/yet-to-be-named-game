@@ -28,6 +28,10 @@
 "text.tutorial.walking_left":"And now to the other direction. For this press LEFT.",
 "text.tutorial.walking_left1": "Wonderful!",
 
+"text.tutorial.sprint": "If you want to be faster you can sprint.",
+"text.tutorial.sprint1": "For this walk and press SHIFT at the same time.",
+"text.tutorial.sprint2": "That's faster right?",
+
 "text.tutorial.item_system": "Now try to take a poppy and give it to me.",
 "text.tutorial.item_system1": "For this go to a poppy and click on it.",
 "text.tutorial.item_system2": "When you can see it in the inventory, come back to me.",
