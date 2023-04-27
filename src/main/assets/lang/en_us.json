@@ -20,10 +20,15 @@
 "text.tutorial.welcome1": "In this game you will find some interesting things to do.",
 "text.tutorial.welcome2": "For example some nice levels, enemies and tasks.",
 "text.tutorial.welcome3": "In this tutorial you will learn how to move and act.",
-"text.tutorial.welcome4": "-Please press Enter-",
+"text.tutorial.welcome4": "If you want to skip it press SPACE.",
+"text.tutorial.welcome5": "If you want to see it press ENTER.",
 
 "text.tutorial.walking_right": "Now try to walk. For this you have to press the RIGHT buttton.",
 "text.tutorial.walking_right1": "Great!",
 "text.tutorial.walking_left":"And now to the other direction. For this press LEFT.",
-"text.tutorial.walking_left1": "Wonderfull!"
+"text.tutorial.walking_left1": "Wonderful!",
+
+"text.tutorial.jump": "Of course you may have to jump in the levels.",
+"text.tutorial.jump1": "For this press the UP button.",
+"text.tutorial.jump2": "Nice jump!"
 }
