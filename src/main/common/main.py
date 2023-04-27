@@ -7,6 +7,7 @@ import registries.elements
 import registries.buttons
 import registries.gui
 import registries.item
+import math
 
 #pygame initialization
 pygame.init()
@@ -544,7 +545,19 @@ def Tut1(language):
         #Enemy Import
         enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
         enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
-        world.blit(enemy_img_Scaled,(2000, 305))
+        enemy_x = 2000
+        enemy_y = 305
+        enemy_speed = 4
+        def distance(x1, y1, x2, y2):
+         return math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
+        enemy_dx = player_x - enemy_x
+        enemy_dy = player_y - enemy_y
+        distance_to_character = distance(player_x, player_y, enemy_x, enemy_y)
+        enemy_dx = enemy_dx / distance_to_character * enemy_speed
+        enemy_dy = enemy_dy / distance_to_character * enemy_speed
+        enemy_x += enemy_dx
+        enemy_y += enemy_dy
+        world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
 
 
         #Render the map to the screen
