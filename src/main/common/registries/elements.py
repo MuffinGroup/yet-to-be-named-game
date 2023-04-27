@@ -17,3 +17,6 @@ class registerElement():
 		surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
 		if debuggingmode == True:
 			pygame.draw.rect(surface, (255, 255, 255), self.rect, 3)
+
+	def drawNoCollideElement(self, surface, x, y):
+		surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))

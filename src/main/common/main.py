@@ -237,6 +237,7 @@ bannerBlueDeco = registries.elements.registerElement("elements/Environment/decor
 bannerYellowDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner3", 3)
 doorOpenLargeElement = registries.elements.registerElement("elements/doors/door_1_open", 5)
 doorClosedLargeElement = registries.elements.registerElement("elements/doors/door_1_closed", 5)
+darkCobble = registries.elements.registerElement("elements\Environment\Blocks\Cobble(Backround)", 3)
 doorCurrent = doorClosedLargeElement
 
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
@@ -346,6 +347,8 @@ def genWorld(world, map):
     for row in map:
         x = 0
         for tile in row:
+            if Player.world == "tut2":
+                darkCobble.drawNoCollideElement(world, x, y)
             if tile == 1:
                 dirtElement.drawElement(world, x, y, Player.debuggingMode)
             if tile == 2:
