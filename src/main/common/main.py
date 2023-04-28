@@ -15,8 +15,8 @@ pygame.init()
 gameStarted = False
 class Player:
     #Initial Player attribute assignment
-    def __init__(currentImage):
-        Player.defaultSpeed = 11
+    def __init__(self):
+        Player.defaultSpeed = 0.2
         Player.jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
         Player.jumpsound.set_volume(0.25)
         Player.deathSound = pygame.mixer.Sound("src\main/assets\sounds\death.mp3")
@@ -32,7 +32,7 @@ class Player:
         Player.walking = False
         Player.collidingLeft = False
         Player.collidingRight = False
-        Player.rect = pygame.Rect((800, 562), (100, 200)) # Create the players hitbox
+        Player.rect = pygame.Rect((800, 562), (100, 206)) # Create the players hitbox
         Player.animationFrameUpdate = 1
         Player.debuggingMode = False
         Player.visible = True
@@ -50,6 +50,11 @@ class Player:
         Player.langCounter = 0
         Player.languageList = ["en_us", "de_de"]
         Player.language = Player.languageList[Player.langCounter]
+        Player.moving_right = False
+        Player.moving_left = False
+        Player.y_momentum = 0
+        Player.air_timer = 0
+
 
     def keybinds(self,camera_pos):
         global player_x
@@ -80,29 +85,33 @@ class Player:
             Player.jumpvar = 16
             Player.jumping = False
 
-        if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.movementLocked == False and Player.movementLocked == False and Player.locked == False: #Player walking
+        if key[pygame.K_RIGHT] == False and Player.visible == True and Player.collidingRight == True and Player.movementLocked == False and Player.movementLocked == False and Player.locked == False: #Player walking
             Player.facingLeft = False
             Player.facingRight = True
-        elif key[pygame.K_RIGHT] and Player.collidingRight == False and Player.movementLocked == False and Player.locked == False:
+
+        elif key[pygame.K_RIGHT] and collisions['right'] == False and Player.collidingRight == False and Player.movementLocked == False and Player.locked == False:
             Player.facingLeft = False
             Player.facingRight = True
             Player.standing = False
-            self.rect.x += Player.speed
+            Player.moving_right = True
         else:
             Player.standing = True
             Player.walking = False
+            Player.moving_right = False
 
         if key[pygame.K_LEFT] and Player.visible == True and Player.collidingLeft == True and Player.movementLocked == False and Player.locked == False: #Player walking
             Player.facingLeft = True
             Player.facingRight = False
+
         elif key[pygame.K_LEFT] and Player.collidingLeft == False and Player.movementLocked == False and Player.collidingLeft == False and Player.locked == False:
             Player.facingLeft = True
             Player.facingRight = False
             Player.standing = False
-            self.rect.x -= Player.speed
+            Player.moving_left = True
         else:
             Player.standing = True
             Player.walking = False
+            Player.moving_left = False
 
         if Player.collidingLeft == True:
             print("colliding left")
@@ -301,7 +310,7 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 1, 1, 1, 2,00,11,11,11,12,11,11,11,11,00,00,11,11,00,11,11,11,00,12,11,11,00,11,11,11,00,00,11,11,00,00,00,11,00,11,12,00],
+            [ 1, 1, 1, 2,00,11,11,11,11,11,11,11,11,00,00,11,11,00,11,11,11,00,12,11,11,00,11,11,11,00,00,11,11,00,00,00,11,00,11,12,00],
             [ 1, 1, 1, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
             [ 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 1],
             [ 1, 1, 1, 1, 6, 6, 6, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 1],
@@ -317,12 +326,12 @@ tut2_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00],
             [16, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [3, 3,16, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [ 3, 3,16, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3],
-            [3,16, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,15, 3],
-            [3, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,13, 3],
-            [3,16, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3],
+            [ 3,16, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,15, 3],
+            [ 3, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,13, 3],
+            [ 3,16, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3],
             [16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3, 3,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 5, 5, 5, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -331,7 +340,7 @@ tut2_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]
 
 def genWorld(world, map):
-    global door_sprite, doorCurrent, n
+    global door_sprite, doorCurrent, n, element_rects
     element_rects = []
     fluid_rects = []
     y = 0
@@ -366,7 +375,7 @@ def genWorld(world, map):
             if tile == 10:
                 leverOffDeco.drawElement(world, x, y, element_rects)
             if tile == 11:
-                grassDeco.drawElement(world, x, y, element_rects)
+                grassDeco.drawNoCollideElement(world, x, y)
             if tile == 12:
                 poppyDeco.drawElement(world, x, y, element_rects)
             if tile == 13:
@@ -409,6 +418,35 @@ def health():
                 screen.blit(halfHealthScaled, (10 + i * halfHealthScaled.get_width()//2, 0))
             else:
                 screen.blit(healthScaled, (10 + i * healthScaled.get_width()//2 - halfHealthScaled.get_width()//2, 0))
+
+def collisionTest(player, rectArray):
+    hit_list = []
+    for tile in rectArray:
+        if player.colliderect(tile):
+            hit_list.append(tile)
+    return hit_list
+
+def move(player, movement, rectArray):
+    collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
+    player.x += movement[0]
+    hit_list = collisionTest(player, rectArray)
+    for tile in hit_list:
+        if movement[0] > 0:
+            player.right = tile.left
+            collision_types['right'] = True
+        elif movement[0] < 0:
+            player.left = tile.right
+            collision_types['left'] = True
+    player.y += movement[1]
+    hit_list = collisionTest(player, rectArray)
+    for tile in hit_list:
+        if movement[1] > 0:
+            player.bottom = tile.top
+            collision_types['bottom'] = True
+        elif movement[1] < 0:
+            player.top = tile.bottom
+            collision_types['top'] = True
+    return player, collision_types
 
 def Start(language):
     Player()
@@ -468,23 +506,45 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
     components = test_str.split(" ")
     command = " ".join(components[0:-2])
     x, y = (int(components[-2]), int(components[-1]))
-    
     return command, x, y
     
 
 def Tut1(language):
+    global collisions
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
     camera_pos = (0, 0) #camera starting position
-
-    x = int
-    y = int
-
     #values for animation calculation
     idleValue = 0
     walkingValue = 0
     Player.world = "tut1"
     while True:
+        #Render background
+        world.fill(AQUA)
+
+        #Fill the background outside of the map
+        screen.fill(AQUA)
+        genWorld(world, tut1_map)
+
+        player_movement = [0, 0]
+
+        if Player.moving_right:
+            player_movement[0] += 20
+        if Player.moving_left:
+            player_movement[0] -= 20
+        player_movement[1] += Player.y_momentum
+        Player.y_momentum += 0.2
+        if Player.y_momentum > 3:
+            Player.y_momentum = 3
+
+        Player.rect, collisions = move(Player.rect, player_movement, element_rects)
+
+        if collisions['bottom']:
+            Player.y_momentum = 0
+            Player.air_timer = 0
+        else:
+            Player.air_timer += 1
+
         try:
             command, x, y = parse_input(chat.userInput.lower())
         except:
@@ -508,7 +568,6 @@ def Tut1(language):
                 if parse_input(str(chat.userInput.lower())) and command == "/place block" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                     chat.userInput = ""
                     chat.x = chat.markerDefaultPos
-                    language = Player.languageList[0]
                     chat.linesLoaded[0] = translatableComponent("command.place", language)
                     tut1_map[y][x] = 17
             except:
@@ -538,15 +597,7 @@ def Tut1(language):
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
-        #Render background
-        world.fill(AQUA)
-
-        #Fill the background outside of the map
-        screen.fill(AQUA)
-
-        genWorld(world, tut1_map)
-
-        #blitng to the world
+        #bliting to the world
 
         if Player.visible == True:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
@@ -561,7 +612,7 @@ def Tut1(language):
 
         #Enemy Import
         enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
-        enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
+        enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width() * 8, enemy_img.get_width() * 8))
         enemy_x = 2000
         enemy_y = 305
         enemy_speed = 4
@@ -627,7 +678,7 @@ def Tut1(language):
             chat.inputLocked = True
             Player.locked = False
 
-        clock.tick(400)
+        clock.tick(800)
         pygame.display.flip()
         
 def Tut2(language):
@@ -638,8 +689,7 @@ def Tut2(language):
     #values for animation calculation
     idleValue = 0
     walkingValue = 0
-    
-    Player.rect.y = 850
+
     Player.world = "tut2"
     
     while True:
@@ -690,7 +740,7 @@ def Tut2(language):
         if Player.visible == True:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
             # Drawing the player to the screen
-            world.blit(Player.currentSprite,(player.rect.x - 75, player.rect.y - 50))
+            world.blit(Player.currentSprite,(player.rect.x - 75, player.rect.y - 75))
             if Player.debuggingMode == True:
                 # Drawing the hitbox to the screen
                 pygame.draw.rect(world, (0, 255, 0), Player.rect, 4)

@@ -75,6 +75,19 @@ player_rect = pygame.Rect(50, 50, player_image.get_width(), player_image.get_hei
 test_rect = pygame.Rect(100,100,100,50)
 
 while True: # game loop
+    player_movement = [0, 0]
+
+    if moving_right:
+        player_movement[0] += 2
+    if moving_left:
+        player_movement[0] -= 2
+    player_movement[1] += player_y_momentum
+    player_y_momentum += 0.2
+    if player_y_momentum > 3:
+        player_y_momentum = 3
+
+    player, collisions = move(player, player_movement, tile_rects)
+
     display.fill((146,244,255))
 
     tile_rects = []
