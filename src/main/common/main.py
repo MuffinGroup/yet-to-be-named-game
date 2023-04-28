@@ -341,8 +341,6 @@ def genWorld(world, map):
         for tile in row:
             if Player.world == "tut2":
                 darkCobble.drawNoCollideElement(world, x, y)
-            if Player.world == "tut1":
-                waterFluid.drawNoCollideElement(world, x, y)
             if tile == 1:
                 dirtElement.drawElement(world, x, y, element_rects)
             if tile == 2:
