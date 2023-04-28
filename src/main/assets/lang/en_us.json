@@ -6,6 +6,7 @@
 "command.teleport.tut1": "teleported to tut1",
 "command.teleport.tut2": "teleported to tut2",
 "command.lang": "Current language: ",
+"command.place": "Placed block",
 
 "text.debug_mode": "Press D to enable debug mode",
 "text.debug_menu": "Press 0 to open debug menu",

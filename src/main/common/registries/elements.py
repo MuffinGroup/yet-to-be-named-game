@@ -12,11 +12,10 @@ class registerElement():
 		self.texture = pygame.image.load("src/main/assets/textures/" + elementLocation + ".png")
 		self.scaledTexture = pygame.transform.scale(self.texture, (self.texture.get_width() * scale, self.texture.get_height() * scale))
 
-	def drawElement(self, surface, x, y, debuggingmode):
+	def drawElement(self, surface, x, y, rectArray):
 		self.rect = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height() + self.heightModifier))
 		surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
-		if debuggingmode == True:
-			pygame.draw.rect(surface, (255, 255, 255), self.rect, 3)
+		rectArray.append(self.rect)
 
 	def drawNoCollideElement(self, surface, x, y):
 		surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
