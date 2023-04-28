@@ -1,5 +1,6 @@
 import pygame
 import random
+from typing import Tuple
 from registries.colors import *
 from registries.json_lang import *
 import registries.animations
@@ -450,17 +451,25 @@ def Start(language):
         clock.tick(1000)
         
 def commandEvent(event, language):
-            if chat.userInput.lower() == "/world tut2" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut2" and Player.debuggingMode == True:
-                chat.userInput = ""
-                chat.linesLoaded[0] = translatableComponent("command.teleport.tut2", language)
-                chat.x = chat.markerDefaultPos
-                Tut2(language)
+    if chat.userInput.lower() == "/world tut2" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut2" and Player.debuggingMode == True:
+        chat.userInput = ""
+        chat.linesLoaded[0] = translatableComponent("command.teleport.tut2", language)
+        chat.x = chat.markerDefaultPos
+        Tut2(language)
                 
-            if chat.userInput.lower() == "/world tut1" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut1" and Player.debuggingMode == True:
-                chat.userInput = ""
-                chat.linesLoaded[0] = translatableComponent("command.teleport.tut1", language)
-                chat.x = chat.markerDefaultPos
-                Tut1(language)
+    if chat.userInput.lower() == "/world tut1" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut1" and Player.debuggingMode == True:
+        chat.userInput = ""
+        chat.linesLoaded[0] = translatableComponent("command.teleport.tut1", language)
+        chat.x = chat.markerDefaultPos
+        Tut1(language)
+
+def parse_input(input_str: str) -> Tuple[str, int, int]:
+    test_str = input_str.lower()
+    components = test_str.split(" ")
+    command = " ".join(components[0:-2])
+    x, y = (int(components[-2]), int(components[-1]))
+    
+    return command, x, y
     
 
 def Tut1(language):
@@ -491,13 +500,15 @@ def Tut1(language):
                 chat.x = chat.markerDefaultPos
                 language = Player.languageList[0]
                 chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
-            
-            if chat.userInput.lower() == "/place grass" + str(int) + str(int) and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                chat.userInput = ""
-                chat.x = chat.markerDefaultPos
-                language = Player.languageList[0]
-                chat.linesLoaded[0] = translatableComponent("command.place", language)
-                tut1_map[int(x)][int(y)] = 1
+            try:
+                if parse_input(str(chat.userInput.lower())) and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    chat.userInput = ""
+                    chat.x = chat.markerDefaultPos
+                    language = Player.languageList[0]
+                    chat.linesLoaded[0] = translatableComponent("command.place", language)
+                    tut1_map[0][0] = 1
+            except:
+                pass
 
             commandEvent(event, language)
             chat.event(event)
