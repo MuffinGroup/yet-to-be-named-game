@@ -485,6 +485,10 @@ def Tut1(language):
     walkingValue = 0
     Player.world = "tut1"
     while True:
+        try:
+            command, x, y = parse_input(chat.userInput.lower())
+        except:
+            pass
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -501,12 +505,12 @@ def Tut1(language):
                 language = Player.languageList[0]
                 chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
             try:
-                if parse_input(str(chat.userInput.lower())) and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                if parse_input(str(chat.userInput.lower())) and command == "/place block" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                     chat.userInput = ""
                     chat.x = chat.markerDefaultPos
                     language = Player.languageList[0]
                     chat.linesLoaded[0] = translatableComponent("command.place", language)
-                    tut1_map[0][0] = 1
+                    tut1_map[y][x] = 17
             except:
                 pass
 
