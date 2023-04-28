@@ -468,10 +468,13 @@ def Tut1(language):
     player = Player() # Initialize Player Class
     camera_pos = (0, 0) #camera starting position
 
+    x = int
+    y = int
+
     #values for animation calculation
     idleValue = 0
     walkingValue = 0
-    Player.world = "tut1" 
+    Player.world = "tut1"
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -489,12 +492,12 @@ def Tut1(language):
                 language = Player.languageList[0]
                 chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
             
-            if chat.userInput.lower() == "/place grass" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+            if chat.userInput.lower() == "/place grass" + str(int) + str(int) and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
                 chat.x = chat.markerDefaultPos
                 language = Player.languageList[0]
                 chat.linesLoaded[0] = translatableComponent("command.place", language)
-                tut1_map[0][0] = 1
+                tut1_map[int(x)][int(y)] = 1
 
             commandEvent(event, language)
             chat.event(event)
