@@ -1,5 +1,6 @@
 import pygame
 import random
+from typing import Tuple
 from registries.colors import *
 from registries.json_lang import *
 import registries.animations
@@ -174,29 +175,19 @@ class Player:
                 if Player.flying > 1:
                     Player.flying = 0
                 Player.flying += 1
-                if Player.flying == 1:
-                    print("selected")
-                if Player.flying == 2:
-                    print("not selected") 
             toggleAdvMoveText.drawFont(debugMenu.window)
             if damage.draw(debugMenu.window, 225, 350, -35, -10, 75, 100, translatableComponent("button.debug_menu.damage", language), BLACK, "joystixmonospaceregular"):
-                print("button pressed")
                 if Player.health > 0:
                     Player.health -= 1
                     if Player.health > 0.5:
                         pygame.mixer.Sound.play(Player.hurtSound)
             if heal.draw(debugMenu.window, 225, 450, -60, -10, 75, 100, translatableComponent("button.debug_menu.heal", language), BLACK, "joystixmonospaceregular"):
-                print("pressed other button")
                 if Player.health < Player.defaultHealth:
                     Player.health += 1
             if toggleCollisions.drawToggle(debugMenu.window, 320, 150, 75, 100):
                 if Player.colliding > 1:
                     Player.colliding = 0
                 Player.colliding += 1
-                if Player.colliding == 1:
-                    print("selected")
-                if Player.colliding == 2:
-                    print("not selecteduwu")
             toggleCollisionsText.drawFont(debugMenu.window)
 
     def collisions(self):
@@ -341,7 +332,8 @@ tut2_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
 
 def genWorld(world, map):
     global door_sprite, doorCurrent, n
-    tile_rects = []
+    element_rects = []
+    fluid_rects = []
     y = 0
     
     for row in map:
@@ -352,47 +344,49 @@ def genWorld(world, map):
             if Player.world == "tut1":
                 waterFluid.drawNoCollideElement(world, x, y)
             if tile == 1:
-                dirtElement.drawElement(world, x, y, Player.debuggingMode)
+                dirtElement.drawElement(world, x, y, element_rects)
             if tile == 2:
-                grassElement.drawElement(world, x, y, Player.debuggingMode)
+                grassElement.drawElement(world, x, y, element_rects)
             if tile == 3:
-                cobbleElement.drawElement(world, x, y, Player.debuggingMode)
+                cobbleElement.drawElement(world, x, y, element_rects)
             if tile == 4:
-                waterFluid.drawElement(world, x, y, Player.debuggingMode)
+                waterFluid.drawElement(world, x, y, fluid_rects)
             if tile == 5:
-                waterWavingFluid.drawElement(world, x, y, Player.debuggingMode)
+                waterWavingFluid.drawElement(world, x, y, fluid_rects)
             if tile == 6:
-                coarseDirtElement.drawElement(world, x, y, Player.debuggingMode)
+                coarseDirtElement.drawElement(world, x, y, element_rects)
             if tile == 7:
-                coarseGrassElement.drawElement(world, x, y, Player.debuggingMode)
+                coarseGrassElement.drawElement(world, x, y, element_rects)
             if tile == 8:
-                grassElement.drawElement(world, x, y, Player.debuggingMode)
+                grassElement.drawElement(world, x, y, element_rects)
             if tile == 9:
-                doorCurrent.drawElement(world, x, y, Player.debuggingMode)
+                doorCurrent.drawElement(world, x, y, element_rects)
                 doorCurrent.yModifier = -22
                 doorCurrent.widthModifier = -75
                 doorCurrent.xRectModifier = 50
                 doorCurrent.yRectModifier = -22
             if tile == 10:
-                doorClosedLargeElement.drawElement(world, x, y, Player.debuggingMode)
+                leverOffDeco.drawElement(world, x, y, element_rects)
             if tile == 11:
-                grassDeco.drawElement(world, x, y, Player.debuggingMode)
+                grassDeco.drawElement(world, x, y, element_rects)
             if tile == 12:
-                poppyDeco.drawElement(world, x, y, Player.debuggingMode)
+                poppyDeco.drawElement(world, x, y, element_rects)
             if tile == 13:
-                leverOffDeco.drawElement(world, x, y, Player.debuggingMode)
+                leverOnDeco.drawElement(world, x, y, element_rects)
             if tile == 14:
-                torchLeftDeco.drawElement(world, x, y, Player.debuggingMode)
+                torchLeftDeco.drawElement(world, x, y, element_rects)
             if tile == 15:
-                torchRightDeco.drawElement(world, x, y, Player.debuggingMode)
+                torchRightDeco.drawElement(world, x, y, element_rects)
             if tile == 16:
-                cobbleMossyElement.drawElement(world, x, y, Player.debuggingMode)
+                cobbleMossyElement.drawElement(world, x, y, element_rects)
             if tile == 17:
-                torchDeco.drawElement(world, x, y, Player.debuggingMode)
-
+                torchDeco.drawElement(world, x, y, element_rects)
             x += 1
         y += 1
-    door_sprite = pygame.transform.scale(door_sprite, (int(door_open.get_width() * 5), int(door_open.get_height() * 5)))
+
+    for tiles in element_rects:
+        if Player.debuggingMode == True:
+            pygame.draw.rect(world, (255, 255, 255), tiles, 3)
 
     if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         doorCurrent = doorOpenLargeElement
@@ -406,8 +400,6 @@ def genWorld(world, map):
         Tut2(Player.language)
     if n >= 1 and n <= 70:
         n += 1
-        print(n)
-    door_sprite = pygame.transform.scale(door_sprite, (int(door_open.get_width() * 5), int(door_open.get_height() * 5)))
         
 def health():
         for i in range(Player.defaultHealth):
@@ -455,26 +447,31 @@ def Start(language):
         if key[pygame.K_RETURN] and Player.world == None:
             pygame.quit()
             exit()
-            
-        print(language)
 
         startFont.drawFont(screen)
-        #print(str(screen.get_width()) + str(screen.get_height()))
         pygame.display.flip()
         clock.tick(1000)
         
 def commandEvent(event, language):
-            if chat.userInput.lower() == "/world tut2" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut2" and Player.debuggingMode == True:
-                chat.userInput = ""
-                chat.linesLoaded[0] = translatableComponent("command.teleport.tut2", language)
-                chat.x = chat.markerDefaultPos
-                Tut2(language)
+    if chat.userInput.lower() == "/world tut2" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut2" and Player.debuggingMode == True:
+        chat.userInput = ""
+        chat.linesLoaded[0] = translatableComponent("command.teleport.tut2", language)
+        chat.x = chat.markerDefaultPos
+        Tut2(language)
                 
-            if chat.userInput.lower() == "/world tut1" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut1" and Player.debuggingMode == True:
-                chat.userInput = ""
-                chat.linesLoaded[0] = translatableComponent("command.teleport.tut1", language)
-                chat.x = chat.markerDefaultPos
-                Tut1(language)
+    if chat.userInput.lower() == "/world tut1" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut1" and Player.debuggingMode == True:
+        chat.userInput = ""
+        chat.linesLoaded[0] = translatableComponent("command.teleport.tut1", language)
+        chat.x = chat.markerDefaultPos
+        Tut1(language)
+
+def parse_input(input_str: str) -> Tuple[str, int, int]:
+    test_str = input_str.lower()
+    components = test_str.split(" ")
+    command = " ".join(components[0:-2])
+    x, y = (int(components[-2]), int(components[-1]))
+    
+    return command, x, y
     
 
 def Tut1(language):
@@ -482,12 +479,18 @@ def Tut1(language):
     player = Player() # Initialize Player Class
     camera_pos = (0, 0) #camera starting position
 
+    x = int
+    y = int
+
     #values for animation calculation
     idleValue = 0
     walkingValue = 0
-    Player.world = "tut1" 
+    Player.world = "tut1"
     while True:
-
+        try:
+            command, x, y = parse_input(chat.userInput.lower())
+        except:
+            pass
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -503,6 +506,15 @@ def Tut1(language):
                 chat.x = chat.markerDefaultPos
                 language = Player.languageList[0]
                 chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
+            try:
+                if parse_input(str(chat.userInput.lower())) and command == "/place block" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    chat.userInput = ""
+                    chat.x = chat.markerDefaultPos
+                    language = Player.languageList[0]
+                    chat.linesLoaded[0] = translatableComponent("command.place", language)
+                    tut1_map[y][x] = 17
+            except:
+                pass
 
             commandEvent(event, language)
             chat.event(event)
@@ -606,9 +618,6 @@ def Tut1(language):
         if Player.walking == True:
             walkingValue += Player.animationFrameUpdate
         
-        item.drawItem(world)
-            
-        #print(str(Player.rect.x) + ", " + str(Player.rect.y))
         if Player.chatOpen == True:
             chatBackground.draw(screen, "default")
             chat.drawChat(screen)
@@ -619,8 +628,6 @@ def Tut1(language):
         else:
             chat.inputLocked = True
             Player.locked = False
-
-        print(Player.rect.x)
 
         clock.tick(400)
         pygame.display.flip()
@@ -703,9 +710,6 @@ def Tut2(language):
         #Rendering the debug menu
         player.renderDebugMenu(language)	
         
-        #print(str(Player.rect.x) + ", " + str(Player.rect.y)) Player coordinates
-        #print(str(tileRect.x) + ", " + str(tileRect.y)) World generator last generation coordinate
-        
         health()
         
         if Player.health > Player.defaultHealth:
@@ -733,10 +737,6 @@ def Tut2(language):
             idleValue += 1
         if Player.walking == True:
             walkingValue += Player.animationFrameUpdate
-        
-        item.drawItem(world)
-            
-        #print(str(Player.rect.x) + ", " + str(Player.rect.y))
         if Player.chatOpen == True:
             chatBackground.draw(screen, "default")
             chat.drawChat(screen)
@@ -747,8 +747,6 @@ def Tut2(language):
         else:
             chat.inputLocked = True
             Player.locked = False
-
-        print(language)
 
         clock.tick(400)
         pygame.display.flip()
