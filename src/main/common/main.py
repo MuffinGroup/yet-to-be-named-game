@@ -15,8 +15,8 @@ pygame.init()
 gameStarted = False
 class Player:
     #Initial Player attribute assignment
-    def __init__(currentImage):
-        Player.defaultSpeed = 11
+    def __init__(self):
+        Player.defaultSpeed = 0.2
         Player.jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
         Player.jumpsound.set_volume(0.25)
         Player.deathSound = pygame.mixer.Sound("src\main/assets\sounds\death.mp3")
@@ -32,7 +32,7 @@ class Player:
         Player.walking = False
         Player.collidingLeft = False
         Player.collidingRight = False
-        Player.rect = pygame.Rect((800, 562), (100, 200)) # Create the players hitbox
+        Player.rect = pygame.Rect((800, 562), (100, 206)) # Create the players hitbox
         Player.animationFrameUpdate = 1
         Player.debuggingMode = False
         Player.visible = True
@@ -85,16 +85,15 @@ class Player:
             Player.jumpvar = 16
             Player.jumping = False
 
-        if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.movementLocked == False and Player.movementLocked == False and Player.locked == False: #Player walking
+        if key[pygame.K_RIGHT] == False and Player.visible == True and Player.collidingRight == True and Player.movementLocked == False and Player.movementLocked == False and Player.locked == False: #Player walking
             Player.facingLeft = False
             Player.facingRight = True
 
-        elif key[pygame.K_RIGHT] and Player.collidingRight == False and Player.movementLocked == False and Player.locked == False:
+        elif key[pygame.K_RIGHT] and collisions['right'] == False and Player.collidingRight == False and Player.movementLocked == False and Player.locked == False:
             Player.facingLeft = False
             Player.facingRight = True
             Player.standing = False
             Player.moving_right = True
-            self.rect.x += Player.speed
         else:
             Player.standing = True
             Player.walking = False
@@ -109,7 +108,6 @@ class Player:
             Player.facingRight = False
             Player.standing = False
             Player.moving_left = True
-            self.rect.x -= Player.speed
         else:
             Player.standing = True
             Player.walking = False
@@ -512,6 +510,7 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
     
 
 def Tut1(language):
+    global collisions
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
     camera_pos = (0, 0) #camera starting position
@@ -530,9 +529,9 @@ def Tut1(language):
         player_movement = [0, 0]
 
         if Player.moving_right:
-            player_movement[0] += 2
+            player_movement[0] += 20
         if Player.moving_left:
-            player_movement[0] -= 2
+            player_movement[0] -= 20
         player_movement[1] += Player.y_momentum
         Player.y_momentum += 0.2
         if Player.y_momentum > 3:
@@ -679,7 +678,7 @@ def Tut1(language):
             chat.inputLocked = True
             Player.locked = False
 
-        clock.tick(400)
+        clock.tick(800)
         pygame.display.flip()
         
 def Tut2(language):
@@ -690,8 +689,7 @@ def Tut2(language):
     #values for animation calculation
     idleValue = 0
     walkingValue = 0
-    
-    Player.rect.y = 850
+
     Player.world = "tut2"
     
     while True:
@@ -742,7 +740,7 @@ def Tut2(language):
         if Player.visible == True:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
             # Drawing the player to the screen
-            world.blit(Player.currentSprite,(player.rect.x - 75, player.rect.y - 50))
+            world.blit(Player.currentSprite,(player.rect.x - 75, player.rect.y - 75))
             if Player.debuggingMode == True:
                 # Drawing the hitbox to the screen
                 pygame.draw.rect(world, (0, 255, 0), Player.rect, 4)
