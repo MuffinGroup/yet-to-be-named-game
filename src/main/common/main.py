@@ -24,7 +24,7 @@ class Player:
         Player.hurtSound = pygame.mixer.Sound("src\main/assets\sounds\hurt.mp3")
         Player.hurtSound.set_volume(0.25)
         Player.speed = Player.defaultSpeed
-        Player.jumpvar = 16 #Important for jumping calculation
+        Player.jumpvar = 12 #Important for jumping calculation
         Player.facingRight = True
         Player.facingLeft = False
         Player.standing = True
@@ -54,7 +54,8 @@ class Player:
         Player.moving_left = False
         Player.y_momentum = 0
         Player.air_timer = 0
-
+        Player.jumpModifier = 1
+        Player.jumped = False
 
     def keybinds(self,camera_pos):
         global player_x
@@ -75,21 +76,36 @@ class Player:
                 if Player.air_timer < 3:
                     Player.y_momentum = -10
 
-        if Player.jumpvar == -14.3: #Play jump sound when the player jumps
+        #if Player.jumpvar == -14.3: #Play jump sound when the player jumps
+        key = pygame.key.get_pressed()  # Receive keyboard input
+
+        if key[pygame.K_UP] and Player.jumpvar == 12 and Player.visible == True and Player.locked == False: #Jumping
+            if Player.jumpModifier < 3.5: #Jump modifier cap
+                Player.jumpModifier += 0.05
+                print(Player.jumpModifier)
+                Player.jumped = True
+        elif Player.jumpModifier != 1 and not Player.jumpvar == -10.3 and Player.jumped == True:
+            Player.jumpvar = -10.3
+            print(Player.rect.y)
+            Player.jumped = False
+        elif Player.jumpvar == 12:
+            Player.jumpModifier = 1
+
+        if Player.jumpvar == -15: #Play jump sound when the player jumps
             pygame.mixer.Sound.play(Player.jumpsound)
 
-        if Player.jumpvar <= 15: #Jumping movement
+        if Player.jumpvar <= 11: #Jumping movement
             n = -1
             if Player.jumpvar < 0:
                 n = 1
-            Player.rect.y -= (Player.jumpvar**2)*0.17*n
+            Player.rect.y -= (Player.jumpvar**2)*0.17*n*Player.jumpModifier
             Player.jumping = True
-            Player.jumpvar += 1
+            Player.jumpvar += 1  
         else:
-            Player.jumpvar = 16
+            Player.jumpvar = 12
             Player.jumping = False
 
-        if key[pygame.K_RIGHT] == False and Player.visible == True and Player.collidingRight == True and Player.movementLocked == False and Player.movementLocked == False and Player.locked == False: #Player walking
+        if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
             Player.facingLeft = False
             Player.facingRight = True
 
@@ -522,6 +538,7 @@ def Tut1(language):
     idleValue = 0
     walkingValue = 0
     Player.world = "tut1"
+    jumpValue = 0
     while True:
         #Render background
         world.fill(AQUA)
