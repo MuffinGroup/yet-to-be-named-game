@@ -94,13 +94,13 @@ class Player:
         if Player.jumpvar == -15: #Play jump sound when the player jumps
             pygame.mixer.Sound.play(Player.jumpsound)
 
-        if Player.jumpvar <= 11: #Jumping movement
+        if Player.jumpvar <= 11 and not collisions['bottom']: #Jumping movement
             n = -1
             if Player.jumpvar < 0:
                 n = 1
             Player.rect.y -= (Player.jumpvar**2)*0.17*n*Player.jumpModifier
             Player.jumping = True
-            Player.jumpvar += 1  
+            Player.jumpvar += 1
         else:
             Player.jumpvar = 12
             Player.jumping = False
@@ -109,7 +109,7 @@ class Player:
             Player.facingLeft = False
             Player.facingRight = True
 
-        elif key[pygame.K_RIGHT] and collisions['right'] == False and Player.collidingRight == False and Player.movementLocked == False and Player.locked == False:
+        elif key[pygame.K_RIGHT] and Player.collidingRight == False and Player.movementLocked == False and Player.locked == False:
             Player.facingLeft = False
             Player.facingRight = True
             Player.standing = False
