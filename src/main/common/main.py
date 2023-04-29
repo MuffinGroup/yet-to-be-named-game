@@ -68,11 +68,11 @@ class Player:
         key = pygame.key.get_pressed() #Receive keyboard input
         if key[pygame.K_UP] and Player.jumpvar == 16 and Player.visible == True and Player.movementLocked == False and Player.locked == False: #Jumping
             #Player.jumpvar = -14.3
-                if Player.air_timer < 6:
+                if Player.air_timer < 3:
                     Player.y_momentum = -10
         elif key[pygame.K_SPACE] and Player.jumpvar == 16 and Player.visible == True and Player.movementLocked == False and Player.locked == False: #Alternative jumping keybind
             #Player.jumpvar = -14.3
-                if Player.air_timer < 6:
+                if Player.air_timer < 3:
                     Player.y_momentum = -10
 
         if Player.jumpvar == -14.3: #Play jump sound when the player jumps
