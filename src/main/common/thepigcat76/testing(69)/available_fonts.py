@@ -1,7 +1,5 @@
 import pygame
 
-pygame.init
+pygame.init()
 
-fonts = pygame.font.get_fonts()
-
-print(fonts)
+print(pygame.font.get_fonts())

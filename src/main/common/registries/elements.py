@@ -1,20 +1,38 @@
 import pygame
 
-class registerElements():
-	colliding = False
+class registerElement():
 	def __init__(self, elementLocation, scale):
-		image = pygame.image.load("src\main/assets/textures\elements/" + elementLocation + ".png")
-		width = image.get_width()
-		height = image.get_height()
-		self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
+		self.scale = scale
+		self.xModifier = 0
+		self.yModifier = 0
+		self.xRectModifier = 0
+		self.yRectModifier = 0
+		self.widthModifier = 0
+		self.heightModifier = 0
+		self.texture = pygame.image.load("src/main/assets/textures/" + elementLocation + ".png")
+		self.scaledTexture = pygame.transform.scale(self.texture, (self.texture.get_width() * scale, self.texture.get_height() * scale))
 
-	def draw(self, surface, hitbox):
-			surface.blit(self.image, (hitbox))
+	def drawElement(self, surface, x, y, rectArray):
+		self.rect = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height() + self.heightModifier))
+		surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
+		rectArray.append(self.rect)
 
-	def get_width(self):
-		width = self.image.get_width()
-		return width
-	
-	def get_height(self):
-		heigth = self.image.get_height()
-		return heigth
+	def drawNoCollideElement(self, surface, x, y):
+		surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
+
+class registerAnimatedElement():
+	def __init__(self, animationArray, scale):
+		self.scale = scale
+		self.xModifier = 0
+		self.yModifier = 0
+		self.xRectModifier = 0
+		self.yRectModifier = 0
+		self.widthModifier = 0
+		self.heightModifier = 0
+		self.texture = animationArray
+		self.scaledTexture = pygame.transform.scale(self.texture, (self.texture.get_width() * scale, self.texture.get_height() * scale))
+
+	def drawAnimatedElement(self, surface, x, y, rectArray):
+		self.rect = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height() + self.heightModifier))
+		surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
+		rectArray.append(self.rect)

@@ -1,8 +1,47 @@
 {
-"introduction_1": "Hello! Nice to see you!",
-"introduction_2": "In this game you will find ",
-"introduction_3": "some nice levels with enemys, interesting tasks and much more!",
-"introduction_5": "Press -Enter- to continue",
+"button.start": "start",
+"button.options": "language",
+"button.quit": "quit",
 
-"toast_1": "Before you start, you schould learn how to move and act, these things you will learn in the following tutorial. Please press enter."
+"command.teleport.tut1": "teleported to tut1",
+"command.teleport.tut2": "teleported to tut2",
+"command.lang": "Current language: ",
+"command.place": "Placed block",
+
+"text.debug_mode": "Press D to enable debug mode",
+"text.debug_menu": "Press 0 to open debug menu",
+
+"button.debug_menu.damage": "Damage",
+"button.debug_menu.heal": "Heal",
+
+"text.debug_menu.collide": "collide",
+"text.debug_menu.fly": "flight",
+
+"text.tutorial.welcome": "Welcome to yet-to-be-named-game!",
+"text.tutorial.welcome1": "In this game you will find some interesting things to do.",
+"text.tutorial.welcome2": "For example some nice levels, enemies and tasks.",
+"text.tutorial.welcome3": "In this tutorial you will learn how to move and act.",
+"text.tutorial.welcome4": "If you want to skip it press SPACE.",
+"text.tutorial.welcome5": "If you want to see it press ENTER.",
+
+"text.tutorial.walking_right": "Now try to walk. For this you have to press the RIGHT buttton.",
+"text.tutorial.walking_right1": "Great!",
+"text.tutorial.walking_left":"And now to the other direction. For this press LEFT.",
+"text.tutorial.walking_left1": "Wonderful!",
+
+"text.tutorial.sprint": "If you want to be faster you can sprint.",
+"text.tutorial.sprint1": "For this walk and press SHIFT at the same time.",
+"text.tutorial.sprint2": "That's faster right?",
+
+"text.tutorial.item_system": "Now try to take a poppy and give it to me.",
+"text.tutorial.item_system1": "For this go to a poppy and click on it.",
+"text.tutorial.item_system2": "When you can see it in the inventory, come back to me.",
+"text.tutorial.item_system3": "Now go through the door by pressing E and follow the next instructions.",
+
+"text.tutorial.item_system2.0": "Please put the flower on the table over there by clicking on it.",
+"text.tutorial.item_system2.1": "Thank you!",
+
+"text.tutorial.jump2.0": "As you can see here you may have to jump in the levels.",
+"text.tutorial.jump2.1": "For this press the UP button and walk forward to jump over the water.",
+"text.tutorial.jump2.2": "Nice jump!"
 }
