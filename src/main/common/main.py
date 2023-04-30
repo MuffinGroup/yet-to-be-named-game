@@ -217,6 +217,15 @@ class Player:
             Player.collidingRight = True
         else:
             Player.collidingRight = False
+        
+    def render(self, surface):
+            self.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
+            # Drawing the player to the screen
+            surface.blit(self.currentSprite,(self.rect.x - 75, self.rect.y - 50))
+            if Player.debuggingMode == True:
+                # Drawing the hitbox to the screen
+                pygame.draw.rect(surface, (0, 255, 0), Player.rect, 4)
+
 
 Player()
 #Loading element textures
@@ -364,10 +373,6 @@ def genWorld(world, map):
                 grassElement.drawElement(world, x, y, element_rects)
             if tile == 3:
                 cobbleElement.drawElement(world, x, y, element_rects)
-            if tile == 4:
-                waterFluid.drawElement(world, x, y, fluid_rects)
-            if tile == 5:
-                waterWavingFluid.drawElement(world, x, y, fluid_rects)
             if tile == 6:
                 coarseDirtElement.drawElement(world, x, y, element_rects)
             if tile == 7:
@@ -415,6 +420,22 @@ def genWorld(world, map):
         Tut2(Player.language)
     if n >= 1 and n <= 70:
         n += 1
+
+def loadFluids(map, surface):    
+    global fluid_rects
+    fluid_rects = []
+    y = 0
+    
+    for row in map:
+        x = 0
+        for tile in row:
+            if tile == 4:
+                waterFluid.drawElement(surface, x, y, fluid_rects)
+            if tile == 5:
+                waterWavingFluid.drawElement(surface, x, y, fluid_rects)
+            x += 1
+        y += 1
+
         
 def health():
         for i in range(Player.defaultHealth):
@@ -526,7 +547,6 @@ def Tut1(language):
     idleValue = 0
     walkingValue = 0
     Player.world = "tut1"
-    jumpValue = 0
     while True:
         #Render background
         world.fill(AQUA)
@@ -609,12 +629,9 @@ def Tut1(language):
         #bliting to the world
 
         if Player.visible == True:
-            Player.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
-            # Drawing the player to the screen
-            world.blit(Player.currentSprite,(player.rect.x - 75, player.rect.y -50))
-            if Player.debuggingMode == True:
-                # Drawing the hitbox to the screen
-                pygame.draw.rect(world, (0, 255, 0), Player.rect, 4)
+            player.render(world)
+
+        loadFluids(tut1_map, world)
 
         #Render the player
         player.collisions()
@@ -767,12 +784,9 @@ def Tut2(language):
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
         if Player.visible == True:
-            Player.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
-            # Drawing the player to the screen
-            world.blit(Player.currentSprite,(player.rect.x - 75, player.rect.y - 75))
-            if Player.debuggingMode == True:
-                # Drawing the hitbox to the screen
-                pygame.draw.rect(world, (0, 255, 0), Player.rect, 4)
+            player.render(world)
+
+        loadFluids(tut2_map, world)
         
         player.collisions()
 
