@@ -16,6 +16,7 @@
 
 "text.debug_menu.collide": "collide",
 "text.debug_menu.fly": "flight",
+"text.debug_menu.pos": "show pos",
 
 "text.tutorial.welcome": "Welcome to yet-to-be-named-game!",
 "text.tutorial.welcome1": "In this game you will find some interesting things to do.",

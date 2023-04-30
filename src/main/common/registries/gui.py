@@ -1,16 +1,19 @@
 import pygame
 
 pygame.init()
+
+
 class registerGui():
     def __init__(self, x, y, width, height, backgroundImage, imagePath=None):
         if backgroundImage == True:
-            self.bgImage = pygame.image.load("src/main/assets/textures/elements/background/" + imagePath + ".png")
+            self.bgImage = pygame.image.load(
+                "src/main/assets/textures/elements/background/" + imagePath + ".png")
             self.backgroundImage = True
         else:
             self.backgroundImage = False
         self.window = pygame.Surface((width, height))
-        self.x, self.y = x,y
-        
+        self.x, self.y = x, y
+
     def draw(self, surface, color=None):
         surface.blit(self.window, (self.x, self.y))
         if color == None:
@@ -21,6 +24,7 @@ class registerGui():
             self.window.fill(color)
         if self.backgroundImage == True:
             self.window.blit(self.bgImage, (0, 0))
+
 
 class registerObject():
     def __init__(self, x, y, width, height, color, borderWidth):
@@ -33,8 +37,10 @@ class registerObject():
     def drawObject(self, surface):
         pygame.draw.rect(surface, self.color, self.rect, self.borderWidth)
 
+
 class registerButton():
 	clock = pygame.time.Clock()
+
 	def __init__(self, button_name, scale):
 		image = pygame.image.load('src//main//assets//textures//elements//gui//' + button_name + '.png')
 		self.value = 0
@@ -42,40 +48,40 @@ class registerButton():
 		width = image.get_width()
 		height = image.get_height()
 		self.selected_image = pygame.transform.scale(selected_image, (int(width * scale), int(height * scale)))
-		self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
+		self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale))); self.current = self.image
 		self.clicked = False
 		self.toggled = False
 		self.selected = False
-		self.test = 0 #Important for toggle buttons
+		self.test = 0  # Important for toggle buttons
 
-	#draw function is not used atm 
+	# draw function is not used atm
 	def draw(self, surface, x, y, xTextOffset, yTextOffset, xTextureOffset, yTextureOffset, display_text, text_color, font_type):
 		action = False
-		#get mouse position
+		# get mouse position
 		pos = pygame.mouse.get_pos()
 		smallfont = pygame.font.SysFont(font_type, 35)
 		self.display_text1 = smallfont.render(display_text, True, text_color)
-		self.selected_display_text4 = smallfont.render(display_text, True, (255, 255, 255))
+		self.selected_display_text4 = smallfont.render(
+		    display_text, True, (255, 255, 255))
 		self.rect = self.image.get_rect()
 		self.rect.center = (x, y)
-		
-		#check mouseover and clicked conditions
-		surface.blit(self.image, (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset))
+
+		# check mouseover and clicked conditions
+		surface.blit(self.image, (self.rect.x - xTextureOffset,self.rect.y - yTextureOffset))
 		if not self.rect.collidepoint(pos):
-			surface.blit(self.display_text1 , (self.rect.x - xTextOffset - xTextureOffset, self.rect.y - yTextOffset - yTextureOffset))
+			surface.blit(self.display_text1, (self.rect.x - xTextOffset -xTextureOffset, self.rect.y - yTextOffset - yTextureOffset))
 		elif self.rect.collidepoint(pos):
-			pygame.draw.rect(surface, (255, 255, 255), (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset, self.rect.width, self.rect.height), 5)
-			surface.blit(self.selected_display_text4 , (self.rect.x - xTextOffset - xTextureOffset, self.rect.y - yTextOffset - yTextureOffset))
+			pygame.draw.rect(surface, (255, 255, 255), (self.rect.x - xTextureOffset,self.rect.y - yTextureOffset, self.rect.width, self.rect.height), 5)
+			surface.blit(self.selected_display_text4, (self.rect.x - xTextOffset -xTextureOffset, self.rect.y - yTextOffset - yTextureOffset))
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
 				self.clicked = True
 				action = True
-		
 
 		if pygame.mouse.get_pressed()[0] == 0:
 			self.clicked = False
 
 		return action
-	
+
 	def drawAnimated(self, surface, x, y, animationArray, xOffset, yOffset, scale, xTextOffset, yTextOffset, display_text, text_color, font_type):
 		action = False
 		pos = pygame.mouse.get_pos()
@@ -84,11 +90,11 @@ class registerButton():
 		height = image.get_height()
 		buttonSprite = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
 		smallfont = pygame.font.SysFont(font_type, 35)
-		self.display_text1 = smallfont.render(display_text , True , text_color)
-		self.selected_display_text1 = smallfont.render(display_text , True , (56, 56, 56))
-		self.selected_display_text2 = smallfont.render(display_text , True , (80, 80, 80))
-		self.selected_display_text3 = smallfont.render(display_text , True , (171, 171, 171))
-		self.selected_display_text4 = smallfont.render(display_text , True , (255, 255, 255))
+		self.display_text1 = smallfont.render(display_text, True, text_color)
+		self.selected_display_text1 = smallfont.render(display_text, True, (56, 56, 56))
+		self.selected_display_text2 = smallfont.render(display_text, True, (80, 80, 80))
+		self.selected_display_text3 = smallfont.render(display_text, True, (171, 171, 171))
+		self.selected_display_text4 = smallfont.render(display_text, True, (255, 255, 255))
 		self.rect = self.image.get_rect()
 		self.rect.center = (x, y)
 
@@ -96,11 +102,11 @@ class registerButton():
 			self.value = len(animationArray) - 2
 		elif self.selected == False:
 			self.value = 0
-		
+
 		if not self.rect.collidepoint(pos):
 			surface.blit(self.image, (self.rect.x, self.rect.y))
-			surface.blit(self.display_text1 , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
-			self.selected = False 
+			surface.blit(self.display_text1, (self.rect.x -xTextOffset, self.rect.y - yTextOffset))
+			self.selected = False
 		else:
 			self.selected = True
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
@@ -114,13 +120,13 @@ class registerButton():
 			surface.blit(buttonSprite, (self.rect.x - xOffset, self.rect.y - yOffset))
 
 		if self.value < len(animationArray)/4 * 1:
-			surface.blit(self.selected_display_text1 , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
+			surface.blit(self.selected_display_text1, (self.rect.x -xTextOffset, self.rect.y - yTextOffset))
 		elif self.value < len(animationArray)/4 * 2:
-			surface.blit(self.selected_display_text2 , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
+			surface.blit(self.selected_display_text2, (self.rect.x -xTextOffset, self.rect.y - yTextOffset))
 		elif self.value < len(animationArray)/4 * 3:
-			surface.blit(self.selected_display_text3 , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
+			surface.blit(self.selected_display_text3, (self.rect.x -xTextOffset, self.rect.y - yTextOffset))
 		elif self.value > len(animationArray)/4 * 3:
-			surface.blit(self.selected_display_text4 , (self.rect.x - xTextOffset, self.rect.y - yTextOffset))
+			surface.blit(self.selected_display_text4, (self.rect.x -xTextOffset, self.rect.y - yTextOffset))
 
 		if pygame.mouse.get_pressed()[0] == 0:
 			self.clicked = False
@@ -131,16 +137,14 @@ class registerButton():
 		action = False
 		pos = pygame.mouse.get_pos()
 		self.rect = self.image.get_rect()
-		self.rect.center = (x, y)
+		self.rect.center = (x, y); surface.blit(self.current, (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset))
 
 		if self.toggled == False or self.test == 0:
-			surface.blit(self.image, (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset))
-			self.selected = False
+			self.current = self.image
 		if self.toggled == True and self.test == 1:
-			surface.blit(self.selected_image, (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset))
+			self.current = self.selected_image
 			self.selected = True
 		if self.toggled == True and self.test > 1:
-			surface.blit(self.image, (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset))
 			self.test = 0
 			self.selected = False
 
@@ -151,7 +155,7 @@ class registerButton():
 			pygame.time.wait(100)
 
 		if self.rect.collidepoint(pos):
-			pygame.draw.rect(surface, (255, 255, 255), (self.rect.x - xTextureOffset, self.rect.y - yTextureOffset, self.rect.width, self.rect.height), 4)
+			pygame.draw.rect(surface, (255, 255, 255), (self.rect.x - xTextureOffset,self.rect.y - yTextureOffset, self.rect.width, self.rect.height), 4)
 
 		return action
 
