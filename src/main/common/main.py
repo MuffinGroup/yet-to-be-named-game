@@ -65,39 +65,17 @@ class Player:
         player_y = self.rect.y
 
         player_x, player_y = camera_pos #Assign variables to the camera position
+        key = pygame.key.get_pressed()
 
-        key = pygame.key.get_pressed() #Receive keyboard input
-        if key[pygame.K_UP] and Player.jumpvar == 12 and Player.visible == True and Player.movementLocked == False and Player.locked == False: #Jumping
-            #Player.jumpvar = -14.3
-                if Player.air_timer < 6:
+        if key[pygame.K_UP]:
+                if Player.air_timer < 8:
                     Player.y_momentum = -10
-        elif key[pygame.K_SPACE] and Player.jumpvar == 12 and Player.visible == True and Player.movementLocked == False and Player.locked == False: #Alternative jumping keybind
-            #Player.jumpvar = -14.3
-                if Player.air_timer < 6:
-                    Player.y_momentum = -10
-
-        #if Player.jumpvar == -14.3: #Play jump sound when the player jumps
-        key = pygame.key.get_pressed()  # Receive keyboard input
-
-        if Player.jumpvar == -15: #Play jump sound when the player jumps
-            pygame.mixer.Sound.play(Player.jumpsound)
-
-        if Player.jumpvar <= 11: #Jumping movement
-            n = -1
-            if Player.jumpvar < 0:
-                n = 1
-            Player.rect.y -= (Player.jumpvar**2)*0.17*n*Player.jumpModifier
-            Player.jumping = True
-            Player.jumpvar += 1  
-        else:
-            Player.jumpvar = 12
-            Player.jumping = False
 
         if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
             Player.facingLeft = False
             Player.facingRight = True
 
-        elif key[pygame.K_RIGHT] and collisions['right'] == False and Player.collidingRight == False and Player.movementLocked == False and Player.locked == False:
+        elif key[pygame.K_RIGHT] and Player.collidingRight == False and Player.movementLocked == False and Player.locked == False:
             Player.facingLeft = False
             Player.facingRight = True
             Player.standing = False
@@ -593,7 +571,7 @@ def Tut1(language):
         if Player.moving_left:
             player_movement[0] -= 20
         player_movement[1] += Player.y_momentum
-        Player.y_momentum += 0.2
+        Player.y_momentum += 1
         if Player.y_momentum > 3:
             Player.y_momentum = 3
 
@@ -603,7 +581,7 @@ def Tut1(language):
             Player.y_momentum = 0
             Player.air_timer = 0
         else:
-            Player.air_timer += 1
+            Player.air_timer += 100
 
         try:
             command, x, y = parse_input(chat.userInput.lower())
