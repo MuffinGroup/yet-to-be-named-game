@@ -375,7 +375,7 @@ def genWorld(world, map):
             if tile == 8:
                 grassElement.drawElement(world, x, y, element_rects)
             if tile == 9:
-                doorCurrent.drawElement(world, x, y, element_rects)
+                doorCurrent.drawElement(world,x ,y, element_rects)
                 doorCurrent.yModifier = -22
                 doorCurrent.widthModifier = -75
                 doorCurrent.xRectModifier = 50
@@ -385,7 +385,7 @@ def genWorld(world, map):
             if tile == 11:
                 grassDeco.drawNoCollideElement(world, x, y)
             if tile == 12:
-                poppyDeco.drawElement(world, x, y, element_rects)
+                poppyDeco.drawNoCollideElement(world, x, y)
             if tile == 13:
                 leverOnDeco.drawElement(world, x, y, element_rects)
             if tile == 14:
