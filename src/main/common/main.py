@@ -1,4 +1,3 @@
-import hashlib
 import pygame
 from pygame.locals import*
 import random
@@ -641,12 +640,15 @@ def Tut1(language):
         enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width() * 8, enemy_img.get_width() * 8))
         enemy_x = 2000
         enemy_y = 305
-        enemy_speed = 4
-        if enemy_x < 2000:
-           enemy_x -= enemy_speed
-        if enemy_x > 500: 
-           enemy_x += enemy_speed
+        enemy_speed = 5
+        enemy_x += enemy_speed
+        if enemy_x > 500:
+         enemy_speed = -5
+        if enemy_x < 3000:
+         enemy_speed = 5 
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
+       
+        
 
         #Render the map to the screen
         screen.blit(world, (player_x, player_y))
