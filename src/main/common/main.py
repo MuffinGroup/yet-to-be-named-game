@@ -498,14 +498,14 @@ def Start(language):
 
         startFont = registries.gui.registerFont(40, "YET-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
         screen.fill(BLUISH_GRAY)
-        if startButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 2.75, registries.animations.startButton, 48, 48, 6, -125, -25, "", BLACK, "joystixmonospaceregular"):
+        if startButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 2.75, registries.animations.startButton, 48, 48, 6, -125, -25, "start", BLACK, "joystixmonospaceregular"):
             Tut1(language)
-        if optionsButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -125, -25, "", BLACK, "joystixmonospaceregular"):
+        if optionsButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -125, -25, "options", BLACK, "joystixmonospaceregular"):
             if i < len(Player.languageList) -1:
                 i += 1
             else:
                 i = 0
-        if quitButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 5.25, registries.animations.quitButton, 48, 48, 6, -125, -25, "", BLACK, "joystixmonospaceregular"):
+        if quitButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 5.25, registries.animations.quitButton, 48, 48, 6, -125, -25, "quit", BLACK, "joystixmonospaceregular"):
             pygame.quit()
             exit()
             
