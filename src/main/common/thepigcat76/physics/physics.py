@@ -19,7 +19,7 @@ while True:
 		player.x -= 10
 	
 	if keys[pygame.K_UP] and x == 12: #Jumping
-		if modifier < 2.5: #Jump modifier cap
+		if modifier < 9.5: #Jump modifier cap
 			modifier += 0.05
 		print(modifier)
 		jumped = True
