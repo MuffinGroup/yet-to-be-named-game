@@ -702,11 +702,11 @@ def Tut2(language):
     Player.world = "tut2"
     
     while True: #Render background
-        world.fill(AQUA)
+        world.fill(DARK_GRAY)
 
         #Fill the background outside of the map
-        screen.fill(AQUA)
-        genWorld(world, tut1_map)
+        screen.fill(DARK_GRAY)
+        genWorld(world, tut2_map)
 
         player_movement = [0, 0]
 
