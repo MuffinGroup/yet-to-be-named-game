@@ -531,7 +531,7 @@ def Tut1(language):
             Player.y_momentum = 0
             Player.air_timer = 0
         else:
-            Player.air_timer += 1
+            Player.air_timer += 100
 
         try:
             command, x, y = parse_input(chat.userInput.lower())
