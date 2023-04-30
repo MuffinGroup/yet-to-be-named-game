@@ -701,7 +701,32 @@ def Tut2(language):
 
     Player.world = "tut2"
     
-    while True:
+    while True: #Render background
+        world.fill(AQUA)
+
+        #Fill the background outside of the map
+        screen.fill(AQUA)
+        genWorld(world, tut1_map)
+
+        player_movement = [0, 0]
+
+        if Player.moving_right:
+            player_movement[0] += 20
+        if Player.moving_left:
+            player_movement[0] -= 20
+        player_movement[1] += Player.y_momentum
+        Player.y_momentum += 0.2
+        if Player.y_momentum > 3:
+            Player.y_momentum = 3
+
+        Player.rect, collisions = move(Player.rect, player_movement, element_rects)
+
+        if collisions['bottom']:
+            Player.y_momentum = 0
+            Player.air_timer = 0
+        else:
+            Player.air_timer += 1
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -740,11 +765,6 @@ def Tut2(language):
             Player.currentSprite = registries.animations.walking_sprite[walkingValue]
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
-            
-        screen.fill(DARK_GRAY)
-        world.fill(DARK_GRAY)
-            
-        genWorld(world, tut2_map)
 
         if Player.visible == True:
             Player.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
