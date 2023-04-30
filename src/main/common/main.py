@@ -375,7 +375,7 @@ def genWorld(world, map):
             if tile == 8:
                 grassElement.drawElement(world, x, y, element_rects)
             if tile == 9:
-                doorCurrent.drawElement(world, x, y, element_rects)
+                doorCurrent.drawNoCollideElement(world, x, y)
                 doorCurrent.yModifier = -22
                 doorCurrent.widthModifier = -75
                 doorCurrent.xRectModifier = 50

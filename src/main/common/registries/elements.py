@@ -18,6 +18,7 @@ class registerElement():
 		rectArray.append(self.rect)
 
 	def drawNoCollideElement(self, surface, x, y):
+		self.rect = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height() + self.heightModifier))
 		surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
 
 class registerAnimatedElement():
