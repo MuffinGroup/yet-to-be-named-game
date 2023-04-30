@@ -26,3 +26,5 @@ quitButton = load_animation("quitButtonSel", 9, 8, "src/main/assets/textures/ele
 talkingAnimationNormal = load_animation("N1Talking", 8, 3, "src\main/assets/textures\entities/npc\Animations\Talking/normal")
 #talkingAnimationPoppy = load_animation("src\main/assets/textures\entities/npc\Animations\Talking\poppy\N1Talking(1)")
 jump_sprite = load_animation("1jump", 8, 5, "src\main/assets/textures\entities\characters\character_1/animations/1Jump")
+water_top_sprite = load_animation("Water_topIdel", 8, 30, "src\main/assets/textures\elements\Environment/fluids\WaterAnimations\Water_topIdle")
+water_sprite = load_animation("WaterIdle", 8, 50, "src\main/assets/textures\elements\Environment/fluids\WaterAnimations\WaterIdle")

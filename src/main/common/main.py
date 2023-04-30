@@ -236,8 +236,6 @@ coarseDirtElement = registries.elements.registerElement("elements/Environment/bl
 coarseGrassElement = registries.elements.registerElement("elements/Environment/blocks/Coarse_Grass", 3)
 cobbleElement = registries.elements.registerElement("elements/Environment/blocks/cobble", 3)
 cobbleMossyElement = registries.elements.registerElement("elements/Environment/blocks/cobble_mossy", 3)
-waterFluid = registries.elements.registerElement("elements/Environment/fluids/water", 3)
-waterWavingFluid = registries.elements.registerElement("elements/Environment/fluids/water_top", 3)
 leverOffDeco = registries.elements.registerElement("elements/Environment/decoration/lever_0", 3)
 leverOnDeco = registries.elements.registerElement("elements/Environment/decoration/lever_1", 3)
 poppyDeco = registries.elements.registerElement("elements/Environment/decoration/poppy", 3)
@@ -256,6 +254,8 @@ bannerYellowDeco = registries.elements.registerElement("elements/Environment/dec
 doorOpenLargeElement = registries.elements.registerElement("elements/doors/door_1_open", 5)
 doorClosedLargeElement = registries.elements.registerElement("elements/doors/door_1_closed", 5)
 darkCobble = registries.elements.registerElement("elements\Environment\Blocks\Cobble(Backround)", 3)
+waterFluid = registries.elements.registerAnimatedElement(3)
+waterWavingFluid = registries.elements.registerAnimatedElement(3)
 doorCurrent = doorClosedLargeElement
 
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
@@ -355,12 +355,12 @@ tut2_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 5, 5, 5, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,16, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]
 
 def genWorld(world, map):
-    global door_sprite, doorCurrent, n, element_rects
+    global door_sprite, doorCurrent, n, element_rects, deco_rects
     element_rects = []
-    fluid_rects = []
+    deco_rects = []
     y = 0
     
     for row in map:
@@ -393,15 +393,15 @@ def genWorld(world, map):
             if tile == 12:
                 poppyDeco.drawNoCollideElement(world, x, y)
             if tile == 13:
-                leverOnDeco.drawElement(world, x, y, element_rects)
+                leverOnDeco.drawElement(world, x, y, deco_rects)
             if tile == 14:
-                torchLeftDeco.drawElement(world, x, y, element_rects)
+                torchLeftDeco.drawElement(world, x, y, deco_rects)
             if tile == 15:
-                torchRightDeco.drawElement(world, x, y, element_rects)
+                torchRightDeco.drawElement(world, x, y, deco_rects)
             if tile == 16:
                 cobbleMossyElement.drawElement(world, x, y, element_rects)
             if tile == 17:
-                torchDeco.drawElement(world, x, y, element_rects)
+                torchDeco.drawElement(world, x, y, deco_rects)
             x += 1
         y += 1
 
@@ -431,12 +431,11 @@ def loadFluids(map, surface):
         x = 0
         for tile in row:
             if tile == 4:
-                waterFluid.drawElement(surface, x, y, fluid_rects)
+                waterFluid.drawAnimatedElement(surface, x, y, fluid_rects, registries.animations.water_sprite)
             if tile == 5:
-                waterWavingFluid.drawElement(surface, x, y, fluid_rects)
+                waterWavingFluid.drawAnimatedElement(surface, x, y, fluid_rects, registries.animations.water_top_sprite)
             x += 1
         y += 1
-
         
 def health():
         for i in range(Player.defaultHealth):
