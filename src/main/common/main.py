@@ -847,4 +847,4 @@ if __name__ in "__main__":
     screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
     pygame.display.set_caption("CameraView")
     clock = pygame.time.Clock()
-    Tut1(Player.language)
+    Start(Player.language)
