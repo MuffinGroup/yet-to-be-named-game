@@ -28,6 +28,10 @@ class registerElement():
 			surface.blit(self.flippedTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
 		else:
 			surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
+
+	def drawStairElement(self, surface, x, y, stairs, flippedX, flippedY):
+		for i in range(stairs):
+			self.rect = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), )
 			
 class registerAnimatedElement():
 	def __init__(self, scale):

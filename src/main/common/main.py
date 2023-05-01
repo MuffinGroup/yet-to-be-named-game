@@ -252,6 +252,7 @@ emptyHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\He
 emptyHealthScaled = pygame.transform.scale(emptyHealth, (70, 70))
 n = 0
 npcCurrent = registries.animations.npcIdle
+npcTalking = False
 
 jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
 jumpsound.set_volume(0.25)
@@ -349,6 +350,10 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16,16,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16, 3,16,16, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3, 3,16,16,16, 3, 3,16, 3,16, 3, 3, 3,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3, 3, 3,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3]]
+
+lvl1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00]]
 
 def genWorld(world, map):
     global doorCurrent, n, element_rects, deco_rects, npcCurrent
@@ -871,9 +876,175 @@ def Tut2(language):
         clock.tick(400)
         pygame.display.flip()
 
+def Lvl1(language):
+    global collisions
+    enemy_x = 2000
+    enemy_y = 305
+    world = pygame.Surface((8000,8000)) # Create Map
+    player = Player() # Initialize Player Class
+    resetDebugSettings()
+    camera_pos = (0, 0) #camera starting position
+    #values for animation calculation
+    idleValue = 0
+    walkingValue = 0
+    
+    Player.world = "lvl1"
+    while True:
+        #Render background
+        world.fill(AQUA)
+
+        #Fill the background outside of the map
+        screen.fill(AQUA)
+        genWorld(world, lvl1_map)
+
+        player_movement = [0, 0]
+
+        if Player.moving_right:
+            player_movement[0] += 20
+        if Player.moving_left:
+            player_movement[0] -= 20
+        player_movement[1] += Player.y_momentum
+        Player.y_momentum += 1
+        if Player.y_momentum > 3:
+            Player.y_momentum = 3
+
+        Player.rect, collisions = move(Player.rect, player_movement, element_rects)
+
+        if collisions['bottom']:
+            Player.y_momentum = 0
+            Player.air_timer = 0
+        else:
+            Player.air_timer += 100
+
+        try:
+            command, x, y = parse_input(chat.userInput.lower())
+        except:
+            pass
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                chat.userInput = ""
+                chat.x = chat.markerDefaultPos
+                language = Player.languageList[1]
+                chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
+            
+            if chat.userInput.lower() == "/lang en_us" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                chat.userInput = ""
+                chat.x = chat.markerDefaultPos
+                language = Player.languageList[0]
+                chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
+            try:
+                if parse_input(str(chat.userInput.lower())) and command == "/place block" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    chat.userInput = ""
+                    chat.x = chat.markerDefaultPos
+                    chat.linesLoaded[0] = translatableComponent("command.place", language)
+                    tut1_map[y][x] = 17
+            except:
+                pass
+
+            commandEvent(event, language)
+            chat.event(event)
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
+                Start(language)
+
+        #idle animation calculation
+        if idleValue >= len(registries.animations.idle_sprite):
+            idleValue = 0
+
+        #loading the idle animation
+        Player.currentSprite = registries.animations.idle_sprite[idleValue]
+        
+        if walkingValue >= len(registries.animations.walking_sprite):
+            walkingValue = 0
+        
+        #Player movement
+        camera_pos = player.keybinds(camera_pos) 
+
+        #Movement animation rendering
+        if Player.walking == True:
+            Player.currentSprite = registries.animations.walking_sprite[walkingValue]
+        if Player.facingLeft == True:
+            Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
+
+        #bliting to the world
+
+        if Player.visible == True:
+            player.render(world)
+
+        loadFluids(tut1_map, world)
+
+        #Enemy Import
+        enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
+        enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width() * 8, enemy_img.get_width() * 8))
+        enemy_rect = enemy_img_Scaled.get_rect()
+        enemy_speed = 5
+        enemy_facing_left = True
+        enemy_x -= enemy_speed
+        world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
+        
+        
+
+        #Render the map to the screen
+        screen.blit(world, (player_x, player_y))
+        renderCoordinates()
+
+        if Player.debuggingMode == True:
+            screen.blit(renderText(0, language), (440, 90))
+            
+        screen.blit(renderText(1, language), (440, 30))
+
+        #Rendering the debug menu
+        player.renderDebugMenu(language)
+        
+        health()
+        
+        if Player.health > Player.defaultHealth:
+            Player.health = Player.defaultHealth
+            
+        if Player.health <= 0 and Player.defaultHealth != 0:
+            Player.dead = True
+        else:
+            Player.dead = False
+            
+        if Player.dead == True:
+            Player.movementLocked = True
+        else:
+            Player.movementLocked = False
+            
+        if Player.dead == True and Player.playedDeathSound == False:
+            pygame.mixer.Sound.play(deathSound)
+            Player.playedDeathSound = True
+
+        elif Player.dead == False:
+            Player.playedDeathSound = False
+
+        #Idle animations
+        if Player.standing == True:
+            idleValue += 1
+        if Player.walking == True:
+            walkingValue += Player.animationFrameUpdate
+        
+        if Player.chatOpen == True:
+            chatBackground.draw(screen, "default")
+            chat.drawChat(screen)
+            chat.inputLocked = False
+            Player.locked = True
+            if exitChat.draw(screen):
+                Player.chatOpen = False
+        else:
+            chat.inputLocked = True
+            Player.locked = False
+
+        print(player_movement[0], player_movement[1])
+
+        clock.tick(800)
+        pygame.display.flip()
+
 if __name__ in "__main__":
     Player()
     screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
     pygame.display.set_caption("CameraView")
     clock = pygame.time.Clock()
-    Tut2(Player.language)
+    Lvl1(Player.language)
