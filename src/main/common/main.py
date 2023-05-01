@@ -282,6 +282,8 @@ togglePos = registries.gui.registerButton("toggle", 12.0)
 screen_width = 1000
 screen_height = 800
 
+icon = pygame.image.load("src/main/assets/textures/elements/gui/icon/icon_32x.png")
+
 chatBackground = registries.gui.registerGui(110, 100, 800, 600, False)
 chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 100, 800, 600, 140, 575, 735, 100)
 chat.inputLocked = True
@@ -874,6 +876,7 @@ def Tut2(language):
 if __name__ in "__main__":
     Player()
     screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
-    pygame.display.set_caption("CameraView")
+    pygame.display.set_caption("yet-to-be-named-game")
+    pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
     Start(Player.language)
