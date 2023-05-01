@@ -156,6 +156,12 @@ class Player:
 
         return (-self.rect.x + 680, -self.rect.y + 350) # Return new player position
 
+    def damage(damage):
+        if Player.health > 0:
+            Player.health -= damage
+            if Player.health > 0.5:
+                pygame.mixer.Sound.play(hurtSound)
+
     def renderDebugMenu(self, language):
         toggleCollisionsText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.collide", language), BLACK, 15, 30)
         toggleAdvMoveText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.fly", language), BLACK, 15, 130)
@@ -177,12 +183,9 @@ class Player:
                 if Player.showPos > 1:
                     Player.showPos = 0
                 Player.showPos += 1
-            if damage.draw(debugMenu.window, 225, 450, -35, -10, 75, 100, translatableComponent("button.debug_menu.damage", language), BLACK, "joystixmonospaceregular"):
-                if Player.health > 0:
-                    Player.health -= 1
-                    if Player.health > 0.5:
-                        pygame.mixer.Sound.play(Player.hurtSound)
-            if heal.draw(debugMenu.window, 225, 550, -60, -10, 75, 100, translatableComponent("button.debug_menu.heal", language), BLACK, "joystixmonospaceregular"):
+            if damageButton.draw(debugMenu.window, 225, 450, -35, -10, 75, 100, translatableComponent("button.debug_menu.damage", language), BLACK, "joystixmonospaceregular"):
+                Player.damage(1)
+            if healButton.draw(debugMenu.window, 225, 550, -60, -10, 75, 100, translatableComponent("button.debug_menu.heal", language), BLACK, "joystixmonospaceregular"):
                 if Player.health < Player.defaultHealth:
                     Player.health += 1
 
@@ -282,8 +285,8 @@ def renderText(entry, language):
 
 debug_menu = pygame.Rect((70, 70), (300, 400))
 
-damage = registries.gui.registerButton("button", 4.0)
-heal = registries.gui.registerButton("button", 4.0)
+damageButton = registries.gui.registerButton("button", 4.0)
+healButton = registries.gui.registerButton("button", 4.0)
 
 toggleCollisions = registries.gui.registerButton("toggle", 12.0)
 toggleAdvMove = registries.gui.registerButton("toggle", 12.0)
@@ -699,7 +702,7 @@ def Tut1(language):
             Player.movementLocked = False
             
         if Player.dead == True and Player.playedDeathSound == False:
-            pygame.mixer.Sound.play(Player.deathSound)
+            pygame.mixer.Sound.play(deathSound)
             Player.playedDeathSound = True
 
         elif Player.dead == False:
