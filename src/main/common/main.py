@@ -287,7 +287,7 @@ icon = pygame.image.load("src/main/assets/textures/elements/gui/icon/icon_32x.pn
 chatBackground = registries.gui.registerGui(110, 100, 800, 600, False)
 chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 100, 800, 600, 140, 575, 735, 100)
 chat.inputLocked = True
-exitChat = registries.gui.registerExitButton(85, 80, "doors\door_1_closed")
+exitChat = registries.gui.registerExitButton(85, 80, "gui\slot")
 
 doorsound = pygame.mixer.Sound('src/main/assets/sounds/Door_Closing.wav')
 
