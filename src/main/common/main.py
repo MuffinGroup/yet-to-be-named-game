@@ -550,6 +550,7 @@ def Tut1(language):
     global collisions
     enemy_x = 2000
     enemy_y = 305
+    direction = 1
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
@@ -653,6 +654,8 @@ def Tut1(language):
         enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width() * 8, enemy_img.get_width() * 8))
         enemy_speed = 5
         enemy_x -= enemy_speed
+        if enemy_x < 550:
+           enemy_x += enemy_speed
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
         
         
