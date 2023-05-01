@@ -13,7 +13,6 @@ import registries.item
 
 #pygame initialization
 pygame.init()
-gameStarted = False
 class Player:
     #Initial Player attribute assignment
     def __init__(self):
@@ -40,8 +39,9 @@ class Player:
         Player.movementLocked = False
         Player.locked = False
         Player.debuggingMenu = False
-        Player.flying = 0
-        Player.colliding = 0
+        Player.flight = 0
+        Player.collide = 0
+        Player.showPos = 0
         Player.defaultHealth = 6 #most of the time it's 6
         Player.health = Player.defaultHealth
         Player.dead = False
@@ -66,39 +66,17 @@ class Player:
         player_y = self.rect.y
 
         player_x, player_y = camera_pos #Assign variables to the camera position
+        key = pygame.key.get_pressed()
 
-        key = pygame.key.get_pressed() #Receive keyboard input
-        if key[pygame.K_UP] and Player.jumpvar == 12 and Player.visible == True and Player.movementLocked == False and Player.locked == False: #Jumping
-            #Player.jumpvar = -14.3
-                if Player.air_timer < 6:
+        if key[pygame.K_UP]:
+                if Player.air_timer < 8:
                     Player.y_momentum = -10
-        elif key[pygame.K_SPACE] and Player.jumpvar == 12 and Player.visible == True and Player.movementLocked == False and Player.locked == False: #Alternative jumping keybind
-            #Player.jumpvar = -14.3
-                if Player.air_timer < 6:
-                    Player.y_momentum = -10
-
-        #if Player.jumpvar == -14.3: #Play jump sound when the player jumps
-        key = pygame.key.get_pressed()  # Receive keyboard input
-
-        if Player.jumpvar == -15: #Play jump sound when the player jumps
-            pygame.mixer.Sound.play(Player.jumpsound)
-
-        if Player.jumpvar <= 11: #Jumping movement
-            n = -1
-            if Player.jumpvar < 0:
-                n = 1
-            Player.rect.y -= (Player.jumpvar**2)*0.17*n*Player.jumpModifier
-            Player.jumping = True
-            Player.jumpvar += 1  
-        else:
-            Player.jumpvar = 12
-            Player.jumping = False
 
         if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
             Player.facingLeft = False
             Player.facingRight = True
 
-        elif key[pygame.K_RIGHT] and collisions['right'] == False and Player.collidingRight == False and Player.movementLocked == False and Player.locked == False:
+        elif key[pygame.K_RIGHT] and Player.collidingRight == False and Player.movementLocked == False and Player.locked == False:
             Player.facingLeft = False
             Player.facingRight = True
             Player.standing = False
@@ -135,7 +113,7 @@ class Player:
             pygame.time.wait(200)
             Player.debuggingMode = False
         
-        #The chat    
+        #The chat
         if key[pygame.K_c] and Player.chatOpen == False and Player.debuggingMenu == False:
             pygame.time.wait(200)
             Player.chatOpen = True
@@ -153,7 +131,7 @@ class Player:
             Player.movementLocked = False
             Player.debuggingMenu = False
 
-        if key[pygame.K_DOWN] and Player.visible == True and Player.debuggingMode == True and Player.movementLocked == False and Player.flying == 1 and Player.locked == False:
+        if key[pygame.K_DOWN] and Player.visible == True and Player.debuggingMode == True and Player.movementLocked == False and Player.flight == 1 and Player.locked == False:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -162,7 +140,7 @@ class Player:
             Player.standing = True
             Player.walking = False
             
-        if key[pygame.K_u] and Player.visible == True and Player.debuggingMode == True and Player.movementLocked == False and Player.flying == 1 and Player.locked == False:
+        if key[pygame.K_u] and Player.visible == True and Player.debuggingMode == True and Player.movementLocked == False and Player.flight == 1 and Player.locked == False:
             Player.standing = False
             Player.facingLeft = False
             Player.facingRight = True
@@ -187,26 +165,32 @@ class Player:
     def renderDebugMenu(self, language):
         toggleCollisionsText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.collide", language), BLACK, 15, 30)
         toggleAdvMoveText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.fly", language), BLACK, 15, 130)
+        togglePosText = registries.gui.registerFont(25, translatableComponent("text.debug_menu.pos", language), BLACK, 15, 230)
         if Player.debuggingMenu == True:
             debugMenu.draw(screen, BLUISH_GRAY)
-            if toggleAdvMove.drawToggle(debugMenu.window, 320, 250, 75, 100):
-                if Player.flying > 1:
-                    Player.flying = 0
-                Player.flying += 1
+            toggleCollisionsText.drawFont(debugMenu.window)
             toggleAdvMoveText.drawFont(debugMenu.window)
-            if damage.draw(debugMenu.window, 225, 350, -35, -10, 75, 100, translatableComponent("button.debug_menu.damage", language), BLACK, "joystixmonospaceregular"):
+            togglePosText.drawFont(debugMenu.window)
+            if toggleCollisions.drawToggle(debugMenu.window, 320, 150, 75, 100):
+                if Player.collide > 1:
+                    Player.collide = 0
+                Player.collide += 1
+            if toggleAdvMove.drawToggle(debugMenu.window, 320, 250, 75, 100):
+                if Player.flight > 1:
+                    Player.flight = 0
+                Player.flight += 1
+            if togglePos.drawToggle(debugMenu.window, 320, 350, 75, 100):
+                if Player.showPos > 1:
+                    Player.showPos = 0
+                Player.showPos += 1
+            if damage.draw(debugMenu.window, 225, 450, -35, -10, 75, 100, translatableComponent("button.debug_menu.damage", language), BLACK, "joystixmonospaceregular"):
                 if Player.health > 0:
                     Player.health -= 1
                     if Player.health > 0.5:
                         pygame.mixer.Sound.play(Player.hurtSound)
-            if heal.draw(debugMenu.window, 225, 450, -60, -10, 75, 100, translatableComponent("button.debug_menu.heal", language), BLACK, "joystixmonospaceregular"):
+            if heal.draw(debugMenu.window, 225, 550, -60, -10, 75, 100, translatableComponent("button.debug_menu.heal", language), BLACK, "joystixmonospaceregular"):
                 if Player.health < Player.defaultHealth:
                     Player.health += 1
-            if toggleCollisions.drawToggle(debugMenu.window, 320, 150, 75, 100):
-                if Player.colliding > 1:
-                    Player.colliding = 0
-                Player.colliding += 1
-            toggleCollisionsText.drawFont(debugMenu.window)
 
     def collisions(self):
         #Wall collisions, do not delete!!!
@@ -227,6 +211,18 @@ class Player:
                 # Drawing the hitbox to the screen
                 pygame.draw.rect(surface, (0, 255, 0), Player.rect, 4)
 
+def renderCoordinates():
+    if Player.showPos == 1:
+        coordinates = registries.gui.registerFont(35, str(str(Player.rect.x) + ", " + str(Player.rect.y)), WHITE, screen.get_width()//10 * 7, screen.get_height()//12)
+        coordinates.drawFont(screen)
+
+def resetDebugSettings():
+    toggleAdvMove.test = 0
+    toggleCollisions.test = 0
+    togglePos.test = 0
+    Player.collide = 0
+    Player.flight = 0
+    Player.showPos = 0
 
 Player()
 #Loading element textures
@@ -254,6 +250,8 @@ bannerYellowDeco = registries.elements.registerElement("elements/Environment/dec
 doorOpenLargeElement = registries.elements.registerElement("elements/doors/door_1_open", 5)
 doorClosedLargeElement = registries.elements.registerElement("elements/doors/door_1_closed", 5)
 darkCobble = registries.elements.registerElement("elements\Environment\Blocks\Cobble(Backround)", 3)
+npc = registries.elements.registerElement("entities/npc/npc", 8)
+npcTalking = registries.elements.registerAnimatedElement
 waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
 doorCurrent = doorClosedLargeElement
@@ -269,15 +267,9 @@ halfHealthScaled = pygame.transform.scale(halfHealth, (70, 70))
 
 emptyHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\Heart(empty).png")
 emptyHealthScaled = pygame.transform.scale(emptyHealth, (70, 70))
-
-npc = pygame.image.load('src/main/assets/textures/entities/npc/npc.png')
-npc_scaled = pygame.transform.scale(npc, (npc.get_width() * 8, npc.get_height() * 8))
-door_closed = pygame.image.load('src/main/assets/textures/elements/doors/door_1_closed.png')
-door_open = pygame.image.load('src/main/assets/textures/elements/doors/door_1_open.png')
-door_sprite = door_closed
 n = 0
 
-debugMenu = registries.gui.registerGui(70, 100, 300, 400, False)
+debugMenu = registries.gui.registerGui(70, 100, 300, 600, False)
 
 font = pygame.font.SysFont('joystixmonospaceregular', 25)
 
@@ -294,6 +286,7 @@ heal = registries.gui.registerButton("button", 4.0)
 
 toggleCollisions = registries.gui.registerButton("toggle", 12.0)
 toggleAdvMove = registries.gui.registerButton("toggle", 12.0)
+togglePos = registries.gui.registerButton("toggle", 12.0)
 
 screen_width = 1000
 screen_height = 800
@@ -326,7 +319,7 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00,00,00,00,00,00,00,00,00,00],
+            [ 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,18, 9,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 2,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 1, 1, 1, 2,00,11,11,11,11,11,11,11,11,00,00,11,11,00,11,11,11,00,12,11,11,00,11,11,11,00,00,11,11,00,00,00,11,00,11,12,00],
             [ 1, 1, 1, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
@@ -339,23 +332,29 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 
-tut2_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+tut2_map = [[ 3,16, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [16, 3,16,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00],
-            [16, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 3, 3,16, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3],
+            [16, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,00,00,00,00,00,00,00,00,00,00,00,00],
+            [ 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,00,00,00,00,00,00,00,00,00,00,00,00],
+            [ 3, 3,16, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16],
+            [16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16],
             [ 3,16, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,15, 3],
             [ 3, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,13, 3],
-            [ 3,16, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3],
-            [16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3, 3,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 5, 5, 5, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3,16, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]
+            [ 3,16, 3, 3, 3, 3,00,00,00, 3,16,00,00,00,00,00,00,00,00,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3],
+            [16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3, 3,00,00,00,00,16,16, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 5, 5, 5, 5, 3,16, 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 4, 4, 4, 4,16, 3, 3, 3, 3, 3,16, 3, 3,16, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3,16, 4, 4, 4, 4,16, 3, 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,16,16, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,16, 3,16,16, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,16,16, 3, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]
 
 def genWorld(world, map):
     global door_sprite, doorCurrent, n, element_rects, deco_rects
@@ -402,6 +401,14 @@ def genWorld(world, map):
                 cobbleMossyElement.drawElement(world, x, y, element_rects)
             if tile == 17:
                 torchDeco.drawElement(world, x, y, deco_rects)
+            if tile == 18:
+                npc.drawNoCollideElement(world, x, y)
+                npc.xModifier = 0
+                npc.yModifier = 32
+                npc.widthModifier = -160
+                npc.heightModifier = -100
+                npc.xRectModifier = 80
+                npc.yRectModifier = 120
             x += 1
         y += 1
 
@@ -409,7 +416,7 @@ def genWorld(world, map):
         if Player.debuggingMode == True:
             pygame.draw.rect(world, (255, 255, 255), tiles, 3)
 
-    if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
+    if Player.rect.colliderect(doorClosedLargeElement.rect) and not Player.rect.colliderect(npc.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         doorCurrent = doorOpenLargeElement
         n += 1
     if n == 40:
@@ -479,6 +486,7 @@ def move(player, movement, rectArray):
 
 def Start(language):
     Player()
+    resetDebugSettings()
     i = 0
     Player.world = None
     startButton = registries.gui.registerButton("button", 6.0)
@@ -542,10 +550,12 @@ def Tut1(language):
     global collisions
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
+    resetDebugSettings()
     camera_pos = (0, 0) #camera starting position
     #values for animation calculation
     idleValue = 0
     walkingValue = 0
+    
     Player.world = "tut1"
     while True:
         #Render background
@@ -562,7 +572,7 @@ def Tut1(language):
         if Player.moving_left:
             player_movement[0] -= 20
         player_movement[1] += Player.y_momentum
-        Player.y_momentum += 0.2
+        Player.y_momentum += 1
         if Player.y_momentum > 3:
             Player.y_momentum = 3
 
@@ -572,7 +582,7 @@ def Tut1(language):
             Player.y_momentum = 0
             Player.air_timer = 0
         else:
-            Player.air_timer += 1
+            Player.air_timer += 100
 
         try:
             command, x, y = parse_input(chat.userInput.lower())
@@ -648,6 +658,7 @@ def Tut1(language):
 
         #Render the map to the screen
         screen.blit(world, (player_x, player_y))
+        renderCoordinates()
 
         if Player.debuggingMode == True:
             screen.blit(renderText(0, language), (440, 90))
@@ -702,6 +713,7 @@ def Tut1(language):
 def Tut2(language):
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
+    resetDebugSettings()
     camera_pos = (0, 0) #camera starting position
 
     #values for animation calculation
@@ -784,6 +796,7 @@ def Tut2(language):
 
         #Render the map to the screen
         screen.blit(world, (player_x, player_y))
+        renderCoordinates()
 
         if Player.debuggingMode == True:
             screen.blit(renderText(0, language), (440, 90))
