@@ -357,7 +357,7 @@ tut2_map = [[ 3,16, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]
 
 def genWorld(world, map):
-    global door_sprite, doorCurrent, n, element_rects, deco_rects
+    global doorCurrent, n, element_rects, deco_rects
     element_rects = []
     deco_rects = []
     y = 0
@@ -418,10 +418,18 @@ def genWorld(world, map):
 
     if Player.rect.colliderect(doorClosedLargeElement.rect) and not Player.rect.colliderect(npc.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         doorCurrent = doorOpenLargeElement
+        doorCurrent.yModifier = -22
+        doorCurrent.widthModifier = -75
+        doorCurrent.xRectModifier = 50
+        doorCurrent.yRectModifier = -22
         n += 1
     if n == 40:
         Player.visible = False
         doorCurrent = doorClosedLargeElement
+        doorCurrent.yModifier = -22
+        doorCurrent.widthModifier = -75
+        doorCurrent.xRectModifier = 50
+        doorCurrent.yRectModifier = -22
         pygame.mixer.Sound.play(doorsound)
     if n == 50:
         n = 0
@@ -710,6 +718,8 @@ def Tut1(language):
         else:
             chat.inputLocked = True
             Player.locked = False
+
+        print(player_movement[0], player_movement[1])
 
         clock.tick(800)
         pygame.display.flip()
