@@ -652,8 +652,9 @@ def Tut1(language):
         enemy_x = 2000
         enemy_y = 305
         enemy_speed = 5
-        world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
         enemy_x -= enemy_speed
+        world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
+        
         
 
         #Render the map to the screen
