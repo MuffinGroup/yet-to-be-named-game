@@ -548,6 +548,8 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
 
 def Tut1(language):
     global collisions
+    enemy_x = 2000
+    enemy_y = 305
     world = pygame.Surface((8000,8000)) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
@@ -649,8 +651,6 @@ def Tut1(language):
         #Enemy Import
         enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
         enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width() * 8, enemy_img.get_width() * 8))
-        enemy_x = 2000
-        enemy_y = 305
         enemy_speed = 5
         enemy_x -= enemy_speed
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
