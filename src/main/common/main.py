@@ -162,6 +162,10 @@ class Player:
             if Player.health > 0.5:
                 pygame.mixer.Sound.play(hurtSound)
 
+    def heal(health):
+        if Player.health + health < Player.defaultHealth + 1:
+            Player.health += health
+
     def renderDebugMenu(self, language):
         toggleCollisionsText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.collide", language), BLACK, 15, 30)
         toggleAdvMoveText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.fly", language), BLACK, 15, 130)
@@ -186,8 +190,7 @@ class Player:
             if damageButton.draw(debugMenu.window, 225, 450, -35, -10, 75, 100, translatableComponent("button.debug_menu.damage", language), BLACK, "joystixmonospaceregular"):
                 Player.damage(1)
             if healButton.draw(debugMenu.window, 225, 550, -60, -10, 75, 100, translatableComponent("button.debug_menu.heal", language), BLACK, "joystixmonospaceregular"):
-                if Player.health < Player.defaultHealth:
-                    Player.health += 1
+                Player.heal(1)
 
     def collisions(self):
         #Wall collisions, do not delete!!!
