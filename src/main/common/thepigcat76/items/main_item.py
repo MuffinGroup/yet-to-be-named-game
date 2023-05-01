@@ -27,6 +27,7 @@ while True:
         player.y -= 1
     if key[pygame.K_DOWN]:
         player.y += 1
+#Das hier ist der 1000ste commit. Checkt das Video hier ab: https://www.youtube.com/watch?v=dQw4w9WgXcQ
         
     screen.fill((255, 255, 255))
     test.drawItem(screen)
