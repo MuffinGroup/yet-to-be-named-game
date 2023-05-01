@@ -351,7 +351,7 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3, 3, 3,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3]]
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent
     element_rects = []
     deco_rects = []
     y = 0
@@ -402,7 +402,6 @@ def genWorld(world, map):
                 npc.heightModifier = -100
                 npc.xRectModifier = 80
                 npc.yRectModifier = 120
-                print(npc.rect)
             if tile == 19:
                 gravel.drawElement(world, x, y, element_rects)
             if tile == 20:
@@ -449,6 +448,10 @@ def genWorld(world, map):
         Tut2(Player.language)
     if n >= 1 and n <= 70:
         n += 1
+    if Player.world == "tut1":
+        if Player.rect.colliderect(npc.rect) and pygame.key.get_pressed()[pygame.K_e]:
+            pass
+            npcCurrent = registries.animations.npcTalkingNormal
 
 def loadFluids(map, surface):    
     global fluid_rects
