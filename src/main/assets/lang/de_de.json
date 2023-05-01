@@ -7,14 +7,15 @@
 "command.teleport.tut2": "Zu tut2 teleportiert",
 "command.lang": "Ausgewaehlte Sprache: ",
 
-"text.debug_mode": "Schalte den debug-mode mit d ein",
-"text.debug_menu": "Oeffne den debug-menu mit 0",
+"text.debug_mode": "Schalte den debug-modus mit d ein",
+"text.debug_menu": "Oeffne den debug-menü mit 0",
 
 "button.debug_menu.damage": "Schaden",
 "button.debug_menu.heal": "Heilen",
 
 "text.debug_menu.collide": "Kolissionen",
 "text.debug_menu.fly": "Fliegen",
+"text.debug_menu.pos": "zeige pos",
 
 "text.tutorial.welcome": "Willkommen bei yet-to-be-named-game!",
 "text.tutorial.welcome1": "In diesem Spiel wirst du einige interessante Dinge finden.",
