@@ -21,6 +21,14 @@ class registerElement():
 		self.rect = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height() + self.heightModifier))
 		surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
 
+	def drawRotatedElement(self, surface, x, y, flipped):
+		self.rect = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height() + self.heightModifier))
+		if flipped == True:
+			self.flippedTexture = pygame.transform.flip(self.scaledTexture, True, False)
+			surface.blit(self.flippedTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
+		else:
+			surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
+			
 class registerAnimatedElement():
 	def __init__(self, scale):
 		self.scale = scale
