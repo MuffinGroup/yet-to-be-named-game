@@ -163,7 +163,7 @@ class Player:
                 pygame.mixer.Sound.play(hurtSound)
 
     def heal(health):
-        if Player.health + health < Player.defaultHealth + 1:
+        if Player.health + health <= Player.defaultHealth:
             Player.health += health
 
     def renderDebugMenu(self, language):
