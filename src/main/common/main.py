@@ -17,12 +17,6 @@ class Player:
     #Initial Player attribute assignment
     def __init__(self):
         Player.defaultSpeed = 0.2
-        Player.jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
-        Player.jumpsound.set_volume(0.25)
-        Player.deathSound = pygame.mixer.Sound("src\main/assets\sounds\death.mp3")
-        Player.deathSound.set_volume(0.25)
-        Player.hurtSound = pygame.mixer.Sound("src\main/assets\sounds\hurt.mp3")
-        Player.hurtSound.set_volume(0.25)
         Player.speed = Player.defaultSpeed
         Player.jumpvar = 12 #Important for jumping calculation
         Player.facingRight = True
@@ -268,6 +262,13 @@ halfHealthScaled = pygame.transform.scale(halfHealth, (70, 70))
 emptyHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\Heart(empty).png")
 emptyHealthScaled = pygame.transform.scale(emptyHealth, (70, 70))
 n = 0
+
+jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
+jumpsound.set_volume(0.25)
+deathSound = pygame.mixer.Sound("src\main/assets\sounds\death.mp3")
+deathSound.set_volume(0.25)
+hurtSound = pygame.mixer.Sound("src\main/assets\sounds\hurt.mp3")
+hurtSound.set_volume(0.25)
 
 debugMenu = registries.gui.registerGui(70, 100, 300, 600, False)
 
