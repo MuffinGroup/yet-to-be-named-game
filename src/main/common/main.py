@@ -1,7 +1,7 @@
 import pygame
-from pygame.locals import*
 import random
 import math
+import sys
 from typing import Tuple
 from registries.colors import *
 from registries.json_lang import *
@@ -507,10 +507,10 @@ def Start(language):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                exit()
+                sys.exit()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.world == None:
                 pygame.quit()
-                exit()
+                sys.exit()
 
         startFont = registries.gui.registerFont(40, "YET-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
         screen.fill(BLUISH_GRAY)
@@ -523,11 +523,11 @@ def Start(language):
                 i = 0
         if quitButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 5.25, registries.animations.quitButton, 48, 48, 6, -125, -25, "quit", BLACK, "joystixmonospaceregular"):
             pygame.quit()
-            exit()
+            sys.exit()
             
         if key[pygame.K_RETURN] and Player.world == None:
             pygame.quit()
-            exit()
+            sys.exit()
 
         startFont.drawFont(screen)
         pygame.display.flip()
@@ -602,7 +602,7 @@ def Tut1(language):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                exit()
+                sys.exit()
             if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
                 chat.x = chat.markerDefaultPos
@@ -767,7 +767,7 @@ def Tut2(language):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                exit()
+                sys.exit()
             if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
                 chat.x = chat.markerDefaultPos
