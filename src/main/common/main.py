@@ -429,7 +429,7 @@ def genWorld(world, map):
             if tile == 22:
                 grass_end.drawRotatedElement(world, x, y, True)
             if tile == 23:
-                cobbleStairs.drawStairElement(world, x, y, 2, False, False, element_rects)
+                cobbleStairs.drawStairElement(world, x, y, 2, False, False, deco_rects)
             x += 1
         y += 1
 
@@ -470,6 +470,10 @@ def genWorld(world, map):
         if Player.rect.colliderect(npc.rect) and pygame.key.get_pressed()[pygame.K_e]:
             pass
             npcCurrent = registries.animations.npcTalkingNormal
+
+    if Player.rect.colliderect(cobbleStairs.rect1):
+        print("uwu")
+        
 
 def loadFluids(map, surface): 
     global fluid_rects
