@@ -250,6 +250,8 @@ item_image = registries.elements.registerElement("elements\Environment\decoratio
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
 
+
+
 health = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(full).png")
 healthScaled = pygame.transform.scale(health, (70, 70))
 
@@ -373,6 +375,8 @@ def genWorld(world, map):
     element_rects = []
     deco_rects = []
     stair_rects = []
+    coin_rects = []
+    coins_hit = []
     y = 0
     
     for row in map:
@@ -432,13 +436,25 @@ def genWorld(world, map):
             if tile == 23:
                 cobbleStairs.drawStairElement(world, x, y, 2, False, False, deco_rects)
             if tile == 24:
-                item_image.drawNoCollideElement(world, x, y)
+                item_image.drawElement(world, x, y, coin_rects)
             x += 1
         y += 1
 
     for tiles in element_rects:
         if Player.debuggingMode == True:
             pygame.draw.rect(world, (255, 255, 255), tiles, 3)
+
+    score = 0
+
+    for coins in coin_rects:
+        if Player.rect.colliderect(coins):
+            coins_hit.append(coins)
+    for coins in coins_hit:
+        if Player.rect.colliderect(coins):
+            map[10][15] = 0
+            score += 1
+    score_display = font.render("Items Collected: {}".format(score), True, (0, 0, 0))
+    world.blit(score_display, (200, 300))       
 
     if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         if Player.world != "tut1":
@@ -603,6 +619,7 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
     command = " ".join(components[0:-2])
     x, y = (int(components[-2]), int(components[-1]))
     return command, x, y
+
     
 def Tut1(language):
     global collisions
@@ -677,7 +694,7 @@ def Tut1(language):
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
                 Start(language)
-
+        
         #idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
             idleValue = 0
