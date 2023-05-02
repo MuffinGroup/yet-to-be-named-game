@@ -718,7 +718,7 @@ def Tut1(language):
         #Render the map to the screen
         speech_bubble = pygame.image.load('src/main/assets/textures/elements/gui/speech_bubble.png')
         if npcCurrent == registries.animations.npcTalkingNormal:
-            world.blit(speech_bubble, 3650, 1000)
+            world.blit(speech_bubble, (3650, 1000))
         screen.blit(world, (player_x, player_y))
         renderCoordinates()
 
