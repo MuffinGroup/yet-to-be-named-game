@@ -60,8 +60,8 @@ class Player:
         key = pygame.key.get_pressed()
 
         if key[pygame.K_UP]:
-                if Player.air_timer < 8:
-                    Player.y_momentum = -10
+            if Player.air_timer < 8:
+                Player.y_momentum = -10
 
         if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
             Player.facingLeft = False
@@ -240,7 +240,7 @@ grass_end = registries.elements.registerElement("elements\Environment\Blocks\gra
 sky = registries.elements.registerElement("elements\Environment\Sky\Sky", 1.5)
 cloud = registries.elements.registerElement("elements\Environment\Sky\cloud", 1.5)
 cobbleStairs = registries.elements.registerElement("elements\Environment\Blocks\Cobble_stairs", 3)
-explosive = registries.elements.registerAnimatedElement(3)
+explosive = registries.elements.registerAnimatedElement(16)
 npc = registries.elements.registerAnimatedElement(8) # 37/6
 waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
@@ -321,7 +321,7 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,25,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [11,12,11,11,11,00,00,00,00,11,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 2, 2, 2, 2, 2, 2,21,00,22, 7, 7, 2,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,11,11,12,11,11,11,00,00,11,11,11,11],
             [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,22, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 2],
@@ -433,6 +433,8 @@ def genWorld(world, map):
                 cobbleStairs.drawStairElement(world, x, y, 2, False, False, deco_rects)
             if tile == 24:
                 item_image.drawNoCollideElement(world, x, y)
+            if tile == 25:
+                explosive.drawAnimatedElement(world, x, y, deco_rects, registries.animations.explosion)
             x += 1
         y += 1
 
