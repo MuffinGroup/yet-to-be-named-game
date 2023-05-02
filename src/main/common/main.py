@@ -249,6 +249,9 @@ doorCurrent = doorClosedLargeElement
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
 
+item_image = pygame.image.load("src\main/assets/textures\entities\Items\CollectItem.jpg")
+item_image_Scaled = pygame.transform.scale(item_image,(item_image.get_width( ) * 2, item_image.get_width() * 2))
+
 health = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(full).png")
 healthScaled = pygame.transform.scale(health, (70, 70))
 
@@ -295,7 +298,7 @@ icon = pygame.image.load("src/main/assets/textures/elements/gui/icon/icon_32x.pn
 chatBackground = registries.gui.registerGui(110, 100, 800, 600, False)
 chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 100, 800, 600, 140, 575, 735, 100)
 chat.inputLocked = True
-exitChat = registries.gui.registerExitButton(85, 80, 'gui/exit_button')
+exitChat = registries.gui.registerExitButton(85, 80)
 
 doorsound = pygame.mixer.Sound('src/main/assets/sounds/Door_Closing.wav')
 
@@ -351,7 +354,7 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3,16,16,16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3,16, 3,16, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,15, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,13, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3,16, 3, 3, 3, 3,00,00,00, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3,16, 3, 3, 3, 3,00,00,00, 3,16,23,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3, 3,00,00,00,00,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 5, 5, 5, 5, 3,16,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
