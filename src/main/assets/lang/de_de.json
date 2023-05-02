@@ -8,7 +8,7 @@
 "command.lang": "Ausgewaehlte Sprache: ",
 
 "text.debug_mode": "Schalte den debug-modus mit d ein",
-"text.debug_menu": "Oeffne den debug-menü mit 0",
+"text.debug_menu": "Oeffne den debug-menue mit 0",
 
 "button.debug_menu.damage": "Schaden",
 "button.debug_menu.heal": "Heilen",
