@@ -715,6 +715,13 @@ def Tut1(language):
         enemy_x -= enemy_speed
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
         
+        #text implemention
+        font = pygame.font.Font('src/main/assets/fonts/joystixmonospaceregular.otf', 20)
+        test = font.render(translatableComponent('text.tutorial.walking_left1', language), False, BLACK)
+
+        #text blit
+        world.blit(test, (3550, 900))
+
         #Render the map to the screen
         speech_bubble = pygame.image.load('src/main/assets/textures/elements/gui/speech_bubble.png')
         if npcCurrent == registries.animations.npcTalkingNormal:
