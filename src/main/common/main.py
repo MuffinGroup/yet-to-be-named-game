@@ -295,7 +295,7 @@ icon = pygame.image.load("src/main/assets/textures/elements/gui/icon/icon_32x.pn
 chatBackground = registries.gui.registerGui(110, 100, 800, 600, False)
 chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 100, 800, 600, 140, 575, 735, 100)
 chat.inputLocked = True
-exitChat = registries.gui.registerExitButton(85, 80, "gui\slot")
+exitChat = registries.gui.registerExitButton(85, 80)
 
 doorsound = pygame.mixer.Sound('src/main/assets/sounds/Door_Closing.wav')
 
@@ -324,8 +324,8 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [11,12,11,11,11,00,00,00,00,11,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 2, 2, 2, 2, 2, 2,21,00,22, 7, 7, 2,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,11,11,12,11,11,11,00,00,11,11,11,11],
             [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,22, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 2],
-            [ 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,18, 9,00,00,00,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,00,00,18, 9,00,00,00,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,00,00,00,00,00,00,00,00,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,00,00,11,11,11,11,11,11,00,00,11,11,00,11,11,11,00,12,23,11,00,11,11,11,00,00,11,11,00,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 1, 6, 6, 1, 6, 6, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 1],
@@ -368,9 +368,10 @@ lvl1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00]]
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects
     element_rects = []
     deco_rects = []
+    stair_rects = []
     y = 0
     
     for row in map:
@@ -514,7 +515,6 @@ def collisionTest(player, rectArray):
     for tile in rectArray:
         if player.colliderect(tile):
             hit_list.append(tile)
-            print(rectArray)
     return hit_list
 
 def move(player, movement, rectArray):
@@ -700,6 +700,8 @@ def Tut1(language):
 
         loadFluids(tut1_map, world)
 
+        cloud.drawNoCollideElement(world, 10, 2)
+
         #Enemy Import
         enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
         enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width() * 8, enemy_img.get_width() * 8))
@@ -709,8 +711,6 @@ def Tut1(language):
         enemy_x -= enemy_speed
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
         
-        
-
         #Render the map to the screen
         screen.blit(world, (player_x, player_y))
         renderCoordinates()
@@ -849,8 +849,6 @@ def Tut2(language):
             player.render(world)
 
         loadFluids(tut2_map, world)
-
-        cloud.drawNoCollideElement(map, 10, 2)
 
         #Render the map to the screen
         screen.blit(world, (player_x, player_y))
