@@ -245,7 +245,7 @@ npc = registries.elements.registerAnimatedElement(8) # 37/6
 waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
 doorCurrent = doorClosedLargeElement
-item_image = registries.elements.registerElement("elements\Environment\decoration\Item", 0.005)
+item_image = registries.elements.registerElement("elements\Environment\decoration\Coin", 1)
 
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
