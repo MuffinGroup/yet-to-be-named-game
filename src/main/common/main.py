@@ -245,12 +245,10 @@ npc = registries.elements.registerAnimatedElement(8) # 37/6
 waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
 doorCurrent = doorClosedLargeElement
+item_image = registries.elements.registerElement("elements\Environment\decoration\Item", 0.005)
 
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
-
-item_image = pygame.image.load("src\main/assets/textures\entities\Items\CollectItem.jpg")
-item_image_Scaled = pygame.transform.scale(item_image,(item_image.get_width( ) * 2, item_image.get_width() * 2))
 
 health = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(full).png")
 healthScaled = pygame.transform.scale(health, (70, 70))
@@ -434,7 +432,7 @@ def genWorld(world, map):
             if tile == 23:
                 cobbleStairs.drawStairElement(world, x, y, 2, False, False, deco_rects)
             if tile == 24:
-                item_image_Scaled.drawNoCollideElement(world, x, y)
+                item_image.drawNoCollideElement(world, x, y)
             x += 1
         y += 1
 
