@@ -445,6 +445,7 @@ def genWorld(world, map):
             pygame.draw.rect(world, (255, 255, 255), tiles, 3)
 
     score = 0
+    font = pygame.font.SysFont(None, 30)
 
     for coins in coin_rects:
         if Player.rect.colliderect(coins):
@@ -454,7 +455,7 @@ def genWorld(world, map):
             map[10][15] = 0
             score += 1
     score_display = font.render("Items Collected: {}".format(score), True, (0, 0, 0))
-    world.blit(score_display, (200, 300))       
+    screen.blit(score_display, (10, 10))       
 
     if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         if Player.world != "tut1":
