@@ -310,6 +310,9 @@ doorsound = pygame.mixer.Sound('src/main/assets/sounds/Door_Closing.wav')
 leverOff = True
 leverOn = False
 leverTimer = 0
+explosiveTimer = 0
+leverPressed = 0
+exploded = False
 
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
             [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
@@ -378,7 +381,7 @@ lvl1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00]]
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, score_display, leverOff, leverOn, leverTimer
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, score_display, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -506,15 +509,26 @@ def genWorld(world, map):
     if Player.world == "tut2":
         if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
+            exploded = True
             tut2_map[13][42] = 13
+            tut2_map[9][32] = 25
             leverOn = True
             leverOff = False
+            leverPressed += 1
+            explosiveTimer += 1
         elif leverOn == True and Player.rect.colliderect(leverOnDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             tut2_map[13][42] = 10
             leverOff = True
             leverOn = False
-        leverTimer += 1
+            leverPressed += 1
+        if explosiveTimer >= 1:
+            explosiveTimer += 1
+        leverTimer += 1 #9 32
+        print(explosiveTimer)
+        if explosiveTimer >= 30:
+            tut2_map[9][32] = 0
+            explosiveTimer += 1
 
 def loadFluids(map, surface): 
     global fluid_rects
@@ -815,8 +829,6 @@ def Tut1(language):
         else:
             chat.inputLocked = True
             Player.locked = False
-
-        print(player_movement[0], player_movement[1])
         screen.blit(score_display, (10, 10))
 
         clock.tick(800)
@@ -1130,8 +1142,6 @@ def Lvl1(language):
         else:
             chat.inputLocked = True
             Player.locked = False
-
-        print(player_movement[0], player_movement[1])
 
         clock.tick(800)
         pygame.display.flip()
