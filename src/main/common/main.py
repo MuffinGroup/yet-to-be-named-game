@@ -48,6 +48,7 @@ class Player:
         Player.moving_left = False
         Player.y_momentum = 0
         Player.air_timer = 0
+        Player.score = 0
 
     def keybinds(self,camera_pos):
         global player_x
@@ -445,8 +446,6 @@ def genWorld(world, map):
     for tiles in element_rects:
         if Player.debuggingMode == True:
             pygame.draw.rect(world, (255, 255, 255), tiles, 3)
-
-    score = 0
     font = pygame.font.SysFont(None, 30)
 
     for coins in coin_rects:
@@ -455,8 +454,8 @@ def genWorld(world, map):
     for coins in coins_hit:
         if Player.rect.colliderect(coins):
             map[10][15] = 0
-            score += 1
-    score_display = font.render("Coins: {}".format(score), True, (0, 0, 0))
+            Player.score += 1
+    score_display = font.render("Coins: {}".format(Player.score), True, (0, 0, 0))
 
     if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         if Player.world != "tut1":
@@ -491,7 +490,6 @@ def genWorld(world, map):
         if Player.rect.colliderect(npc.rect) and pygame.key.get_pressed()[pygame.K_e]:
             pass
             npcCurrent = registries.animations.npcTalkingNormal
-        
 
 def loadFluids(map, surface): 
     global fluid_rects
