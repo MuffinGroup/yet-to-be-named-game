@@ -456,7 +456,7 @@ def genWorld(world, map):
         if Player.rect.colliderect(coins):
             map[10][15] = 0
             score += 1
-    score_display = font.render("Items Collected: {}".format(score), True, (0, 0, 0))
+    score_display = font.render("Coins: {}".format(score), True, (0, 0, 0))
     screen.blit(score_display, (10, 10))       
 
     if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
@@ -675,7 +675,7 @@ def Tut1(language):
                 sys.exit()
             if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
-                chat.x = chat.markerDefaultPos
+                chat.x = chat.markerDefaultPos69
                 language = Player.languageList[1]
                 chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
             
