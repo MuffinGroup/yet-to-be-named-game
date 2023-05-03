@@ -219,8 +219,8 @@ cobbleElement = registries.elements.registerElement("elements/Environment/blocks
 cobbleMossyElement = registries.elements.registerElement("elements/Environment/blocks/cobble_mossy", 3)
 leverOffDeco = registries.elements.registerElement("elements/Environment/decoration/lever_0", 3)
 leverOnDeco = registries.elements.registerElement("elements/Environment/decoration/lever_1", 3)
-poppyDeco = registries.elements.registerElement("elements/Environment/decoration/poppy", 3)
-grassDeco = registries.elements.registerElement("elements/Environment/decoration/grass", 3)
+poppyDeco = registries.elements.registerElement("elements\Environment\decoration\Plants\poppy", 3)
+grassDeco = registries.elements.registerElement("elements/Environment/decoration/Plants/grass", 3)
 torchLeftDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=left)", 3)
 torchRightDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=right)", 3)
 torchTopDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=top)", 3)
@@ -241,7 +241,9 @@ grass_end = registries.elements.registerElement("elements\Environment\Blocks\gra
 sky = registries.elements.registerElement("elements\Environment\Sky\Sky", 1.5)
 cloud = registries.elements.registerElement("elements\Environment\Sky\cloud", 1.5)
 cobbleStairs = registries.elements.registerElement("elements\Environment\Blocks\Cobble_stairs", 3)
-explosive = registries.elements.registerAnimatedElement(16)
+bush = registries.elements.registerElement("elements\Environment\decoration\Plants\Small_bush", 3)
+explosion = registries.elements.registerAnimatedElement(16)
+explosive = registries.elements.registerElement("elements\Environment\Blocks\TNT", 3)
 npc = registries.elements.registerAnimatedElement(8) # 37/6
 waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
@@ -305,7 +307,9 @@ exitChat = registries.gui.registerExitButton(85, 80)
 
 doorsound = pygame.mixer.Sound('src/main/assets/sounds/Door_Closing.wav')
 
-item = registries.item.registerItem("item", "Item", "Environment\decoration\poppy", 800, 562)
+leverOff = True
+leverOn = False
+leverTimer = 0
 
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
             [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
@@ -327,12 +331,12 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [11,12,11,11,11,00,00,00,00,11,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [11,12,11,11,26,00,00,00,00,11,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 2, 2, 2, 2, 2, 2,21,00,22, 7, 7, 2,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,11,11,12,11,11,11,00,00,11,11,11,11],
             [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,22, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 2],
             [ 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,00,00,18, 9,00,00,00,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,24,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,00,00,00,00,00,00,00,00,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,00,00,11,11,11,11,11,11,00,00,11,11,00,11,11,11,00,12,23,11,00,11,11,11,00,00,11,11,00,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,24,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,00,00,00,00,00,00,00,00,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,26,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,23,11,00,26,11,11,00,00,11,11,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 1, 6, 6, 1, 6, 6, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 1],
             [ 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 1],
@@ -351,12 +355,12 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3,16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3,16,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00,00, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3,16, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,00,00,00,00,00,00,00,00,00,00,00,00,00,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,27,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,27,27,00,00,00,00,00,00,00,00,00,00,00,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3,16, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,16,16,16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3,16, 3,16, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,15, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,13, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16, 3, 3, 3, 3,00,00,00, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3, 3,00,00,00,00,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -374,13 +378,14 @@ lvl1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00]]
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, score_display
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, score_display, leverOff, leverOn, leverTimer
     element_rects = []
     deco_rects = []
     stair_rects = []
     coin_rects = []
     coins_hit = []
     y = 0
+    explosiveState = registries.animations.explosion
     
     for row in map:
         x = 0
@@ -404,7 +409,7 @@ def genWorld(world, map):
                 doorCurrent.xRectModifier = 50
                 doorCurrent.yRectModifier = -22
             if tile == 10:
-                leverOffDeco.drawElement(world, x, y, element_rects)
+                leverOffDeco.drawElement(world, x, y, deco_rects)
             if tile == 11:
                 grassDeco.drawNoCollideElement(world, x, y)
             if tile == 12:
@@ -441,7 +446,11 @@ def genWorld(world, map):
             if tile == 24:
                 item_image.drawElement(world, x, y, coin_rects)
             if tile == 25:
-                explosive.drawAnimatedElement(world, x, y, deco_rects, registries.animations.explosion)
+                explosion.drawAnimatedElement(world, x, y, deco_rects, explosiveState)
+            if tile == 26:
+                bush.drawNoCollideElement(world, x, y)
+            if tile == 27:
+                explosive.drawElement(world, x, y, element_rects)
             x += 1
         y += 1
 
@@ -489,10 +498,23 @@ def genWorld(world, map):
         Tut2(Player.language)
     if n >= 1 and n <= 70:
         n += 1
+
     if Player.world == "tut1":
         if Player.rect.colliderect(npc.rect) and pygame.key.get_pressed()[pygame.K_e]:
             pass
             npcCurrent = registries.animations.npcTalkingNormal
+    if Player.world == "tut2":
+        if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
+            leverTimer = 0
+            tut2_map[13][42] = 13
+            leverOn = True
+            leverOff = False
+        elif leverOn == True and Player.rect.colliderect(leverOnDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
+            leverTimer = 0
+            tut2_map[13][42] = 10
+            leverOff = True
+            leverOn = False
+        leverTimer += 1
 
 def loadFluids(map, surface): 
     global fluid_rects
@@ -625,7 +647,7 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
 
     
 def Tut1(language):
-    global collisions
+    global collisions, command, x, y
     enemy_x = 2000
     enemy_y = 305
     world = pygame.Surface((8000,8000)) # Create Map
@@ -839,21 +861,33 @@ def Tut2(language):
         else:
             Player.air_timer += 1
 
+        try:
+            command, x, y = parse_input(chat.userInput.lower())
+        except:
+            pass
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
-                chat.x = chat.markerDefaultPos
+                chat.x = chat.markerDefaultPos69
                 language = Player.languageList[1]
                 chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
-
+            
             if chat.userInput.lower() == "/lang en_us" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
                 chat.x = chat.markerDefaultPos
                 language = Player.languageList[0]
                 chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
+            try:
+                if parse_input(str(chat.userInput.lower())) and command == "/place block" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    chat.userInput = ""
+                    chat.x = chat.markerDefaultPos
+                    chat.linesLoaded[0] = translatableComponent("command.place", language)
+                    tut2_map[y][x] = 17
+            except:
+                pass
             commandEvent(event, language)
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:

@@ -2,12 +2,12 @@ import pygame
 
 screen = pygame.display.set_mode((800,800), pygame.RESIZABLE)
 player = pygame.Rect(100, 500, 100, 100)
-object = pygame.Rect((300, 300), (100, 100))
+object = pygame.Rect((1400, 600), (100, 100))
 jumping = False
-x = 12
+x = -16
 modifier = 1
 jumped = False
-n = 0
+e = False
 
 while True:
 	clock = pygame.time.Clock()
@@ -23,16 +23,20 @@ while True:
 		player.y -= 10
 	if keys[pygame.K_DOWN]:
 		player.y += 10
-	if keys[pygame.K_0]:
-		jumped = True
-	if jumped == True:
-			object.y -= 0.1*n
-			object.x -= 0.15
-			n -= 0.005
-			print(n)
-    
+	if keys[pygame.K_0] and x == -16:
+		x = 15
+
+	if x == 15:
+		object.y -= 3*1.1*modifier
+		object.x -= 12
+		if object.x < 650:
+			modifier = -1
+		if object.x <= 100:
+			object.x = 100
+			object.y = 500
+
 	screen.fill((90, 90, 90))
 	pygame.draw.rect(screen, (255, 255, 255), player, 1000)
 	pygame.draw.rect(screen, (255, 0, 255), object, 500)
 	pygame.display.flip()
-	clock.tick(600)
+	clock.tick(6000)
