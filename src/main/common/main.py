@@ -265,6 +265,8 @@ n = 0
 npcCurrent = registries.animations.npcIdle
 npcTalking = False
 
+score= 0
+
 jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
 jumpsound.set_volume(0.25)
 deathSound = pygame.mixer.Sound("src\main/assets\sounds\death.mp3")
@@ -446,6 +448,7 @@ def genWorld(world, map):
     for tiles in element_rects:
         if Player.debuggingMode == True:
             pygame.draw.rect(world, (255, 255, 255), tiles, 3)
+
     font = pygame.font.SysFont(None, 30)
 
     for coins in coin_rects:
