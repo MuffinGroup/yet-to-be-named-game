@@ -7,6 +7,7 @@ jumping = False
 x = 12
 modifier = 1
 jumped = False
+n = 0
 
 while True:
 	clock = pygame.time.Clock()
@@ -24,13 +25,14 @@ while True:
 		player.y += 10
 	if keys[pygame.K_0]:
 		jumped = True
-	else:
-		jumped = False
 	if jumped == True:
-		object.y += 100
+			object.y -= 0.1*n
+			object.x -= 0.15
+			n -= 0.005
+			print(n)
     
 	screen.fill((90, 90, 90))
 	pygame.draw.rect(screen, (255, 255, 255), player, 1000)
 	pygame.draw.rect(screen, (255, 0, 255), object, 500)
 	pygame.display.flip()
-	clock.tick(60)
+	clock.tick(600)

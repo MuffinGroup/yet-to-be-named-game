@@ -371,7 +371,7 @@ lvl1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00]]
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, score_display
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -457,7 +457,6 @@ def genWorld(world, map):
             map[10][15] = 0
             score += 1
     score_display = font.render("Coins: {}".format(score), True, (0, 0, 0))
-    screen.blit(score_display, (10, 10))       
 
     if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         if Player.world != "tut1":
@@ -795,6 +794,7 @@ def Tut1(language):
             Player.locked = False
 
         print(player_movement[0], player_movement[1])
+        screen.blit(score_display, (10, 10))
 
         clock.tick(800)
         pygame.display.flip()
