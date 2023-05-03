@@ -379,8 +379,9 @@ def genWorld(world, map):
     stair_rects = []
     coin_rects = []
     coins_hit = []
+    score= 0
     y = 0
-    score = 0
+   
     
     for row in map:
         x = 0
