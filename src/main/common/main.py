@@ -518,7 +518,7 @@ def genWorld(world, map):
             explosiveTimer += 1
         elif leverOn == True and Player.rect.colliderect(leverOnDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
-            tut2_map[13][42] = 10
+            tut2_map[13][42] = 8
             leverOff = True
             leverOn = False
             leverPressed += 1
@@ -526,7 +526,7 @@ def genWorld(world, map):
             explosiveTimer += 1
         leverTimer += 1 #9 32
         print(explosiveTimer)
-        if explosiveTimer >= 30:
+        if explosiveTimer >= 8:
             tut2_map[9][32] = 0
             explosiveTimer += 1
 
