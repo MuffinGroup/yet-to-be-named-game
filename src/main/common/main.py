@@ -243,6 +243,7 @@ cobbleStairs = registries.elements.registerElement("elements\Environment\Blocks\
 bush = registries.elements.registerElement("elements\Environment\decoration\Plants\Small_bush", 3)
 explosion = registries.elements.registerAnimatedElement(16)
 explosive = registries.elements.registerElement("elements\Environment\Blocks\TNT", 3)
+light_dark_cobble = registries.elements.registerElement("elements\Environment\Blocks\light_dark_cobble", 3)
 npc = registries.elements.registerAnimatedElement(8) # 37/6
 waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
@@ -383,7 +384,23 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3, 3, 3,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3]]
 
 lvl1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00, 9,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [28, 3, 3,28,28,28, 3, 3,28,28,28, 3, 3, 3,28,28, 3, 3, 3, 3, 3,28, 3, 3, 3,28,28,28, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,28,28,28, 3, 3, 3,28,28, 3, 3,28,28,28,28,28, 3, 3,28,28],
+            [28,28,28,28,28,28,28,28,28,28,28,28, 3,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28, 3,28,28,28, 3, 3,28,28,00,00,28,28,28,28,28,28,28,28,28,28,00,28,28,28,28,28],
+            [28,28,00,00,28,00,28,28,28,28,28,28,28,28,28,00,00,28,28,28,00,00,00,28,28,00,00,28,00,00,28,28,28,28,28,28,28,00,00,00,00,00,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28],
+            [28,00,00,00,00,00,00,28,28,00,00,00,28,00,00,00,00,00,00,00,00,00,00,28,00,00,00,00,00,00,00,00,00,28,28,00,00,00,00,00,00,00,00,00,00,00,00,28,00,28,00,00,00,28,00,00,28],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00]]
 
 def loadExplosion(map, world):
@@ -463,7 +480,7 @@ def genWorld(world, map):
             if tile == 22:
                 grass_end.drawRotatedElement(world, x, y, True)
             if tile == 23:
-                cobbleStairs.drawStairElement(world, x, y, 2, False, False, deco_rects)
+                cobbleStairs.drawStairElement(world, x, y, 2, False, False, element_rects)
             if tile == 24:
                 item_image.drawElement(world, x, y, coin_rects)
             if tile == 25:
@@ -472,6 +489,8 @@ def genWorld(world, map):
                 bush.drawNoCollideElement(world, x, y)
             if tile == 27:
                 explosive.drawElement(world, x, y, element_rects)
+            if tile == 28:
+                light_dark_cobble.drawElement(world, x, y, element_rects)
             x += 1
         y += 1
 
@@ -770,7 +789,7 @@ def Tut1(language):
                 sys.exit()
             if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
-                chat.x = chat.markerDefaultPos69
+                chat.x = chat.markerDefaultPos
                 language = Player.languageList[1]
                 chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
             
@@ -949,7 +968,7 @@ def Tut2(language):
                 sys.exit()
             if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
-                chat.x = chat.markerDefaultPos69
+                chat.x = chat.markerDefaultPos
                 language = Player.languageList[1]
                 chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
             
@@ -1068,9 +1087,9 @@ def Lvl1(language):
         #Fill the background outside of the map
         screen.fill(AQUA)
 
-        loadBackground(tut1_map, world)
+        loadBackground(lvl1_map, world)
 
-        genWorld(world, tut1_map)
+        genWorld(world, lvl1_map)
 
         player_movement = [0, 0]
 
@@ -1101,7 +1120,7 @@ def Lvl1(language):
                 sys.exit()
             if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
-                chat.x = chat.markerDefaultPos69
+                chat.x = chat.markerDefaultPos
                 language = Player.languageList[1]
                 chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
             
@@ -1148,9 +1167,9 @@ def Lvl1(language):
         if Player.visible == True:
             player.render(world)
 
-        loadFluids(tut1_map, world)
+        loadFluids(lvl1_map, world)
 
-        loadExplosion(tut1_map, world)
+        loadExplosion(lvl1_map, world)
 
         cloud.drawNoCollideElement(world, 10, 2)
 
@@ -1232,4 +1251,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Start(Player.language)
+    Lvl1(Player.language) #this isn't start bc i need to do some debugging and testing
