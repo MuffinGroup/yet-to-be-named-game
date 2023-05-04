@@ -483,6 +483,7 @@ def genWorld(world, map):
             map[10][15] = 0
             Player.score += 1
     score_display = font.render("Coins: {}".format(Player.score), True, (0, 0, 0))
+    screen.blit(score_display,(10, 10))
 
     if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         if Player.world != "tut1":
