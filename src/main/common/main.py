@@ -314,6 +314,10 @@ explosiveTimer = 0
 leverPressed = 0
 exploded = False
 explosionCameraTimer = 0
+cobble1 = (cobbleElement.scaledTexture.get_width() * 31, cobbleElement.scaledTexture.get_height() * 8)
+cobble2 = (cobbleElement.scaledTexture.get_width() * 31, cobbleElement.scaledTexture.get_height() * 9)
+cobbleModifier1 = 1
+cobbleModifier2 = 1
 
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
             [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
@@ -550,9 +554,13 @@ def genWorld(world, map):
         print(player_x, player_y)
         if explosiveTimer >= 8:
             tut2_map[9][33] = 0
+            tut2_map[8][31] = 0
+            tut2_map[9][31] = 0
+            world.blit(cobbleElement.scaledTexture, cobble1)
+            world.blit(cobbleElement.scaledTexture, cobble2)
             camera_pos = (-2534, -445)
             Player.locked = False
-            if explosiveTimer >= 64:
+            if explosiveTimer >= 48:
                 camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
         if pygame.key.get_pressed()[pygame.K_0]:
             tut2_map[9][32] = 25
@@ -883,6 +891,9 @@ def Tut2(language):
 
         #Fill the background outside of the map
         screen.fill(DARK_GRAY)
+
+        loadBackground(tut2_map, world)
+        
         genWorld(world, tut2_map)
 
         player_movement = [0, 0]
