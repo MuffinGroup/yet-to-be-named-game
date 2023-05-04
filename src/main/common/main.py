@@ -1,10 +1,8 @@
 import pygame
-import random
-import math
 import sys
 from typing import Tuple
 from registries.colors import *
-from registries.json_lang import *
+from registries.language import *
 import registries.animations
 import registries.elements
 import registries.buttons
@@ -675,14 +673,14 @@ def Start(language):
 
         startFont = registries.gui.registerFont(40, "YET-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
         screen.fill(BLUISH_GRAY)
-        if startButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 2.75, registries.animations.startButton, 48, 48, 6, -125, -25, "start", BLACK, "joystixmonospaceregular"):
+        if startButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 2.75, registries.animations.startButton, 48, 48, 6, -125, -25, translatableComponent("button.start", language), BLACK, "joystixmonospaceregular"):
             Tut1(language)
-        if optionsButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -125, -25, "options", BLACK, "joystixmonospaceregular"):
+        if optionsButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -125, -25, translatableComponent("button.options", language), BLACK, "joystixmonospaceregular"):
             if i < len(Player.languageList) -1:
                 i += 1
             else:
                 i = 0
-        if quitButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 5.25, registries.animations.quitButton, 48, 48, 6, -125, -25, "quit", BLACK, "joystixmonospaceregular"):
+        if quitButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 5.25, registries.animations.quitButton, 48, 48, 6, -125, -25, translatableComponent("button.quit", language), BLACK, "joystixmonospaceregular"):
             pygame.quit()
             sys.exit()
             
@@ -1053,7 +1051,7 @@ def Tut2(language):
         pygame.display.flip()
 
 def Lvl1(language):
-    global collisions, camera_pos
+    global collisions, command, x, y, camera_pos
     enemy_x = 2000
     enemy_y = 305
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
@@ -1066,12 +1064,13 @@ def Lvl1(language):
     
     Player.world = "lvl1"
     while True:
-        #Render background
-        world.fill(AQUA)
 
         #Fill the background outside of the map
         screen.fill(AQUA)
-        genWorld(world, lvl1_map)
+
+        loadBackground(tut1_map, world)
+
+        genWorld(world, tut1_map)
 
         player_movement = [0, 0]
 
@@ -1102,7 +1101,7 @@ def Lvl1(language):
                 sys.exit()
             if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
-                chat.x = chat.markerDefaultPos
+                chat.x = chat.markerDefaultPos69
                 language = Player.languageList[1]
                 chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
             
@@ -1124,7 +1123,7 @@ def Lvl1(language):
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
                 Start(language)
-
+        
         #idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
             idleValue = 0
@@ -1151,6 +1150,10 @@ def Lvl1(language):
 
         loadFluids(tut1_map, world)
 
+        loadExplosion(tut1_map, world)
+
+        cloud.drawNoCollideElement(world, 10, 2)
+
         #Enemy Import
         enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
         enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width() * 8, enemy_img.get_width() * 8))
@@ -1160,9 +1163,15 @@ def Lvl1(language):
         enemy_x -= enemy_speed
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
         
-        
+        #text implemention
+        font = pygame.font.Font('src/main/assets/fonts/joystixmonospaceregular.otf', 20)
+        test = font.render(translatableComponent('text.tutorial.walking_left1', language), False, BLACK)
 
         #Render the map to the screen
+        speech_bubble = pygame.image.load('src/main/assets/textures/elements/gui/speech_bubble.png')
+        if npcCurrent == registries.animations.npcTalkingNormal:
+            world.blit(speech_bubble, (3650, 500))
+            world.blit(test, (3550, 900))
         screen.blit(world, (player_x, player_y))
         renderCoordinates()
 
@@ -1212,6 +1221,7 @@ def Lvl1(language):
         else:
             chat.inputLocked = True
             Player.locked = False
+        screen.blit(score_display, (10, 10))
 
         clock.tick(800)
         pygame.display.flip()

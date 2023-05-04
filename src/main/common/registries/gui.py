@@ -199,9 +199,6 @@ class registerChat():
         self.x = self.markerDefaultPos
         self.lines = lines
         self.sentMessage = False
-        for i in range(lines + 1):
-            self.line = ""
-            self.linesLoaded.append(self.line)
     
     def event(self, event): #this has to be executed withing the event for loop look at main_gui for an example
         if event.type == pygame.KEYDOWN and self.inputLocked == False:
@@ -228,6 +225,10 @@ class registerChat():
     def drawChat(self, surface):
         self.sampleText = self.font.render(self.sample, False, (0, 0, 0))
         self.userText = self.font.render(self.userInput, True, self.textColor)
+        
+        for i in range(self.lines + 1):
+            self.line = ""
+            self.linesLoaded.append(self.line)
         
         for i in range(self.lines):
             self.message_text = self.font.render(self.linesLoaded[i], True, self.textColor)

@@ -7,4 +7,4 @@ def translatableComponent(path, language):
         text = str(data[path])
         return text
     except:
-        return path
+        return path + " missing translation"
