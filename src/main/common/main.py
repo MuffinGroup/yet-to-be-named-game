@@ -380,8 +380,20 @@ lvl1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00]]
 
+def loadExplosion(map, world):
+    y = 0
+    for row in map:
+        x = 0
+        for tile in row:
+            if tile == 25:
+                explosion.drawAnimatedElement(world, x, y, deco_rects, registries.animations.explosion)
+                explosion.yModifier = -600
+                explosion.xModifier = -400
+            x += 1
+        y += 1
+
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, score_display, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, score_display, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, world1
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -449,7 +461,7 @@ def genWorld(world, map):
             if tile == 24:
                 item_image.drawElement(world, x, y, coin_rects)
             if tile == 25:
-                explosion.drawAnimatedElement(world, x, y, deco_rects, explosiveState)
+                explosion.drawAnimatedElement(world, x, y, deco_rects, explosiveState) #Now in the loadExplosions method. Don't use tile 25
             if tile == 26:
                 bush.drawNoCollideElement(world, x, y)
             if tile == 27:
@@ -528,7 +540,10 @@ def genWorld(world, map):
         print(explosiveTimer)
         if explosiveTimer >= 8:
             tut2_map[9][32] = 0
-            explosiveTimer += 1
+            tut2_map[9][33] = 0
+            tut2_map[8][32] = 0
+        if pygame.key.get_pressed()[pygame.K_0]:
+            tut2_map[9][32] = 25
 
 def loadFluids(map, surface): 
     global fluid_rects
@@ -664,7 +679,7 @@ def Tut1(language):
     global collisions, command, x, y
     enemy_x = 2000
     enemy_y = 305
-    world = pygame.Surface((8000,8000)) # Create Map
+    world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
     camera_pos = (0, 0) #camera starting position
@@ -760,6 +775,8 @@ def Tut1(language):
 
         loadFluids(tut1_map, world)
 
+        loadExplosion(tut1_map, world)
+
         cloud.drawNoCollideElement(world, 10, 2)
 
         #Enemy Import
@@ -835,7 +852,7 @@ def Tut1(language):
         pygame.display.flip()
         
 def Tut2(language):
-    world = pygame.Surface((8000,8000)) # Create Map
+    world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
     camera_pos = (0, 0) #camera starting position
@@ -846,6 +863,7 @@ def Tut2(language):
     Player.rect.x, Player.rect.y = 900, 750
 
     Player.world = "tut2"
+    zoom = 1
     
     while True: #Render background
         world.fill(DARK_GRAY)
@@ -929,8 +947,17 @@ def Tut2(language):
 
         loadFluids(tut2_map, world)
 
+        loadExplosion(tut2_map, world)
         #Render the map to the screen
-        screen.blit(world, (player_x, player_y))
+        if pygame.key.get_pressed()[pygame.K_1]:
+            zoom += 0.1
+        elif pygame.key.get_pressed()[pygame.K_2]:
+            zoom -= 0.1
+            
+        worldScaled = pygame.transform.scale(world, (6000 * 8, 6000 * 8))
+
+        screen.blit(worldScaled, (player_x, player_y))
+        
         renderCoordinates()
 
         if Player.debuggingMode == True:
@@ -986,7 +1013,7 @@ def Lvl1(language):
     global collisions
     enemy_x = 2000
     enemy_y = 305
-    world = pygame.Surface((8000,8000)) # Create Map
+    world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
     camera_pos = (0, 0) #camera starting position
