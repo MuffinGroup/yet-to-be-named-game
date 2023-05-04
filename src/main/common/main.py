@@ -554,23 +554,20 @@ def genWorld(world, map):
             tut2_map[9][32] = 0
             tut2_map[9][33] = 25
             tut2_map[8][32] = 0
-        print(Player.rect.x, Player.rect.y)
-        if explosiveTimer >= 8:
-            tut2_map[9][33] = 0
             tut2_map[8][31] = 0
             tut2_map[9][31] = 0
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
             world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
-            cobble2Y -= 4*cobbleModifier2*cobbleModifier20
-            cobble2X -= 12
+            cobble2Y -= 64*cobbleModifier2*cobbleModifier20
+            cobble2X -= 208
             if cobble2X < 2720:
                 cobbleModifier2 = -1
                 cobbleModifier20 = 4
             if cobble2X <= 2250:
                 cobble2X = 2250
                 cobble2Y = 1350
-            cobble1Y -= 4*cobbleModifier1*cobbleModifier10
-            cobble1X -= 12
+            cobble1Y -= 64*cobbleModifier1*cobbleModifier10
+            cobble1X -= 192
             if cobble1X < 2720:
                 cobbleModifier1 = -1
                 cobbleModifier10 = 4
@@ -578,9 +575,12 @@ def genWorld(world, map):
                 cobble1X = 2300
                 cobble1Y = 1254
             #camera_pos = (-2534, -445)
-            Player.locked = False
             #if explosiveTimer >= 96:
                 #camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
+        print(Player.rect.x, Player.rect.y)
+        if explosiveTimer >= 8:
+            tut2_map[9][33] = 0
+            Player.locked = False
 
 def loadFluids(map, surface): 
     global fluid_rects
