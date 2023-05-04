@@ -540,16 +540,19 @@ def genWorld(world, map):
         leverTimer += 1 #9 32
         if explosionCameraTimer >= 1 and player_x <= -2533 and player_y <= -444:
             camera_pos = (player_x + 10, player_y + 5)
-            if player_x == -2533 and player_y == -444:
-                camera_pos = (-2533, -444)
-                explosiveTimer += 1
-                tut2_map[9][32] = 25
+            Player.locked = True
+        elif explosionCameraTimer >=  1:
+            camera_pos = (-2533, -444)
+            explosiveTimer += 1
+            tut2_map[9][32] = 0
+            tut2_map[9][33] = 25
+            tut2_map[8][32] = 0
         print(player_x, player_y)
         if explosiveTimer >= 8:
-            tut2_map[9][32] = 0
             tut2_map[9][33] = 0
-            tut2_map[8][32] = 0
-            if explosiveTimer >= 32:
+            camera_pos = (-2534, -445)
+            Player.locked = False
+            if explosiveTimer >= 64:
                 camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
         if pygame.key.get_pressed()[pygame.K_0]:
             tut2_map[9][32] = 25
