@@ -254,8 +254,6 @@ item_image = registries.elements.registerElement("elements\Environment\decoratio
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
 
-
-
 health = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(full).png")
 healthScaled = pygame.transform.scale(health, (70, 70))
 
@@ -311,6 +309,18 @@ doorsound = pygame.mixer.Sound('src/main/assets/sounds/Door_Closing.wav')
 leverOff = True
 leverOn = False
 leverTimer = 0
+explosiveTimer = 0
+leverPressed = 0
+exploded = False
+explosionCameraTimer = 0
+cobble1X = cobbleElement.scaledTexture.get_width() * 31
+cobble1Y = cobbleElement.scaledTexture.get_height() * 8
+cobble2X = cobbleElement.scaledTexture.get_width() * 31
+cobble2Y = cobbleElement.scaledTexture.get_height() * 9
+cobbleModifier1 = 1
+cobbleModifier10 = 1
+cobbleModifier2 = 1
+cobbleModifier20 = 1
 
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
             [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
@@ -378,8 +388,20 @@ lvl1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00]]
 
+def loadExplosion(map, world):
+    y = 0
+    for row in map:
+        x = 0
+        for tile in row:
+            if tile == 25:
+                explosion.drawAnimatedElement(world, x, y, deco_rects, registries.animations.explosion)
+                explosion.yModifier = -600
+                explosion.xModifier = -400
+            x += 1
+        y += 1
+
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, score_display, leverOff, leverOn, leverTimer
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, score_display, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -447,7 +469,7 @@ def genWorld(world, map):
             if tile == 24:
                 item_image.drawElement(world, x, y, coin_rects)
             if tile == 25:
-                explosion.drawAnimatedElement(world, x, y, deco_rects, explosiveState)
+                explosion.drawAnimatedElement(world, x, y, deco_rects, explosiveState) #Now in the loadExplosions method. Don't use tile 25
             if tile == 26:
                 bush.drawNoCollideElement(world, x, y)
             if tile == 27:
@@ -506,17 +528,60 @@ def genWorld(world, map):
             pass
             npcCurrent = registries.animations.npcTalkingNormal
     if Player.world == "tut2":
-        if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
+        if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5 or pygame.key.get_pressed()[pygame.K_o]:
             leverTimer = 0
+            exploded = True
             tut2_map[13][42] = 13
             leverOn = True
             leverOff = False
+            leverPressed += 1
+            explosionCameraTimer += 1
         elif leverOn == True and Player.rect.colliderect(leverOnDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
-            tut2_map[13][42] = 10
+            tut2_map[13][42] = 8
             leverOff = True
             leverOn = False
-        leverTimer += 1
+            leverPressed += 1
+        if explosiveTimer >= 1:
+            explosiveTimer += 1
+        leverTimer += 1 #9 32
+        if explosionCameraTimer >= 1 and player_x <= -2533 and player_y <= -444:
+            camera_pos = (player_x + 10, player_y + 5)
+            Player.locked = True
+            Player.facingLeft = True
+        elif explosionCameraTimer >= 1:
+            camera_pos = (-2400, -444)
+            explosiveTimer += 1
+            tut2_map[9][32] = 0
+            tut2_map[9][33] = 25
+            tut2_map[8][32] = 0
+            tut2_map[8][31] = 0
+            tut2_map[9][31] = 0
+            world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
+            world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
+            cobble2Y -= 64*cobbleModifier2*cobbleModifier20
+            cobble2X -= 208
+            if cobble2X < 2720:
+                cobbleModifier2 = -1
+                cobbleModifier20 = 4
+            if cobble2X <= 2250:
+                cobble2X = 2250
+                cobble2Y = 1350
+            cobble1Y -= 64*cobbleModifier1*cobbleModifier10
+            cobble1X -= 192
+            if cobble1X < 2720:
+                cobbleModifier1 = -1
+                cobbleModifier10 = 4
+            if cobble1X <= 2300:
+                cobble1X = 2300
+                cobble1Y = 1254
+            camera_pos = (-2534, -445)
+            if explosiveTimer >= 96:
+                camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
+        print(Player.rect.x, Player.rect.y)
+        if explosiveTimer >= 8:
+            tut2_map[9][33] = 0
+            Player.locked = False
 
 def loadFluids(map, surface): 
     global fluid_rects
@@ -649,10 +714,10 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
 
     
 def Tut1(language):
-    global collisions, command, x, y
+    global collisions, command, x, y, camera_pos
     enemy_x = 2000
     enemy_y = 305
-    world = pygame.Surface((8000,8000)) # Create Map
+    world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
     camera_pos = (0, 0) #camera starting position
@@ -748,6 +813,8 @@ def Tut1(language):
 
         loadFluids(tut1_map, world)
 
+        loadExplosion(tut1_map, world)
+
         cloud.drawNoCollideElement(world, 10, 2)
 
         #Enemy Import
@@ -817,15 +884,14 @@ def Tut1(language):
         else:
             chat.inputLocked = True
             Player.locked = False
-
-        print(player_movement[0], player_movement[1])
         screen.blit(score_display, (10, 10))
 
         clock.tick(800)
         pygame.display.flip()
         
 def Tut2(language):
-    world = pygame.Surface((8000,8000)) # Create Map
+    global camera_pos
+    world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
     camera_pos = (0, 0) #camera starting position
@@ -836,12 +902,16 @@ def Tut2(language):
     Player.rect.x, Player.rect.y = 900, 750
 
     Player.world = "tut2"
+    zoom = 1
     
     while True: #Render background
         world.fill(DARK_GRAY)
 
         #Fill the background outside of the map
         screen.fill(DARK_GRAY)
+
+        loadBackground(tut2_map, world)
+        
         genWorld(world, tut2_map)
 
         player_movement = [0, 0]
@@ -919,8 +989,10 @@ def Tut2(language):
 
         loadFluids(tut2_map, world)
 
+        loadExplosion(tut2_map, world)
         #Render the map to the screen
         screen.blit(world, (player_x, player_y))
+        
         renderCoordinates()
 
         if Player.debuggingMode == True:
@@ -947,7 +1019,7 @@ def Tut2(language):
             Player.movementLocked = False
             
         if Player.dead == True and Player.playedDeathSound == False:
-            pygame.mixer.Sound.play(Player.deathSound)
+            pygame.mixer.Sound.play(deathSound)
             Player.playedDeathSound = True
 
         elif Player.dead == False:
@@ -973,10 +1045,10 @@ def Tut2(language):
         pygame.display.flip()
 
 def Lvl1(language):
-    global collisions
+    global collisions, camera_pos
     enemy_x = 2000
     enemy_y = 305
-    world = pygame.Surface((8000,8000)) # Create Map
+    world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
     camera_pos = (0, 0) #camera starting position
@@ -1132,8 +1204,6 @@ def Lvl1(language):
         else:
             chat.inputLocked = True
             Player.locked = False
-
-        print(player_movement[0], player_movement[1])
 
         clock.tick(800)
         pygame.display.flip()
