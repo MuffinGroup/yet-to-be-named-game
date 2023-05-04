@@ -313,6 +313,7 @@ leverTimer = 0
 explosiveTimer = 0
 leverPressed = 0
 exploded = False
+explosionCameraTimer = 0
 
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
             [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
@@ -393,7 +394,7 @@ def loadExplosion(map, world):
         y += 1
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, score_display, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, world1
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, score_display, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -524,11 +525,10 @@ def genWorld(world, map):
             leverTimer = 0
             exploded = True
             tut2_map[13][42] = 13
-            tut2_map[9][32] = 25
             leverOn = True
             leverOff = False
             leverPressed += 1
-            explosiveTimer += 1
+            explosionCameraTimer += 1
         elif leverOn == True and Player.rect.colliderect(leverOnDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             tut2_map[13][42] = 8
@@ -538,11 +538,19 @@ def genWorld(world, map):
         if explosiveTimer >= 1:
             explosiveTimer += 1
         leverTimer += 1 #9 32
-        print(explosiveTimer)
+        if explosionCameraTimer >= 1 and player_x <= -2533 and player_y <= -444:
+            camera_pos = (player_x + 10, player_y + 5)
+            if player_x == -2533 and player_y == -444:
+                camera_pos = (-2533, -444)
+                explosiveTimer += 1
+                tut2_map[9][32] = 25
+        print(player_x, player_y)
         if explosiveTimer >= 8:
             tut2_map[9][32] = 0
             tut2_map[9][33] = 0
             tut2_map[8][32] = 0
+            if explosiveTimer >= 32:
+                camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
         if pygame.key.get_pressed()[pygame.K_0]:
             tut2_map[9][32] = 25
 
@@ -677,7 +685,7 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
 
     
 def Tut1(language):
-    global collisions, command, x, y
+    global collisions, command, x, y, camera_pos
     enemy_x = 2000
     enemy_y = 305
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
@@ -853,6 +861,7 @@ def Tut1(language):
         pygame.display.flip()
         
 def Tut2(language):
+    global camera_pos
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
@@ -950,14 +959,7 @@ def Tut2(language):
 
         loadExplosion(tut2_map, world)
         #Render the map to the screen
-        if pygame.key.get_pressed()[pygame.K_1]:
-            zoom += 0.1
-        elif pygame.key.get_pressed()[pygame.K_2]:
-            zoom -= 0.1
-            
-        worldScaled = pygame.transform.scale(world, (6000 * 8, 6000 * 8))
-
-        screen.blit(worldScaled, (player_x, player_y))
+        screen.blit(world, (player_x, player_y))
         
         renderCoordinates()
 
@@ -985,7 +987,7 @@ def Tut2(language):
             Player.movementLocked = False
             
         if Player.dead == True and Player.playedDeathSound == False:
-            pygame.mixer.Sound.play(Player.deathSound)
+            pygame.mixer.Sound.play(deathSound)
             Player.playedDeathSound = True
 
         elif Player.dead == False:
@@ -1011,7 +1013,7 @@ def Tut2(language):
         pygame.display.flip()
 
 def Lvl1(language):
-    global collisions
+    global collisions, camera_pos
     enemy_x = 2000
     enemy_y = 305
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
