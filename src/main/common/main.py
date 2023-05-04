@@ -545,11 +545,11 @@ def genWorld(world, map):
             explosiveTimer += 1
         leverTimer += 1 #9 32
         if explosionCameraTimer >= 1 and player_x <= -2533 and player_y <= -444:
-            #camera_pos = (player_x + 10, player_y + 5)
-            #Player.locked = True
+            camera_pos = (player_x + 10, player_y + 5)
+            Player.locked = True
             Player.facingLeft = True
         elif explosionCameraTimer >= 1:
-            #camera_pos = (-2400, -444)
+            camera_pos = (-2400, -444)
             explosiveTimer += 1
             tut2_map[9][32] = 0
             tut2_map[9][33] = 25
@@ -574,9 +574,9 @@ def genWorld(world, map):
             if cobble1X <= 2300:
                 cobble1X = 2300
                 cobble1Y = 1254
-            #camera_pos = (-2534, -445)
-            #if explosiveTimer >= 96:
-                #camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
+            camera_pos = (-2534, -445)
+            if explosiveTimer >= 96:
+                camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
         print(Player.rect.x, Player.rect.y)
         if explosiveTimer >= 8:
             tut2_map[9][33] = 0
