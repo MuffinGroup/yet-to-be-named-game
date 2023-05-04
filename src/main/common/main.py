@@ -606,6 +606,8 @@ def loadBackground(map, surface):
                 sky.drawNoCollideElement(surface, x, y)
             if Player.world == "tut2":
                 darkCobble.drawNoCollideElement(surface, x, y)
+            if Player.world == "lvl1":
+                darkCobble.drawNoCollideElement(surface, x, y)
             x += 1
         y += 1
     
@@ -703,6 +705,12 @@ def commandEvent(event, language):
         chat.linesLoaded[0] = translatableComponent("command.teleport.tut1", language)
         chat.x = chat.markerDefaultPos
         Tut1(language)
+                
+    if chat.userInput.lower() == "/world lvl1" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "lvl1" and Player.debuggingMode == True:
+        chat.userInput = ""
+        chat.linesLoaded[0] = translatableComponent("command.teleport.lvl1", language)
+        chat.x = chat.markerDefaultPos
+        Lvl1(language)
 
 def parse_input(input_str: str) -> Tuple[str, int, int]:
     test_str = input_str.lower()
