@@ -60,8 +60,8 @@ class Player:
         key = pygame.key.get_pressed()
 
         if key[pygame.K_UP]:
-            if Player.air_timer < 2:
-                Player.y_momentum = -20
+            if Player.air_timer < 8:
+                Player.y_momentum = -30
 
         if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
             Player.facingLeft = False
@@ -793,7 +793,7 @@ def Tut1(language):
             Player.y_momentum = 0
             Player.air_timer = 0
         else:
-            Player.air_timer += 100
+            Player.air_timer += 10
 
         try:
             command, x, y = parse_input(chat.userInput.lower())
@@ -1125,7 +1125,7 @@ def Lvl1(language):
             Player.y_momentum = 0
             Player.air_timer = 0
         else:
-            Player.air_timer += 1
+            Player.air_timer += 8
 
         try:
             command, x, y = parse_input(chat.userInput.lower())
