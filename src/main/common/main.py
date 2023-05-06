@@ -860,7 +860,7 @@ def Tut1(language):
 
         loadExplosion(tut1_map, world)
 
-        cloud.drawNoCollideElement(world, 10, 2)
+        cloud.drawElement(world, 10, 2, background_rects)
 
         #Enemy Import
         enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
@@ -1191,8 +1191,6 @@ def Lvl1(language):
         loadFluids(lvl1_map, world)
 
         loadExplosion(lvl1_map, world)
-
-        cloud.drawElement(world, 10, 2, background_rects)
 
         #Enemy Import
         enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
