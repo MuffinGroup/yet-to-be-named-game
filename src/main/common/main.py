@@ -457,7 +457,7 @@ def genWorld(world, map):
             if tile == 8:
                 grassElement.drawElement(world, x, y, element_rects)
             if tile == 9:
-                doorCurrent.drawNoCollideElement(world, x, y)
+                doorCurrent.drawElement(world, x, y, deco_rects)
                 doorCurrent.yModifier = -22
                 doorCurrent.widthModifier = -75
                 doorCurrent.xRectModifier = 50
@@ -465,9 +465,9 @@ def genWorld(world, map):
             if tile == 10:
                 leverOffDeco.drawElement(world, x, y, deco_rects)
             if tile == 11:
-                grassDeco.drawNoCollideElement(world, x, y)
+                grassDeco.drawElement(world, x, y, deco_rects)
             if tile == 12:
-                poppyDeco.drawNoCollideElement(world, x, y)
+                poppyDeco.drawElement(world, x, y, deco_rects)
             if tile == 13:
                 leverOnDeco.drawElement(world, x, y, deco_rects)
             if tile == 14:
@@ -502,13 +502,13 @@ def genWorld(world, map):
             if tile == 25:
                 explosion.drawAnimatedElement(world, x, y, deco_rects, explosiveState) #Now in the loadExplosions method. Don't use tile 25
             if tile == 26:
-                bush.drawNoCollideElement(world, x, y)
+                bush.drawElement(world, x, y, deco_rects)
             if tile == 27:
                 explosive.drawElement(world, x, y, element_rects)
             if tile == 28:
                 light_dark_cobble.drawElement(world, x, y, element_rects)
             if tile == 29:
-                chainDeco.drawNoCollideElement(world,x,y)
+                chainDeco.drawElement(world, x, y, deco_rects)
             x += 1
         y += 1
 
@@ -635,19 +635,20 @@ def loadFluids(map, surface):
         y += 1
 
 def loadBackground(map, surface):
+    global background_rects
+    background_rects = []
     y = 0
     for row in map:
         x = 0
         for tile in row:
             if Player.world == "tut1":
-                sky.drawNoCollideElement(surface, x, y)
+                sky.drawElement(surface, x, y, background_rects)
             if Player.world == "tut2":
-                darkCobble.drawNoCollideElement(surface, x, y)
+                darkCobble.drawElement(surface, x, y, background_rects)
             if Player.world == "lvl1":
-                darkCobble.drawNoCollideElement(surface, x, y)
+                darkCobble.drawElement(surface, x, y, background_rects)
             x += 1
         y += 1
-    
         
 def health():
         for i in range(Player.defaultHealth):
@@ -1191,7 +1192,7 @@ def Lvl1(language):
 
         loadExplosion(lvl1_map, world)
 
-        cloud.drawNoCollideElement(world, 10, 2)
+        cloud.drawElement(world, 10, 2, background_rects)
 
         #Enemy Import
         enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
