@@ -9,7 +9,7 @@ x = -16
 modifier = 1
 jumped = False
 e = False
-example = notification("src\main/assets/textures\elements\gui/notification.png", "src\main/assets/textures\elements\gui/slot.png", 3, screen.get_width(), 200, 100)
+example = notification("src\main/assets/textures\elements\gui/notification_bar.png", "src\main/assets/textures\elements\Environment\decoration\Plants\poppy.png", 3, screen.get_width(), 200, 100)
 
 while True:
 	clock = pygame.time.Clock()

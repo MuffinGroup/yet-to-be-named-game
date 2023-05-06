@@ -38,9 +38,18 @@ class notification:
         self.scaledTexture.blit(self.scaledIcon, (16, 16))
         #use self.finished = False to reset the bar
 
-class infoToast:
-    def __init__(self):
-        pass
+class infoPanel:
+    def __init__(self, panelPath, scale, x, y, stopTimer):
+        self.x, self.y = x, y
+        self.timer = 0
+        self.font = pygame.font.Font("src\main/assets/fonts\joystixmonospaceregular.otf", 25)
+        self.stopTimer = stopTimer
+        self.finished = False
+        self.notification_bar = pygame.image.load(panelPath)
+        self.scaledTexture = pygame.transform.scale(self.notification_bar, (self.notification_bar.get_width() * scale, self.notification_bar.get_height() * scale))
+        self.icon = pygame.image.load(panelPath)
+        self.scaledIcon = pygame.transform.scale(self.icon, (64, 64))
+
 
     def render(self):
         pass
