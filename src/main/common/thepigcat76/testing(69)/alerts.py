@@ -1,8 +1,9 @@
 import pygame
 
 class notification:
-    def __init__(self, path, scale, x, y):
+    def __init__(self, path, scale, x, y, text, waitTimer):
         self.x, self.y = x, y
+        self.waitTimer = waitTimer
         self.finished = False
         self.notification_bar = pygame.image.load(path)
         self.scaledTexture = pygame.transform.scale(self.notification_bar, (self.notification_bar.get_width() * scale, self.notification_bar.get_height() * scale))
