@@ -60,8 +60,8 @@ class Player:
         key = pygame.key.get_pressed()
 
         if key[pygame.K_UP]:
-            if Player.air_timer < 8:
-                Player.y_momentum = -10
+            if Player.air_timer < 2:
+                Player.y_momentum = -20
 
         if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
             Player.facingLeft = False
@@ -784,8 +784,8 @@ def Tut1(language):
             player_movement[0] -= 20
         player_movement[1] += Player.y_momentum
         Player.y_momentum += 1
-        if Player.y_momentum > 3:
-            Player.y_momentum = 3
+        if Player.y_momentum > 20:
+            Player.y_momentum = 20
 
         Player.rect, collisions = move(Player.rect, player_movement, element_rects)
 
@@ -962,9 +962,9 @@ def Tut2(language):
         if Player.moving_left:
             player_movement[0] -= 20
         player_movement[1] += Player.y_momentum
-        Player.y_momentum += 0.2
-        if Player.y_momentum > 3:
-            Player.y_momentum = 3
+        Player.y_momentum += 1
+        if Player.y_momentum > 20:
+            Player.y_momentum = 20
 
         Player.rect, collisions = move(Player.rect, player_movement, element_rects)
 
@@ -1115,9 +1115,9 @@ def Lvl1(language):
         if Player.moving_left:
             player_movement[0] -= 20
         player_movement[1] += Player.y_momentum
-        Player.y_momentum += 1
-        if Player.y_momentum > 3:
-            Player.y_momentum = 3
+        Player.y_momentum += 5
+        if Player.y_momentum > 20:
+            Player.y_momentum = 20
 
         Player.rect, collisions = move(Player.rect, player_movement, element_rects)
 
@@ -1125,7 +1125,7 @@ def Lvl1(language):
             Player.y_momentum = 0
             Player.air_timer = 0
         else:
-            Player.air_timer += 100
+            Player.air_timer += 1
 
         try:
             command, x, y = parse_input(chat.userInput.lower())
