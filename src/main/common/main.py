@@ -276,7 +276,7 @@ hurtSound.set_volume(0.25)
 
 debugMenu = registries.gui.registerGui(70, 100, 300, 600, False)
 
-font = pygame.font.SysFont('joystixmonospaceregular', 25)
+font = pygame.font.Font('src\main/assets/fonts\joystixmonospaceregular.otf', 25)
 
 def renderText(entry, language):
     debugMenuText = font.render(translatableComponent("text.debug_menu", language), True, DARK_ORANGE)
@@ -515,8 +515,6 @@ def genWorld(world, map):
     for tiles in element_rects:
         if Player.debuggingMode == True:
             pygame.draw.rect(world, (255, 255, 255), tiles, 3)
-
-    font = pygame.font.SysFont(None, 30)
 
     for coins in coin_rects:
         if Player.rect.colliderect(coins):
@@ -872,7 +870,6 @@ def Tut1(language):
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
         
         #text implemention
-        font = pygame.font.Font('src/main/assets/fonts/joystixmonospaceregular.otf', 20)
         test = font.render(translatableComponent('text.tutorial.walking_left1', language), False, BLACK)
 
         #Render the map to the screen
@@ -1202,7 +1199,6 @@ def Lvl1(language):
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
         
         #text implemention
-        font = pygame.font.Font('src/main/assets/fonts/joystixmonospaceregular.otf', 20)
         test = font.render(translatableComponent('text.tutorial.walking_left1', language), False, BLACK)
 
         #Render the map to the screen

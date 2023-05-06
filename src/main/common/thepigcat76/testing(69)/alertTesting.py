@@ -9,7 +9,7 @@ x = -16
 modifier = 1
 jumped = False
 e = False
-example = notification("src\main/assets/textures\elements\gui/notification.png", 3, screen.get_width(), 200, "", 100)
+example = notification("src\main/assets/textures\elements\gui/notification.png", "src\main/assets/textures\elements\gui/slot.png", 3, screen.get_width(), 200, 100)
 
 while True:
 	clock = pygame.time.Clock()
@@ -41,7 +41,7 @@ while True:
 	screen.fill((90, 90, 90))
 	pygame.draw.rect(screen, (255, 255, 255), player, 1000)
 	pygame.draw.rect(screen, (255, 0, 255), object, 500)
-	example.render(screen)
+	example.render(screen, "uwuuuuuuuu", "uuuuuuuu", (255, 255, 255))
 	if pygame.key.get_pressed()[pygame.K_1]:
 		example.finished = False
 	print(example.x)
