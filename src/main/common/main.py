@@ -551,13 +551,15 @@ def genWorld(world, map):
         pygame.mixer.Sound.play(doorsound)
     if n == 50:
         n = 0
-        Tut2(Player.language)
+        if Player.world == "tut1":
+            Tut2(Player.language)
+        elif Player.world == "tut2":
+            Lvl1(Player.language)
     if n >= 1 and n <= 70:
         n += 1
 
     if Player.world == "tut1":
         if Player.rect.colliderect(npc.rect) and pygame.key.get_pressed()[pygame.K_e]:
-            pass
             npcCurrent = registries.animations.npcTalkingNormal
     if Player.world == "tut2":
         if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5 or pygame.key.get_pressed()[pygame.K_o]:
@@ -581,8 +583,8 @@ def genWorld(world, map):
             camera_pos = (player_x + 10, player_y + 5)
             Player.locked = True
             Player.facingLeft = True
-        elif explosionCameraTimer >= 1:
-            camera_pos = (-2400, -444)
+        elif explosionCameraTimer >= 1 and explosiveTimer < 8:
+            camera_pos = (-2533, -444)
             explosiveTimer += 1
             tut2_map[9][32] = 0
             tut2_map[9][33] = 25
@@ -607,13 +609,12 @@ def genWorld(world, map):
             if cobble1X <= 2300:
                 cobble1X = 2300
                 cobble1Y = 1254
-            camera_pos = (-2534, -445)
-            if explosiveTimer >= 96:
-                camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
-        print(Player.rect.x, Player.rect.y)
-        if explosiveTimer >= 8:
+        if explosiveTimer >= 8 and explosiveTimer < 32:
             tut2_map[9][33] = 0
+            camera_pos = (-2534, -445)
             Player.locked = False
+        elif explosiveTimer >= 32:
+            camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
 
 def loadFluids(map, surface): 
     global fluid_rects
