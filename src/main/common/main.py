@@ -883,8 +883,6 @@ def Tut1(language):
         
         #text implemention
         test = font.render(translatableComponent('text.tutorial.walking_left1', language), False, BLACK)
-
-        font = pygame.font.Font('src/main/assets/fonts/joystixmonospaceregular.otf', 20)
         welcome = font.render(translatableComponent('text.tutorial.welcome', language), False, BLACK)
         welcome1 = font.render(translatableComponent('text.tutorial.welcome1', language), False, BLACK)
         welcome2 = font.render(translatableComponent('text.tutorial.welcome2', language), False, BLACK)
@@ -900,7 +898,7 @@ def Tut1(language):
         #Render the map to the screen
         speech_bubble = pygame.image.load('src/main/assets/textures/elements/gui/speech_bubble.png')
         speech_bubble_Scaled = pygame.transform.scale(speech_bubble,(speech_bubble.get_width() * 5 + 50, speech_bubble.get_height() * 5))
-        if Player.language == "de_de":
+        if language == "de_de":
             speech_bubble_Scaled = pygame.transform.scale(speech_bubble,(speech_bubble.get_width() * 5 + 50, speech_bubble.get_height() * 5 + 50))
         if npcCurrent == registries.animations.npcTalkingNormal:
             world.blit(speech_bubble_Scaled, (2950, 650))
@@ -913,10 +911,9 @@ def Tut1(language):
             world.blit(welcome6, (3000, 850))
             world.blit(welcome7, (3000, 875))
             world.blit(welcome8, (3000, 900))
-            if Player.language == "de_de":
+            if language == "de_de":
                 world.blit(welcome9, (3000, 925))
                 world.blit(welcome10, (3000, 950))
-
 
         screen.blit(world, (player_x, player_y))
         renderCoordinates()
