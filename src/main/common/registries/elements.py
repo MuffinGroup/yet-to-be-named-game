@@ -26,49 +26,35 @@ class registerElement():
 		else:
 			surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
 
-	def drawStairElement(self, surface, x, y, stairs, flippedX, flippedY, rectArray):
-		if stairs > 5:
-			raise ValueError("Stairs can not be higer than 5")
-		if stairs == 1:
-			self.rect1 = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height() + self.heightModifier))
-			surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
-			rectArray.append(self.rect1)
-		elif stairs == 2:
+	def drawStairElement(self, surface, x, y, flippedX, flippedY, rectArray):
+		if flippedX == False and flippedY == False:
+			self.flippedTexture = pygame.transform.flip(self.scaledTexture, False, False)
 			self.rect1 = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.scaledTexture.get_height()//2 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height()//2 + self.heightModifier))
 			self.rect2 = pygame.Rect((x * 96 + self.scaledTexture.get_width()//2 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width()//2 + self.widthModifier, self.scaledTexture.get_height()//2 + self.heightModifier))
-			surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
+			surface.blit(self.flippedTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
 			rectArray.append(self.rect1)
 			rectArray.append(self.rect2)
-		elif stairs == 3:
-			self.rect1 = pygame.Rect((x, y), (self.scaledTexture.get_width(), self.scaledTexture.get_height()//5))
-			self.rect2 = pygame.Rect((x, y), (self.scaledTexture.get_width(), self.scaledTexture.get_height()//5))
-			self.rect3 = pygame.Rect((x, y), (self.scaledTexture.get_width(), self.scaledTexture.get_height()//5))
-			surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
+		if flippedX == True and flippedY == False:
+			self.flippedTexture = pygame.transform.flip(self.scaledTexture, True, False)
+			self.rect1 = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.scaledTexture.get_height()//2 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height()//2 + self.heightModifier))
+			self.rect2 = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width()//2 + self.widthModifier, self.scaledTexture.get_height()//2 + self.heightModifier))
+			surface.blit(self.flippedTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
 			rectArray.append(self.rect1)
 			rectArray.append(self.rect2)
-			rectArray.append(self.rect3)
-		elif stairs == 4:
-			self.rect1 = pygame.Rect((x, y), (self.scaledTexture.get_width(), self.scaledTexture.get_height()//5))
-			self.rect2 = pygame.Rect((x, y), (self.scaledTexture.get_width(), self.scaledTexture.get_height()//5))
-			self.rect3 = pygame.Rect((x, y), (self.scaledTexture.get_width(), self.scaledTexture.get_height()//5))
-			self.rect4 = pygame.Rect((x, y), (self.scaledTexture.get_width(), self.scaledTexture.get_height()//5))
-			surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
+		if flippedX == False and flippedY == True:
+			self.flippedTexture = pygame.transform.flip(self.scaledTexture, False, True)
+			self.rect1 = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height()//2 + self.heightModifier))
+			self.rect2 = pygame.Rect((x * 96 + self.scaledTexture.get_width()//2 + self.xRectModifier, y * 96 + self.scaledTexture.get_height()//2 + self.yRectModifier), (self.scaledTexture.get_width()//2 + self.widthModifier, self.scaledTexture.get_height()//2 + self.heightModifier))
+			surface.blit(self.flippedTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
 			rectArray.append(self.rect1)
 			rectArray.append(self.rect2)
-			rectArray.append(self.rect3)
-			rectArray.append(self.rect4)
-		elif stairs == 5:
-			self.rect1 = pygame.Rect((x, y), (self.scaledTexture.get_width(), self.scaledTexture.get_height()//5))
-			self.rect2 = pygame.Rect((x, y), (self.scaledTexture.get_width(), self.scaledTexture.get_height()//5))
-			self.rect3 = pygame.Rect((x, y), (self.scaledTexture.get_width(), self.scaledTexture.get_height()//5))
-			self.rect4 = pygame.Rect((x, y), (self.scaledTexture.get_width(), self.scaledTexture.get_height()//5))
-			self.rect5 = pygame.Rect((x, y), (self.scaledTexture.get_width(), self.scaledTexture.get_height()//5))
-			surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
+		if flippedX == True and flippedY == True:
+			self.flippedTexture = pygame.transform.flip(self.scaledTexture, True, True)
+			self.rect1 = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height()//2 + self.heightModifier))
+			self.rect2 = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.scaledTexture.get_height()//2 + self.yRectModifier), (self.scaledTexture.get_width()//2 + self.widthModifier, self.scaledTexture.get_height()//2 + self.heightModifier))
+			surface.blit(self.flippedTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
 			rectArray.append(self.rect1)
 			rectArray.append(self.rect2)
-			rectArray.append(self.rect3)
-			rectArray.append(self.rect4)
-			rectArray.append(self.rect5)
 			
 class registerAnimatedElement():
 	def __init__(self, scale):

@@ -8,7 +8,7 @@ import registries.animations
 import registries.elements
 import registries.buttons
 import registries.gui
-import registries.item
+import registries.items
 
 #pygame initialization
 pygame.init()
@@ -497,7 +497,7 @@ def genWorld(world, map):
             if tile == 22:
                 grass_end.drawRotatedElement(world, x, y, True)
             if tile == 23:
-                cobbleStairs.drawStairElement(world, x, y, 2, False, False, element_rects)
+                cobbleStairs.drawStairElement(world, x, y, True, True, element_rects)
             if tile == 24:
                 item_image.drawElement(world, x, y, coin_rects)
             if tile == 25:
