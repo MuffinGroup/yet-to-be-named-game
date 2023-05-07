@@ -256,7 +256,7 @@ item_image = registries.elements.registerElement("elements\Environment\decoratio
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
 
-creepy_sound = pygame.mixer.Sound("src/main/assets/sounds/Scary Ghost Voice I See You.mp3")
+creepy_sound = pygame.mixer.Sound("src/main/assets/sounds/scary.mp3")
 creepy_sound.set_volume(0.2)
 
 health = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(full).png")
@@ -605,6 +605,8 @@ def genWorld(world, map):
             tut2_map[8][32] = 0
             tut2_map[8][31] = 0
             tut2_map[9][31] = 0
+            explosion_sound = pygame.mixer.Sound('src/main/assets/sounds/explosion.mp3')
+            pygame.mixer.Sound.play(explosion_sound)
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
             world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
             cobble2Y -= 64*cobbleModifier2*cobbleModifier20
