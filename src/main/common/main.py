@@ -46,8 +46,6 @@ class Player:
         Player.moving_left = False
         Player.y_momentum = 0
         Player.air_timer = 0
-        Player.score = 0
-        Player.score_max = 5.0
 
     def keybinds(self,camera_pos):
         global player_x
@@ -61,7 +59,7 @@ class Player:
 
         if key[pygame.K_UP]:
             if Player.air_timer < 8:
-                Player.y_momentum = -30
+                Player.y_momentum = -20
 
         if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
             Player.facingLeft = False
@@ -516,8 +514,6 @@ def genWorld(world, map):
         if Player.debuggingMode == True:
             pygame.draw.rect(world, (255, 255, 255), tiles, 3)
 
-    font = pygame.font.SysFont(None, 30)
-
     for coins in coin_rects:
         if Player.rect.colliderect(coins):
             coins_hit.append(coins)
@@ -525,7 +521,7 @@ def genWorld(world, map):
         if Player.rect.colliderect(coins):
             map[10][15] = 0
             map[8][23] = 0
-   
+ 
     if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         if Player.world != "tut1":
             doorCurrent = doorOpenLargeElement
