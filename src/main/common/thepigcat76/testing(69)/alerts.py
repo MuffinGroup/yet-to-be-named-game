@@ -38,9 +38,6 @@ class notification:
         self.scaledTexture.blit(self.scaledIcon, (16, 16))
         #use self.finished = False to reset the bar
 
-class AnimatedNotification:
-    pass
-
 class infoPanel:
     def __init__(self, panelPath, scale):
         self.visible = True
@@ -89,11 +86,19 @@ class infoPanelIcon:
 class infoPanelAnimatedIcon:
     def __init__(self, panelPath, scale):
         self.visible = True
+        self.scale = scale
+        self.frame = 0
         self.font = pygame.font.Font("src\main/assets/fonts\joystixmonospaceregular.otf", 25)
         self.panel = pygame.image.load(panelPath)
         self.scaledPanel = pygame.transform.scale(self.panel, (self.panel.get_width() * scale, self.panel.get_height() * scale))
 
     def render(self, surface, x, y,  text1, text2, text3, text4, text5, textColor, xOffset, yOffset, animationArray):
+        if not self.frame >= len(animationArray) - 1:
+            self.frame += 1
+        else:
+            self.frame = 0
+        self.texture = animationArray[self.frame]
+        self.scaledTexture = pygame.transform.scale(self.texture, (15 * self.scale, 15 * self.scale))
         self.text1 = self.font.render(text1, True, textColor)
         self.text2 = self.font.render(text2, True, textColor)
         self.text3 = self.font.render(text3, True, textColor)
@@ -101,6 +106,7 @@ class infoPanelAnimatedIcon:
         self.text5 = self.font.render(text5, True, textColor)
         if self.visible == True:
             surface.blit(self.scaledPanel, (x, y))
+            self.scaledPanel.blit(self.scaledTexture, (self.scaledPanel.get_width()//6*4.97, self.scaledTexture.get_height()*1.57))
             self.scaledPanel.blit(self.text1, (16 - xOffset, 16 - yOffset))
             self.scaledPanel.blit(self.text2, (16 - xOffset, 48 - yOffset))
             self.scaledPanel.blit(self.text3, (16 - xOffset, 80 - yOffset))
