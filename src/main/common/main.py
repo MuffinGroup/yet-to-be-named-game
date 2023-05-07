@@ -256,7 +256,7 @@ item_image = registries.elements.registerElement("elements\Environment\decoratio
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
 
-creepy_sound = pygame.mixer.Sound("src/main/assets/sounds/Scary Ghost Voice I See You.mp3")
+creepy_sound = pygame.mixer.Sound("src/main/assets/sounds/scary.mp3")
 creepy_sound.set_volume(0.2)
 
 health = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(full).png")
