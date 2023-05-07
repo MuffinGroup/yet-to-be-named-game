@@ -47,6 +47,7 @@ class Player:
         Player.y_momentum = 0
         Player.air_timer = 0
 
+
     def keybinds(self,camera_pos):
         global player_x
         global player_y
@@ -54,12 +55,16 @@ class Player:
         player_x = self.rect.x #Camera following the player
         player_y = self.rect.y
 
+        jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
+        jumpsound.set_volume(0.5)    
+
         player_x, player_y = camera_pos #Assign variables to the camera position
         key = pygame.key.get_pressed()
 
         if key[pygame.K_UP]:
             if Player.air_timer < 8:
                 Player.y_momentum = -20
+                """pygame.mixer.Sound.play(jumpsound)"""
 
         if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
             Player.facingLeft = False
@@ -251,6 +256,9 @@ item_image = registries.elements.registerElement("elements\Environment\decoratio
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
 
+creepy_sound = pygame.mixer.Sound("src/main/assets/sounds/Scary Ghost Voice I See You.mp3")
+creepy_sound.set_volume(0.5)
+
 health = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(full).png")
 healthScaled = pygame.transform.scale(health, (70, 70))
 
@@ -263,10 +271,7 @@ n = 0
 npcCurrent = registries.animations.npcIdle
 npcTalking = False
 
-score= 0
 
-jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
-jumpsound.set_volume(0.25)
 deathSound = pygame.mixer.Sound("src\main/assets\sounds\death.mp3")
 deathSound.set_volume(0.25)
 hurtSound = pygame.mixer.Sound("src\main/assets\sounds\hurt.mp3")
@@ -1094,10 +1099,11 @@ def Lvl1(language):
     idleValue = 0
     walkingValue = 0
     Player.rect.x, Player.rect.y = 350, 1062
+    pygame.mixer.Sound.play(creepy_sound)
     
     Player.world = "lvl1"
     while True:
-
+        
         #Fill the background outside of the map
         screen.fill(AQUA)
 
