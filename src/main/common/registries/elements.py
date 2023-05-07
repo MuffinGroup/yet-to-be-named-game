@@ -87,7 +87,6 @@ class registerAnimatedElement():
 		else:
 			self.frame = 0
 		self.texture = animationArray[self.frame]
-		self.animationArray = animationArray
 		self.scaledTexture = pygame.transform.scale(self.texture, (self.texture.get_width() * self.scale, self.texture.get_height() * self.scale))
 		self.rect = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height() + self.heightModifier))
 		surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))

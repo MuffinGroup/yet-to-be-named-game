@@ -279,7 +279,7 @@ hurtSound.set_volume(0.25)
 
 debugMenu = registries.gui.registerGui(70, 100, 300, 600, False)
 
-font = pygame.font.SysFont('joystixmonospaceregular', 25)
+font = pygame.font.Font('src\main/assets/fonts\joystixmonospaceregular.otf', 25)
 
 def renderText(entry, language):
     debugMenuText = font.render(translatableComponent("text.debug_menu", language), True, DARK_ORANGE)
@@ -882,6 +882,8 @@ def Tut1(language):
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
         
         #text implemention
+        test = font.render(translatableComponent('text.tutorial.walking_left1', language), False, BLACK)
+
         font = pygame.font.Font('src/main/assets/fonts/joystixmonospaceregular.otf', 20)
         welcome = font.render(translatableComponent('text.tutorial.welcome', language), False, BLACK)
         welcome1 = font.render(translatableComponent('text.tutorial.welcome1', language), False, BLACK)
@@ -894,9 +896,6 @@ def Tut1(language):
         welcome8 = font.render(translatableComponent('text.tutorial.welcome8', language), False, BLACK)
         welcome9 = font.render(translatableComponent('text.tutorial.welcome9', language), False, BLACK)
         welcome10 = font.render(translatableComponent('text.tutorial.welcome10', language), False, BLACK)
-
-
-
 
         #Render the map to the screen
         speech_bubble = pygame.image.load('src/main/assets/textures/elements/gui/speech_bubble.png')
@@ -1241,7 +1240,6 @@ def Lvl1(language):
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
         
         #text implemention
-        font = pygame.font.Font('src/main/assets/fonts/joystixmonospaceregular.otf', 20)
         test = font.render(translatableComponent('text.tutorial.walking_left1', language), False, BLACK)
 
         #Render the map to the screen
