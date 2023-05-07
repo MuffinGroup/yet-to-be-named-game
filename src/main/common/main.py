@@ -882,8 +882,6 @@ def Tut1(language):
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
         
         #text implemention
-        test = font.render(translatableComponent('text.tutorial.walking_left1', language), False, BLACK)
-
         font = pygame.font.Font('src/main/assets/fonts/joystixmonospaceregular.otf', 20)
         welcome = font.render(translatableComponent('text.tutorial.welcome', language), False, BLACK)
         welcome1 = font.render(translatableComponent('text.tutorial.welcome1', language), False, BLACK)
