@@ -605,6 +605,8 @@ def genWorld(world, map):
             tut2_map[8][32] = 0
             tut2_map[8][31] = 0
             tut2_map[9][31] = 0
+            explosion_sound = pygame.mixer.Sound('src/main/assets/sounds/explosion.mp3')
+            pygame.mixer.Sound.play(explosion_sound)
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
             world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
             cobble2Y -= 64*cobbleModifier2*cobbleModifier20
