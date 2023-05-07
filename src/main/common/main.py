@@ -899,11 +899,9 @@ def Tut1(language):
 
         #Render the map to the screen
         speech_bubble = pygame.image.load('src/main/assets/textures/elements/gui/speech_bubble.png')
-        speech_bubble_Scaled = pygame.transform.scale(speech_bubble,(speech_bubble.get_width() * 5 + 50, speech_bubble.get_height() * 5))
-        if language == "de_de":
-            speech_bubble_Scaled = pygame.transform.scale(speech_bubble,(speech_bubble.get_width() * 5 + 50, speech_bubble.get_height() * 5 + 50))
         if npcCurrent == registries.animations.npcTalkingNormal:
             if language == "en_us":
+                speech_bubble_Scaled = pygame.transform.scale(speech_bubble,(speech_bubble.get_width() * 5 + 50, speech_bubble.get_height() * 5))
                 world.blit(speech_bubble_Scaled, (2950, 650))
                 world.blit(welcome, (3000, 700))
                 world.blit(welcome1, (3000, 725))
@@ -916,6 +914,7 @@ def Tut1(language):
                 world.blit(welcome8, (3000, 900))
             
             if language == "de_de":
+                speech_bubble_Scaled = pygame.transform.scale(speech_bubble,(speech_bubble.get_width() * 5 + 50, speech_bubble.get_height() * 5 + 50))
                 world.blit(speech_bubble_Scaled, (2950, 600))
                 world.blit(welcome, (3000, 650))
                 world.blit(welcome1, (3000, 675))
