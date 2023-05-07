@@ -10,7 +10,7 @@ modifier = 1
 jumped = False
 e = False
 example = notification("src\main/assets/textures\elements\gui/notification_bar.png", "src\main/assets/textures\elements\Environment\decoration\Plants\poppy.png", 3, screen.get_width(), 200, 100)
-examplePanel = infoPanel("src\main/assets/textures\elements\gui/info_panel.png", 6)
+examplePanel = infoPanelIcon("src\main/assets/textures\elements\gui/info_panel_icon.png", "src\main/assets/textures\elements\gui/slot.png", 8)
 
 while True:
 	clock = pygame.time.Clock()
