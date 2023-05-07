@@ -527,7 +527,7 @@ def genWorld(world, map):
             map[8][23] = 0
             Player.score += 1
     score_display = font.render("Coins: {}".format(Player.score), True, (0, 0, 0))
-    screen.blit(score_display,(10, 10))
+   
     if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         if Player.world != "tut1":
             doorCurrent = doorOpenLargeElement
@@ -760,7 +760,7 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
     
 def Tut1(language):
     global collisions, command, x, y, camera_pos
-    enemy_x = 2000
+    enemy_x = 200
     enemy_y = 305
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
@@ -929,7 +929,7 @@ def Tut1(language):
         else:
             chat.inputLocked = True
             Player.locked = False
-        screen.blit(score_display, (10, 10))
+        screen.blit(score_display, (280, 20))
 
         clock.tick(800)
         pygame.display.flip()
