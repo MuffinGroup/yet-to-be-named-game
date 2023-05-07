@@ -28,8 +28,11 @@ class Player:
         Player.animationFrameUpdate = 1
         Player.debuggingMode = False
         Player.visible = True
-        Player.movementLocked = False
         Player.locked = False
+        Player.movementLocked = False
+        Player.walkingLeftLocked = False
+        Player.walkingRightLocked = False
+        Player.jumpingLocked = False
         Player.debuggingMenu = False
         Player.flight = 0
         Player.collide = 0
@@ -61,16 +64,17 @@ class Player:
         player_x, player_y = camera_pos #Assign variables to the camera position
         key = pygame.key.get_pressed()
 
-        if key[pygame.K_UP]:
+        if Player.visible == False:
+            Player.locked = True
+        else:
+            Player.locked = False
+
+        if key[pygame.K_UP] and Player.jumpingLocked == False:
             if Player.air_timer < 8:
                 Player.y_momentum = -30
                 pygame.mixer.Sound.play(jumpsound)
 
-        if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
-            Player.facingLeft = False
-            Player.facingRight = True
-
-        elif key[pygame.K_RIGHT] and Player.collidingRight == False and Player.movementLocked == False and Player.locked == False:
+        if key[pygame.K_RIGHT] and Player.walkingRightLocked == False:
             Player.facingLeft = False
             Player.facingRight = True
             Player.standing = False
@@ -80,11 +84,7 @@ class Player:
             Player.walking = False
             Player.moving_right = False
 
-        if key[pygame.K_LEFT] and Player.visible == True and Player.collidingLeft == True and Player.movementLocked == False and Player.locked == False: #Player walking
-            Player.facingLeft = True
-            Player.facingRight = False
-
-        elif key[pygame.K_LEFT] and Player.collidingLeft == False and Player.movementLocked == False and Player.locked == False:
+        if key[pygame.K_LEFT] and Player.walkingLeftLocked == False:
             Player.facingLeft = True
             Player.facingRight = False
             Player.standing = False
@@ -140,14 +140,10 @@ class Player:
     
     #End of debugging mode functions
 
-        if key[pygame.K_LEFT] and Player.visible == True and Player.movementLocked == False and Player.locked == False or key[pygame.K_RIGHT] and Player.visible == True  and Player.movementLocked == False and Player.locked == False: #Walking animations
+        if key[pygame.K_LEFT] and Player.walkingLeftLocked == False or key[pygame.K_RIGHT] and Player.walkingRightLocked == False: #Walking animations
             Player.walking = True
 
-        if Player.walking == True and key[pygame.K_RSHIFT] or key[pygame.K_LSHIFT] and Player.locked == False: #Sprinting
-            Player.speed = 18
-            Player.countUp = 2
-        else:
-            Player.speed = Player.defaultSpeed
+        print(Player.moving_left)
 
         if Player.world == "tut1":
             return (-self.rect.x + 680, -self.rect.y + 550)# Return new player position
@@ -773,7 +769,7 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
 
     
 def Tut1(language):
-    global collisions, command, x, y, camera_pos
+    global collisions, command, x, y, camera_pos, player_movement
     enemy_x = 200
     enemy_y = 305
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
@@ -796,10 +792,11 @@ def Tut1(language):
 
         player_movement = [0, 0]
 
-        if Player.moving_right:
+        if Player.moving_right == True:
             player_movement[0] += 20
-        if Player.moving_left:
+        if Player.moving_left == True:
             player_movement[0] -= 20
+
         player_movement[1] += Player.y_momentum
         Player.y_momentum += 1
         if Player.y_momentum > 20:
@@ -986,7 +983,7 @@ def Tut1(language):
         pygame.display.flip()
         
 def Tut2(language):
-    global camera_pos
+    global camera_pos, player_movement
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
@@ -998,7 +995,6 @@ def Tut2(language):
     Player.rect.x, Player.rect.y = 900, 750
 
     Player.world = "tut2"
-    zoom = 1
     
     while True: #Render background
         world.fill(DARK_GRAY)
@@ -1141,7 +1137,7 @@ def Tut2(language):
         pygame.display.flip()
 
 def Lvl1(language):
-    global collisions, command, x, y, camera_pos
+    global collisions, command, x, y, camera_pos, player_movement
     enemy_x = 1000
     enemy_y = 1170
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
