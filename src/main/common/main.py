@@ -701,6 +701,27 @@ def move(player, movement, rectArray):
             collision_types['top'] = True
     return player, collision_types
 
+def movementControl(self):
+    player_movement = [0, 0]
+
+    if self.moving_right == True:
+        player_movement[0] += 20
+    if self.moving_left == True:
+        player_movement[0] -= 20
+
+    player_movement[1] += self.y_momentum
+    self.y_momentum += 1
+    if self.y_momentum > 20:
+        self.y_momentum = 20
+
+    self.rect, collisions = move(self.rect, player_movement, element_rects)
+
+    if collisions['bottom']:
+        self.y_momentum = 0
+        self.air_timer = 0
+    else:
+        self.air_timer += 10
+
 def Start(language):
     Player()
     resetDebugSettings()
@@ -791,25 +812,7 @@ def Tut1(language):
 
         genWorld(world, tut1_map)
 
-        player_movement = [0, 0]
-
-        if Player.moving_right == True:
-            player_movement[0] += 20
-        if Player.moving_left == True:
-            player_movement[0] -= 20
-
-        player_movement[1] += Player.y_momentum
-        Player.y_momentum += 1
-        if Player.y_momentum > 20:
-            Player.y_momentum = 20
-
-        Player.rect, collisions = move(Player.rect, player_movement, element_rects)
-
-        if collisions['bottom']:
-            Player.y_momentum = 0
-            Player.air_timer = 0
-        else:
-            Player.air_timer += 10
+        movementControl(Player)
 
         try:
             command, x, y = parse_input(chat.userInput.lower())
@@ -1007,24 +1010,7 @@ def Tut2(language):
         
         genWorld(world, tut2_map)
 
-        player_movement = [0, 0]
-
-        if Player.moving_right:
-            player_movement[0] += 20
-        if Player.moving_left:
-            player_movement[0] -= 20
-        player_movement[1] += Player.y_momentum
-        Player.y_momentum += 1
-        if Player.y_momentum > 20:
-            Player.y_momentum = 20
-
-        Player.rect, collisions = move(Player.rect, player_movement, element_rects)
-
-        if collisions['bottom']:
-            Player.y_momentum = 0
-            Player.air_timer = 0
-        else:
-            Player.air_timer += 1
+        movementControl(Player)
 
         try:
             command, x, y = parse_input(chat.userInput.lower())
@@ -1161,24 +1147,7 @@ def Lvl1(language):
 
         genWorld(world, lvl1_map)
 
-        player_movement = [0, 0]
-
-        if Player.moving_right:
-            player_movement[0] += 20
-        if Player.moving_left:
-            player_movement[0] -= 20
-        player_movement[1] += Player.y_momentum
-        Player.y_momentum += 5
-        if Player.y_momentum > 20:
-            Player.y_momentum = 20
-
-        Player.rect, collisions = move(Player.rect, player_movement, element_rects)
-
-        if collisions['bottom']:
-            Player.y_momentum = 0
-            Player.air_timer = 0
-        else:
-            Player.air_timer += 8
+        movementControl(Player)
 
         try:
             command, x, y = parse_input(chat.userInput.lower())
