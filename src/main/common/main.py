@@ -440,7 +440,6 @@ def genWorld(world, map):
     coin_rects = []
     coins_hit = []
     y = 0
-    explosiveState = registries.animations.explosion
     
     for row in map:
         x = 0
@@ -501,7 +500,7 @@ def genWorld(world, map):
             if tile == 24:
                 item_image.drawElement(world, x, y, coin_rects)
             if tile == 25:
-                explosion.drawAnimatedElement(world, x, y, deco_rects, explosiveState) #Now in the loadExplosions method. Don't use tile 25
+                explosion.drawAnimatedElement(world, x, y, deco_rects, registries.animations.explosion) #Now in the loadExplosions method. Don't use tile 25
             if tile == 26:
                 bush.drawElement(world, x, y, deco_rects)
             if tile == 27:
@@ -590,11 +589,11 @@ def genWorld(world, map):
             explosiveTimer += 1
         leverTimer += 1 #9 32
         if explosionCameraTimer >= 1 and player_x <= -2533 and player_y <= -444:
-            camera_pos = (player_x + 10, player_y + 5)
+            #camera_pos = (player_x + 10, player_y + 5)
             Player.locked = True
             Player.facingLeft = True
         elif explosionCameraTimer >= 1 and explosiveTimer < 8:
-            camera_pos = (-2533, -444)
+            #camera_pos = (-2533, -444)
             explosiveTimer += 1
             tut2_map[9][32] = 0
             tut2_map[9][33] = 25
@@ -620,14 +619,47 @@ def genWorld(world, map):
                 cobbleModifier1 = -1
                 cobbleModifier10 = 4
             if cobble1X <= 2300:
-                cobble1X = 2300
-                cobble1Y = 1254
+                tut2_map[13][24] = 3
         if explosiveTimer >= 8 and explosiveTimer < 32:
             tut2_map[9][33] = 0
-            camera_pos = (-2534, -445)
+            #camera_pos = (-2534, -445)
+            world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
+            world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
+            cobble2Y -= 64*cobbleModifier2*cobbleModifier20
+            cobble2X -= 208
+            if cobble2X < 2720:
+                cobbleModifier2 = -1
+                cobbleModifier20 = 4
+            if cobble2X <= 2250: #24, 13
+                cobble2X = 2250
+                cobble2Y = 1350
+            cobble1Y -= 64*cobbleModifier1*cobbleModifier10
+            cobble1X -= 192
+            if cobble1X < 2720:
+                cobbleModifier1 = -1
+                cobbleModifier10 = 4
+            if cobble1X <= 2300:
+                tut2_map[13][24] = 3
             Player.locked = False
         elif explosiveTimer >= 32:
-            camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
+            #camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
+            world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
+            world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
+            cobble2Y -= 64*cobbleModifier2*cobbleModifier20
+            cobble2X -= 208
+            if cobble2X < 2720:
+                cobbleModifier2 = -1
+                cobbleModifier20 = 4
+            if cobble2X <= 2250:
+                cobble2X = 2250
+                cobble2Y = 1350
+            cobble1Y -= 64*cobbleModifier1*cobbleModifier10
+            cobble1X -= 192
+            if cobble1X < 2720:
+                cobbleModifier1 = -1
+                cobbleModifier10 = 4
+            if cobble1X <= 2300:
+                tut2_map[13][24] = 3
             Player.locked = False
 
 def loadFluids(map, surface): 
