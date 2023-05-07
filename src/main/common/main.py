@@ -3,6 +3,7 @@ import sys
 from typing import Tuple
 from registries.colors import *
 from registries.language import *
+from registries.alerts import *
 import registries.animations
 import registries.elements
 import registries.buttons
@@ -35,8 +36,8 @@ class Player:
         Player.showPos = 0
         Player.defaultHealth = 6 #most of the time it's 6
         Player.health = Player.defaultHealth
-        Player.dead = False
         Player.playedDeathSound = False
+        Player.dead = False
         Player.chatOpen = False
         Player.world = None
         Player.langCounter = 0
@@ -46,7 +47,6 @@ class Player:
         Player.moving_left = False
         Player.y_momentum = 0
         Player.air_timer = 0
-
 
     def keybinds(self,camera_pos):
         global player_x
@@ -323,6 +323,8 @@ cobbleModifier1 = 1
 cobbleModifier10 = 1
 cobbleModifier2 = 1
 cobbleModifier20 = 1
+
+tutWalking = infoPanel("src\main/assets/textures\elements\gui/info_panel.png", 8)
 
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
             [0,0,1,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0],
@@ -938,6 +940,8 @@ def Tut1(language):
 
         #Rendering the debug menu
         player.renderDebugMenu(language)
+
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, "warum aa", "wieso", "weshalb", "wie", "was", (255, 255, 255), -10, -10)
         
         health()
         
