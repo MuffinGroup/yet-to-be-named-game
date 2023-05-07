@@ -453,7 +453,7 @@ def genWorld(world, map):
             if tile == 7:
                 coarseGrassElement.drawElement(world, x, y, element_rects)
             if tile == 8:
-                grassElement.drawElement(world, x, y, element_rects)
+                leverOnDeco.drawElement(world, x, y, deco_rects)
             if tile == 9:
                 doorCurrent.drawElement(world, x, y, deco_rects)
                 doorCurrent.yModifier = -22
@@ -579,7 +579,7 @@ def genWorld(world, map):
             explosionCameraTimer += 1
         elif leverOn == True and Player.rect.colliderect(leverOnDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
-            tut2_map[13][42] = 8
+            tut2_map[13][42] = 10
             leverOff = True
             leverOn = False
             leverPressed += 1
@@ -587,11 +587,11 @@ def genWorld(world, map):
             explosiveTimer += 1
         leverTimer += 1 #9 32
         if explosionCameraTimer >= 1 and player_x <= -2533 and player_y <= -444:
-            #camera_pos = (player_x + 10, player_y + 5)
+            camera_pos = (player_x + 10, player_y + 5)
             Player.locked = True
             Player.facingLeft = True
         elif explosionCameraTimer >= 1 and explosiveTimer < 8:
-            #camera_pos = (-2533, -444)
+            camera_pos = (-2533, -444)
             explosiveTimer += 1
             tut2_map[9][32] = 0
             tut2_map[9][33] = 25
@@ -620,7 +620,7 @@ def genWorld(world, map):
                 tut2_map[13][24] = 3
         if explosiveTimer >= 8 and explosiveTimer < 32:
             tut2_map[9][33] = 0
-            #camera_pos = (-2534, -445)
+            camera_pos = (-2534, -445)
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
             world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
             cobble2Y -= 64*cobbleModifier2*cobbleModifier20
@@ -640,7 +640,7 @@ def genWorld(world, map):
                 tut2_map[13][24] = 3
             Player.locked = False
         elif explosiveTimer >= 32:
-            #camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
+            camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
             world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
             cobble2Y -= 64*cobbleModifier2*cobbleModifier20
