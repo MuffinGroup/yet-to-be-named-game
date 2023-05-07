@@ -46,8 +46,7 @@ class Player:
         Player.moving_left = False
         Player.y_momentum = 0
         Player.air_timer = 0
-        Player.score = 0
-        Player.score_max = 5.0
+
 
     def keybinds(self,camera_pos):
         global player_x
@@ -56,12 +55,16 @@ class Player:
         player_x = self.rect.x #Camera following the player
         player_y = self.rect.y
 
+        jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
+        jumpsound.set_volume(0.20)    
+
         player_x, player_y = camera_pos #Assign variables to the camera position
         key = pygame.key.get_pressed()
 
         if key[pygame.K_UP]:
             if Player.air_timer < 8:
                 Player.y_momentum = -30
+                pygame.mixer.Sound.play(jumpsound)
 
         if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
             Player.facingLeft = False
@@ -253,6 +256,9 @@ item_image = registries.elements.registerElement("elements\Environment\decoratio
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
 
+creepy_sound = pygame.mixer.Sound("src/main/assets/sounds/Scary Ghost Voice I See You.mp3")
+creepy_sound.set_volume(0.2)
+
 health = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(full).png")
 healthScaled = pygame.transform.scale(health, (70, 70))
 
@@ -265,10 +271,7 @@ n = 0
 npcCurrent = registries.animations.npcIdle
 npcTalking = False
 
-score= 0
 
-jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
-jumpsound.set_volume(0.25)
 deathSound = pygame.mixer.Sound("src\main/assets\sounds\death.mp3")
 deathSound.set_volume(0.25)
 hurtSound = pygame.mixer.Sound("src\main/assets\sounds\hurt.mp3")
@@ -344,9 +347,9 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [11,12,11,11,26,00,00,00,00,11,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 2, 2, 2, 2, 2, 2,21,00,22, 7, 7, 2,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,11,11,12,11,11,11,00,00,11,11,11,11],
             [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,22, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 2],
-            [ 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,00,00,18, 9,00,00,00,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,24,00,00,24,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,00,00,00,00,00,00,00,00,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,26,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,23,11,00,26,11,11,00,00,11,11,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,18, 9,00,00,00,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,24,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,26,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,26,11,11,00,00,11,11,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 1, 6, 6, 1, 6, 6, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 1],
             [ 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 1],
@@ -389,29 +392,29 @@ lvl1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,3 ,3 ,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,3 ,3 ,16,3 ,16,3 ,3 ,3 ,16,3 ,16,16,16,3 ,3 ,16,3 ,3 ,16,16,3 ],
             [3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,16,3 ,3 ,3 ,16,3 ,16,3 ,16,16,3 ,3 ,16,3 ,3 ,16,3 ,3 ,3 ,3 ,16,16,3 ,3 ,3 ,3 ,3 ,16,16,16,3 ,16,3 ,3 ,16,16],
             [3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,16,3 ,3 ,3 ,16,3 ,3 ,3 ,3 ,16,3 ,3 ,16,16,16,16,3 ,16,3 ,16,3 ,16,3 ,16,3 ,16,16,16,3 ,16,3 ,3 ,3 ,16,16,3 ,3 ,3 ,3 ,16,3 ,16,16,3 ,3 ,16],
-            [3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,3 ,3 ,16,00,00,00,00,00,16,16,3 ,16,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
-            [3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,16,16,3 ,16,16,00,00,00,00,00,15,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,3 ,16],
-            [3 ,3 ,00,00,00,29,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,24,00,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
-            [3 ,3 ,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,3 ,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
+            [3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,3 ,3 ,16,00,00,00,00,00,16,16,3 ,16,16,3 ,16,00,00,00,00,00,00,00,00,32,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
+            [3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,16,16,3 ,16,16,00,00,00,00,00,15,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,9 ,00,00,3 ,16],
+            [3 ,3 ,00,00,00,00,00,00,00,00,29,00,00,00,00,00,00,00,29,00,00,00,00,24,00,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
+            [3 ,3 ,14,00,00,00,30,00,00,00,29,00,00,00,00,00,00,00,00,00,00,23,3 ,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
             [3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,16,16,3 ,16,3 ,16,3 ,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,3 ,00,00,00,00,00,00,00,00,00,00,00,23,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,16,16,3 ,3 ,3 ,3 ,16,3 ,16,00,00,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,3 ,16,16,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,3 ,00,00,00,00,00,00,00,00,00,00,16,3 ,3 ,3 ,3 ,3 ,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,16,00,00,00,00,00,00,00,00,00,00,3 ,3 ,16,16,3 ,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,16,00,00,00,00,00,00,00,00,00,15,3 ,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,3 ,00,00,00,29,00,00,00,00,00,00,16,3 ,3 ,3 ,3 ,3 ,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,16,00,00,00,29,00,00,00,00,00,00,3 ,3 ,16,16,3 ,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,16,14,00,00,00,00,00,00,00,00,15,3 ,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,16,00,00,00,00,00,00,00,00,00,00,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,3 ,00,00,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [16,3 ,00,00,16,16,3 ,3 ,16,16,3 ,16,3 ,3 ,16,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [16,16,00,00,16,3 ,3 ,3 ,3 ,00,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,3 ,00,00,3 ,3 ,3 ,16,00,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,16,00,00,16,3 ,16,00,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,00,00,00,3 ,3 ,00,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [16,00,00,00,3 ,3 ,00,00,00,00,23,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [16,00,00,16,16,3 ,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,00,9 ,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [16,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [16,3 ,00,00,00,00,00,00,00,00,23,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [16,3 ,16,16,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,3 ,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,3 ,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [16,3 ,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,16,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [28, 3, 3,28,28,28, 3, 3,28,28,28, 3, 3, 3,28,28, 3, 3, 3, 3, 3,28, 3, 3, 3,28,28,28, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,28,28,28, 3, 3, 3,28,28, 3, 3,28,28,28,28,28, 3, 3,28,28],
             [28,28,28,28,28,28,28,28,28,28,28,28, 3,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28, 3,28,28,28, 3, 3,28,28,00,00,28,28,28,28,28,28,28,28,28,28,00,28,28,28,28,28],
@@ -509,6 +512,16 @@ def genWorld(world, map):
                 light_dark_cobble.drawElement(world, x, y, element_rects)
             if tile == 29:
                 chainDeco.drawElement(world, x, y, deco_rects)
+            if tile == 30:
+                bannerRedDeco.drawElement(world, x, y, deco_rects)
+            if tile == 31:
+                cobbleStairs.drawRotatedElement(world, x, y, True)
+            if tile == 32:
+               bannerBlueDeco.drawElement(world, x, y, deco_rects) 
+            if tile == 33:
+                bannerYellowDeco.drawElement(world, x, y, deco_rects)
+            if tile == 34:
+                shieldDamagedDeco.drawElement(world, x, y, deco_rects)
             x += 1
         y += 1
 
@@ -523,9 +536,7 @@ def genWorld(world, map):
         if Player.rect.colliderect(coins):
             map[10][15] = 0
             map[8][23] = 0
-            Player.score += 1
-    score_display = font.render("Coins: {}".format(Player.score), True, (0, 0, 0))
-    screen.blit(score_display,(10, 10))
+ 
     if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         if Player.world != "tut1":
             doorCurrent = doorOpenLargeElement
@@ -616,6 +627,7 @@ def genWorld(world, map):
             Player.locked = False
         elif explosiveTimer >= 32:
             camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
+            Player.locked = False
 
 def loadFluids(map, surface): 
     global fluid_rects
@@ -758,7 +770,7 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
     
 def Tut1(language):
     global collisions, command, x, y, camera_pos
-    enemy_x = 2000
+    enemy_x = 200
     enemy_y = 305
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
@@ -872,11 +884,40 @@ def Tut1(language):
         #text implemention
         test = font.render(translatableComponent('text.tutorial.walking_left1', language), False, BLACK)
 
+        font = pygame.font.Font('src/main/assets/fonts/joystixmonospaceregular.otf', 20)
+        welcome = font.render(translatableComponent('text.tutorial.welcome', language), False, BLACK)
+        welcome1 = font.render(translatableComponent('text.tutorial.welcome1', language), False, BLACK)
+        welcome2 = font.render(translatableComponent('text.tutorial.welcome2', language), False, BLACK)
+        welcome3 = font.render(translatableComponent('text.tutorial.welcome3', language), False, BLACK)
+        welcome4 = font.render(translatableComponent('text.tutorial.welcome4', language), False, BLACK)
+        welcome5 = font.render(translatableComponent('text.tutorial.welcome5', language), False, BLACK)
+        welcome6 = font.render(translatableComponent('text.tutorial.welcome6', language), False, BLACK)
+        welcome7 = font.render(translatableComponent('text.tutorial.welcome7', language), False, BLACK)
+        welcome8 = font.render(translatableComponent('text.tutorial.welcome8', language), False, BLACK)
+        welcome9 = font.render(translatableComponent('text.tutorial.welcome9', language), False, BLACK)
+        welcome10 = font.render(translatableComponent('text.tutorial.welcome10', language), False, BLACK)
+
         #Render the map to the screen
         speech_bubble = pygame.image.load('src/main/assets/textures/elements/gui/speech_bubble.png')
+        speech_bubble_Scaled = pygame.transform.scale(speech_bubble,(speech_bubble.get_width() * 5 + 50, speech_bubble.get_height() * 5))
+        if Player.language == "de_de":
+            speech_bubble_Scaled = pygame.transform.scale(speech_bubble,(speech_bubble.get_width() * 5 + 50, speech_bubble.get_height() * 5 + 50))
         if npcCurrent == registries.animations.npcTalkingNormal:
-            world.blit(speech_bubble, (3650, 500))
-            world.blit(test, (3550, 900))
+            world.blit(speech_bubble_Scaled, (2950, 650))
+            world.blit(welcome, (3000, 700))
+            world.blit(welcome1, (3000, 725))
+            world.blit(welcome2, (3000, 750))
+            world.blit(welcome3, (3000, 775))
+            world.blit(welcome4, (3000, 800))
+            world.blit(welcome5, (3000, 825))
+            world.blit(welcome6, (3000, 850))
+            world.blit(welcome7, (3000, 875))
+            world.blit(welcome8, (3000, 900))
+            if Player.language == "de_de":
+                world.blit(welcome9, (3000, 925))
+                world.blit(welcome10, (3000, 950))
+
+
         screen.blit(world, (player_x, player_y))
         renderCoordinates()
 
@@ -926,7 +967,6 @@ def Tut1(language):
         else:
             chat.inputLocked = True
             Player.locked = False
-        screen.blit(score_display, (10, 10))
 
         clock.tick(800)
         pygame.display.flip()
@@ -1098,10 +1138,11 @@ def Lvl1(language):
     idleValue = 0
     walkingValue = 0
     Player.rect.x, Player.rect.y = 350, 1062
+    pygame.mixer.Sound.play(creepy_sound)
     
     Player.world = "lvl1"
     while True:
-
+        
         #Fill the background outside of the map
         screen.fill(AQUA)
 
@@ -1255,7 +1296,6 @@ def Lvl1(language):
         else:
             chat.inputLocked = True
             Player.locked = False
-        screen.blit(score_display, (10, 10))
 
         clock.tick(800)
         pygame.display.flip()
@@ -1266,4 +1306,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Lvl1(Player.language) #this isn't start bc i need to do some debugging and testing
+    Tut1(Player.language) #this isn't start bc i need to do some debugging and testing
