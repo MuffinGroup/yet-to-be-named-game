@@ -231,6 +231,7 @@ bannerYellowDeco = registries.elements.registerElement("elements/Environment/dec
 doorOpenLargeElement = registries.elements.registerElement("elements/doors/door_1_open", 5)
 doorClosedLargeElement = registries.elements.registerElement("elements/doors/door_1_closed", 5)
 darkCobble = registries.elements.registerElement("elements\Environment\Blocks\Cobble(Backround)", 3)
+darkMossyCobble = registries.elements.registerElement("elements\Environment\Blocks\Mossy_cobble(Backround)", 3)
 calcite = registries.elements.registerElement("elements\Environment\Blocks\Calcite", 3)
 gravel = registries.elements.registerElement("elements\Environment\Blocks\Gravel", 3)
 grass_end = registries.elements.registerElement("elements\Environment\Blocks\grass_side", 3)
@@ -369,8 +370,8 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3, 3, 3,16, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,16,16,16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3,16, 3,16, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,15, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3,16, 3, 3, 3, 3,00,00,00, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,35,35,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3,16, 3, 3, 3, 3,00,00,00, 3,16,00,00,00,35,35,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3, 3,00,00,00,00,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 5, 5, 5, 5, 3,16,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -497,8 +498,7 @@ def genWorld(world, map):
                 cobbleStairs.drawStairElement(world, x, y, False, False, element_rects)
             if tile == 24:
                 item_image.drawElement(world, x, y, coin_rects)
-            if tile == 25:
-                explosion.drawAnimatedElement(world, x, y, deco_rects, registries.animations.explosion) #Now in the loadExplosions method. Don't use tile 25
+            #Don't use tile 25. It is used in the loadExplosion method
             if tile == 26:
                 bush.drawElement(world, x, y, deco_rects)
             if tile == 27:
@@ -517,6 +517,7 @@ def genWorld(world, map):
                 bannerYellowDeco.drawElement(world, x, y, deco_rects)
             if tile == 34:
                 shieldDamagedDeco.drawElement(world, x, y, deco_rects)
+            #Don't use tile 35. It is used in the loadExplosion method
             x += 1
         y += 1
 
@@ -684,10 +685,12 @@ def loadBackground(map, surface):
         for tile in row:
             if Player.world == "tut1":
                 sky.drawElement(surface, x, y, background_rects)
-            if Player.world == "tut2":
+            if Player.world == "tut2" and tile != 35:
                 darkCobble.drawElement(surface, x, y, background_rects)
-            if Player.world == "lvl1":
+            if Player.world == "lvl1" and tile != 35:
                 darkCobble.drawElement(surface, x, y, background_rects)
+            if tile == 35:
+                darkMossyCobble.drawElement(surface, x, y, deco_rects)
             x += 1
         y += 1
         
