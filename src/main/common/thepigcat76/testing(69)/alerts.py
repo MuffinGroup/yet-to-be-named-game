@@ -93,7 +93,7 @@ class infoPanelAnimatedIcon:
         self.panel = pygame.image.load(panelPath)
         self.scaledPanel = pygame.transform.scale(self.panel, (self.panel.get_width() * scale, self.panel.get_height() * scale))
 
-    def render(self, surface, x, y,  text1, text2, text3, text4, text5, textColor, xOffset, yOffset):
+    def render(self, surface, x, y,  text1, text2, text3, text4, text5, textColor, xOffset, yOffset, animationArray):
         self.text1 = self.font.render(text1, True, textColor)
         self.text2 = self.font.render(text2, True, textColor)
         self.text3 = self.font.render(text3, True, textColor)
