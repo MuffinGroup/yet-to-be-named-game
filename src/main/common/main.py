@@ -928,8 +928,6 @@ def Tut1(language):
                 world.blit(welcome9, (3000, 875))
                 world.blit(welcome10, (3000, 900))
 
-
-
         screen.blit(world, (player_x, player_y))
         renderCoordinates()
 
