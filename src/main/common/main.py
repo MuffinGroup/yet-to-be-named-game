@@ -59,7 +59,7 @@ class Player:
         player_y = self.rect.y
 
         jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
-        jumpsound.set_volume(0.20)    
+        jumpsound.set_volume(0.05)    
 
         player_x, player_y = camera_pos #Assign variables to the camera position
         key = pygame.key.get_pressed()
@@ -397,8 +397,8 @@ lvl1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,3 ,3 ,00,00,00,00,00,00,00,00,0
             [3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,16,16,3 ,16,3 ,16,3 ,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,3 ,00,00,00,00,00,00,00,00,00,00,00,23,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,16,16,3 ,3 ,3 ,3 ,16,3 ,16,00,00,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,3 ,16,16,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,3 ,00,00,00,29,00,00,00,00,00,00,16,3 ,3 ,3 ,3 ,3 ,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,16,00,00,00,29,00,00,00,00,00,00,3 ,3 ,16,16,3 ,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,3 ,16,16,3 ,3 ,16,3 ,3 ,3 ,00,00,16,3 ,3 ,3 ,3 ,3 ,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,16,00,00,00,00,00,00,00,00,00,00,3 ,3 ,16,16,3 ,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,16,14,00,00,00,00,00,00,00,00,15,3 ,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,16,00,00,00,00,00,00,00,00,00,00,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,3 ,00,00,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -602,6 +602,7 @@ def genWorld(world, map):
             tut2_map[8][31] = 0
             tut2_map[9][31] = 0
             explosion_sound = pygame.mixer.Sound('src/main/assets/sounds/explosion.mp3')
+            explosion_sound.set_volume(0.1)
             pygame.mixer.Sound.play(explosion_sound)
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
             world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
@@ -1147,7 +1148,7 @@ def Lvl1(language):
     #values for animation calculation
     idleValue = 0
     walkingValue = 0
-    Player.rect.x, Player.rect.y = 350, 1062
+    Player.rect.x, Player.rect.y = 350, 1050
     pygame.mixer.Sound.play(creepy_sound)
     
     Player.world = "lvl1"
@@ -1316,4 +1317,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Tut1(Player.language) #this isn't start bc i need to do some debugging and testing
+    Lvl1(Player.language) #this isn't start bc i need to do some debugging and testing
