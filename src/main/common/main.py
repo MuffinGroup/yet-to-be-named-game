@@ -901,19 +901,32 @@ def Tut1(language):
         if language == "de_de":
             speech_bubble_Scaled = pygame.transform.scale(speech_bubble,(speech_bubble.get_width() * 5 + 50, speech_bubble.get_height() * 5 + 50))
         if npcCurrent == registries.animations.npcTalkingNormal:
-            world.blit(speech_bubble_Scaled, (2950, 650))
-            world.blit(welcome, (3000, 700))
-            world.blit(welcome1, (3000, 725))
-            world.blit(welcome2, (3000, 750))
-            world.blit(welcome3, (3000, 775))
-            world.blit(welcome4, (3000, 800))
-            world.blit(welcome5, (3000, 825))
-            world.blit(welcome6, (3000, 850))
-            world.blit(welcome7, (3000, 875))
-            world.blit(welcome8, (3000, 900))
+            if language == "en_us":
+                world.blit(speech_bubble_Scaled, (2950, 650))
+                world.blit(welcome, (3000, 700))
+                world.blit(welcome1, (3000, 725))
+                world.blit(welcome2, (3000, 750))
+                world.blit(welcome3, (3000, 775))
+                world.blit(welcome4, (3000, 800))
+                world.blit(welcome5, (3000, 825))
+                world.blit(welcome6, (3000, 850))
+                world.blit(welcome7, (3000, 875))
+                world.blit(welcome8, (3000, 900))
+            
             if language == "de_de":
-                world.blit(welcome9, (3000, 925))
-                world.blit(welcome10, (3000, 950))
+                world.blit(speech_bubble_Scaled, (2950, 600))
+                world.blit(welcome, (3000, 650))
+                world.blit(welcome1, (3000, 675))
+                world.blit(welcome2, (3000, 700))
+                world.blit(welcome3, (3000, 725))
+                world.blit(welcome4, (3000, 750))
+                world.blit(welcome5, (3000, 775))
+                world.blit(welcome6, (3000, 800))
+                world.blit(welcome7, (3000, 825))
+                world.blit(welcome8, (3000, 850))
+                world.blit(welcome9, (3000, 875))
+                world.blit(welcome10, (3000, 900))
+
 
 
         screen.blit(world, (player_x, player_y))
