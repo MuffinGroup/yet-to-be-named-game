@@ -68,39 +68,71 @@ class Player:
             Player.locked = True
         else:
             Player.locked = False
+        if Player.chatOpen == False:
+            if key[pygame.K_UP] and Player.jumpingLocked == False:
+                if Player.air_timer < 8:
+                    Player.y_momentum = -30
+                    pygame.mixer.Sound.play(jumpsound)
 
-        if key[pygame.K_UP] and Player.jumpingLocked == False:
-            if Player.air_timer < 8:
-                Player.y_momentum = -30
-                pygame.mixer.Sound.play(jumpsound)
+            if key[pygame.K_RIGHT] and Player.walkingRightLocked == False:
+                Player.facingLeft = False
+                Player.facingRight = True
+                Player.standing = False
+                Player.moving_right = True
+            else:
+                Player.standing = True
+                Player.walking = False
+                Player.moving_right = False
 
-        if key[pygame.K_RIGHT] and Player.walkingRightLocked == False:
-            Player.facingLeft = False
-            Player.facingRight = True
-            Player.standing = False
-            Player.moving_right = True
-        else:
-            Player.standing = True
-            Player.walking = False
-            Player.moving_right = False
+            if key[pygame.K_LEFT] and Player.walkingLeftLocked == False:
+                Player.facingLeft = True
+                Player.facingRight = False
+                Player.standing = False
+                Player.moving_left = True
+            else:
+                Player.standing = True
+                Player.walking = False
+                Player.moving_left = False
 
-        if key[pygame.K_LEFT] and Player.walkingLeftLocked == False:
-            Player.facingLeft = True
-            Player.facingRight = False
-            Player.standing = False
-            Player.moving_left = True
-        else:
-            Player.standing = True
-            Player.walking = False
-            Player.moving_left = False
+            #Debug mode to help developers
+            if key[pygame.K_d] and Player.debuggingMode == False and Player.locked == False:
+                pygame.time.wait(200)
+                Player.debuggingMode = True
+            elif key[pygame.K_d] and Player.debuggingMode == True and Player.debuggingMenu == False and Player.locked == False:
+                pygame.time.wait(200)
+                Player.debuggingMode = False
 
-        #Debug mode to help developers
-        if key[pygame.K_d] and Player.debuggingMode == False and Player.locked == False:
-            pygame.time.wait(200)
-            Player.debuggingMode = True
-        elif key[pygame.K_d] and Player.debuggingMode == True and Player.debuggingMenu == False and Player.locked == False:
-            pygame.time.wait(200)
-            Player.debuggingMode = False
+            if key[pygame.K_0] and Player.debuggingMode == True and Player.debuggingMenu == False and Player.locked == False:
+                pygame.time.wait(200)
+                Player.movementLocked = True
+                Player.debuggingMenu = True
+            elif key[pygame.K_0] or key[pygame.K_ESCAPE] and Player.debuggingMode == True and Player.locked == False:
+                pygame.time.wait(200)
+                Player.movementLocked = False
+                Player.debuggingMenu = False
+
+            if key[pygame.K_DOWN] and Player.visible == True and Player.debuggingMode == True and Player.movementLocked == False and Player.flight == 1 and Player.locked == False:
+                Player.standing = False
+                Player.facingLeft = False
+                Player.facingRight = True
+                self.rect.y += Player.speed 
+            else:
+                Player.standing = True
+                Player.walking = False
+
+            if key[pygame.K_u] and Player.visible == True and Player.debuggingMode == True and Player.movementLocked == False and Player.flight == 1 and Player.locked == False:
+                Player.standing = False
+                Player.facingLeft = False
+                Player.facingRight = True
+                self.rect.y -= Player.speed 
+            else:
+                Player.standing = True
+                Player.walking = False
+
+            #End of debugging mode functions
+
+            if key[pygame.K_LEFT] and Player.walkingLeftLocked == False or key[pygame.K_RIGHT] and Player.walkingRightLocked == False: #Walking animations
+                Player.walking = True
         
         #The chat
         if key[pygame.K_c] and Player.chatOpen == False and Player.debuggingMenu == False:
@@ -110,40 +142,6 @@ class Player:
         elif key[pygame.K_ESCAPE] and Player.chatOpen == True:
             pygame.time.wait(200)
             Player.chatOpen = False
-
-        if key[pygame.K_0] and Player.debuggingMode == True and Player.debuggingMenu == False and Player.locked == False:
-            pygame.time.wait(200)
-            Player.movementLocked = True
-            Player.debuggingMenu = True
-        elif key[pygame.K_0] or key[pygame.K_ESCAPE] and Player.debuggingMode == True and Player.locked == False:
-            pygame.time.wait(200)
-            Player.movementLocked = False
-            Player.debuggingMenu = False
-
-        if key[pygame.K_DOWN] and Player.visible == True and Player.debuggingMode == True and Player.movementLocked == False and Player.flight == 1 and Player.locked == False:
-            Player.standing = False
-            Player.facingLeft = False
-            Player.facingRight = True
-            self.rect.y += Player.speed 
-        else:
-            Player.standing = True
-            Player.walking = False
-            
-        if key[pygame.K_u] and Player.visible == True and Player.debuggingMode == True and Player.movementLocked == False and Player.flight == 1 and Player.locked == False:
-            Player.standing = False
-            Player.facingLeft = False
-            Player.facingRight = True
-            self.rect.y -= Player.speed 
-        else:
-            Player.standing = True
-            Player.walking = False
-    
-    #End of debugging mode functions
-
-        if key[pygame.K_LEFT] and Player.walkingLeftLocked == False or key[pygame.K_RIGHT] and Player.walkingRightLocked == False: #Walking animations
-            Player.walking = True
-
-        print(Player.moving_left)
 
         if Player.world == "tut1":
             return (-self.rect.x + 680, -self.rect.y + 550)# Return new player position
