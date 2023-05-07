@@ -56,7 +56,7 @@ class Player:
         player_y = self.rect.y
 
         jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
-        jumpsound.set_volume(0.5)    
+        jumpsound.set_volume(0.20)    
 
         player_x, player_y = camera_pos #Assign variables to the camera position
         key = pygame.key.get_pressed()
@@ -64,7 +64,7 @@ class Player:
         if key[pygame.K_UP]:
             if Player.air_timer < 8:
                 Player.y_momentum = -30
-                """pygame.mixer.Sound.play(jumpsound)"""
+                pygame.mixer.Sound.play(jumpsound)
 
         if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
             Player.facingLeft = False
