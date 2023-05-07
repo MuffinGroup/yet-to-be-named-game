@@ -617,6 +617,7 @@ def genWorld(world, map):
             Player.locked = False
         elif explosiveTimer >= 32:
             camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
+            Player.locked = False
 
 def loadFluids(map, surface): 
     global fluid_rects
