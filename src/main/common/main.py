@@ -525,8 +525,6 @@ def genWorld(world, map):
         if Player.rect.colliderect(coins):
             map[10][15] = 0
             map[8][23] = 0
-            Player.score += 1
-    score_display = font.render("Coins: {}".format(Player.score), True, (0, 0, 0))
    
     if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         if Player.world != "tut1":
@@ -929,7 +927,6 @@ def Tut1(language):
         else:
             chat.inputLocked = True
             Player.locked = False
-        screen.blit(score_display, (280, 20))
 
         clock.tick(800)
         pygame.display.flip()
@@ -1259,7 +1256,6 @@ def Lvl1(language):
         else:
             chat.inputLocked = True
             Player.locked = False
-        screen.blit(score_display, (10, 10))
 
         clock.tick(800)
         pygame.display.flip()
