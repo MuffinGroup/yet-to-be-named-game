@@ -63,7 +63,7 @@ class Player:
 
         if key[pygame.K_UP]:
             if Player.air_timer < 8:
-                Player.y_momentum = -20
+                Player.y_momentum = -30
                 """pygame.mixer.Sound.play(jumpsound)"""
 
         if key[pygame.K_RIGHT] and Player.visible == True and Player.collidingRight == True and Player.locked == False and Player.locked == False: #Player walking
