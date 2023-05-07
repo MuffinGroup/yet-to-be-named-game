@@ -77,11 +77,11 @@ class infoPanelIcon:
         if self.visible == True:
             surface.blit(self.scaledPanel, (x, y))
             self.scaledPanel.blit(self.scaledIcon, (self.scaledPanel.get_width()//6*4.97, self.scaledIcon.get_height()*1.57))
-            self.scaledPanel.blit(self.text1, (16 - xOffset, 16 - yOffset))
-            self.scaledPanel.blit(self.text2, (16 - xOffset, 48 - yOffset))
-            self.scaledPanel.blit(self.text3, (16 - xOffset, 80 - yOffset))
-            self.scaledPanel.blit(self.text4, (16 - xOffset, 112 - yOffset))
-            self.scaledPanel.blit(self.text5, (16 - xOffset, 144 - yOffset))
+            self.scaledPanel.blit(self.text1, (self.scaledPanel.get_width()//5 - xOffset, self.scaledPanel.get_height()//5 - yOffset))
+            self.scaledPanel.blit(self.text2, (self.scaledPanel.get_width()//5 - xOffset, self.scaledPanel.get_height()//5*1.25 - yOffset))
+            self.scaledPanel.blit(self.text3, (self.scaledPanel.get_width()//5 - xOffset, self.scaledPanel.get_height()//5*1.5 - yOffset))
+            self.scaledPanel.blit(self.text4, (self.scaledPanel.get_width()//5 - xOffset, self.scaledPanel.get_height()//5*1.75 - yOffset))
+            self.scaledPanel.blit(self.text5, (self.scaledPanel.get_width()//5 - xOffset, self.scaledPanel.get_height()//5*2 - yOffset))
 
 class infoPanelAnimatedIcon:
     def __init__(self, panelPath, scale):
