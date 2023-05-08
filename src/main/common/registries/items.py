@@ -11,14 +11,10 @@ class registerItem():
     
     def drawItem(self, surface, player, x, y):
         self.hitbox = pygame.Rect((x, y), (self.texture.get_width(), self.texture.get_height()))
-        pos = pygame.mouse.get_pos()
         surface.blit(self.texture, (self.hitbox.x, self.hitbox.y))
         if self.pickedUp == True:
             self.hitbox.x, self.hitbox.y = pygame.mouse.get_pos()
             self.hitbox.x -= self.texture.get_width()//2
             self.hitbox.y -= self.texture.get_height()//2
-        if self.hitbox.collidepoint(pos):
+        if player.rect.colliderect(self.hitbox):
             pygame.draw.rect(surface, (255, 255, 255), self.hitbox, 3)
-            print("mouse over item")
-            if pygame.mouse.get_pressed()[0] == 1 and self.pickedUp == False and abs(player.rect.x - self.hitbox.x) <= 100:
-                self.pickedUp = True

@@ -54,19 +54,19 @@ class Player:
         Player.holdsItem = False
 
     def keybinds(self,camera_pos):
+        global player_x
+        global player_y
+        self.doorhandling = 0 #Door mechanics
+        player_x = self.rect.x #Camera following the player
+        player_y = self.rect.y
+
+        jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
+        jumpsound.set_volume(0.09)    
+
+        player_x, player_y = camera_pos #Assign variables to the camera position
+        key = pygame.key.get_pressed()
+
         if Player.locked == False:
-            global player_x
-            global player_y
-            self.doorhandling = 0 #Door mechanics
-            player_x = self.rect.x #Camera following the player
-            player_y = self.rect.y
-
-            jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
-            jumpsound.set_volume(0.09)    
-
-            player_x, player_y = camera_pos #Assign variables to the camera position
-            key = pygame.key.get_pressed()
-
             if Player.visible == False:
                 Player.locked = True
             else:
@@ -146,10 +146,10 @@ class Player:
                 pygame.time.wait(200)
                 Player.chatOpen = False
 
-            if Player.world == "tut1":
-                return (-self.rect.x + 680, -self.rect.y + 550)# Return new player position
-            else:
-                return (-self.rect.x + 680, -self.rect.y + 400)
+        if Player.world == "tut1":
+            return (-self.rect.x + 680, -self.rect.y + 550)# Return new player position
+        else:
+            return (-self.rect.x + 680, -self.rect.y + 400)
 
     def damage(damage):
         if Player.health > 0:
