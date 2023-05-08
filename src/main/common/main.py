@@ -60,7 +60,7 @@ class Player:
         player_y = self.rect.y
 
         jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
-        jumpsound.set_volume(0.05)    
+        jumpsound.set_volume(0.09)    
 
         player_x, player_y = camera_pos #Assign variables to the camera position
         key = pygame.key.get_pressed()
@@ -255,6 +255,9 @@ enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, e
 
 creepy_sound = pygame.mixer.Sound("src/main/assets/sounds/scary.mp3")
 creepy_sound.set_volume(0.2)
+
+GameSound = pygame.mixer.Sound("src/main/assets/sounds/GameMusic.mp3")
+GameSound.set_volume(0.05)
 
 health = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(full).png")
 healthScaled = pygame.transform.scale(health, (70, 70))
@@ -845,6 +848,10 @@ def Tut1(language):
         #Fill the background outside of the map
         screen.fill(AQUA)
 
+        num = 3
+        for x in range(num):
+          pygame.mixer.Sound.play(GameSound)
+
         loadBackground(tut1_map, world)
 
         genWorld(world, tut1_map)
@@ -979,7 +986,7 @@ def Tut1(language):
         #Rendering the debug menu
         player.renderDebugMenu(language)
 
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent("uwu.uwu", language), "wieso", "weshalb", "wie", "was", "warum aa", "wieso", "weshalb", "wie", "was", "wie", "was", (255, 255, 255), -10, -10)
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.welcome', language), "wieso", "weshalb", "wie", "was", "warum aa", "wieso", "weshalb", "wie", "was", "wie", "was", (255, 255, 255), -10, -10)
         
         health()
         
