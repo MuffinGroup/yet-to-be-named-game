@@ -847,10 +847,8 @@ def Tut1(language):
 
         #Fill the background outside of the map
         screen.fill(AQUA)
-
-        num = 3
-        for x in range(num):
-          pygame.mixer.Sound.play(GameSound)
+        
+        pygame.mixer.Sound.play(GameSound)
 
         loadBackground(tut1_map, world)
 
