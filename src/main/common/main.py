@@ -856,7 +856,7 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
     return command, x, y
     
 def Tut1(language):
-    global collisions, command, x, y, camera_pos
+    global command, x, y, camera_pos
     enemy_x = 200
     enemy_y = 305
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
@@ -941,6 +941,8 @@ def Tut1(language):
 
         cloud.drawElement(world, 10, 2, background_rects)
 
+        print(Player.holding)
+
         #Enemy Import
         enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
         enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width() * 8, enemy_img.get_width() * 8))
@@ -998,8 +1000,13 @@ def Tut1(language):
         poppy.drawItem(world, Player, 500, 500)
 
         if poppy.pickedUp == True:
-            print("uwu")
+            print("-")
         renderCoordinates()
+
+        if Tut_welcome == True:
+            Player.locked = True
+        camera_pos = player.keybinds(camera_pos)
+        screen.blit(world, (player_x, player_y))
 
         if Player.debuggingMode == True:
             screen.blit(renderText(0, language), (440, 90))
@@ -1049,10 +1056,6 @@ def Tut1(language):
             Player.locked = False
 
         #Player movement
-        if Tut_welcome == True:
-            Player.locked = True
-        camera_pos = player.keybinds(camera_pos)
-        screen.blit(world, (player_x, player_y))
         TutorialRender(language)
 
         clock.tick(800)

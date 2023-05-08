@@ -15,8 +15,12 @@ class registerItem():
             surface.blit(self.texture, (self.hitbox.x, self.hitbox.y))
         if self.pickedUp == True:
             self.hitbox.x, self.hitbox.y = pygame.mouse.get_pos()
+            player.holding = self.id
             self.texture = pygame.transform.scale(self.texture, (player.rect.width//1.5, player.rect.width//1.5))
-            xNew, yNew = player.rect.x + player.rect.width//2, player.rect.y + player.rect.height//2
+            if player.facingRight == True:
+                xNew, yNew = player.rect.x + player.rect.width//2, player.rect.y + player.rect.height//2 - 15
+            else:
+                xNew, yNew = player.rect.x - player.rect.width//16, player.rect.y + player.rect.height//2 - 15
             self.hitbox = pygame.Rect((xNew, yNew), (self.texture.get_width(), self.texture.get_height()))
             surface.blit(self.texture, (xNew, yNew))
         if player.rect.colliderect(self.hitbox):
