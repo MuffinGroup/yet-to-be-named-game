@@ -51,6 +51,7 @@ class Player:
         Player.y_momentum = 0
         Player.air_timer = 0
         Player.holding = None
+        Player.holdsItem = False
 
     def keybinds(self,camera_pos):
         global player_x
@@ -249,6 +250,7 @@ waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
 doorCurrent = doorClosedLargeElement
 item_image = registries.elements.registerElement("elements\Environment\decoration\Coin", 1)
+poppy = registries.items.registerItem("poppy", "elements\Environment\decoration\Plants\poppy")
 
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
@@ -683,7 +685,6 @@ def loadBackground(map, surface):
     global background_rects
     background_rects = []
     y = 0
-    print(Player.world)
     for row in map:
         x = 0
         for tile in row:
@@ -844,8 +845,6 @@ def Tut1(language):
     pygame.mixer.music.set_volume(0.1)
     Player.world = "tut1"
     while True:
-        print(Player.world)
-
         #Fill the background outside of the map
         screen.fill(AQUA)
 
@@ -972,6 +971,11 @@ def Tut1(language):
                 world.blit(welcome9, (3000, 875))
                 world.blit(welcome10, (3000, 900))
 
+        poppy.drawItem(world, Player, 500, 500)
+
+        if poppy.pickedUp == True:
+            print("uwu")
+
         screen.blit(world, (player_x, player_y))
         renderCoordinates()
 
@@ -987,7 +991,6 @@ def Tut1(language):
             tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), translatableComponent('text.tutorial.welcome9', language), translatableComponent('text.tutorial.welcome10', language), (255, 255, 255), -10, -10)
         if language == 'en_us':
             tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), '', (255, 255, 255), -10, -10)
-
 
         health()
         
@@ -1047,7 +1050,6 @@ def Tut2(language):
     
     while True: #Render background
         pygame.mixer.music.stop()
-        print(Player.world)
         world.fill(DARK_GRAY)
 
         #Fill the background outside of the map
@@ -1186,8 +1188,6 @@ def Lvl1(language):
     
     Player.world = "lvl1"
     while True:
-        print(Player.world)
-        
         #Fill the background outside of the map
         screen.fill(AQUA)
 

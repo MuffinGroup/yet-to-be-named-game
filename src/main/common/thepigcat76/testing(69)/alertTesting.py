@@ -47,6 +47,5 @@ while True:
 	examplePanel.render(screen, screen.get_width()//20, screen.get_width()//20, "warum aa", "wieso", "weshalb", "wie", "was", "warum aa", "wieso", "weshalb", "wie", "was", "uwu", "uuuw", (255, 255, 255), -10, -10)
 	if pygame.key.get_pressed()[pygame.K_1]:
 		example.finished = False
-	print(example.x)
 	pygame.display.flip()
 	clock.tick(60)

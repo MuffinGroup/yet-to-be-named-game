@@ -9,7 +9,7 @@ class registerItem():
         self.texture = pygame.image.load("src\main/assets/textures/" + texturePath + ".png")
         self.texture = pygame.transform.scale(self.texture, (self.texture.get_width() * 2.5, self.texture.get_height() * 2.5))
     
-    def drawItem(self, surface, playerRect, x, y):
+    def drawItem(self, surface, player, x, y):
         self.hitbox = pygame.Rect((x, y), (self.texture.get_width(), self.texture.get_height()))
         pos = pygame.mouse.get_pos()
         surface.blit(self.texture, (self.hitbox.x, self.hitbox.y))
@@ -18,8 +18,9 @@ class registerItem():
             self.hitbox.x -= self.texture.get_width()//2
             self.hitbox.y -= self.texture.get_height()//2
         if self.hitbox.collidepoint(pos):
-            #pygame.draw.rect(surface, (255, 255, 255), self.hitbox, 3)
-            if pygame.mouse.get_pressed()[0] == 1 and self.pickedUp == False and abs(playerRect.x - self.hitbox.x) <= 100:
+            pygame.draw.rect(surface, (255, 255, 255), self.hitbox, 3)
+            if pygame.mouse.get_pressed()[0] == 1 and self.pickedUp == False and abs(player.rect.x - self.hitbox.x) <= 100:
                 self.pickedUp = True
-                print("picked up")
-        print(abs(playerRect.x - self.hitbox.x))
+            if self.pickedUp == True:
+                player.holding = self
+                self.hitbox.y = player.rect.y//2
