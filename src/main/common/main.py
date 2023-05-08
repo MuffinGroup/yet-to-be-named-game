@@ -211,6 +211,11 @@ def resetDebugSettings():
     Player.flight = 0
     Player.showPos = 0
 
+def itemLogic(self):
+    if Player.holding != None:
+        Player.holdsItem = True
+    else:
+        Player.holdsItem = False
 Player()
 #Loading element textures
 grassElement = registries.elements.registerElement("elements/Environment/blocks/grass_dirt", 3)
