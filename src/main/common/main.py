@@ -53,101 +53,102 @@ class Player:
         Player.holding = None
 
     def keybinds(self,camera_pos):
-        global player_x
-        global player_y
-        self.doorhandling = 0 #Door mechanics
-        player_x = self.rect.x #Camera following the player
-        player_y = self.rect.y
+        if Player.locked == False:
+            global player_x
+            global player_y
+            self.doorhandling = 0 #Door mechanics
+            player_x = self.rect.x #Camera following the player
+            player_y = self.rect.y
 
-        jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
-        jumpsound.set_volume(0.09)    
+            jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
+            jumpsound.set_volume(0.09)    
 
-        player_x, player_y = camera_pos #Assign variables to the camera position
-        key = pygame.key.get_pressed()
+            player_x, player_y = camera_pos #Assign variables to the camera position
+            key = pygame.key.get_pressed()
 
-        if Player.visible == False:
-            Player.locked = True
-        else:
-            Player.locked = False
-        if Player.chatOpen == False:
-            if key[pygame.K_UP] and Player.jumpingLocked == False:
-                if Player.air_timer < 8:
-                    Player.y_momentum = -30
-                    pygame.mixer.Sound.play(jumpsound)
-
-            if key[pygame.K_RIGHT] and Player.walkingRightLocked == False:
-                Player.facingLeft = False
-                Player.facingRight = True
-                Player.standing = False
-                Player.moving_right = True
+            if Player.visible == False:
+                Player.locked = True
             else:
-                Player.standing = True
-                Player.walking = False
-                Player.moving_right = False
+                Player.locked = False
+            if Player.chatOpen == False:
+                if key[pygame.K_UP] and Player.jumpingLocked == False:
+                    if Player.air_timer < 8:
+                        Player.y_momentum = -30
+                        pygame.mixer.Sound.play(jumpsound)
 
-            if key[pygame.K_LEFT] and Player.walkingLeftLocked == False:
-                Player.facingLeft = True
-                Player.facingRight = False
-                Player.standing = False
-                Player.moving_left = True
-            else:
-                Player.standing = True
-                Player.walking = False
-                Player.moving_left = False
+                if key[pygame.K_RIGHT] and Player.walkingRightLocked == False:
+                    Player.facingLeft = False
+                    Player.facingRight = True
+                    Player.standing = False
+                    Player.moving_right = True
+                else:
+                    Player.standing = True
+                    Player.walking = False
+                    Player.moving_right = False
 
-            #Debug mode to help developers
-            if key[pygame.K_d] and Player.debuggingMode == False and Player.locked == False:
-                pygame.time.wait(200)
-                Player.debuggingMode = True
-            elif key[pygame.K_d] and Player.debuggingMode == True and Player.debuggingMenu == False and Player.locked == False:
-                pygame.time.wait(200)
-                Player.debuggingMode = False
+                if key[pygame.K_LEFT] and Player.walkingLeftLocked == False:
+                    Player.facingLeft = True
+                    Player.facingRight = False
+                    Player.standing = False
+                    Player.moving_left = True
+                else:
+                    Player.standing = True
+                    Player.walking = False
+                    Player.moving_left = False
 
-            if key[pygame.K_0] and Player.debuggingMode == True and Player.debuggingMenu == False and Player.locked == False:
-                pygame.time.wait(200)
-                Player.movementLocked = True
-                Player.debuggingMenu = True
-            elif key[pygame.K_0] or key[pygame.K_ESCAPE] and Player.debuggingMode == True and Player.locked == False:
-                pygame.time.wait(200)
-                Player.movementLocked = False
-                Player.debuggingMenu = False
+                #Debug mode to help developers
+                if key[pygame.K_d] and Player.debuggingMode == False and Player.locked == False:
+                    pygame.time.wait(200)
+                    Player.debuggingMode = True
+                elif key[pygame.K_d] and Player.debuggingMode == True and Player.debuggingMenu == False and Player.locked == False:
+                    pygame.time.wait(200)
+                    Player.debuggingMode = False
 
-            if key[pygame.K_DOWN] and Player.visible == True and Player.debuggingMode == True and Player.movementLocked == False and Player.flight == 1 and Player.locked == False:
-                Player.standing = False
-                Player.facingLeft = False
-                Player.facingRight = True
-                self.rect.y += Player.speed 
-            else:
-                Player.standing = True
-                Player.walking = False
+                if key[pygame.K_0] and Player.debuggingMode == True and Player.debuggingMenu == False and Player.locked == False:
+                    pygame.time.wait(200)
+                    Player.movementLocked = True
+                    Player.debuggingMenu = True
+                elif key[pygame.K_0] or key[pygame.K_ESCAPE] and Player.debuggingMode == True and Player.locked == False:
+                    pygame.time.wait(200)
+                    Player.movementLocked = False
+                    Player.debuggingMenu = False
 
-            if key[pygame.K_u] and Player.visible == True and Player.debuggingMode == True and Player.movementLocked == False and Player.flight == 1 and Player.locked == False:
-                Player.standing = False
-                Player.facingLeft = False
-                Player.facingRight = True
-                self.rect.y -= Player.speed 
-            else:
-                Player.standing = True
-                Player.walking = False
+                if key[pygame.K_DOWN] and Player.visible == True and Player.debuggingMode == True and Player.movementLocked == False and Player.flight == 1 and Player.locked == False:
+                    Player.standing = False
+                    Player.facingLeft = False
+                    Player.facingRight = True
+                    self.rect.y += Player.speed 
+                else:
+                    Player.standing = True
+                    Player.walking = False
 
-            #End of debugging mode functions
+                if key[pygame.K_u] and Player.visible == True and Player.debuggingMode == True and Player.movementLocked == False and Player.flight == 1 and Player.locked == False:
+                    Player.standing = False
+                    Player.facingLeft = False
+                    Player.facingRight = True
+                    self.rect.y -= Player.speed 
+                else:
+                    Player.standing = True
+                    Player.walking = False
 
-            if key[pygame.K_LEFT] and Player.walkingLeftLocked == False or key[pygame.K_RIGHT] and Player.walkingRightLocked == False: #Walking animations
-                Player.walking = True
+                #End of debugging mode functions
+
+                if key[pygame.K_LEFT] and Player.walkingLeftLocked == False or key[pygame.K_RIGHT] and Player.walkingRightLocked == False: #Walking animations
+                    Player.walking = True
         
-        #The chat
-        if key[pygame.K_c] and Player.chatOpen == False and Player.debuggingMenu == False:
-            pygame.time.wait(200)
-            Player.chatOpen = True
+            #The chat
+            if key[pygame.K_c] and Player.chatOpen == False and Player.debuggingMenu == False:
+                pygame.time.wait(200)
+                Player.chatOpen = True
             
-        elif key[pygame.K_ESCAPE] and Player.chatOpen == True:
-            pygame.time.wait(200)
-            Player.chatOpen = False
+            elif key[pygame.K_ESCAPE] and Player.chatOpen == True:
+                pygame.time.wait(200)
+                Player.chatOpen = False
 
-        if Player.world == "tut1":
-            return (-self.rect.x + 680, -self.rect.y + 550)# Return new player position
-        else:
-            return (-self.rect.x + 680, -self.rect.y + 400)
+            if Player.world == "tut1":
+                return (-self.rect.x + 680, -self.rect.y + 550)# Return new player position
+            else:
+                return (-self.rect.x + 680, -self.rect.y + 400)
 
     def damage(damage):
         if Player.health > 0:
@@ -301,6 +302,10 @@ chatBackground = registries.gui.registerGui(110, 100, 800, 600, False)
 chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 100, 800, 600, 140, 575, 735, 100)
 chat.inputLocked = True
 exitChat = registries.gui.registerExitButton(85, 80)
+
+Tut_welcome = True
+Tut_walking_right = False
+Tut_walking_left = False
 
 doorsound = pygame.mixer.Sound('src/main/assets/sounds/Door_Closing.wav')
 
@@ -761,10 +766,14 @@ def movementControl(self):
 
 def TutorialRender(language):
     
-    if language == 'de_de':
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), translatableComponent('text.tutorial.welcome9', language), translatableComponent('text.tutorial.welcome10', language), (255, 255, 255), -10, -10)
-    if language == 'en_us':
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), '', (255, 255, 255), -10, -10)
+    if Tut_welcome == True:
+        Player.locked = True
+        if language == 'de_de':
+            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), translatableComponent('text.tutorial.welcome9', language), translatableComponent('text.tutorial.welcome10', language), WHITE, -10, -10)
+        if language == 'en_us':
+            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), '', WHITE, -10, -10)
+    
+    
 
 
 def Start(language):
