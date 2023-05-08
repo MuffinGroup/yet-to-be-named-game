@@ -975,7 +975,7 @@ def Tut1(language):
         #Rendering the debug menu
         player.renderDebugMenu(language)
 
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, "warum aa", "wieso", "weshalb", "wie", "was", "warum aa", "wieso", "weshalb", "wie", "was", "wie", "was", (255, 255, 255), -10, -10)
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.welcome', language), "wieso", "weshalb", "wie", "was", "warum aa", "wieso", "weshalb", "wie", "was", "wie", "was", (255, 255, 255), -10, -10)
         
         health()
         
