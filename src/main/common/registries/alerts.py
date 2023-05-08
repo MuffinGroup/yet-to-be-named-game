@@ -41,7 +41,7 @@ class notification:
 class infoPanel:
     def __init__(self, panelPath, scale):
         self.visible = True
-        self.font = pygame.font.Font("src\main/assets/fonts\joystixmonospaceregular.otf", 25)
+        self.font = pygame.font.Font("src\main/assets/fonts\joystixmonospaceregular.otf", 15)
         self.panel = pygame.image.load(panelPath)
         self.scaledPanel = pygame.transform.scale(self.panel, (self.panel.get_width() * scale, self.panel.get_height() * scale))
 
