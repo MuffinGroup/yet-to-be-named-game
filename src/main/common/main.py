@@ -192,7 +192,6 @@ class Player:
 
 def TutorialRender(language):
     if Tut_welcome == True:
-        Player.locked = True
         if language == 'de_de':
             tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), translatableComponent('text.tutorial.welcome9', language), translatableComponent('text.tutorial.welcome10', language), WHITE, -10, -10)
         if language == 'en_us':
@@ -1000,8 +999,6 @@ def Tut1(language):
 
         if poppy.pickedUp == True:
             print("uwu")
-
-        screen.blit(world, (player_x, player_y))
         renderCoordinates()
 
         if Player.debuggingMode == True:
@@ -1051,10 +1048,14 @@ def Tut1(language):
             chat.inputLocked = True
             Player.locked = False
 
-        TutorialRender(language)
 
         #Player movement
-        camera_pos = player.keybinds(camera_pos) 
+
+        if Tut_welcome == True:
+            Player.locked = True
+        camera_pos = player.keybinds(camera_pos)
+        screen.blit(world, (player_x, player_y))
+        TutorialRender(language)
 
         clock.tick(800)
         pygame.display.flip()

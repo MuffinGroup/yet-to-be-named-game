@@ -17,4 +17,5 @@ class registerItem():
             self.hitbox.x -= self.texture.get_width()//2
             self.hitbox.y -= self.texture.get_height()//2
         if player.rect.colliderect(self.hitbox):
-            pygame.draw.rect(surface, (255, 255, 255), self.hitbox, 3)
+            if pygame.mouse.get_pressed()[0] == 1:
+                pygame.draw.rect(surface, (255, 255, 255), self.hitbox, 3)
