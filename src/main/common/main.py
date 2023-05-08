@@ -982,8 +982,12 @@ def Tut1(language):
         #Rendering the debug menu
         player.renderDebugMenu(language)
 
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.welcome', language), "wieso", "weshalb", "wie", "was", "warum aa", "wieso", "weshalb", "wie", "was", "wie", "was", (255, 255, 255), -10, -10)
-        
+        if language == 'de_de':
+            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), translatableComponent('text.tutorial.welcome9', language), translatableComponent('text.tutorial.welcome10', language), (255, 255, 255), -10, -10)
+        if language == 'en_us':
+            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), '', (255, 255, 255), -10, -10)
+
+
         health()
         
         if Player.health > Player.defaultHealth:
@@ -1326,4 +1330,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Lvl1(Player.language) #this isn't start bc i need to do some debugging and testing
+    Tut1(Player.language) #this isn't start bc i need to do some debugging and testing
