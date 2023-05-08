@@ -925,10 +925,6 @@ def Tut1(language):
         if walkingValue >= len(registries.animations.walking_sprite):
             walkingValue = 0
         
-        TutorialRender(language)
-
-        #Player movement
-        camera_pos = player.keybinds(camera_pos) 
         #Movement animation rendering
         if Player.walking == True:
             Player.currentSprite = registries.animations.walking_sprite[walkingValue]
@@ -1054,6 +1050,11 @@ def Tut1(language):
         else:
             chat.inputLocked = True
             Player.locked = False
+
+        TutorialRender(language)
+
+        #Player movement
+        camera_pos = player.keybinds(camera_pos) 
 
         clock.tick(800)
         pygame.display.flip()
