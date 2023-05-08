@@ -826,7 +826,6 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
     command = " ".join(components[0:-2])
     x, y = (int(components[-2]), int(components[-1]))
     return command, x, y
-
     
 def Tut1(language):
     global collisions, command, x, y, camera_pos, player_movement
