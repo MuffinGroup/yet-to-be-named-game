@@ -50,6 +50,7 @@ class Player:
         Player.moving_left = False
         Player.y_momentum = 0
         Player.air_timer = 0
+        Player.holding = None
 
     def keybinds(self,camera_pos):
         global player_x
