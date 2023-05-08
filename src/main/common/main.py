@@ -256,9 +256,6 @@ enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, e
 creepy_sound = pygame.mixer.Sound("src/main/assets/sounds/scary.mp3")
 creepy_sound.set_volume(0.2)
 
-GameSound = pygame.mixer.Sound("src/main/assets/sounds/GameMusic.mp3")
-GameSound.set_volume(0.05)
-
 health = pygame.image.load("src\main/assets/textures\elements\gui\player\Heart(full).png")
 healthScaled = pygame.transform.scale(health, (70, 70))
 
@@ -270,7 +267,6 @@ emptyHealthScaled = pygame.transform.scale(emptyHealth, (70, 70))
 n = 0
 npcCurrent = registries.animations.npcIdle
 npcTalking = False
-
 
 deathSound = pygame.mixer.Sound("src\main/assets\sounds\death.mp3")
 deathSound.set_volume(0.25)
@@ -375,8 +371,8 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3, 3, 3,16, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,16,16,16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3,16, 3,16, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,15, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3,16, 3,00,00,00,00,00,36,00,00,00,35,35,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3,16, 3, 3, 3, 3,00,00,00, 3,16, 3,00,00,35,35,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3,16, 3,00,00,00,00,00,36,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3,16, 3, 3, 3, 3,00,00,00, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3, 3,00,00,00,00,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 5, 5, 5, 5, 3,16,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -687,6 +683,7 @@ def loadBackground(map, surface):
     global background_rects
     background_rects = []
     y = 0
+    print(Player.world)
     for row in map:
         x = 0
         for tile in row:
@@ -772,6 +769,7 @@ def Start(language):
     quitButton = registries.gui.registerButton("button", 6.0)
     clock = pygame.time.Clock()
     while True:
+        pygame.mixer.music.stop()
         language = Player.languageList[i]
         key = pygame.key.get_pressed()
         for event in pygame.event.get():
@@ -842,15 +840,15 @@ def Tut1(language):
     idleValue = 0
     walkingValue = 0
     
+    pygame.mixer.music.load("src\main/assets\sounds\GameMusic.mp3")
+    pygame.mixer.music.play()
+    pygame.mixer.music.set_volume(0.1)
     Player.world = "tut1"
     while True:
+        print(Player.world)
 
         #Fill the background outside of the map
         screen.fill(AQUA)
-
-        num = 3
-        for x in range(num):
-          pygame.mixer.Sound.play(GameSound)
 
         loadBackground(tut1_map, world)
 
@@ -1045,6 +1043,8 @@ def Tut2(language):
     Player.world = "tut2"
     
     while True: #Render background
+        pygame.mixer.music.stop()
+        print(Player.world)
         world.fill(DARK_GRAY)
 
         #Fill the background outside of the map
@@ -1183,6 +1183,7 @@ def Lvl1(language):
     
     Player.world = "lvl1"
     while True:
+        print(Player.world)
         
         #Fill the background outside of the map
         screen.fill(AQUA)
