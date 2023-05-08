@@ -308,7 +308,7 @@ chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 
 chat.inputLocked = True
 exitChat = registries.gui.registerExitButton(85, 80)
 
-Tut_welcome = True
+Tut_welcome = False
 Tut_walking_right = False
 Tut_walking_left = False
 
@@ -1048,9 +1048,7 @@ def Tut1(language):
             chat.inputLocked = True
             Player.locked = False
 
-
         #Player movement
-
         if Tut_welcome == True:
             Player.locked = True
         camera_pos = player.keybinds(camera_pos)
@@ -1061,7 +1059,7 @@ def Tut1(language):
         pygame.display.flip()
         
 def Tut2(language):
-    global camera_pos, player_movement
+    global camera_pos
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()

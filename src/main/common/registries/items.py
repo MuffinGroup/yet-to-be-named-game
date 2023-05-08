@@ -10,12 +10,16 @@ class registerItem():
         self.texture = pygame.transform.scale(self.texture, (self.texture.get_width() * 2.5, self.texture.get_height() * 2.5))
     
     def drawItem(self, surface, player, x, y):
-        self.hitbox = pygame.Rect((x, y), (self.texture.get_width(), self.texture.get_height()))
-        surface.blit(self.texture, (self.hitbox.x, self.hitbox.y))
+        if self.pickedUp == False:
+            self.hitbox = pygame.Rect((x, y), (self.texture.get_width(), self.texture.get_height()))
+            surface.blit(self.texture, (self.hitbox.x, self.hitbox.y))
         if self.pickedUp == True:
             self.hitbox.x, self.hitbox.y = pygame.mouse.get_pos()
-            self.hitbox.x -= self.texture.get_width()//2
-            self.hitbox.y -= self.texture.get_height()//2
+            self.texture = pygame.transform.scale(self.texture, (player.rect.width//1.5, player.rect.width//1.5))
+            xNew, yNew = player.rect.x + player.rect.width//2, player.rect.y + player.rect.height//2
+            self.hitbox = pygame.Rect((xNew, yNew), (self.texture.get_width(), self.texture.get_height()))
+            surface.blit(self.texture, (xNew, yNew))
         if player.rect.colliderect(self.hitbox):
-            if pygame.mouse.get_pressed()[0] == 1:
+            if pygame.key.get_pressed()[pygame.K_e]:
                 pygame.draw.rect(surface, (255, 255, 255), self.hitbox, 3)
+                self.pickedUp = True
