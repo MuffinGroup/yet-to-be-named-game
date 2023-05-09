@@ -1,5 +1,6 @@
 import pygame
 import sys
+import json
 from typing import Tuple
 from registries.colors import *
 from registries.language import *
@@ -190,6 +191,13 @@ class Player:
                 # Drawing the hitbox to the screen
                 pygame.draw.rect(surface, (0, 255, 0), Player.rect, 4)
 
+    def itemHandling():
+        if Player.holding != None:
+            Player.holdsItem = True
+        else:
+            Player.holdsItem = False
+        print(poppy.pickedUp)
+
 def TutorialRender(language):
     if Tut_welcome == True:
         if language == 'de_de':
@@ -211,11 +219,6 @@ def resetDebugSettings():
     Player.flight = 0
     Player.showPos = 0
 
-def itemLogic(self):
-    if Player.holding != None:
-        Player.holdsItem = True
-    else:
-        Player.holdsItem = False
 Player()
 #Loading element textures
 grassElement = registries.elements.registerElement("elements/Environment/blocks/grass_dirt", 3)
@@ -880,6 +883,8 @@ def Tut1(language):
         #Fill the background outside of the map
         screen.fill(AQUA)
 
+        Player.itemHandling()
+
         loadBackground(tut1_map, world)
 
         genWorld(world, tut1_map)
@@ -946,8 +951,6 @@ def Tut1(language):
 
         cloud.drawElement(world, 10, 2, background_rects)
 
-        print(Player.holding)
-
         #Enemy Import
         enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
         enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width() * 8, enemy_img.get_width() * 8))
@@ -1003,9 +1006,6 @@ def Tut1(language):
                 world.blit(welcome10, (3000, 900))
 
         poppy.drawItem(world, Player, 500, 500)
-
-        if poppy.pickedUp == True:
-            print("-")
         renderCoordinates()
 
         if Tut_welcome == True:
@@ -1015,7 +1015,7 @@ def Tut1(language):
 
         if Player.debuggingMode == True:
             screen.blit(renderText(0, language), (440, 90))
-            
+
         screen.blit(renderText(1, language), (440, 30))
 
         #Rendering the debug menu
@@ -1086,6 +1086,8 @@ def Tut2(language):
 
         #Fill the background outside of the map
         screen.fill(DARK_GRAY)
+
+        Player.itemHandling()
 
         loadBackground(tut2_map, world)
         
