@@ -196,8 +196,10 @@ class Player:
             Player.holdsItem = True
         else:
             Player.holdsItem = False
-        print(poppy.pickedUp)
-        poppy.drawItem(world, Player, 500, 500)
+        if Player.world == "tut2":
+            poppy.drawItem(world, Player, Player.rect.x, Player.rect.y)
+            pygame.draw.rect(world, WHITE, poppy.hitbox, 3)
+            poppy.pickedUp = True
 
 def TutorialRender(language):
     if Tut_welcome == True:
@@ -207,6 +209,7 @@ def TutorialRender(language):
             tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), '', WHITE, -10, -10)
     else:
         Player.locked = False
+        
 def renderCoordinates():
     if Player.showPos == 1:
         coordinates = registries.gui.registerFont(35, str(str(Player.rect.x) + ", " + str(Player.rect.y)), WHITE, screen.get_width()//10 * 7, screen.get_height()//12)
@@ -867,7 +870,7 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
     return command, x, y
     
 def Tut1(language):
-    global command, x, y, camera_pos
+    global command, x, y, camera_pos, poppy
     enemy_x = 200
     enemy_y = 305
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
@@ -885,8 +888,6 @@ def Tut1(language):
     while True:
         #Fill the background outside of the map
         screen.fill(AQUA)
-
-        Player.itemHandling(world)
 
         loadBackground(tut1_map, world)
 
@@ -1025,6 +1026,8 @@ def Tut1(language):
         player.renderDebugMenu(language)
 
         health()
+
+        Player.itemHandling(world)
         
         if Player.health > Player.defaultHealth:
             Player.health = Player.defaultHealth
@@ -1092,8 +1095,6 @@ def Tut2(language):
 
         #Fill the background outside of the map
         screen.fill(DARK_GRAY)
-
-        Player.itemHandling(world)
 
         loadBackground(tut2_map, world)
         
@@ -1172,6 +1173,8 @@ def Tut2(language):
         player.renderDebugMenu(language)	
         
         health()
+
+        Player.itemHandling(world)
         
         if Player.health > Player.defaultHealth:
             Player.health = Player.defaultHealth
