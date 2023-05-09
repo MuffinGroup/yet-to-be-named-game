@@ -591,6 +591,7 @@ def genWorld(world, map):
         if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5 or pygame.key.get_pressed()[pygame.K_o]:
             leverTimer = 0
             exploded = True
+            pygame.mixer.music.pause()
             tut2_map[13][42] = 13
             leverOn = True
             leverOff = False
@@ -622,6 +623,7 @@ def genWorld(world, map):
             pygame.mixer.Sound.play(explosion_sound)
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
             world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
+            pygame.mixer.music.unpause()
             cobble2Y -= 64*cobbleModifier2*cobbleModifier20
             cobble2X -= 208
             if cobble2X < 2720:
@@ -1078,10 +1080,13 @@ def Tut2(language):
     walkingValue = 0
     Player.rect.x, Player.rect.y = 900, 750
 
+    pygame.mixer.music.load("src\main/assets\sounds\MysteriousGameMusic.mp3")
+    pygame.mixer.music.play(10)
+    pygame.mixer.music.set_volume(0.1)
+    
     Player.world = "tut2"
     
     while True: #Render background
-        pygame.mixer.music.stop()
         world.fill(DARK_GRAY)
 
         #Fill the background outside of the map
@@ -1216,12 +1221,15 @@ def Lvl1(language):
     idleValue = 0
     walkingValue = 0
     Player.rect.x, Player.rect.y = 350, 1050
+    
     pygame.mixer.Sound.play(creepy_sound)
     
     Player.world = "lvl1"
     while True:
         #Fill the background outside of the map
         screen.fill(AQUA)
+
+        pygame.mixer.music.stop()
 
         loadBackground(lvl1_map, world)
 
