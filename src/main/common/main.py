@@ -1378,4 +1378,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Lvl1(Player.language) #this isn't start bc i need to do some debugging and testing
+    Start(Player.language) #this isn't start bc i need to do some debugging and testing
