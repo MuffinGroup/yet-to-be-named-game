@@ -72,7 +72,7 @@ class Player:
                 if Player.air_timer < 8:
                     Player.y_momentum = -30
                     pygame.mixer.Sound.play(jumpsound)
-
+                    
             if key[pygame.K_RIGHT] and Player.walkingRightLocked == False and Player.locked == False and Player.movementLocked == False:
                 Player.facingLeft = False
                 Player.facingRight = True
@@ -325,6 +325,7 @@ Tut_walking_right = False
 Tut_walking_left = False
 
 doorsound = pygame.mixer.Sound('src/main/assets/sounds/Door_Closing.wav')
+doorsound.set_volume(0.1)
 
 leverOff = True
 leverOn = False
