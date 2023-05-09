@@ -191,12 +191,13 @@ class Player:
                 # Drawing the hitbox to the screen
                 pygame.draw.rect(surface, (0, 255, 0), Player.rect, 4)
 
-    def itemHandling():
+    def itemHandling(world):
         if Player.holding != None:
             Player.holdsItem = True
         else:
             Player.holdsItem = False
         print(poppy.pickedUp)
+        poppy.drawItem(world, Player, 500, 500)
 
 def TutorialRender(language):
     if Tut_welcome == True:
@@ -886,7 +887,7 @@ def Tut1(language):
         #Fill the background outside of the map
         screen.fill(AQUA)
 
-        Player.itemHandling()
+        Player.itemHandling(world)
 
         loadBackground(tut1_map, world)
 
@@ -1093,7 +1094,7 @@ def Tut2(language):
         #Fill the background outside of the map
         screen.fill(DARK_GRAY)
 
-        Player.itemHandling()
+        Player.itemHandling(world)
 
         loadBackground(tut2_map, world)
         
