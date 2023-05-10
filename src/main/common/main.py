@@ -196,14 +196,16 @@ class Player:
             Player.holdsItem = True
         else:
             Player.holdsItem = False
-        if Player.facingRight == True:
+        """if Player.facingRight == True:
                 poppy.xNew, poppy.yNew = Player.rect.x + Player.rect.width//2, Player.rect.y + Player.rect.height//2 - 15
                 poppy.drawItem(world, Player, poppy.xNew, poppy.yNew)
                 pygame.draw.rect(world, WHITE, poppy.hitbox, 3)
         else:
                 poppy.xNew, poppy.yNew = Player.rect.x - Player.rect.width//16, Player.rect.y + Player.rect.height//2 - 15
                 poppy.drawItem(world, Player, poppy.xNew, poppy.yNew)
-                pygame.draw.rect(world, WHITE, poppy.hitbox, 3)
+                pygame.draw.rect(world, WHITE, poppy.hitbox, 3)"""
+        poppy.pickedUp = True
+        poppy.drawItem(world, Player, 0, 0)
 
 def TutorialRender(language):
     if Tut_welcome == True:
@@ -1162,7 +1164,6 @@ def Tut2(language):
         loadFluids(tut2_map, world)
 
         loadExplosion(tut2_map, world)
-        poppy.drawItem(world, Player, 2000, 1200)
 
         Player.itemHandling(world)
         

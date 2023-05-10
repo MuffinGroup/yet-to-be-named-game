@@ -14,7 +14,6 @@ class registerItem():
             self.hitbox = pygame.Rect((x, y), (self.texture.get_width(), self.texture.get_height()))
             surface.blit(self.texture, (self.hitbox.x, self.hitbox.y))
         if self.pickedUp == True:
-            self.hitbox.x, self.hitbox.y = pygame.mouse.get_pos()
             player.holding = self.id
             self.texture = pygame.transform.scale(self.texture, (player.rect.width//1.5, player.rect.width//1.5))
             if player.facingRight == True:
