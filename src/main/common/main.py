@@ -351,6 +351,10 @@ cobbleModifier10 = 1
 cobbleModifier2 = 1
 cobbleModifier20 = 1
 
+lever2Off = True
+lever2On = False
+lever2Timer = 0
+
 tutWalking = infoPanel("src\main/assets/textures\elements\gui/info_panel.png", 8)
 
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
@@ -422,11 +426,11 @@ lvl1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,3 ,3 ,00,00,00,00,00,00,00,00,0
             [3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,16,3 ,3 ,3 ,16,3 ,16,3 ,16,16,3 ,3 ,16,3 ,3 ,16,3 ,3 ,3 ,3 ,16,16,3 ,3 ,3 ,3 ,3 ,16,16,16,3 ,16,3 ,3 ,16,16],
             [3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,16,3 ,3 ,3 ,16,3 ,3 ,3 ,3 ,16,3 ,3 ,16,16,16,16,3 ,16,3 ,16,3 ,16,3 ,16,3 ,16,16,16,3 ,16,3 ,3 ,3 ,16,16,3 ,3 ,3 ,3 ,16,3 ,16,16,3 ,3 ,16],
             [3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,3 ,3 ,16,00,00,00,00,00,16,16,3 ,16,16,3 ,16,00,00,00,00,00,00,00,00,32,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
-            [3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,16,16,3 ,16,16,00,00,00,00,00,15,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,9 ,00,00,3 ,16],
+            [3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,16,16,3 ,16,16,00,00,00,00,00,10,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,9 ,00,00,3 ,16],
             [3 ,3 ,00,00,00,00,00,00,00,00,29,00,00,00,00,00,00,00,29,00,00,00,00,24,00,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
             [3 ,3 ,14,00,00,00,30,00,00,00,29,00,00,00,00,00,00,00,00,00,00,23,3 ,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
-            [3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,16,16,3 ,16,3 ,16,3 ,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,3 ,00,00,00,00,00,00,00,00,00,00,00,23,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,16,00,00,00,00,00,00,00,00,29,00,00,00,00,00,00,00,00,00,23,16,16,3 ,16,3 ,16,3 ,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,3 ,00,00,00,00,00,00,00,00,29,00,00,23,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,16,16,3 ,3 ,3 ,3 ,16,3 ,16,37,37,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,3 ,16,16,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,3 ,16,16,3 ,3 ,16,3 ,3 ,3 ,00,00,16,3 ,3 ,3 ,3 ,3 ,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,16,00,00,00,00,00,00,00,00,00,00,3 ,3 ,16,16,3 ,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -562,14 +566,9 @@ def genWorld(world, map):
         if Player.debuggingMode == True:
             pygame.draw.rect(world, (255, 255, 255), tiles, 3)
 
-    for coins in coin_rects:
-        if Player.rect.colliderect(coins):
-            coins_hit.append(coins)
-            
-    for coins in coins_hit:
-        if Player.rect.colliderect(coins):
-            map[10][15] = 0
-            map[8][23] = 0
+    for tiles in deco_rects:
+        if Player.debuggingMode == True:
+            pygame.draw.rect(world, (255, 255, 255), tiles, 3)
  
     if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
         if Player.world != "tut1":
@@ -701,6 +700,22 @@ def genWorld(world, map):
             if cobble1X <= 2300:
                 tut2_map[13][24] = 3
             Player.locked = False
+    elif Player.world == "lvl1":
+        if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5 or pygame.key.get_pressed()[pygame.K_o]:
+            leverTimer = 0
+            pygame.mixer.music.pause()
+            lvl1_map[7][24] = 13
+            leverOn = True
+            leverOff = False
+            leverPressed += 1
+            explosionCameraTimer += 1
+        elif leverOn == True and Player.rect.colliderect(leverOnDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
+            leverTimer = 0
+            lvl1_map[7][24] = 10
+            leverOff = True
+            leverOn = False
+            leverPressed += 1
+        leverTimer += 1 #9 32
 
 def loadFluids(map, surface): 
     global fluid_rects
@@ -1305,7 +1320,7 @@ def Lvl1(language):
                     chat.userInput = ""
                     chat.x = chat.markerDefaultPos
                     chat.linesLoaded[0] = translatableComponent("command.place", language)
-                    tut1_map[y][x] = 17
+                    lvl1_map[y][x] = 17
             except:
                 pass
 
