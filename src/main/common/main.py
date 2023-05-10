@@ -196,8 +196,16 @@ class Player:
             Player.holdsItem = True
         else:
             Player.holdsItem = False
-        print(poppy.pickedUp)
-        poppy.drawItem(world, Player, 500, 500)
+        """if Player.facingRight == True:
+                poppy.xNew, poppy.yNew = Player.rect.x + Player.rect.width//2, Player.rect.y + Player.rect.height//2 - 15
+                poppy.drawItem(world, Player, poppy.xNew, poppy.yNew)
+                pygame.draw.rect(world, WHITE, poppy.hitbox, 3)
+        else:
+                poppy.xNew, poppy.yNew = Player.rect.x - Player.rect.width//16, Player.rect.y + Player.rect.height//2 - 15
+                poppy.drawItem(world, Player, poppy.xNew, poppy.yNew)
+                pygame.draw.rect(world, WHITE, poppy.hitbox, 3)"""
+        poppy.pickedUp = True
+        poppy.drawItem(world, Player, 0, 0)
 
 def TutorialRender(language):
     if Tut_welcome == True:
@@ -207,6 +215,7 @@ def TutorialRender(language):
             tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), '', WHITE, -10, -10)
     else:
         Player.locked = False
+        
 def renderCoordinates():
     if Player.showPos == 1:
         coordinates = registries.gui.registerFont(35, str(str(Player.rect.x) + ", " + str(Player.rect.y)), WHITE, screen.get_width()//10 * 7, screen.get_height()//12)
@@ -868,7 +877,7 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
     return command, x, y
     
 def Tut1(language):
-    global command, x, y, camera_pos
+    global command, x, y, camera_pos, poppy
     enemy_x = 200
     enemy_y = 305
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
@@ -886,8 +895,6 @@ def Tut1(language):
     while True:
         #Fill the background outside of the map
         screen.fill(AQUA)
-
-        Player.itemHandling(world)
 
         loadBackground(tut1_map, world)
 
@@ -1008,8 +1015,6 @@ def Tut1(language):
                 world.blit(welcome8, (3000, 850))
                 world.blit(welcome9, (3000, 875))
                 world.blit(welcome10, (3000, 900))
-
-        poppy.drawItem(world, Player, 500, 500)
         renderCoordinates()
 
         if Tut_welcome == True:
@@ -1026,6 +1031,8 @@ def Tut1(language):
         player.renderDebugMenu(language)
 
         health()
+
+        Player.itemHandling(world)
         
         if Player.health > Player.defaultHealth:
             Player.health = Player.defaultHealth
@@ -1094,8 +1101,6 @@ def Tut2(language):
         #Fill the background outside of the map
         screen.fill(DARK_GRAY)
 
-        Player.itemHandling(world)
-
         loadBackground(tut2_map, world)
         
         genWorld(world, tut2_map)
@@ -1159,6 +1164,9 @@ def Tut2(language):
         loadFluids(tut2_map, world)
 
         loadExplosion(tut2_map, world)
+
+        Player.itemHandling(world)
+        
         #Render the map to the screen
         screen.blit(world, (player_x, player_y))
         
@@ -1173,7 +1181,6 @@ def Tut2(language):
         player.renderDebugMenu(language)	
         
         health()
-        
         if Player.health > Player.defaultHealth:
             Player.health = Player.defaultHealth
             
@@ -1209,6 +1216,7 @@ def Tut2(language):
         else:
             chat.inputLocked = True
             Player.locked = False
+        print(poppy.pickedUp)
 
         clock.tick(400)
         pygame.display.flip()
