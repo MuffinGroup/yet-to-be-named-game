@@ -196,10 +196,14 @@ class Player:
             Player.holdsItem = True
         else:
             Player.holdsItem = False
-        if Player.world == "tut2":
-            poppy.drawItem(world, Player, Player.rect.x, Player.rect.y)
-            pygame.draw.rect(world, WHITE, poppy.hitbox, 3)
-            poppy.pickedUp = True
+        if Player.facingRight == True:
+                poppy.xNew, poppy.yNew = Player.rect.x + Player.rect.width//2, Player.rect.y + Player.rect.height//2 - 15
+                poppy.drawItem(world, Player, poppy.xNew, poppy.yNew)
+                pygame.draw.rect(world, WHITE, poppy.hitbox, 3)
+        else:
+                poppy.xNew, poppy.yNew = Player.rect.x - Player.rect.width//16, Player.rect.y + Player.rect.height//2 - 15
+                poppy.drawItem(world, Player, poppy.xNew, poppy.yNew)
+                pygame.draw.rect(world, WHITE, poppy.hitbox, 3)
 
 def TutorialRender(language):
     if Tut_welcome == True:
@@ -1009,8 +1013,6 @@ def Tut1(language):
                 world.blit(welcome8, (3000, 850))
                 world.blit(welcome9, (3000, 875))
                 world.blit(welcome10, (3000, 900))
-
-        poppy.drawItem(world, Player, 500, 500)
         renderCoordinates()
 
         if Tut_welcome == True:
@@ -1160,6 +1162,10 @@ def Tut2(language):
         loadFluids(tut2_map, world)
 
         loadExplosion(tut2_map, world)
+        poppy.drawItem(world, Player, 2000, 1200)
+
+        Player.itemHandling(world)
+        
         #Render the map to the screen
         screen.blit(world, (player_x, player_y))
         
@@ -1174,9 +1180,6 @@ def Tut2(language):
         player.renderDebugMenu(language)	
         
         health()
-
-        Player.itemHandling(world)
-        
         if Player.health > Player.defaultHealth:
             Player.health = Player.defaultHealth
             
@@ -1212,6 +1215,7 @@ def Tut2(language):
         else:
             chat.inputLocked = True
             Player.locked = False
+        print(poppy.pickedUp)
 
         clock.tick(400)
         pygame.display.flip()
