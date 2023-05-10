@@ -191,21 +191,20 @@ class Player:
                 # Drawing the hitbox to the screen
                 pygame.draw.rect(surface, (0, 255, 0), Player.rect, 4)
 
-    def itemHandling(world):
+    def itemHandling():
         if Player.holding != None:
             Player.holdsItem = True
         else:
             Player.holdsItem = False
-        """if Player.facingRight == True:
-                poppy.xNew, poppy.yNew = Player.rect.x + Player.rect.width//2, Player.rect.y + Player.rect.height//2 - 15
-                poppy.drawItem(world, Player, poppy.xNew, poppy.yNew)
-                pygame.draw.rect(world, WHITE, poppy.hitbox, 3)
-        else:
-                poppy.xNew, poppy.yNew = Player.rect.x - Player.rect.width//16, Player.rect.y + Player.rect.height//2 - 15
-                poppy.drawItem(world, Player, poppy.xNew, poppy.yNew)
-                pygame.draw.rect(world, WHITE, poppy.hitbox, 3)"""
-        poppy.pickedUp = True
-        poppy.drawItem(world, Player, 0, 0)
+
+    def giveItem(world, item):
+        Player.holding = item
+        item.drawItem(world, Player, 0, 200)
+        item.pickedUp = True
+
+    def removeItem(item):
+        Player.holding = None
+        item.pickedUp = False
 
 def TutorialRender(language):
     if Tut_welcome == True:
@@ -1020,6 +1019,17 @@ def Tut1(language):
         if Tut_welcome == True:
             Player.locked = True
         camera_pos = player.keybinds(camera_pos)
+        poppy.drawItem(world, Player, 0, 0)
+        poppy.drawItem(world, Player, 0, 100)
+
+        Player.itemHandling()
+
+        if pygame.key.get_pressed()[pygame.K_3]:
+            Player.removeItem(poppy)
+
+        if pygame.key.get_pressed()[pygame.K_4]:
+            Player.giveItem(world, poppy)
+
         screen.blit(world, (player_x, player_y))
 
         if Player.debuggingMode == True:
@@ -1031,8 +1041,6 @@ def Tut1(language):
         player.renderDebugMenu(language)
 
         health()
-
-        Player.itemHandling(world)
         
         if Player.health > Player.defaultHealth:
             Player.health = Player.defaultHealth
@@ -1165,7 +1173,7 @@ def Tut2(language):
 
         loadExplosion(tut2_map, world)
 
-        Player.itemHandling(world)
+        Player.itemHandling()
         
         #Render the map to the screen
         screen.blit(world, (player_x, player_y))
