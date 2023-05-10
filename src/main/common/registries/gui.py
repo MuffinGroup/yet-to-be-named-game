@@ -303,6 +303,3 @@ class registerExitButton():
             else:
                 self.clicked = False
             return self.clicked
-        pygame.draw.rect(surface, (255, 255, 255), ((self.rect.x + 2.5, self.rect.y + 2.5), (self.rect.width - 4.5, self.rect.height - 4.5)), 3)
-        print(pos)
-        print(self.rect.x, self.rect.y)

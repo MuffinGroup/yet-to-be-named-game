@@ -266,6 +266,7 @@ explosion = registries.elements.registerAnimatedElement(16)
 explosive = registries.elements.registerElement("elements\Environment\Blocks\TNT", 3)
 light_dark_cobble = registries.elements.registerElement("elements\Environment\Blocks\light_dark_cobble", 3)
 cobble_pedestal_inactive = registries.elements.registerElement("elements\Environment\Blocks\Pedestals\cobble_pedestal", 3)
+wooden_plank = registries.elements.registerElement("elements/Environment/Blocks/wooden_plank", 3)
 npc = registries.elements.registerAnimatedElement(8) # 37/6
 waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
@@ -426,7 +427,7 @@ lvl1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,3 ,3 ,00,00,00,00,00,00,00,00,0
             [3 ,3 ,14,00,00,00,30,00,00,00,29,00,00,00,00,00,00,00,00,00,00,23,3 ,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
             [3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,16,16,3 ,16,3 ,16,3 ,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,3 ,00,00,00,00,00,00,00,00,00,00,00,23,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,16,16,3 ,3 ,3 ,3 ,16,3 ,16,00,00,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,3 ,16,16,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,16,16,3 ,3 ,3 ,3 ,16,3 ,16,37,37,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,3 ,16,16,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,3 ,16,16,3 ,3 ,16,3 ,3 ,3 ,00,00,16,3 ,3 ,3 ,3 ,3 ,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,16,00,00,00,00,00,00,00,00,00,00,3 ,3 ,16,16,3 ,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,16,14,00,00,00,00,00,00,00,00,15,3 ,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -551,6 +552,9 @@ def genWorld(world, map):
             #Don't use tile 35. It is used in the loadExplosion method
             if tile == 36:
                 cobble_pedestal_inactive.drawElement(world, x, y, element_rects)
+            if tile == 37:
+                wooden_plank.drawElement(world, x, y, element_rects)
+                wooden_plank.heightModifier = -76
             x += 1
         y += 1
 
@@ -561,6 +565,7 @@ def genWorld(world, map):
     for coins in coin_rects:
         if Player.rect.colliderect(coins):
             coins_hit.append(coins)
+            
     for coins in coins_hit:
         if Player.rect.colliderect(coins):
             map[10][15] = 0
