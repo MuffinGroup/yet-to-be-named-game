@@ -324,6 +324,7 @@ chatBackground = registries.gui.registerGui(110, 100, 800, 600, False)
 chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 100, 800, 600, 140, 575, 735, 100)
 chat.inputLocked = True
 exitChat = registries.gui.registerExitButton(85, 80)
+exitDebugMenu = registries.gui.registerExitButton(40, 75)
 
 Tut_welcome = False
 Tut_walking_right = False
@@ -1079,6 +1080,10 @@ def Tut1(language):
             chat.inputLocked = True
             Player.locked = False
 
+        if Player.debuggingMenu == True:
+            if exitDebugMenu.draw(screen):
+                Player.debuggingMenu = False
+
         #Player movement
         TutorialRender(language)
 
@@ -1224,6 +1229,11 @@ def Tut2(language):
         else:
             chat.inputLocked = True
             Player.locked = False
+
+        if Player.debuggingMenu == True:
+            if exitDebugMenu.draw(screen):
+                Player.debuggingMenu = False
+
         print(poppy.pickedUp)
 
         clock.tick(400)
@@ -1384,6 +1394,10 @@ def Lvl1(language):
         else:
             chat.inputLocked = True
             Player.locked = False
+
+        if Player.debuggingMenu == True:
+            if exitDebugMenu.draw(screen):
+                Player.debuggingMenu = False
 
         clock.tick(800)
         pygame.display.flip()
