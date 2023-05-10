@@ -325,6 +325,7 @@ chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 
 chat.inputLocked = True
 exitChat = registries.gui.registerExitButton(85, 80)
 exitDebugMenu = registries.gui.registerExitButton(40, 75)
+#continueNpcTalk = registries.gui.registerExitButton(2950, 650, "gui\speech_bubble_button")
 
 Tut_welcome = False
 Tut_walking_right = False
@@ -462,7 +463,7 @@ def loadExplosion(map, world):
         y += 1
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, score_display, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -601,6 +602,7 @@ def genWorld(world, map):
     if Player.world == "tut1":
         if Player.rect.colliderect(npc.rect) and pygame.key.get_pressed()[pygame.K_e]:
             npcCurrent = registries.animations.npcTalkingNormal
+            npcTalking = True
     if Player.world == "tut2":
         if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5 or pygame.key.get_pressed()[pygame.K_o]:
             leverTimer = 0
@@ -802,7 +804,7 @@ def movementControl(self):
     if Player.movementLocked == True:
         Player.walkingLeftLocked = True
         Player.walkingRightLocked = True
-        Player.JumpingLocked = True
+        Player.jumpingLocked = True
     else:
         Player.walkingLeftLocked = False
         Player.walkingRightLocked = False
@@ -877,7 +879,7 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
     return command, x, y
     
 def Tut1(language):
-    global command, x, y, camera_pos, poppy
+    global command, x, y, camera_pos, poppy, npcTalking, npcCurrent
     enemy_x = 200
     enemy_y = 305
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
@@ -987,7 +989,7 @@ def Tut1(language):
 
         #Render the map to the screen
         speech_bubble = pygame.image.load('src/main/assets/textures/elements/gui/speech_bubble.png')
-        if npcCurrent == registries.animations.npcTalkingNormal:
+        if npcTalking == True:
             if language == "en_us":
                 speech_bubble_Scaled = pygame.transform.scale(speech_bubble,(speech_bubble.get_width() * 5 + 50, speech_bubble.get_height() * 5))
                 world.blit(speech_bubble_Scaled, (2950, 650))
@@ -1030,6 +1032,13 @@ def Tut1(language):
 
         if pygame.key.get_pressed()[pygame.K_4]:
             Player.giveItem(world, poppy)
+
+        """if npcTalking == True:
+            if continueNpcTalk.draw(world):
+                npcCurrent = registries.animations.npcIdle
+                npcTalking = False"""
+
+        print(npcTalking)
 
         screen.blit(world, (player_x, player_y))
 

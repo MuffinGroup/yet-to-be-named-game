@@ -291,7 +291,7 @@ class registerExitButton():
         self.textureScaled = pygame.transform.scale(self.texture, (self.texture.get_width() * 3.5, self.texture.get_height() * 3.5))
         self.textureSelectedScaled = pygame.transform.scale(self.textureSelected, (self.textureSelected.get_width() * 3.5, self.textureSelected.get_height() * 3.5))
         self.rect = pygame.Rect((self.x, self.y), (self.texture.get_width() * 3.5, self.texture.get_height() * 3.5))
-        
+
     def draw(self, surface):
         pos = pygame.mouse.get_pos()
         if not self.rect.collidepoint(pos):
@@ -303,5 +303,6 @@ class registerExitButton():
             else:
                 self.clicked = False
             return self.clicked
-            #pygame.draw.rect(surface, (255, 255, 255), ((self.rect.x + 2.5, self.rect.y + 2.5), (self.rect.width - 4.5, self.rect.height - 4.5)), 3)
-        
+        pygame.draw.rect(surface, (255, 255, 255), ((self.rect.x + 2.5, self.rect.y + 2.5), (self.rect.width - 4.5, self.rect.height - 4.5)), 3)
+        print(pos)
+        print(self.rect.x, self.rect.y)
