@@ -1225,15 +1225,15 @@ def Lvl1(language):
     idleValue = 0
     walkingValue = 0
     Player.rect.x, Player.rect.y = 350, 1050
-    
+
+    pygame.mixer.music.stop()
+
     pygame.mixer.Sound.play(creepy_sound)
     
     Player.world = "lvl1"
     while True:
         #Fill the background outside of the map
         screen.fill(AQUA)
-
-        pygame.mixer.music.stop()
 
         loadBackground(lvl1_map, world)
 
