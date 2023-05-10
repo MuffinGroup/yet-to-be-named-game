@@ -351,9 +351,7 @@ cobbleModifier10 = 1
 cobbleModifier2 = 1
 cobbleModifier20 = 1
 
-lever2Off = True
-lever2On = False
-lever2Timer = 0
+plankTimer = 0
 
 tutWalking = infoPanel("src\main/assets/textures\elements\gui/info_panel.png", 8)
 
@@ -468,7 +466,7 @@ def loadExplosion(map, world):
         y += 1
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -701,21 +699,44 @@ def genWorld(world, map):
                 tut2_map[13][24] = 3
             Player.locked = False
     elif Player.world == "lvl1":
-        if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5 or pygame.key.get_pressed()[pygame.K_o]:
+        if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             pygame.mixer.music.pause()
             lvl1_map[7][24] = 13
             leverOn = True
             leverOff = False
             leverPressed += 1
-            explosionCameraTimer += 1
+            plankTimer += 1
         elif leverOn == True and Player.rect.colliderect(leverOnDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             lvl1_map[7][24] = 10
             leverOff = True
             leverOn = False
             leverPressed += 1
-        leverTimer += 1 #9 32
+        if plankTimer >= 1:
+            plankTimer += 1
+        if plankTimer == 30:
+            lvl1_map[12][11] = 0
+            lvl1_map[12][10] = 29
+            lvl1_map[13][11] = 37
+            lvl1_map[13][10] = 37
+        if plankTimer == 60:
+            lvl1_map[13][11] = 0
+            lvl1_map[13][10] = 29
+            lvl1_map[14][11] = 37
+            lvl1_map[14][10] = 37
+        if plankTimer == 90:
+            lvl1_map[14][11] = 0
+            lvl1_map[14][10] = 29
+            lvl1_map[15][11] = 37
+            lvl1_map[15][10] = 37
+        if plankTimer == 120:
+            lvl1_map[15][11] = 0
+            lvl1_map[15][10] = 29
+            lvl1_map[16][11] = 37
+            lvl1_map[16][10] = 37
+
+        leverTimer += 1
 
 def loadFluids(map, surface): 
     global fluid_rects
