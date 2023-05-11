@@ -354,6 +354,13 @@ cobbleModifier20 = 1
 plankTimer = 0
 plankCameraTimer = 0
 
+def resetVars():
+    global leverOn, leverOff, leverTimer, leverPressed
+    leverOn = False
+    leverOff = True
+    leverTimer = 0
+    leverPressed = 0
+
 tutWalking = infoPanel("src\main/assets/textures\elements\gui/info_panel.png", 8)
 
 """game_map = [[0,0,0,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0],
@@ -467,7 +474,7 @@ def loadExplosion(map, world):
         y += 1
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -593,6 +600,7 @@ def genWorld(world, map):
         doorCurrent.xRectModifier = 50
         doorCurrent.yRectModifier = -22
         pygame.mixer.Sound.play(doorsound)
+
     if n == 50:
         n = 0
         if Player.world == "tut1":
@@ -601,7 +609,6 @@ def genWorld(world, map):
             Lvl1(Player.language)
     if n >= 1 and n <= 70:
         n += 1
-
     if Player.world == "tut1":
         if Player.rect.colliderect(npc.rect) and pygame.key.get_pressed()[pygame.K_e]:
             npcCurrent = registries.animations.npcTalkingNormal
@@ -715,6 +722,16 @@ def genWorld(world, map):
             leverOff = True
             leverOn = False
             leverPressed += 1
+            plankCameraTimer += 1
+            Player.locked = True
+        if plankCameraTimer >= 1 and player_x <= -400:
+            camera_pos = (player_x + 10, player_y - 3)
+            print(player_y)
+        if plankCameraTimer >= 1 and player_x >= -400:
+            camera_pos = (-400, player_y)
+            plankCameraTimer += 1
+        if plankCameraTimer >= 32:
+            camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
         if Player.rect.x >= 864 and Player.rect.x <= 1057 and Player.rect.y == 966 and leverOn == True:
             plankTimer += 1
         if plankTimer >= 1:
@@ -872,6 +889,7 @@ def Start(language):
     optionsButton = registries.gui.registerButton("button", 6.0)
     quitButton = registries.gui.registerButton("button", 6.0)
     clock = pygame.time.Clock()
+    resetVars()
     while True:
         pygame.mixer.music.stop()
         language = Player.languageList[i]
@@ -947,6 +965,7 @@ def Tut1(language):
     pygame.mixer.music.play()
     pygame.mixer.music.set_volume(0.1)
     Player.world = "tut1"
+    resetVars()
     while True:
         #Fill the background outside of the map
         screen.fill(AQUA)
@@ -1169,7 +1188,7 @@ def Tut2(language):
     pygame.mixer.music.set_volume(0.1)
     
     Player.world = "tut2"
-    
+    resetVars()
     while True: #Render background
         world.fill(DARK_GRAY)
 
@@ -1319,6 +1338,7 @@ def Lvl1(language):
     pygame.mixer.Sound.play(creepy_sound)
     
     Player.world = "lvl1"
+    resetVars()
     while True:
         #Fill the background outside of the map
         screen.fill(AQUA)
