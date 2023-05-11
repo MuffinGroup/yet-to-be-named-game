@@ -328,7 +328,7 @@ exitChat = registries.gui.registerExitButton(85, 80)
 exitDebugMenu = registries.gui.registerExitButton(40, 75)
 #continueNpcTalk = registries.gui.registerExitButton(2950, 650, "gui\speech_bubble_button")
 
-Tut_welcome = False
+Tut_welcome = True
 Tut_walking_right = False
 Tut_walking_left = False
 
@@ -1109,8 +1109,6 @@ def Tut1(language):
             if continueNpcTalk.draw(world):
                 npcCurrent = registries.animations.npcIdle
                 npcTalking = False"""
-
-        print(npcTalking)
 
         screen.blit(world, (player_x, player_y))
 
