@@ -225,8 +225,7 @@ def TutorialRender(language):
         Player.walkingRightLocked = False
         Player.walkingLeftLocked = True
         Player.jumpingLocked = True
-        if language == 'de_de':
-            tutWalking.render(screen, screen.getwidth()//20, screen.getwidht()//20, )
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.walking_right', language), translatableComponent('text.tutorial.walking_right1', language), '', '', '', '', '', '', '', '', BLACK, -10, -10)
 
         
 def renderCoordinates():
