@@ -1,6 +1,5 @@
 import pygame
 import sys
-import json
 from typing import Tuple
 from registries.colors import *
 from registries.language import *
@@ -203,8 +202,8 @@ class Player:
         item.pickedUp = True
 
     def removeItem(item):
-        Player.holding = None
         item.pickedUp = False
+        Player.holding = None
 
 def TutorialRender(language):
     if Tut_welcome == True:
@@ -328,7 +327,7 @@ exitChat = registries.gui.registerExitButton(85, 80)
 exitDebugMenu = registries.gui.registerExitButton(40, 75)
 #continueNpcTalk = registries.gui.registerExitButton(2950, 650, "gui\speech_bubble_button")
 
-Tut_welcome = True
+Tut_welcome = False
 Tut_walking_right = False
 Tut_walking_left = False
 
@@ -1109,6 +1108,8 @@ def Tut1(language):
                 world.blit(welcome8, (3000, 850))
                 world.blit(welcome9, (3000, 875))
                 world.blit(welcome10, (3000, 900))
+            
+            Player.giveItem(world, poppy)
         renderCoordinates()
 
         if Tut_welcome == True:
