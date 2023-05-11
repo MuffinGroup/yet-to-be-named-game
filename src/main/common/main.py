@@ -82,7 +82,7 @@ class Player:
                 Player.walking = False
                 Player.moving_right = False
 
-            if key[pygame.K_LEFT] and Player.walkingRightLocked == False and Player.locked == False and Player.movementLocked == False:
+            if key[pygame.K_LEFT] and Player.walkingLeftLocked == False and Player.locked == False and Player.movementLocked == False:
                 Player.facingLeft = True
                 Player.facingRight = False
                 Player.standing = False
@@ -206,17 +206,28 @@ class Player:
         Player.holding = None
 
 def TutorialRender(language):
-    global Tut_welcome
+    global Tut_welcome, Tut_walking_right
     key = pygame.key.get_pressed()
     if Tut_welcome == True:
         if language == 'de_de':
-            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), translatableComponent('text.tutorial.welcome9', language), translatableComponent('text.tutorial.welcome10', language), WHITE, -10, -10)
+            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), translatableComponent('text.tutorial.welcome9', language), translatableComponent('text.tutorial.welcome10', language), BLACK, -10, -10)
         if language == 'en_us':
-            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), '', WHITE, -10, -10)
+            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), '', BLACK, -10, -10)
         if key[pygame.K_SPACE]:
             Tut_welcome = False
+        if key[pygame.K_RETURN]:
+            Tut_welcome = False
+            Tut_walking_right = True
     else:
         Player.locked = False
+
+    if Tut_walking_right == True:
+        Player.walkingRightLocked = False
+        Player.walkingLeftLocked = True
+        Player.jumpingLocked = True
+        if language == 'de_de':
+            tutWalking.render(screen, screen.getwidth()//20, screen.getwidht()//20, )
+
         
 def renderCoordinates():
     if Player.showPos == 1:
@@ -331,7 +342,7 @@ exitChat = registries.gui.registerExitButton(85, 80)
 exitDebugMenu = registries.gui.registerExitButton(40, 75)
 #continueNpcTalk = registries.gui.registerExitButton(2950, 650, "gui\speech_bubble_button")
 
-Tut_welcome = False
+Tut_welcome = True
 Tut_walking_right = False
 Tut_walking_left = False
 
