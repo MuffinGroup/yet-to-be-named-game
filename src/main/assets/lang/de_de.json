@@ -29,9 +29,10 @@
 "text.tutorial.welcome9": "Wenn du es spielen moechtest,",
 "text.tutorial.welcome10": "druecke ENTER.",
 
-"text.tutorial.walking_right": "Als erstes versuch zu laufen. Drücke dazu RIGHT.",
-"text.tutorial.walking_right1": "Hervorragend!",
-"text.tutorial.walking_left":"Und jetzt in die andere Richtung. Drücke dazu LINKS.",
+"text.tutorial.walking_right": "Als erstes versuch zu laufen.",
+"text.tutorial.walking_right1": "Druecke dazu RIGHT.",
+"text.tutorial.walking_right2": "Hervorragend!",
+"text.tutorial.walking_left":"Und jetzt in die andere Richtung. Druecke dazu LINKS.",
 "text.tutorial.walking_left1": "Wunderbar!",
 
 "text.tutorial.sprint": "Wenn du schneller sein möchtest, kannst du sprinten.",
