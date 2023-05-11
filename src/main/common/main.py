@@ -780,9 +780,9 @@ def genWorld(world, map):
             lvl1_map[18][11] = 29
             lvl1_map[18][10] = 0
             lvl1_map[18][9] = 29
-            lvl1_map[17][11] = 37
-            lvl1_map[17][10] = 37
-            lvl1_map[17][9] = 37
+            lvl1_map[19][11] = 37
+            lvl1_map[19][10] = 37
+            lvl1_map[19][9] = 37
 
         leverTimer += 1
 
