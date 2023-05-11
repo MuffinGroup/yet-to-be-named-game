@@ -1,5 +1,4 @@
 import pygame
-
 pygame.init()
 
 class registerItem():
@@ -10,17 +9,20 @@ class registerItem():
         self.texture = pygame.transform.scale(self.texture, (self.texture.get_width() * 2.5, self.texture.get_height() * 2.5))
     
     def drawItem(self, surface, player, x, y):
-        self.hitbox = pygame.Rect((x, y), (self.texture.get_width(), self.texture.get_height()))
-        pos = pygame.mouse.get_pos()
-        surface.blit(self.texture, (self.hitbox.x, self.hitbox.y))
+        if self.pickedUp == False:
+            self.hitbox = pygame.Rect((x, y), (self.texture.get_width(), self.texture.get_height()))
+            surface.blit(self.texture, (self.hitbox.x, self.hitbox.y))
         if self.pickedUp == True:
-            self.hitbox.x, self.hitbox.y = pygame.mouse.get_pos()
-            self.hitbox.x -= self.texture.get_width()//2
-            self.hitbox.y -= self.texture.get_height()//2
-        if self.hitbox.collidepoint(pos):
-            pygame.draw.rect(surface, (255, 255, 255), self.hitbox, 3)
-            if pygame.mouse.get_pressed()[0] == 1 and self.pickedUp == False and abs(player.rect.x - self.hitbox.x) <= 100:
+            player.holding = self.id
+            self.texture = pygame.transform.scale(self.texture, (player.rect.width//1.5, player.rect.width//1.5))
+            self.flippedTexture = pygame.transform.rotate(self.texture, -90)
+            if player.facingRight == True:
+                self.xNew, self.yNew = player.rect.x + player.rect.width//2, player.rect.y + player.rect.height//2 - 15
+            else:
+                self.xNew, self.yNew = player.rect.x - player.rect.width//16, player.rect.y + player.rect.height//2 - 15
+            self.hitbox = pygame.Rect((self.xNew, self.yNew), (self.texture.get_width(), self.texture.get_height()))
+            surface.blit(self.flippedTexture, (self.xNew, self.yNew))
+        if player.rect.colliderect(self.hitbox):
+            if pygame.key.get_pressed()[pygame.K_e]:
+                pygame.draw.rect(surface, (255, 255, 255), self.hitbox, 3)
                 self.pickedUp = True
-            if self.pickedUp == True:
-                player.holding = self
-                self.hitbox.y = player.rect.y//2

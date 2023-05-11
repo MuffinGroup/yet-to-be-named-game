@@ -200,13 +200,14 @@ class Player:
         else:
             Player.holdsItem = False
 
-        if poppy.pickedUp == True and Player.world == "tut2":
+        if poppy.pickedUp == True and Player.world == "tut2" and Player.visible == True:
             poppy.drawItem(world, Player, 0, 0)
 
     def giveItem(world, item):
-        Player.holding = item
+        Player.holding = item 
         item.drawItem(world, Player, 0, 200)
-        item.pickedUp = True
+        if Player.visible == True:
+            item.pickedUp = True
 
     def removeItem(item):
         try:
@@ -258,6 +259,7 @@ dirtElement = registries.elements.registerElement("elements/Environment/blocks/D
 coarseDirtElement = registries.elements.registerElement("elements/Environment/blocks/Coarse_Dirt", 3)
 coarseGrassElement = registries.elements.registerElement("elements/Environment/blocks/Coarse_Grass", 3)
 cobbleElement = registries.elements.registerElement("elements/Environment/blocks/cobble", 3)
+brickElement = registries.elements.registerElement("elements\Environment\Blocks/brick_wall", 3)
 cobbleMossyElement = registries.elements.registerElement("elements/Environment/blocks/cobble_mossy", 3)
 leverOffDeco = registries.elements.registerElement("elements/Environment/decoration/lever_0", 3)
 leverOnDeco = registries.elements.registerElement("elements/Environment/decoration/lever_1", 3)
@@ -276,7 +278,7 @@ bannerBlueDeco = registries.elements.registerElement("elements/Environment/decor
 bannerYellowDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner3", 5)
 doorOpenLargeElement = registries.elements.registerElement("elements/doors/door_1_open", 5)
 doorClosedLargeElement = registries.elements.registerElement("elements/doors/door_1_closed", 5)
-darkCobble = registries.elements.registerElement("elements\Environment\Blocks\Cobble(Backround)", 3)
+darkCobble = registries.elements.registerElement("elements\Environment\Blocks\Cobble(Backround)", 6)
 darkMossyCobble = registries.elements.registerElement("elements\Environment\Blocks\Mossy_cobble(Backround)", 3)
 calcite = registries.elements.registerElement("elements\Environment\Blocks\Calcite", 3)
 gravel = registries.elements.registerElement("elements\Environment\Blocks\Gravel", 3)
@@ -290,6 +292,7 @@ explosive = registries.elements.registerElement("elements\Environment\Blocks\TNT
 light_dark_cobble = registries.elements.registerElement("elements\Environment\Blocks\light_dark_cobble", 3)
 cobble_pedestal_inactive = registries.elements.registerElement("elements\Environment\Blocks\Pedestals\cobble_pedestal", 3)
 wooden_plank = registries.elements.registerElement("elements/Environment/Blocks/wooden_plank", 3)
+cobbleOffsetElement = registries.elements.registerElement("elements/Environment/blocks/cobble", 3)
 npc = registries.elements.registerAnimatedElement(8) # 37/6
 waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
@@ -373,6 +376,7 @@ cobbleModifier1 = 1
 cobbleModifier10 = 1
 cobbleModifier2 = 1
 cobbleModifier20 = 1
+element_rects = []
 
 poppyPlaced = False
 
@@ -410,10 +414,10 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [11,12,11,11,26,00,00,00,00,11,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 2, 2, 2, 2, 2, 2,21,00,22, 7, 7, 2,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,11,11,12,11,11,11,00,00,11,11,11,11],
-            [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,22, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 2],
-            [ 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,18, 9,00,00,00,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,24,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,26,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,26,11,11,00,00,11,11,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,39,00,00,00,00,22, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 2],
+            [ 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,18, 9,39,39,39,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,39,39,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,26,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,38,39,39,39,39,39,39,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 1, 6, 6, 1, 6, 6, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 1],
             [ 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 1],
@@ -458,7 +462,7 @@ lvl1_map = [[00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,00,00,00,00,00,00,00,00,0
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3,3 ,16,3 ,3 ,3 ,3 ,16,3 ,3 ,16,16,16,16,3 ,16,3 ,16,3 ,16,3 ,16,3 ,16,16,16,3 ,16,3 ,3 ,3 ,16,16,3 ,3 ,3 ,3 ,16,3 ,16,16,3 ,3 ,16],
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16,3 ,3 ,3 ,3 ,16,00,00,00,00,00,16,16,3 ,16,16,3 ,16,00,00,00,00,00,00,00,00,32,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3,16,16,3 ,16,16,00,00,00,00,00,10,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,9 ,00,00,3 ,16],
-            [ 3, 3,00,00,00,00,00,00,00,29,00,29,00,00,00,00,00,00,29,00,00,00,00,24,00,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
+            [ 3, 3,00,00,00,00,00,00,00,29,00,29,00,00,00,00,00,00,29,00,00,00,00,00,00,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
             [ 3, 3,14,00,00,00,30,00,00,29,00,29,00,00,00,00,00,00,00,00,00,23,3 ,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
             [ 3,16,00,00,00,00,00,00,00,29,00,29,00,00,00,00,00,00,00,00,23,16,16,3 ,16,3 ,16,3 ,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,3 ,00,00,00,00,00,00,00,29,00,29,00,23,3 ,3 ,3 ,3 ,3 ,3 ,3 , 3, 3, 3,16,3 ,3 ,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -503,8 +507,6 @@ def genWorld(world, map):
     element_rects = []
     deco_rects = []
     stair_rects = []
-    coin_rects = []
-    coins_hit = []
     y = 0
     
     for row in map:
@@ -563,8 +565,6 @@ def genWorld(world, map):
                 grass_end.drawRotatedElement(world, x, y, True)
             if tile == 23:
                 cobbleStairs.drawStairElement(world, x, y, False, False, element_rects)
-            if tile == 24:
-                item_image.drawElement(world, x, y, coin_rects)
             #Don't use tile 25. It is used in the loadExplosion method
             if tile == 26:
                 bush.drawElement(world, x, y, deco_rects)
@@ -590,6 +590,10 @@ def genWorld(world, map):
             if tile == 37:
                 wooden_plank.drawElement(world, x, y, element_rects)
                 wooden_plank.heightModifier = -76
+            if tile == 38:
+                cobbleOffsetElement.drawElement(world, x, y, element_rects)
+                cobbleOffsetElement.xModifier = -cobbleOffsetElement.rect.width//2
+                cobbleOffsetElement.xRectModifier = -cobbleOffsetElement.rect.width//2
             x += 1
         y += 1
 
@@ -674,9 +678,6 @@ def genWorld(world, map):
             tut2_map[8][32] = 0
             tut2_map[8][31] = 0
             tut2_map[9][31] = 0
-            explosion_sound = pygame.mixer.Sound('src/main/assets/sounds/explosion.mp3')
-            explosion_sound.set_volume(0.1)
-            pygame.mixer.Sound.play(explosion_sound)
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
             world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
             pygame.mixer.music.unpause()
@@ -716,6 +717,10 @@ def genWorld(world, map):
             if cobble1X <= 2300:
                 tut2_map[13][24] = 3
             Player.locked = False
+        if explosionCameraTimer >= 1 and explosiveTimer >= 1 and explosiveTimer < 5:
+            explosion_sound = pygame.mixer.Sound('src/main/assets/sounds/explosion.mp3')
+            explosion_sound.set_volume(0.1)
+            pygame.mixer.Sound.play(explosion_sound)
         elif explosiveTimer >= 32:
             camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
@@ -726,8 +731,7 @@ def genWorld(world, map):
                 cobbleModifier2 = -1
                 cobbleModifier20 = 4
             if cobble2X <= 2250:
-                cobble2X = 2250
-                cobble2Y = 1350
+                tut2_map[14][24] = 38
             cobble1Y -= 64*cobbleModifier1*cobbleModifier10
             cobble1X -= 192
             if cobble1X < 2720:
@@ -838,22 +842,25 @@ def loadFluids(map, surface):
             print("uwu")
 
 def loadBackground(map, surface):
-    global background_rects
+    global background_rects, element_rects
     background_rects = []
+    element_rects = []
     y = 0
     for row in map:
         x = 0
         for tile in row:
-            if Player.world == "tut1":
-                sky.drawElement(surface, x, y, background_rects)
+            if Player.world == "tut1" and tile != 39:
+                sky.drawElement(surface, x * 2, y * 2, background_rects)
             if Player.world == "tut2" and tile != 35:
                 darkCobble.drawElement(surface, x, y, background_rects)
             if Player.world == "lvl1" and tile != 35:
                 darkCobble.drawElement(surface, x, y, background_rects)
             if tile == 35:
                 darkMossyCobble.drawElement(surface, x, y, deco_rects)
-            x += 2
-        y += 2
+            if tile == 39:
+                brickElement.drawElement(surface, x, y, element_rects)
+            x += 1
+        y += 1
         
 def health():
         for i in range(Player.defaultHealth):
@@ -1318,8 +1325,6 @@ def Tut2(language):
         loadFluids(tut2_map, world)
 
         loadExplosion(tut2_map, world)
-
-        Player.itemHandling(world)
         
         #Render the map to the screen
         screen.blit(world, (player_x, player_y))
@@ -1460,8 +1465,6 @@ def Lvl1(language):
             Player.currentSprite = registries.animations.walking_sprite[walkingValue]
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
-
-        #bliting to the world
 
         if Player.visible == True:
             player.render(world)
