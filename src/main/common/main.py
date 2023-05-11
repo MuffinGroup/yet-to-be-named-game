@@ -15,7 +15,7 @@ pygame.init()
 class Player:
     #Initial Player attribute assignment
     def __init__(self):
-        Player.defaultSpeed = 11
+        Player.defaultSpeed = 40
         Player.speed = Player.defaultSpeed
         Player.facingRight = True
         Player.facingLeft = False
@@ -52,6 +52,7 @@ class Player:
         Player.air_timer = 0
         Player.holding = None
         Player.holdsItem = False
+        Player.movement = [0, 0]
 
     def keybinds(self,camera_pos):
         global player_x
@@ -189,6 +190,7 @@ class Player:
             if Player.debuggingMode == True:
                 # Drawing the hitbox to the screen
                 pygame.draw.rect(surface, (0, 255, 0), Player.rect, 4)
+            Player.itemHandling(surface)
 
     dropped = False
 
@@ -279,7 +281,7 @@ darkMossyCobble = registries.elements.registerElement("elements\Environment\Bloc
 calcite = registries.elements.registerElement("elements\Environment\Blocks\Calcite", 3)
 gravel = registries.elements.registerElement("elements\Environment\Blocks\Gravel", 3)
 grass_end = registries.elements.registerElement("elements\Environment\Blocks\grass_side", 3)
-sky = registries.elements.registerElement("elements\Environment\Sky\Sky", 1.5)
+sky = registries.elements.registerElement("elements\Environment\Sky\Sky", 3)
 cloud = registries.elements.registerElement("elements\Environment\Sky\cloud", 1.5)
 cobbleStairs = registries.elements.registerElement("elements\Environment\Blocks\Cobble_stairs", 3)
 bush = registries.elements.registerElement("elements\Environment\decoration\Plants\Small_bush", 3)
@@ -830,6 +832,11 @@ def loadFluids(map, surface):
             x += 1
         y += 1
 
+    for fluid in fluid_rects:
+        if Player.rect.colliderect(fluid) or Player.rect.colliderect(fluid):
+            Player.movement[0] -= 100
+            print("uwu")
+
 def loadBackground(map, surface):
     global background_rects
     background_rects = []
@@ -845,8 +852,8 @@ def loadBackground(map, surface):
                 darkCobble.drawElement(surface, x, y, background_rects)
             if tile == 35:
                 darkMossyCobble.drawElement(surface, x, y, deco_rects)
-            x += 1
-        y += 1
+            x += 2
+        y += 2
         
 def health():
         for i in range(Player.defaultHealth):
@@ -871,37 +878,37 @@ def move(player, movement, rectArray):
     player.x += movement[0]
     hit_list = collisionTest(player, rectArray)
     for tile in hit_list:
-        if movement[0] > 0:
+        if movement[0] > 0 and Player.collide != 1:
             player.right = tile.left
             collision_types['right'] = True
-        elif movement[0] < 0:
+        elif movement[0] < 0 and Player.collide != 1:
             player.left = tile.right
             collision_types['left'] = True
     player.y += movement[1]
     hit_list = collisionTest(player, rectArray)
     for tile in hit_list:
-        if movement[1] > 0:
+        if movement[1] > 0 and Player.collide != 1:
             player.bottom = tile.top
             collision_types['bottom'] = True
-        elif movement[1] < 0:
+        elif movement[1] < 0 and Player.collide != 1:
             player.top = tile.bottom
             collision_types['top'] = True
     return player, collision_types
 
 def movementControl(self):
-    player_movement = [0, 0]
+    Player.movement = [0, 0]
 
     if self.moving_right == True:
-        player_movement[0] += 20
+        Player.movement[0] += 20
     if self.moving_left == True:
-        player_movement[0] -= 20
+        Player.movement[0] -= 20
 
-    player_movement[1] += self.y_momentum
+    Player.movement[1] += self.y_momentum
     self.y_momentum += 1
     if self.y_momentum > 20:
         self.y_momentum = 20
 
-    self.rect, collisions = move(self.rect, player_movement, element_rects)
+    self.rect, collisions = move(self.rect, Player.movement, element_rects)
 
     if collisions['bottom']:
         self.y_momentum = 0
@@ -989,6 +996,10 @@ def commandEvent(event, language):
         chat.linesLoaded[0] = translatableComponent("command.teleport.lvl1", language)
         chat.x = chat.markerDefaultPos
         Lvl1(language)
+
+def deathEvent(language):
+    if Player.rect.y >= 4000:
+        Start(language)
 
 def parse_input(input_str: str) -> Tuple[str, int, int]:
     test_str = input_str.lower()
@@ -1078,6 +1089,12 @@ def Tut1(language):
         if Player.visible == True:
             player.render(world)
 
+        if pygame.key.get_pressed()[pygame.K_4]:
+            Player.giveItem(world, poppy)
+
+        if npcTalking == True:
+            Player.giveItem(world, poppy)
+
         loadFluids(tut1_map, world)
 
         loadExplosion(tut1_map, world)
@@ -1137,24 +1154,15 @@ def Tut1(language):
                 world.blit(welcome8, (3000, 850))
                 world.blit(welcome9, (3000, 875))
                 world.blit(welcome10, (3000, 900))
-            
-            Player.giveItem(world, poppy)
         renderCoordinates()
 
         if Tut_welcome == True:
             Player.locked = True
-        camera_pos = player.keybinds(camera_pos)
-        poppy.drawItem(world, Player, 0, 0)
-        poppy.drawItem(world, Player, 0, 100)
 
-        Player.itemHandling(world)
+        camera_pos = player.keybinds(camera_pos)
 
         if pygame.key.get_pressed()[pygame.K_3]:
             Player.removeItem(poppy)
-
-        if pygame.key.get_pressed()[pygame.K_4]:
-            Player.giveItem(world, poppy)
-
         """if npcTalking == True:
             if continueNpcTalk.draw(world):
                 npcCurrent = registries.animations.npcIdle
@@ -1214,6 +1222,7 @@ def Tut1(language):
                 Player.debuggingMenu = False
 
         TutorialRender(language)
+        deathEvent(language)
 
         clock.tick(800)
         pygame.display.flip()
@@ -1365,6 +1374,8 @@ def Tut2(language):
         if Player.debuggingMenu == True:
             if exitDebugMenu.draw(screen):
                 Player.debuggingMenu = False
+
+        deathEvent(language)
 
         clock.tick(400)
         pygame.display.flip()
@@ -1529,6 +1540,8 @@ def Lvl1(language):
         if Player.debuggingMenu == True:
             if exitDebugMenu.draw(screen):
                 Player.debuggingMenu = False
+                
+        deathEvent(language)
 
         clock.tick(800)
         pygame.display.flip()
