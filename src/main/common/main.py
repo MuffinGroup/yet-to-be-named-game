@@ -248,9 +248,9 @@ chainDeco = registries.elements.registerElement("elements/Environment/decoration
 chainPartedDeco = registries.elements.registerElement("elements/Environment/decoration/Chain/Chain(parted)", 3) 
 shieldDeco = registries.elements.registerElement("elements/Environment/decoration/Shields/Shield1", 3)
 shieldDamagedDeco = registries.elements.registerElement("elements/Environment/decoration/Shields/Shield1(harmed)", 3)
-bannerRedDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner1", 3)
-bannerBlueDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner2", 3)
-bannerYellowDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner3", 3)
+bannerRedDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner1", 5)
+bannerBlueDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner2", 5)
+bannerYellowDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner3", 5)
 doorOpenLargeElement = registries.elements.registerElement("elements/doors/door_1_open", 5)
 doorClosedLargeElement = registries.elements.registerElement("elements/doors/door_1_closed", 5)
 darkCobble = registries.elements.registerElement("elements\Environment\Blocks\Cobble(Backround)", 3)
@@ -328,7 +328,7 @@ exitChat = registries.gui.registerExitButton(85, 80)
 exitDebugMenu = registries.gui.registerExitButton(40, 75)
 #continueNpcTalk = registries.gui.registerExitButton(2950, 650, "gui\speech_bubble_button")
 
-Tut_welcome = False
+Tut_welcome = True
 Tut_walking_right = False
 Tut_walking_left = False
 
@@ -726,7 +726,6 @@ def genWorld(world, map):
             Player.locked = True
         if plankCameraTimer >= 1 and player_x <= -400:
             camera_pos = (player_x + 10, player_y - 3)
-            print(player_y)
         if plankCameraTimer >= 1 and player_x >= -400:
             camera_pos = (-400, player_y)
             plankCameraTimer += 1
@@ -764,6 +763,27 @@ def genWorld(world, map):
             lvl1_map[16][11] = 37
             lvl1_map[16][10] = 37
             lvl1_map[16][9] = 37
+        if plankTimer == 150:
+            lvl1_map[16][11] = 29
+            lvl1_map[16][10] = 0
+            lvl1_map[16][9] = 29
+            lvl1_map[17][11] = 37
+            lvl1_map[17][10] = 37
+            lvl1_map[17][9] = 37
+        if plankTimer == 180:
+            lvl1_map[17][11] = 29
+            lvl1_map[17][10] = 0
+            lvl1_map[17][9] = 29
+            lvl1_map[18][11] = 37
+            lvl1_map[18][10] = 37
+            lvl1_map[18][9] = 37
+        if plankTimer == 210:
+            lvl1_map[18][11] = 29
+            lvl1_map[18][10] = 0
+            lvl1_map[18][9] = 29
+            lvl1_map[17][11] = 37
+            lvl1_map[17][10] = 37
+            lvl1_map[17][9] = 37
 
         leverTimer += 1
 
@@ -878,7 +898,7 @@ def movementControl(self):
     else:
         Player.walkingLeftLocked = False
         Player.walkingRightLocked = False
-        Player.JumpingLocked = False
+        Player.jumpingLocked = False
     
 def Start(language):
     Player()
@@ -1110,8 +1130,6 @@ def Tut1(language):
                 npcCurrent = registries.animations.npcIdle
                 npcTalking = False"""
 
-        print(npcTalking)
-
         screen.blit(world, (player_x, player_y))
 
         if Player.debuggingMode == True:
@@ -1165,7 +1183,6 @@ def Tut1(language):
             if exitDebugMenu.draw(screen):
                 Player.debuggingMenu = False
 
-        #Player movement
         TutorialRender(language)
 
         clock.tick(800)
@@ -1315,13 +1332,11 @@ def Tut2(language):
             if exitDebugMenu.draw(screen):
                 Player.debuggingMenu = False
 
-        print(poppy.pickedUp)
-
         clock.tick(400)
         pygame.display.flip()
 
 def Lvl1(language):
-    global collisions, command, x, y, camera_pos, player_movement
+    global command, x, y, camera_pos
     enemy_x = 1000
     enemy_y = 1170
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
