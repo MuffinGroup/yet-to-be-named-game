@@ -190,11 +190,16 @@ class Player:
                 # Drawing the hitbox to the screen
                 pygame.draw.rect(surface, (0, 255, 0), Player.rect, 4)
 
-    def itemHandling():
+    dropped = False
+
+    def itemHandling(world):
         if Player.holding != None:
             Player.holdsItem = True
         else:
             Player.holdsItem = False
+
+        if poppy.pickedUp == True and Player.world == "tut2":
+            poppy.drawItem(world, Player, 0, 0)
 
     def giveItem(world, item):
         Player.holding = item
@@ -202,8 +207,11 @@ class Player:
         item.pickedUp = True
 
     def removeItem(item):
-        item.pickedUp = False
-        Player.holding = None
+        try:
+            item.pickedUp = False
+            Player.holding = None
+        except:
+            pass
 
 def TutorialRender(language):
     if Tut_welcome == True:
@@ -350,6 +358,8 @@ cobbleModifier10 = 1
 cobbleModifier2 = 1
 cobbleModifier20 = 1
 
+poppyPlaced = False
+
 plankTimer = 0
 plankCameraTimer = 0
 
@@ -473,7 +483,7 @@ def loadExplosion(map, world):
         y += 1
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -560,7 +570,7 @@ def genWorld(world, map):
                 shieldDamagedDeco.drawElement(world, x, y, deco_rects)
             #Don't use tile 35. It is used in the loadExplosion method
             if tile == 36:
-                cobble_pedestal_inactive.drawElement(world, x, y, element_rects)
+                cobble_pedestal_inactive.drawPedestalElement(world, x, y, element_rects)
             if tile == 37:
                 wooden_plank.drawElement(world, x, y, element_rects)
                 wooden_plank.heightModifier = -76
@@ -613,6 +623,11 @@ def genWorld(world, map):
             npcCurrent = registries.animations.npcTalkingNormal
             npcTalking = True
     if Player.world == "tut2":
+        if Player.rect.colliderect(cobble_pedestal_inactive.rect2) and poppy.pickedUp == True:
+            poppyPlaced = True
+        if poppyPlaced == True:
+            poppy.pickedUp = False
+            poppy.drawItem(world, Player, 1257, 1158)
         if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             exploded = True
@@ -1118,7 +1133,7 @@ def Tut1(language):
         poppy.drawItem(world, Player, 0, 0)
         poppy.drawItem(world, Player, 0, 100)
 
-        Player.itemHandling()
+        Player.itemHandling(world)
 
         if pygame.key.get_pressed()[pygame.K_3]:
             Player.removeItem(poppy)
@@ -1208,6 +1223,10 @@ def Tut2(language):
     Player.world = "tut2"
     resetVars()
     while True: #Render background
+        try:
+            print(Player.holding)
+        except:
+            pass
         world.fill(DARK_GRAY)
 
         #Fill the background outside of the map
@@ -1277,7 +1296,7 @@ def Tut2(language):
 
         loadExplosion(tut2_map, world)
 
-        Player.itemHandling()
+        Player.itemHandling(world)
         
         #Render the map to the screen
         screen.blit(world, (player_x, player_y))

@@ -19,7 +19,6 @@ class registerElement():
 		rectArray.append(self.rect)
 
 	def drawRotatedElement(self, surface, x, y, flipped):
-		self.rect = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height() + self.heightModifier))
 		if flipped == True:
 			self.flippedTexture = pygame.transform.flip(self.scaledTexture, True, False)
 			surface.blit(self.flippedTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
@@ -55,7 +54,13 @@ class registerElement():
 			surface.blit(self.flippedTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
 			rectArray.append(self.rect1)
 			rectArray.append(self.rect2)
-			
+
+	def drawPedestalElement(self, surface, x, y, rectArray):
+		self.rect1 = pygame.Rect((x * 96 + self.scale * 3 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() - self.scale * 6 + self.widthModifier, self.scaledTexture.get_height() + self.heightModifier))
+		self.rect2 = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height() + self.heightModifier))
+		surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
+		rectArray.append(self.rect1)
+
 class registerAnimatedElement():
 	def __init__(self, scale):
 		self.scale = scale
