@@ -1028,7 +1028,7 @@ def Tut1(language):
     walkingValue = 0
     
     pygame.mixer.music.load("src\main/assets\sounds\GameMusic.mp3")
-    pygame.mixer.music.play()
+    pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.1)
     Player.world = "tut1"
     resetVars()
