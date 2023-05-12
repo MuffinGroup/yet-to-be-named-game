@@ -846,7 +846,7 @@ def loadFluids(map, surface):
             if Player.rect.colliderect(fluid):
                 fluids_collding.append(fluid)
                 Player.underWater = True
-            else:
+            if not Player.rect.colliderect(fluid):
                 Player.underWater = False
 
         for collidingFluids in fluids_collding:
