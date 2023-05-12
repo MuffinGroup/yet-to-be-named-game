@@ -69,10 +69,12 @@ class Player:
         key = pygame.key.get_pressed()
 
         if Player.chatOpen == False:
-            if key[pygame.K_UP] and Player.jumpingLocked == False and Player.locked == False and Player.movementLocked == False:
+            if key[pygame.K_UP] and Player.jumpingLocked == False and Player.locked == False and Player.movementLocked == False and Player.underWater == False:
                 if Player.air_timer < 8:
                     Player.y_momentum = -30
                     pygame.mixer.Sound.play(jumpsound)
+            elif key[pygame.K_UP] and Player.jumpingLocked == False and Player.locked == False and Player.movementLocked == False and Player.underWater == True:
+                Player.y_momentum = -5
                     
             if key[pygame.K_RIGHT] and Player.walkingRightLocked == False and Player.locked == False and Player.movementLocked == False:
                 Player.facingLeft = False
@@ -262,8 +264,8 @@ coarseGrassElement = registries.elements.registerElement("elements/Environment/b
 cobbleElement = registries.elements.registerElement("elements/Environment/blocks/cobble", 3)
 brickElement = registries.elements.registerElement("elements\Environment\Blocks/brick_wall", 3)
 cobbleMossyElement = registries.elements.registerElement("elements/Environment/blocks/cobble_mossy", 3)
-leverOffDeco = registries.elements.registerElement("elements/Environment/decoration/lever_0", 3)
-leverOnDeco = registries.elements.registerElement("elements/Environment/decoration/lever_1", 3)
+leverOnDeco = registries.elements.registerElement("elements\Environment\decoration\Lever\Lever(activated)", 3)
+leverOffDeco = registries.elements.registerElement("elements\Environment\decoration\Lever\Lever(deactivated)", 3)
 poppyDeco = registries.elements.registerElement("elements\Environment\decoration\Plants\poppy", 3)
 grassDeco = registries.elements.registerElement("elements/Environment/decoration/Plants/grass", 3)
 torchLeftDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=left)", 3)
@@ -284,7 +286,7 @@ darkMossyCobble = registries.elements.registerElement("elements\Environment\Bloc
 calcite = registries.elements.registerElement("elements\Environment\Blocks\Calcite", 3)
 gravel = registries.elements.registerElement("elements\Environment\Blocks\Gravel", 3)
 grass_end = registries.elements.registerElement("elements\Environment\Blocks\grass_side", 3)
-sky = registries.elements.registerElement("elements\Environment\Sky\Sky", 3)
+sky = registries.elements.registerElement("elements\Environment\Sky\Sky", 6)
 cloud = registries.elements.registerElement("elements\Environment\Sky\cloud", 1.5)
 cobbleStairs = registries.elements.registerElement("elements\Environment\Blocks\Cobble_stairs", 3)
 bush = registries.elements.registerElement("elements\Environment\decoration\Plants\Small_bush", 3)
@@ -446,9 +448,9 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3, 3,16, 3, 3, 3, 3,00,00,00, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3, 3,00,00,00,00,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 5, 5, 5, 5, 3,16,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 4, 4, 4, 4,16, 3,16,16, 3, 3,16, 3, 3,16, 3, 3, 3,16,16, 3, 3,16, 3, 3, 3,16,16, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3,16, 4, 4, 4, 4,16, 3,16, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,16, 3,16, 3,16,16, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 5, 5, 5, 5, 5, 5, 5, 5, 3,16,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 4, 4, 4, 4, 5, 5, 5, 5,16, 3,16,16, 3, 3,16, 3, 3,16, 3, 3, 3,16,16, 3, 3,16, 3, 3, 3,16,16, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3,16, 4, 4, 4, 4, 5, 5, 5, 5,16, 3,16, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,16, 3,16, 3,16,16, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16,16, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3,16, 3,16, 3, 3, 3, 3,16,16, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 3,16,16, 3, 3,16, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16,16,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -825,6 +827,7 @@ drownTime = 0
 def loadFluids(map, surface): 
     global fluid_rects, drownTime
     fluid_rects = []
+    fluids_collding = []
     y = 0
     
     for row in map:
@@ -840,14 +843,19 @@ def loadFluids(map, surface):
     if Player.world == "tut2":
 
         for fluid in fluid_rects:
-            pygame.draw.rect(surface, (255, 255, 255), fluid, 3)
             if Player.rect.colliderect(fluid):
-                drownTime += 4
+                fluids_collding.append(fluid)
                 Player.underWater = True
-                print("collide water")
-            elif not Player.rect.colliderect(fluid):
-                if drownTime > 0:
-                    drownTime -= 1
+            else:
+                Player.underWater = False
+
+        for collidingFluids in fluids_collding:
+            pygame.draw.rect(surface, (255, 255, 255), collidingFluids, 3)
+            drownTime += 4
+            print("collide water")
+            pygame.draw.rect(surface, WHITE, Player.rect, 3)
+            if drownTime > 0:
+                drownTime -= 1
         
             if drownTime >= 120 or Player.dead == True:
                 Player.damage(1)
@@ -863,7 +871,7 @@ def loadBackground(map, surface):
         x = 0
         for tile in row:
             if Player.world == "tut1" and tile != 39:
-                sky.drawElement(surface, x * 2, y * 2, background_rects)
+                sky.drawElement(surface, x * 4, y * 4, background_rects)
             if Player.world == "tut2" and tile != 35:
                 darkCobble.drawElement(surface, x, y, background_rects)
             if Player.world == "lvl1" and tile != 35:
@@ -920,8 +928,12 @@ def movementControl(self):
 
     if self.moving_right == True and Player.underWater == False:
         Player.movement[0] += 20
+    elif self.moving_right == True and Player.underWater == True:
+        Player.movement[0] += 5
     if self.moving_left == True and Player.underWater == False:
         Player.movement[0] -= 20
+    elif self.moving_left == True and Player.underWater == True:
+        Player.movement[0] -= 5
 
     Player.movement[1] += self.y_momentum
     self.y_momentum += 1
