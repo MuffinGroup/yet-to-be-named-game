@@ -53,6 +53,7 @@ class Player:
         Player.holding = None
         Player.holdsItem = False
         Player.movement = [0, 0]
+        Player.underWater = False
 
     def keybinds(self,camera_pos):
         global player_x
@@ -278,7 +279,7 @@ bannerBlueDeco = registries.elements.registerElement("elements/Environment/decor
 bannerYellowDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner3", 5)
 doorOpenLargeElement = registries.elements.registerElement("elements/doors/door_1_open", 5)
 doorClosedLargeElement = registries.elements.registerElement("elements/doors/door_1_closed", 5)
-darkCobble = registries.elements.registerElement("elements\Environment\Blocks\Cobble(Backround)", 6)
+darkCobble = registries.elements.registerElement("elements\Environment\Blocks\Cobble(Backround)", 3)
 darkMossyCobble = registries.elements.registerElement("elements\Environment\Blocks\Mossy_cobble(Backround)", 3)
 calcite = registries.elements.registerElement("elements\Environment\Blocks\Calcite", 3)
 gravel = registries.elements.registerElement("elements\Environment\Blocks\Gravel", 3)
@@ -820,9 +821,9 @@ def genWorld(world, map):
             lvl1_map[19][9] = 37
 
         leverTimer += 1
-
+drownTime = 0
 def loadFluids(map, surface): 
-    global fluid_rects
+    global fluid_rects, drownTime
     fluid_rects = []
     y = 0
     
@@ -836,10 +837,22 @@ def loadFluids(map, surface):
             x += 1
         y += 1
 
-    for fluid in fluid_rects:
-        if Player.rect.colliderect(fluid) or Player.rect.colliderect(fluid):
-            Player.movement[0] -= 100
-            print("uwu")
+    if Player.world == "tut2":
+
+        for fluid in fluid_rects:
+            pygame.draw.rect(surface, (255, 255, 255), fluid, 3)
+            if Player.rect.colliderect(fluid):
+                drownTime += 4
+                Player.underWater = True
+                print("collide water")
+            elif not Player.rect.colliderect(fluid):
+                if drownTime > 0:
+                    drownTime -= 1
+        
+            if drownTime >= 120 or Player.dead == True:
+                Player.damage(1)
+                drownTime = 0
+            print(drownTime)
 
 def loadBackground(map, surface):
     global background_rects, element_rects
@@ -905,9 +918,9 @@ def move(player, movement, rectArray):
 def movementControl(self):
     Player.movement = [0, 0]
 
-    if self.moving_right == True:
+    if self.moving_right == True and Player.underWater == False:
         Player.movement[0] += 20
-    if self.moving_left == True:
+    if self.moving_left == True and Player.underWater == False:
         Player.movement[0] -= 20
 
     Player.movement[1] += self.y_momentum
