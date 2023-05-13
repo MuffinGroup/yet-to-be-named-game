@@ -56,8 +56,7 @@ class Player:
         Player.underWater = False
 
     def keybinds(self,camera_pos):
-        global player_x
-        global player_y
+        global player_x, player_y, key
         self.doorhandling = 0 #Door mechanics
         player_x = self.rect.x #Camera following the player
         player_y = self.rect.y
@@ -221,7 +220,6 @@ class Player:
 
 def TutorialRender(language):
     global Tut_welcome, Tut_walking_right
-    key = pygame.key.get_pressed()
     if Tut_welcome == True:
         if language == 'de_de':
             tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), translatableComponent('text.tutorial.welcome9', language), translatableComponent('text.tutorial.welcome10', language), BLACK, -10, -10)
@@ -414,12 +412,12 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,22, 2, 2, 2, 2, 2, 2, 2, 2],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 1, 1, 1, 1, 1, 1, 1, 1],
-            [11,12,11,11,26,00,00,00,00,11,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,00,00,00,00,00,00,00,00,00,00,00, 1, 1, 1, 6, 6, 1, 1, 1],
-            [ 2, 2, 2, 2, 2, 2,21,00,22, 7, 7, 2,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,00,00,00,00,00,00,00,11,11,12,11, 1,1 , 6, 6, 6, 6, 1, 1],
-            [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,00,00,00,00,00,00,22, 7, 7, 7, 2, 1, 1, 6, 6, 6, 6, 6, 1],
-            [ 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,18, 9,39,00,00,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,00,00,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,26,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,38,39,39,39,39,00,00,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6],
+            [11,12,11,11,26,00,00,00,00,11,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,39,00,00,00,00,00,00,00,00,00, 1, 1, 1, 6, 6, 1, 1, 1],
+            [ 2, 2, 2, 2, 2, 2,21,00,22, 7, 7, 2,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,39,00,00,00,00,00,11,11,12,11, 1,1 , 6, 6, 6, 6, 1, 1],
+            [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,39,00,00,00,00,22, 7, 7, 7, 2, 1, 1, 6, 6, 6, 6, 6, 1],
+            [ 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,18, 9,39,39,39,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,39,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,26,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,00,00,39,39,39,39,39,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 1, 6, 6, 1, 6, 6, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 1],
             [ 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 1],
@@ -606,7 +604,7 @@ def genWorld(world, map):
         if poppyPlaced == True:
             poppy.pickedUp = False
             poppy.drawItem(world, Player, 1257, 1158)
-        if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
+        if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             exploded = True
             pygame.mixer.music.pause()
@@ -615,7 +613,7 @@ def genWorld(world, map):
             leverOff = False
             leverPressed += 1
             explosionCameraTimer += 1
-        elif leverOn == True and Player.rect.colliderect(leverOnDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
+        elif leverOn == True and Player.rect.colliderect(leverOnDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             tut2_map[13][42] = 10
             leverOff = True
@@ -699,7 +697,7 @@ def genWorld(world, map):
                 tut2_map[13][24] = 3
             Player.locked = False
     elif Player.world == "lvl1":
-        if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
+        if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             pygame.mixer.music.pause()
             lvl1_map[7][24] = 13
@@ -708,7 +706,7 @@ def genWorld(world, map):
             leverPressed += 1
             plankCameraTimer += 1
             Player.locked = True
-        elif leverOn == True and Player.rect.colliderect(leverOnDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
+        elif leverOn == True and Player.rect.colliderect(leverOnDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             lvl1_map[7][24] = 10
             leverOff = True
@@ -865,7 +863,7 @@ def loadForeGround(map, surface):
                 npc.yRectModifier = 120
             x += 1
         y += 1
-    if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
+    if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and key[pygame.K_e]:
         if Player.world != "tut1":
             doorCurrent = doorOpenLargeElement
             doorCurrent.yModifier = -22
@@ -898,7 +896,7 @@ def loadForeGround(map, surface):
     if n >= 1 and n <= 70:
         n += 1
     if Player.world == "tut1":
-        if Player.rect.colliderect(npc.rect) and pygame.key.get_pressed()[pygame.K_e]:
+        if Player.rect.colliderect(npc.rect) and key[pygame.K_e]:
             npcCurrent = registries.animations.npcTalkingNormal
             npcTalking = True
 
@@ -1000,7 +998,6 @@ def Start(language):
     while True:
         pygame.mixer.music.stop()
         language = Player.languageList[i]
-        key = pygame.key.get_pressed()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -1143,7 +1140,7 @@ def Tut1(language):
         if Player.visible == True:
             player.render(world)
 
-        if pygame.key.get_pressed()[pygame.K_4]:
+        if key[pygame.K_4]:
             Player.giveItem(world, poppy)
 
         if npcTalking == True:
@@ -1215,7 +1212,7 @@ def Tut1(language):
 
         camera_pos = player.keybinds(camera_pos)
 
-        if pygame.key.get_pressed()[pygame.K_3]:
+        if key[pygame.K_3]:
             Player.removeItem(poppy)
         """if npcTalking == True:
             if continueNpcTalk.draw(world):
