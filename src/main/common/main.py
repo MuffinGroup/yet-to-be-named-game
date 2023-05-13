@@ -1049,6 +1049,7 @@ def commandEvent(event, language):
 def deathEvent(language):
     if Player.rect.y >= 4000:
         Start(language)
+        Player.dead = True
 
 def parse_input(input_str: str) -> Tuple[str, int, int]:
     test_str = input_str.lower()
@@ -1075,6 +1076,7 @@ def Tut1(language):
     Player.world = "tut1"
     resetVars()
     while True:
+        key = pygame.key.get_pressed()
         #Fill the background outside of the map
         screen.fill(AQUA)
 
