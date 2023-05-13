@@ -296,6 +296,8 @@ wooden_plank = registries.elements.registerElement("elements/Environment/Blocks/
 cobbleOffsetElement = registries.elements.registerElement("elements/Environment/blocks/cobble", 3)
 towerWallBottom = registries.elements.registerElement("elements\Environment\Blocks/tower_wall", 3)
 towerWall = registries.elements.registerElement("elements\Environment\Blocks/tower_wall2", 3)
+towerWallTop= registries.elements.registerElement("elements\Environment\Blocks/tower_wall3", 3)
+towerWallLong = registries.elements.registerElement("elements/Environment/Blocks/tower_wall4", 3)
 npc = registries.elements.registerAnimatedElement(8) # 37/6
 waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
@@ -420,9 +422,9 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 1, 1, 1, 1, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,22, 2, 2, 2, 2, 2, 2, 2, 2],
             [ 1, 1, 1, 1, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 1, 1, 1, 1, 1, 1, 1, 1],
             [ 1, 1, 1, 1, 1,00,00,00,00,11,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,44,39,39,39,45,00,00,00,00,00,00,00,00,00, 1, 1, 1, 6, 6, 1, 1, 1],
-            [ 1, 1, 1, 1, 1, 2,21,00,22, 7, 7, 2,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,42,39,39,39,43,00,00,00,00,00,11,11,12,11, 1,1 , 6, 6, 6, 6, 1, 1],
+            [ 1, 1, 1, 1, 1, 2,21,00,22, 7, 7, 2,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,46,39,39,39,47,00,00,00,00,00,11,11,12,11, 1,1 , 6, 6, 6, 6, 1, 1],
             [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,42,39,39,39,43,00,00,00,00,22, 7, 7, 7, 2, 1, 1, 6, 6, 6, 6, 6, 1],
-            [ 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,18,42, 9,39,39,43,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,18,46, 9,39,39,47,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,42,39,39,39,43,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,26,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,00,00,40,39,39,39,41,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6],
@@ -601,9 +603,13 @@ def genWorld(world, map):
             if tile == 43:
                 towerWall.drawRotatedElement(world, x, y, True)
             if tile ==  44:
-                towerWallBottom.drawStairElement(world, x, y, False, True, deco_rects)
+                towerWallTop.drawStairElement(world, x, y, True, False, deco_rects)
             if tile == 45:
-                towerWallBottom.drawStairElement(world, x, y, True, True, deco_rects)
+                towerWallTop.drawStairElement(world, x, y, False, False, deco_rects)
+            if tile == 46:
+                towerWallLong.drawRotatedElement(world, x, y, False)
+            if tile == 47:
+                towerWallLong.drawRotatedElement(world, x, y, True)
             x += 1
         y += 1
 
