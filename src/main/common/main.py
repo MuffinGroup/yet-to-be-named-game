@@ -413,14 +413,14 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [11,12,11,11,26,00,00,00,00,11,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 2, 2, 2, 2, 2, 2,21,00,22, 7, 7, 2,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,11,11,12,11,11,11,00,00,11,11,11,11],
-            [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,39,00,00,00,00,22, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 2],
-            [ 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,18, 9,39,39,39,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,39,39,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,26,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,38,39,39,39,39,39,39,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,22, 2, 2, 2, 2, 2, 2, 2, 2],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 1, 1, 1, 1, 1, 1, 1, 1],
+            [11,12,11,11,26,00,00,00,00,11,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,00,00,00,00,00,00,00,00,00,00,00, 1, 1, 1, 6, 6, 1, 1, 1],
+            [ 2, 2, 2, 2, 2, 2,21,00,22, 7, 7, 2,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,00,00,00,00,00,00,00,11,11,12,11, 1,1 , 6, 6, 6, 6, 1, 1],
+            [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,00,00,00,00,00,00,22, 7, 7, 7, 2, 1, 1, 6, 6, 6, 6, 6, 1],
+            [ 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,18, 9,39,00,00,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,00,00,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,26,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,38,39,39,39,39,00,00,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 1, 6, 6, 1, 6, 6, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 1],
             [ 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 1],
@@ -527,12 +527,6 @@ def genWorld(world, map):
                 coarseGrassElement.drawElement(world, x, y, element_rects)
             if tile == 8:
                 leverOnDeco.drawElement(world, x, y, deco_rects)
-            if tile == 9:
-                doorCurrent.drawElement(world, x, y, deco_rects)
-                doorCurrent.yModifier = -22
-                doorCurrent.widthModifier = -75
-                doorCurrent.xRectModifier = 50
-                doorCurrent.yRectModifier = -22
             if tile == 10:
                 leverOffDeco.drawElement(world, x, y, deco_rects)
             if tile == 11:
@@ -549,13 +543,6 @@ def genWorld(world, map):
                 cobbleMossyElement.drawElement(world, x, y, element_rects)
             if tile == 17:
                 torchDeco.drawElement(world, x, y, deco_rects)
-            if tile == 18:
-                npc.drawAnimatedElement(world, x, y, deco_rects, npcCurrent)
-                npc.yModifier = 32
-                npc.widthModifier = -160
-                npc.heightModifier = -100
-                npc.xRectModifier = 80
-                npc.yRectModifier = 120
             if tile == 19:
                 gravel.drawElement(world, x, y, element_rects)
             if tile == 20:
@@ -587,7 +574,7 @@ def genWorld(world, map):
                 bannerYellowDeco.drawElement(world, x, y, deco_rects)
             if tile == 34:
                 shieldDamagedDeco.drawElement(world, x, y, deco_rects)
-            #Don't use tile 35. It is used in the loadExplosion method
+            #Don't use tile 35 it is used for background loading
             if tile == 36:
                 cobble_pedestal_inactive.drawPedestalElement(world, x, y, element_rects)
             if tile == 37:
@@ -597,6 +584,12 @@ def genWorld(world, map):
                 cobbleOffsetElement.drawElement(world, x, y, element_rects)
                 cobbleOffsetElement.xModifier = -cobbleOffsetElement.rect.width//2
                 cobbleOffsetElement.xRectModifier = -cobbleOffsetElement.rect.width//2
+            if tile == 39:
+                brickElement.drawElement(world, x, y, deco_rects)
+            if Player.world == "tut1" and tile == 9:
+                brickElement.drawElement(world, x, y, deco_rects)
+            if Player.world == "tut1" and tile == 18:
+                brickElement.drawElement(world, x, y, deco_rects)
             x += 1
         y += 1
 
@@ -607,44 +600,7 @@ def genWorld(world, map):
     for tiles in deco_rects:
         if Player.debuggingMode == True:
             pygame.draw.rect(world, (255, 255, 255), tiles, 3)
- 
-    if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
-        if Player.world != "tut1":
-            doorCurrent = doorOpenLargeElement
-            doorCurrent.yModifier = -22
-            doorCurrent.widthModifier = -75
-            doorCurrent.xRectModifier = 50
-            doorCurrent.yRectModifier = -22
-            n += 1
-        elif not Player.rect.colliderect(npc.rect):
-            doorCurrent = doorOpenLargeElement
-            doorCurrent.yModifier = -22
-            doorCurrent.widthModifier = -75
-            doorCurrent.xRectModifier = 50
-            doorCurrent.yRectModifier = -22
-            n += 1
 
-    if n == 40:
-        Player.visible = False
-        doorCurrent = doorClosedLargeElement
-        doorCurrent.yModifier = -22
-        doorCurrent.widthModifier = -75
-        doorCurrent.xRectModifier = 50
-        doorCurrent.yRectModifier = -22
-        pygame.mixer.Sound.play(doorsound)
-
-    if n == 50:
-        n = 0
-        if Player.world == "tut1":
-            Tut2(Player.language)
-        elif Player.world == "tut2":
-            Lvl1(Player.language)
-    if n >= 1 and n <= 70:
-        n += 1
-    if Player.world == "tut1":
-        if Player.rect.colliderect(npc.rect) and pygame.key.get_pressed()[pygame.K_e]:
-            npcCurrent = registries.animations.npcTalkingNormal
-            npcTalking = True
     if Player.world == "tut2":
         if Player.rect.colliderect(cobble_pedestal_inactive.rect2) and poppy.pickedUp == True:
             poppyPlaced = True
@@ -878,10 +834,68 @@ def loadBackground(map, surface):
                 darkCobble.drawElement(surface, x, y, background_rects)
             if tile == 35:
                 darkMossyCobble.drawElement(surface, x, y, deco_rects)
-            if tile == 39:
-                brickElement.drawElement(surface, x, y, element_rects)
             x += 1
         y += 1
+
+def loadForeGround(map, surface):
+    global foreground_rects, npcTalking, doorCurrent, n, npcCurrent, npcTalking
+    foreground_rects = []
+    y = 0
+    for row in map:
+        x = 0
+        for tile in row:
+            if tile == 9:
+                doorCurrent.drawElement(surface, x, y, deco_rects)
+                doorCurrent.yModifier = -22
+                doorCurrent.widthModifier = -75
+                doorCurrent.xRectModifier = 50
+                doorCurrent.yRectModifier = -22
+            if tile == 18:
+                npc.drawAnimatedElement(surface, x, y, foreground_rects, npcCurrent)
+                npc.yModifier = 32
+                npc.widthModifier = -160
+                npc.heightModifier = -100
+                npc.xRectModifier = 80
+                npc.yRectModifier = 120
+            x += 1
+        y += 1
+    if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and pygame.key.get_pressed()[pygame.K_e]:
+        if Player.world != "tut1":
+            doorCurrent = doorOpenLargeElement
+            doorCurrent.yModifier = -22
+            doorCurrent.widthModifier = -75
+            doorCurrent.xRectModifier = 50
+            doorCurrent.yRectModifier = -22
+            n += 1
+        elif not Player.rect.colliderect(npc.rect):
+            doorCurrent = doorOpenLargeElement
+            doorCurrent.yModifier = -22
+            doorCurrent.widthModifier = -75
+            doorCurrent.xRectModifier = 50
+            doorCurrent.yRectModifier = -22
+            n += 1
+
+    if n == 40:
+        Player.visible = False
+        doorCurrent = doorClosedLargeElement
+        doorCurrent.yModifier = -22
+        doorCurrent.widthModifier = -75
+        doorCurrent.xRectModifier = 50
+        doorCurrent.yRectModifier = -22
+        pygame.mixer.Sound.play(doorsound) 
+    if n == 50:
+        n = 0
+        if Player.world == "tut1":
+            Tut2(Player.language)
+        elif Player.world == "tut2":
+            Lvl1(Player.language)
+    if n >= 1 and n <= 70:
+        n += 1
+    if Player.world == "tut1":
+        if Player.rect.colliderect(npc.rect) and pygame.key.get_pressed()[pygame.K_e]:
+            npcCurrent = registries.animations.npcTalkingNormal
+            npcTalking = True
+
         
 def health():
         for i in range(Player.defaultHealth):
@@ -1064,6 +1078,8 @@ def Tut1(language):
         loadBackground(tut1_map, world)
 
         genWorld(world, tut1_map)
+
+        loadForeGround(tut1_map, world)
 
         movementControl(Player)
 
@@ -1291,6 +1307,8 @@ def Tut2(language):
         
         genWorld(world, tut2_map)
 
+        loadForeGround(tut2_map, world)
+
         movementControl(Player)
 
         try:
@@ -1436,6 +1454,8 @@ def Lvl1(language):
         loadBackground(lvl1_map, world)
 
         genWorld(world, lvl1_map)
+
+        loadForeGround(tut1_map, world)
 
         movementControl(Player)
 
