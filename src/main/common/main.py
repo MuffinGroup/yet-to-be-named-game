@@ -774,14 +774,7 @@ def genWorld(world, map):
             lvl1_map[19][11] = 37
             lvl1_map[19][10] = 37
             lvl1_map[19][9] = 37
-        if plankTimer == 240:
-            lvl1_map[19][11] = 29
-            lvl1_map[19][10] = 0
-            lvl1_map[19][9] = 29
-            lvl1_map[20][11] = 37
-            lvl1_map[20][10] = 37
-            lvl1_map[20][9] = 37   
-
+            
         leverTimer += 1
 drownTime = 0
 def loadFluids(map, surface): 
