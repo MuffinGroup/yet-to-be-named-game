@@ -592,8 +592,6 @@ def genWorld(world, map):
                 brickElement.drawElement(world, x, y, deco_rects)
             if Player.world == "tut1" and tile == 9:
                 brickElement.drawElement(world, x, y, deco_rects)
-            if Player.world == "tut1" and tile == 18:
-                brickElement.drawElement(world, x, y, deco_rects)
             if tile ==  40:
                 towerWallBottom.drawRotatedElement(world, x, y, False)
             if tile == 41:
@@ -711,6 +709,7 @@ def genWorld(world, map):
             if cobble1X <= 2300:
                 tut2_map[13][24] = 3
             Player.locked = False
+
     elif Player.world == "lvl1":
         if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
