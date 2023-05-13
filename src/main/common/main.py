@@ -1,6 +1,5 @@
 import pygame
 import sys
-import json
 from typing import Tuple
 from registries.colors import *
 from registries.language import *
@@ -16,7 +15,7 @@ pygame.init()
 class Player:
     #Initial Player attribute assignment
     def __init__(self):
-        Player.defaultSpeed = 11
+        Player.defaultSpeed = 40
         Player.speed = Player.defaultSpeed
         Player.facingRight = True
         Player.facingLeft = False
@@ -53,6 +52,8 @@ class Player:
         Player.air_timer = 0
         Player.holding = None
         Player.holdsItem = False
+        Player.movement = [0, 0]
+        Player.underWater = False
 
     def keybinds(self,camera_pos):
         global player_x
@@ -68,10 +69,12 @@ class Player:
         key = pygame.key.get_pressed()
 
         if Player.chatOpen == False:
-            if key[pygame.K_UP] and Player.jumpingLocked == False and Player.locked == False and Player.movementLocked == False:
+            if key[pygame.K_UP] and Player.jumpingLocked == False and Player.locked == False and Player.movementLocked == False and Player.underWater == False:
                 if Player.air_timer < 8:
                     Player.y_momentum = -30
                     pygame.mixer.Sound.play(jumpsound)
+            elif key[pygame.K_UP] and Player.jumpingLocked == False and Player.locked == False and Player.movementLocked == False and Player.underWater == True:
+                Player.y_momentum = -5
                     
             if key[pygame.K_RIGHT] and Player.walkingRightLocked == False and Player.locked == False and Player.movementLocked == False:
                 Player.facingLeft = False
@@ -83,7 +86,7 @@ class Player:
                 Player.walking = False
                 Player.moving_right = False
 
-            if key[pygame.K_LEFT] and Player.walkingRightLocked == False and Player.locked == False and Player.movementLocked == False:
+            if key[pygame.K_LEFT] and Player.walkingLeftLocked == False and Player.locked == False and Player.movementLocked == False:
                 Player.facingLeft = True
                 Player.facingRight = False
                 Player.standing = False
@@ -190,30 +193,54 @@ class Player:
             if Player.debuggingMode == True:
                 # Drawing the hitbox to the screen
                 pygame.draw.rect(surface, (0, 255, 0), Player.rect, 4)
+            Player.itemHandling(surface)
 
-    def itemHandling():
+    dropped = False
+
+    def itemHandling(world):
         if Player.holding != None:
             Player.holdsItem = True
         else:
             Player.holdsItem = False
 
+        if poppy.pickedUp == True and Player.world == "tut2" and Player.visible == True:
+            poppy.drawItem(world, Player, 0, 0)
+
     def giveItem(world, item):
-        Player.holding = item
+        Player.holding = item 
         item.drawItem(world, Player, 0, 200)
-        item.pickedUp = True
+        if Player.visible == True:
+            item.pickedUp = True
 
     def removeItem(item):
-        Player.holding = None
-        item.pickedUp = False
+        try:
+            item.pickedUp = False
+            Player.holding = None
+        except:
+            pass
 
 def TutorialRender(language):
+    global Tut_welcome, Tut_walking_right
+    key = pygame.key.get_pressed()
     if Tut_welcome == True:
         if language == 'de_de':
-            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), translatableComponent('text.tutorial.welcome9', language), translatableComponent('text.tutorial.welcome10', language), WHITE, -10, -10)
+            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), translatableComponent('text.tutorial.welcome9', language), translatableComponent('text.tutorial.welcome10', language), BLACK, -10, -10)
         if language == 'en_us':
-            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), '', WHITE, -10, -10)
+            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), '', BLACK, -10, -10)
+        if key[pygame.K_SPACE]:
+            Tut_welcome = False
+        if key[pygame.K_RETURN]:
+            Tut_welcome = False
+            Tut_walking_right = True
     else:
         Player.locked = False
+
+    if Tut_walking_right == True:
+        Player.walkingRightLocked = False
+        Player.walkingLeftLocked = True
+        Player.jumpingLocked = True
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.walking_right', language), translatableComponent('text.tutorial.walking_right1', language), '', '', '', '', '', '', '', '', BLACK, -10, -10)
+
         
 def renderCoordinates():
     if Player.showPos == 1:
@@ -235,9 +262,10 @@ dirtElement = registries.elements.registerElement("elements/Environment/blocks/D
 coarseDirtElement = registries.elements.registerElement("elements/Environment/blocks/Coarse_Dirt", 3)
 coarseGrassElement = registries.elements.registerElement("elements/Environment/blocks/Coarse_Grass", 3)
 cobbleElement = registries.elements.registerElement("elements/Environment/blocks/cobble", 3)
+brickElement = registries.elements.registerElement("elements\Environment\Blocks/brick_wall", 3)
 cobbleMossyElement = registries.elements.registerElement("elements/Environment/blocks/cobble_mossy", 3)
-leverOffDeco = registries.elements.registerElement("elements/Environment/decoration/lever_0", 3)
-leverOnDeco = registries.elements.registerElement("elements/Environment/decoration/lever_1", 3)
+leverOnDeco = registries.elements.registerElement("elements\Environment\decoration\Lever\Lever(activated)", 3)
+leverOffDeco = registries.elements.registerElement("elements\Environment\decoration\Lever\Lever(deactivated)", 3)
 poppyDeco = registries.elements.registerElement("elements\Environment\decoration\Plants\poppy", 3)
 grassDeco = registries.elements.registerElement("elements/Environment/decoration/Plants/grass", 3)
 torchLeftDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=left)", 3)
@@ -258,7 +286,7 @@ darkMossyCobble = registries.elements.registerElement("elements\Environment\Bloc
 calcite = registries.elements.registerElement("elements\Environment\Blocks\Calcite", 3)
 gravel = registries.elements.registerElement("elements\Environment\Blocks\Gravel", 3)
 grass_end = registries.elements.registerElement("elements\Environment\Blocks\grass_side", 3)
-sky = registries.elements.registerElement("elements\Environment\Sky\Sky", 1.5)
+sky = registries.elements.registerElement("elements\Environment\Sky\Sky", 6)
 cloud = registries.elements.registerElement("elements\Environment\Sky\cloud", 1.5)
 cobbleStairs = registries.elements.registerElement("elements\Environment\Blocks\Cobble_stairs", 3)
 bush = registries.elements.registerElement("elements\Environment\decoration\Plants\Small_bush", 3)
@@ -267,6 +295,7 @@ explosive = registries.elements.registerElement("elements\Environment\Blocks\TNT
 light_dark_cobble = registries.elements.registerElement("elements\Environment\Blocks\light_dark_cobble", 3)
 cobble_pedestal_inactive = registries.elements.registerElement("elements\Environment\Blocks\Pedestals\cobble_pedestal", 3)
 wooden_plank = registries.elements.registerElement("elements/Environment/Blocks/wooden_plank", 3)
+cobbleOffsetElement = registries.elements.registerElement("elements/Environment/blocks/cobble", 3)
 npc = registries.elements.registerAnimatedElement(8) # 37/6
 waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
@@ -349,6 +378,9 @@ cobbleModifier1 = 1
 cobbleModifier10 = 1
 cobbleModifier2 = 1
 cobbleModifier20 = 1
+element_rects = []
+
+poppyPlaced = False
 
 plankTimer = 0
 plankCameraTimer = 0
@@ -384,10 +416,10 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [11,12,11,11,26,00,00,00,00,11,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [ 2, 2, 2, 2, 2, 2,21,00,22, 7, 7, 2,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,11,11,12,11,11,11,00,00,11,11,11,11],
-            [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,22, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 2],
-            [ 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,18, 9,00,00,00,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,26,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,26,11,11,00,00,11,11,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,39,00,00,00,00,22, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 2],
+            [ 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,18, 9,39,39,39,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,39,39,39,39,39,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6],
+            [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,26,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,38,39,39,39,39,39,39,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6],
             [ 1, 1, 1, 1, 1, 6, 6, 1, 6, 6, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 1],
             [ 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 1],
@@ -415,9 +447,9 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3, 3,16, 3, 3, 3, 3,00,00,00, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3, 3,00,00,00,00,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 5, 5, 5, 5, 3,16,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 4, 4, 4, 4,16, 3,16,16, 3, 3,16, 3, 3,16, 3, 3, 3,16,16, 3, 3,16, 3, 3, 3,16,16, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3,16, 4, 4, 4, 4,16, 3,16, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,16, 3,16, 3,16,16, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 5, 5, 5, 5, 5, 5, 5, 5, 3,16,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 4, 4, 4, 4, 5, 5, 5, 5,16, 3,16,16, 3, 3,16, 3, 3,16, 3, 3, 3,16,16, 3, 3,16, 3, 3, 3,16,16, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3,16, 4, 4, 4, 4, 5, 5, 5, 5,16, 3,16, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,16, 3,16, 3,16,16, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16,16, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3,16, 3,16, 3, 3, 3, 3,16,16, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 3,16,16, 3, 3,16, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16,16,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -473,12 +505,10 @@ def loadExplosion(map, world):
         y += 1
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced
     element_rects = []
     deco_rects = []
     stair_rects = []
-    coin_rects = []
-    coins_hit = []
     y = 0
     
     for row in map:
@@ -558,10 +588,14 @@ def genWorld(world, map):
                 shieldDamagedDeco.drawElement(world, x, y, deco_rects)
             #Don't use tile 35. It is used in the loadExplosion method
             if tile == 36:
-                cobble_pedestal_inactive.drawElement(world, x, y, element_rects)
+                cobble_pedestal_inactive.drawPedestalElement(world, x, y, element_rects)
             if tile == 37:
                 wooden_plank.drawElement(world, x, y, element_rects)
                 wooden_plank.heightModifier = -76
+            if tile == 38:
+                cobbleOffsetElement.drawElement(world, x, y, element_rects)
+                cobbleOffsetElement.xModifier = -cobbleOffsetElement.rect.width//2
+                cobbleOffsetElement.xRectModifier = -cobbleOffsetElement.rect.width//2
             x += 1
         y += 1
 
@@ -611,6 +645,11 @@ def genWorld(world, map):
             npcCurrent = registries.animations.npcTalkingNormal
             npcTalking = True
     if Player.world == "tut2":
+        if Player.rect.colliderect(cobble_pedestal_inactive.rect2) and poppy.pickedUp == True:
+            poppyPlaced = True
+        if poppyPlaced == True:
+            poppy.pickedUp = False
+            poppy.drawItem(world, Player, 1257, 1158)
         if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and pygame.key.get_pressed()[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             exploded = True
@@ -641,9 +680,6 @@ def genWorld(world, map):
             tut2_map[8][32] = 0
             tut2_map[8][31] = 0
             tut2_map[9][31] = 0
-            explosion_sound = pygame.mixer.Sound('src/main/assets/sounds/explosion.mp3')
-            explosion_sound.set_volume(0.1)
-            pygame.mixer.Sound.play(explosion_sound)
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
             world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
             pygame.mixer.music.unpause()
@@ -683,6 +719,10 @@ def genWorld(world, map):
             if cobble1X <= 2300:
                 tut2_map[13][24] = 3
             Player.locked = False
+        if explosionCameraTimer >= 1 and explosiveTimer >= 1 and explosiveTimer < 5:
+            explosion_sound = pygame.mixer.Sound('src/main/assets/sounds/explosion.mp3')
+            explosion_sound.set_volume(0.1)
+            pygame.mixer.Sound.play(explosion_sound)
         elif explosiveTimer >= 32:
             camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
@@ -693,8 +733,7 @@ def genWorld(world, map):
                 cobbleModifier2 = -1
                 cobbleModifier20 = 4
             if cobble2X <= 2250:
-                cobble2X = 2250
-                cobble2Y = 1350
+                tut2_map[14][24] = 38
             cobble1Y -= 64*cobbleModifier1*cobbleModifier10
             cobble1X -= 192
             if cobble1X < 2720:
@@ -778,15 +817,16 @@ def genWorld(world, map):
             lvl1_map[18][11] = 29
             lvl1_map[18][10] = 0
             lvl1_map[18][9] = 29
-            lvl1_map[17][11] = 37
-            lvl1_map[17][10] = 37
-            lvl1_map[17][9] = 37
+            lvl1_map[19][11] = 37
+            lvl1_map[19][10] = 37
+            lvl1_map[19][9] = 37
 
         leverTimer += 1
-
+drownTime = 0
 def loadFluids(map, surface): 
-    global fluid_rects
+    global fluid_rects, drownTime
     fluid_rects = []
+    fluids_collding = []
     y = 0
     
     for row in map:
@@ -799,21 +839,46 @@ def loadFluids(map, surface):
             x += 1
         y += 1
 
+    if Player.world == "tut2":
+
+        for fluid in fluid_rects:
+            if Player.rect.colliderect(fluid):
+                fluids_collding.append(fluid)
+                Player.underWater = True
+            if not Player.rect.colliderect(fluid):
+                Player.underWater = False
+
+        for collidingFluids in fluids_collding:
+            pygame.draw.rect(surface, (255, 255, 255), collidingFluids, 3)
+            drownTime += 4
+            print("collide water")
+            pygame.draw.rect(surface, WHITE, Player.rect, 3)
+            if drownTime > 0:
+                drownTime -= 1
+        
+            if drownTime >= 120 or Player.dead == True:
+                Player.damage(1)
+                drownTime = 0
+            print(drownTime)
+
 def loadBackground(map, surface):
-    global background_rects
+    global background_rects, element_rects
     background_rects = []
+    element_rects = []
     y = 0
     for row in map:
         x = 0
         for tile in row:
-            if Player.world == "tut1":
-                sky.drawElement(surface, x, y, background_rects)
+            if Player.world == "tut1" and tile != 39:
+                sky.drawElement(surface, x * 4, y * 4, background_rects)
             if Player.world == "tut2" and tile != 35:
                 darkCobble.drawElement(surface, x, y, background_rects)
             if Player.world == "lvl1" and tile != 35:
                 darkCobble.drawElement(surface, x, y, background_rects)
             if tile == 35:
                 darkMossyCobble.drawElement(surface, x, y, deco_rects)
+            if tile == 39:
+                brickElement.drawElement(surface, x, y, element_rects)
             x += 1
         y += 1
         
@@ -840,37 +905,41 @@ def move(player, movement, rectArray):
     player.x += movement[0]
     hit_list = collisionTest(player, rectArray)
     for tile in hit_list:
-        if movement[0] > 0:
+        if movement[0] > 0 and Player.collide != 1:
             player.right = tile.left
             collision_types['right'] = True
-        elif movement[0] < 0:
+        elif movement[0] < 0 and Player.collide != 1:
             player.left = tile.right
             collision_types['left'] = True
     player.y += movement[1]
     hit_list = collisionTest(player, rectArray)
     for tile in hit_list:
-        if movement[1] > 0:
+        if movement[1] > 0 and Player.collide != 1:
             player.bottom = tile.top
             collision_types['bottom'] = True
-        elif movement[1] < 0:
+        elif movement[1] < 0 and Player.collide != 1:
             player.top = tile.bottom
             collision_types['top'] = True
     return player, collision_types
 
 def movementControl(self):
-    player_movement = [0, 0]
+    Player.movement = [0, 0]
 
-    if self.moving_right == True:
-        player_movement[0] += 20
-    if self.moving_left == True:
-        player_movement[0] -= 20
+    if self.moving_right == True and Player.underWater == False:
+        Player.movement[0] += 20
+    elif self.moving_right == True and Player.underWater == True:
+        Player.movement[0] += 5
+    if self.moving_left == True and Player.underWater == False:
+        Player.movement[0] -= 20
+    elif self.moving_left == True and Player.underWater == True:
+        Player.movement[0] -= 5
 
-    player_movement[1] += self.y_momentum
+    Player.movement[1] += self.y_momentum
     self.y_momentum += 1
     if self.y_momentum > 20:
         self.y_momentum = 20
 
-    self.rect, collisions = move(self.rect, player_movement, element_rects)
+    self.rect, collisions = move(self.rect, Player.movement, element_rects)
 
     if collisions['bottom']:
         self.y_momentum = 0
@@ -959,6 +1028,10 @@ def commandEvent(event, language):
         chat.x = chat.markerDefaultPos
         Lvl1(language)
 
+def deathEvent(language):
+    if Player.rect.y >= 4000:
+        Start(language)
+
 def parse_input(input_str: str) -> Tuple[str, int, int]:
     test_str = input_str.lower()
     components = test_str.split(" ")
@@ -979,7 +1052,7 @@ def Tut1(language):
     walkingValue = 0
     
     pygame.mixer.music.load("src\main/assets\sounds\GameMusic.mp3")
-    pygame.mixer.music.play()
+    pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.1)
     Player.world = "tut1"
     resetVars()
@@ -1047,6 +1120,12 @@ def Tut1(language):
         if Player.visible == True:
             player.render(world)
 
+        if pygame.key.get_pressed()[pygame.K_4]:
+            Player.giveItem(world, poppy)
+
+        if npcTalking == True:
+            Player.giveItem(world, poppy)
+
         loadFluids(tut1_map, world)
 
         loadExplosion(tut1_map, world)
@@ -1110,18 +1189,11 @@ def Tut1(language):
 
         if Tut_welcome == True:
             Player.locked = True
-        camera_pos = player.keybinds(camera_pos)
-        poppy.drawItem(world, Player, 0, 0)
-        poppy.drawItem(world, Player, 0, 100)
 
-        Player.itemHandling()
+        camera_pos = player.keybinds(camera_pos)
 
         if pygame.key.get_pressed()[pygame.K_3]:
             Player.removeItem(poppy)
-
-        if pygame.key.get_pressed()[pygame.K_4]:
-            Player.giveItem(world, poppy)
-
         """if npcTalking == True:
             if continueNpcTalk.draw(world):
                 npcCurrent = registries.animations.npcIdle
@@ -1181,6 +1253,7 @@ def Tut1(language):
                 Player.debuggingMenu = False
 
         TutorialRender(language)
+        deathEvent(language)
 
         clock.tick(800)
         pygame.display.flip()
@@ -1204,6 +1277,10 @@ def Tut2(language):
     Player.world = "tut2"
     resetVars()
     while True: #Render background
+        try:
+            print(Player.holding)
+        except:
+            pass
         world.fill(DARK_GRAY)
 
         #Fill the background outside of the map
@@ -1272,8 +1349,6 @@ def Tut2(language):
         loadFluids(tut2_map, world)
 
         loadExplosion(tut2_map, world)
-
-        Player.itemHandling()
         
         #Render the map to the screen
         screen.blit(world, (player_x, player_y))
@@ -1328,6 +1403,8 @@ def Tut2(language):
         if Player.debuggingMenu == True:
             if exitDebugMenu.draw(screen):
                 Player.debuggingMenu = False
+
+        deathEvent(language)
 
         clock.tick(400)
         pygame.display.flip()
@@ -1413,8 +1490,6 @@ def Lvl1(language):
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
-        #bliting to the world
-
         if Player.visible == True:
             player.render(world)
 
@@ -1492,6 +1567,8 @@ def Lvl1(language):
         if Player.debuggingMenu == True:
             if exitDebugMenu.draw(screen):
                 Player.debuggingMenu = False
+                
+        deathEvent(language)
 
         clock.tick(800)
         pygame.display.flip()
