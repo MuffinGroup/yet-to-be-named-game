@@ -304,6 +304,7 @@ towerWall = registries.elements.registerElement("elements\Environment\Blocks/tow
 towerWallTop= registries.elements.registerElement("elements\Environment\Blocks/tower_wall3", 3)
 towerWallLong = registries.elements.registerElement("elements/Environment/Blocks/tower_wall4", 3)
 towerWallWindow = registries.elements.registerElement("elements/Environment/Blocks/tower_window", 3)
+hole = registries.elements.registerInvisibleElement()
 npc = registries.elements.registerAnimatedElement(8) # 37/6
 waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
@@ -398,6 +399,8 @@ yellowBannerDamaged = False
 
 hasTorch = False
 
+movesDown = False
+
 def resetVars():
     global leverOn, leverOff, leverTimer, leverPressed
     leverOn = False
@@ -481,19 +484,19 @@ lvl1_map = [[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
             [16,3 ,50,00,00,00,00,00,00,00,00,00,00,00,51,00,00,00,19,19,19,00,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [16,16,00,00,00,00,00,00,00,00,00,00,00,00,51,00,00,00,19,19,19,49,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,3 ,16,16,3 ,16,3 ,16,3 , 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,16, 3, 3,16,3 ,16,3 ,3 ,3 ,16,16,3 ,3 ,16,16,3 ,3 , 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,16, 3, 3,16,3 ,16,3 ,3 ,16,3 ,3 ,3 ,16,16,16,3 , 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [16,3 ,3 ,16,3 ,3 ,3 ,16,16,16,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [16,3 , 3, 3,16,3 ,16,3 ,3 ,16,3 , 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,3 ,16,16,3 ,16,3 ,16, 3, 3,3 , 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,3 ,3 ,16,3 ,3 ,3 ,16,16,16,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [16,3 ,3 ,16,3 ,3 ,3 ,16,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,16,16,16,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3],
-            [ 3, 3, 3, 3, 3, 3, 3, 3, 3,3 ,3 , 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [28, 3, 3,28,28,28, 3, 3,28,28,28, 3, 3, 3,28,28, 3, 3, 3, 3, 3,28, 3, 3, 3,28,28,28, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,28,28,28, 3, 3, 3,28,28, 3, 3,28,28,28,28,28, 3, 3,28,28],
-            [28,28,28,28,28,28,28,28,28,28,28,28, 3,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28, 3,28,28,28, 3, 3,28,28,00,00,28,28,28,28,28,28,28,28,28,28,00,28,28,28,28,28],
-            [28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28],
-            [28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28],
+            [3 ,16, 3, 3,16,3 ,16,3 ,3 ,3 ,16,16,3 ,3 ,00,16,3 ,3 , 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,16, 3, 3,16,3 ,16,3 ,3 ,16,3 ,3 ,3 ,16,00,16,3 , 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [16,3 ,3 ,16,3 ,3 ,3 ,16,16,16,16,16,16, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [16,3 , 3, 3,16,3 ,16,3 ,3 ,16,3 , 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,3 ,16,16,3 ,16,3 ,16, 3, 3,3 , 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,3 ,3 ,16,3 ,3 ,3 ,16,16,16,16,16,16, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [16,3 ,3 ,16,3 ,3 ,3 ,16,16, 3, 3,16, 3, 3,00, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,16,16,16,16,16,16, 3,16, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3,3 ,3 , 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [28, 3, 3,28,28,28, 3, 3,28,28,28, 3, 3, 3,00,28, 3, 3, 3, 3, 3,28, 3, 3, 3,28,28,28, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,28,28,28, 3, 3, 3,28,28, 3, 3,28,28,28,28,28, 3, 3,28,28],
+            [28,28,28,28,28,28,28,28,28,28,28,28, 3,28,00,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28, 3,28,28,28, 3, 3,28,28,00,00,28,28,28,28,28,28,28,28,28,28,00,28,28,28,28,28],
+            [28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,00,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28],
+            [28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,00,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28],
             [28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28]]
 
 def loadExplosion(map, world):
@@ -509,7 +512,7 @@ def loadExplosion(map, world):
         y += 1
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, yellowBannerDamaged, hasTorch
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, yellowBannerDamaged, hasTorch, movesDown
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -575,6 +578,7 @@ def genWorld(world, map):
                bannerBlueDeco.drawElement(world, x, y, deco_rects) 
             if tile == 33:
                 bannerYellowDeco.drawElement(world, x, y, deco_rects)
+                print(y, x)
                 bannerYellowDeco.xModifier = 70
                 bannerYellowDeco.xRectModifier = 70
             if tile == 34:
@@ -613,7 +617,8 @@ def genWorld(world, map):
                 towerWallWindow.drawElement(world, x, y, deco_rects)
             if tile == 50:
                 specialTorchDeco.drawElement(world, x, y, deco_rects)
-                print(y, x)
+            if tile == 51:
+                hole.drawElement(x, y, deco_rects)
             if tile == 52:
                 specialTorchHolderDeco.drawElement(world, x, y, deco_rects)
             x += 1
@@ -805,21 +810,30 @@ def genWorld(world, map):
             lvl1_map[19][10] = 37
             lvl1_map[19][9] = 37
 
-        if Player.rect.colliderect(bannerYellowDeco.rect) and key[pygame.K_e] and yellowBannerDamaged == False and Player.holding == torch:
-            pygame.draw.rect(world, WHITE, Player.rect, 3)
-            print("uwu")
+        if Player.rect.colliderect(bannerYellowDeco.rect) and key[pygame.K_e] and yellowBannerDamaged == False and hasTorch == True:
+            lvl1_map[17][13] = 0
             yellowBannerDamaged = True
 
-        if Player.rect.colliderect(specialTorchDeco.rect):
+        if yellowBannerDamaged == True and Player.rect.colliderect(hole) and key[pygame.K_e]:
+            movesDown = True
+
+        if Player.rect.colliderect(specialTorchDeco.rect) and key[pygame.K_e] and hasTorch == False:
             lvl1_map[18][2] = 52
             hasTorch = True
 
         if Player.rect.colliderect(cobbleStairs.rect1) and Player.jumping == False:
             Player.rect.bottom = cobbleStairs.rect1.top
             pygame.draw.rect(world, WHITE, Player.rect, 3)
-        leverTimer += 1
-        pygame.draw.rect(world, WHITE, cobbleStairs.rect1, 3)            
+        
+        if movesDown == True and Player.rect.y <= 3000:
+            Player.rect.y += 20
+            Player.collide = 1
+        elif movesDown == True:
+            Player.collide = 0
             
+        leverTimer += 1
+        pygame.draw.rect(world, WHITE, cobbleStairs.rect1, 3)
+
 drownTime = 0
 def loadFluids(map, surface): 
     global fluid_rects, drownTime

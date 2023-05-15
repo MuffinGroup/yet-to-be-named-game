@@ -82,3 +82,16 @@ class registerAnimatedElement():
 		self.rect = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height() + self.heightModifier))
 		surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
 		rectArray.append(self.rect)
+
+class registerInvisibleElement():
+	def __init__(self):
+		self.xModifier = 0
+		self.yModifier = 0
+		self.xRectModifier = 0
+		self.yRectModifier = 0
+		self.widthModifier = 0
+		self.heightModifier = 0
+
+	def drawElement(self, x, y, rectArray):
+		self.rect = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (96 + self.widthModifier, 96 + self.heightModifier))
+		rectArray.append(self.rect)
