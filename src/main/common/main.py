@@ -805,8 +805,9 @@ def genWorld(world, map):
             lvl1_map[19][10] = 37
             lvl1_map[19][9] = 37
 
-        if Player.rect.colliderect(bannerYellowDeco.rect) and key[pygame.K_e] and yellowBannerDamaged == False:
+        if Player.rect.colliderect(bannerYellowDeco.rect) and key[pygame.K_e] and yellowBannerDamaged == False and Player.holding == torch:
             pygame.draw.rect(world, WHITE, Player.rect, 3)
+            print("uwu")
             yellowBannerDamaged = True
 
         if Player.rect.colliderect(specialTorchDeco.rect):
