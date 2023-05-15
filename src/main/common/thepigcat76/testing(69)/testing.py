@@ -1,102 +1,49 @@
+import pygame
 import random
 
-# Function to create an empty Tic-Tac-Toe board
-def create_board():
-    board = [[' ' for _ in range(3)] for _ in range(3)]
-    return board
+pygame.init()
 
-# Function to display the Tic-Tac-Toe board
-def display_board(board):
-    for row in board:
-        print(' | '.join(row))
-        print('-' * 9)
+screen = pygame.display.set_mode((800, 800))
 
-# Function to check if a player has won
-def check_win(board, player):
-    # Check rows
-    for row in board:
-        if all(cell == player for cell in row):
-            return True
+ttt_map = [[0, 0, 0],
+           [0, 0, 0],
+           [0, 0, 0]]
 
-    # Check columns
-    for col in range(3):
-        if all(board[row][col] == player for row in range(3)):
-            return True
+inputLocked = False
 
-    # Check diagonals
-    if all(board[i][i] == player for i in range(3)):
-        return True
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
 
-    if all(board[i][2 - i] == player for i in range(3)):
-        return True
+    y = 0
+    for row in ttt_map:
+        x = 0
+        for tile in row:
+            frame = pygame.Rect((x * 100, y * 100), (100, 100))
+            if tile == 0:
+                if frame.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0] == 1 and inputLocked == False:
+                    ttt_map[frame.y//100][frame.x//100] = 1
+                    inputLocked = True
+                else:
+                    pygame.draw.rect(screen, (255, 255, 255), frame, 3)
+            if tile == 1:
+                pygame.draw.rect(screen, (255, 0, 255), frame, 3)
+            if tile == 2:
+                pygame.draw.rect(screen, (255, 0, 0), frame, 3)
 
-    return False
 
-# Function to make a player's move
-def make_move(board, row, col):
-    if board[row][col] == ' ':
-        board[row][col] = player
-        return True
-    else:
-        return False
+            if inputLocked == True:
+                ttt_map[random.randint(0, 2)][random.randint(0, 2)] = 2
+                inputLocked = False
+    
+            x += 1
+            if all(row) == 1 and not any(row) == 2:
+                print("player won!")
+            elif all(row) == 2:
+                print("bot won!")
+        y += 1
 
-# Function to get the bot's move
-def get_bot_move(board, bot_player):
-    # Check if bot can win in the next move
-    for row in range(3):
-        for col in range(3):
-            if board[row][col] == ' ':
-                board[row][col] = bot_player
-                if check_win(board, bot_player):
-                    return row, col
-                board[row][col] = ' '
-
-    # Check if player can win in the next move
-    for row in range(3):
-        for col in range(3):
-            if board[row][col] == ' ':
-                board[row][col] = player
-                if check_win(board, player):
-                    return row, col
-                board[row][col] = ' '
-
-    # Choose a random move
-    empty_cells = [(row, col) for row in range(3) for col in range(3) if board[row][col] == ' ']
-    return random.choice(empty_cells)
-
-# Main game loop
-def play_game():
-    global player  # Declare player as a global variable
-
-    board = create_board()
-    players = ['X', 'O']
-    player = random.choice(players)
-    bot_player = 'O' if player == 'X' else 'X'
-    game_over = False
-
-    print(f"Player {player} starts the game!")
-
-    while not game_over:
-        display_board(board)
-
-        if player == bot_player:
-            print("Bot's turn...")
-            row, col = get_bot_move(board, bot_player)
-        else:
-            print("Your turn...")
-            row = int(input("Enter the row (0-2): "))
-            col = int(input("Enter the column (0-2): "))
-
-        if make_move(board, row, col):
-            if check_win(board, player):
-                display_board(board)
-                print(f"Player {player} wins!")
-                game_over = True
-            elif all(board[row][col] != ' ' for row in range(3) for col in range(3)):
-                display_board(board)
-                print("It's a tie!")
-                game_over = True
-            else:
-                player = bot_player if player == 'X' else 'X'
-
-play_game()
+    print(ttt_map)
+    pygame.display.update()

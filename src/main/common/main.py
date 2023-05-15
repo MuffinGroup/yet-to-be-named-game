@@ -72,6 +72,9 @@ class Player:
                 if Player.air_timer < 8:
                     Player.y_momentum = -30
                     pygame.mixer.Sound.play(jumpsound)
+                    Player.jumping = True
+                else: 
+                    Player.jumping = False
             elif key[pygame.K_UP] and Player.jumpingLocked == False and Player.locked == False and Player.movementLocked == False and Player.underWater == True:
                 Player.y_momentum = -5
                     
@@ -270,6 +273,8 @@ torchLeftDeco = registries.elements.registerElement("elements/Environment/decora
 torchRightDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=right)", 3)
 torchTopDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=top)", 3)
 torchDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch", 3)
+specialTorchDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/special_torch", 3)
+specialTorchHolderDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/special_torch_holder", 3)
 chainDeco = registries.elements.registerElement("elements/Environment/decoration/Chain/Chain", 3)
 chainPartedDeco = registries.elements.registerElement("elements/Environment/decoration/Chain/Chain(parted)", 3) 
 shieldDeco = registries.elements.registerElement("elements/Environment/decoration/Shields/Shield1", 3)
@@ -304,6 +309,7 @@ waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
 doorCurrent = doorClosedLargeElement
 poppy = registries.items.registerItem("poppy", "elements\Environment\decoration\Plants\poppy")
+torch = registries.items.registerItem("torch", "elements\Environment\decoration\Torches/Torch")
 
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
@@ -388,6 +394,10 @@ poppyPlaced = False
 plankTimer = 0
 plankCameraTimer = 0
 
+yellowBannerDamaged = False
+
+hasTorch = False
+
 def resetVars():
     global leverOn, leverOff, leverTimer, leverPressed
     leverOn = False
@@ -468,8 +478,8 @@ lvl1_map = [[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
             [ 3,16,16,16, 3, 3, 3, 3,16,00,00,00, 3,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16, 3, 3,3 ,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,19,00,00,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,3 ,00,00,00,00,00,00,00,00,00,00,00,33,00,00,00,00,19,19,19,00,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [16,3 ,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,19,19,19,00,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [16,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,19,19,19,49,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [16,3 ,50,00,00,00,00,00,00,00,00,00,00,00,51,00,00,00,19,19,19,00,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [16,16,00,00,00,00,00,00,00,00,00,00,00,00,51,00,00,00,19,19,19,49,00,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,3 ,16,16,3 ,16,3 ,16,3 , 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,16, 3, 3,16,3 ,16,3 ,3 ,3 ,16,16,3 ,3 ,16,16,3 ,3 , 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,16, 3, 3,16,3 ,16,3 ,3 ,16,3 ,3 ,3 ,16,16,16,3 , 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -499,7 +509,7 @@ def loadExplosion(map, world):
         y += 1
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, yellowBannerDamaged, hasTorch
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -547,7 +557,7 @@ def genWorld(world, map):
             if tile == 22:
                 grass_end.drawRotatedElement(world, x, y, True)
             if tile == 23:
-                cobbleStairs.drawStairElement(world, x, y, False, False, element_rects)
+                cobbleStairs.drawStairElement(world, x, y, False, False, deco_rects)
             #Don't use tile 25. It is used in the loadExplosion method
             if tile == 26:
                 bush.drawElement(world, x, y, deco_rects)
@@ -565,6 +575,8 @@ def genWorld(world, map):
                bannerBlueDeco.drawElement(world, x, y, deco_rects) 
             if tile == 33:
                 bannerYellowDeco.drawElement(world, x, y, deco_rects)
+                bannerYellowDeco.xModifier = 70
+                bannerYellowDeco.xRectModifier = 70
             if tile == 34:
                 shieldDamagedDeco.drawElement(world, x, y, deco_rects)
             #Don't use tile 35 it is used for background loading
@@ -600,7 +612,10 @@ def genWorld(world, map):
             if tile == 48:
                 towerWallWindow.drawElement(world, x, y, deco_rects)
             if tile == 50:
-                bannerYellowDeco.drawElement(world, x, y, deco_rects)
+                specialTorchDeco.drawElement(world, x, y, deco_rects)
+                print(y, x)
+            if tile == 52:
+                specialTorchHolderDeco.drawElement(world, x, y, deco_rects)
             x += 1
         y += 1
 
@@ -790,10 +805,20 @@ def genWorld(world, map):
             lvl1_map[19][10] = 37
             lvl1_map[19][9] = 37
 
-        if Player.rect.colliderect(bannerYellowDeco.rect):
+        if Player.rect.colliderect(bannerYellowDeco.rect) and key[pygame.K_e] and yellowBannerDamaged == False:
             pygame.draw.rect(world, WHITE, Player.rect, 3)
-            
+            yellowBannerDamaged = True
+
+        if Player.rect.colliderect(specialTorchDeco.rect):
+            lvl1_map[18][2] = 52
+            hasTorch = True
+
+        if Player.rect.colliderect(cobbleStairs.rect1) and Player.jumping == False:
+            Player.rect.bottom = cobbleStairs.rect1.top
+            pygame.draw.rect(world, WHITE, Player.rect, 3)
         leverTimer += 1
+        pygame.draw.rect(world, WHITE, cobbleStairs.rect1, 3)            
+            
 drownTime = 0
 def loadFluids(map, surface): 
     global fluid_rects, drownTime
@@ -845,7 +870,7 @@ def loadBackground(map, surface):
                 sky.drawElement(surface, x * 4, y * 4, background_rects)
             if Player.world == "tut2" and tile != 35:
                 darkCobble.drawElement(surface, x, y, background_rects)
-            if Player.world == "lvl1" and tile != 35:
+            if Player.world == "lvl1" and tile != 35 and tile != 51:
                 darkCobble.drawElement(surface, x, y, background_rects)
             if tile == 35:
                 darkMossyCobble.drawElement(surface, x, y, deco_rects)
@@ -1465,7 +1490,10 @@ def Lvl1(language):
     resetVars()
     while True:
         #Fill the background outside of the map
-        screen.fill(AQUA)
+        world.fill(DARK_GRAY)
+
+        #Fill the background outside of the map
+        screen.fill(DARK_GRAY)
 
         loadBackground(lvl1_map, world)
 
@@ -1529,6 +1557,9 @@ def Lvl1(language):
 
         if Player.visible == True:
             player.render(world)
+
+        if hasTorch == True:
+            Player.giveItem(world, torch)
 
         loadFluids(lvl1_map, world)
 
