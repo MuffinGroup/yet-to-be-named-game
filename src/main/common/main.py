@@ -1290,6 +1290,7 @@ def Tut1(language):
             if exitDebugMenu.draw(screen):
                 Player.debuggingMenu = False
         deathEvent(language)
+        
         TutorialPanelRenderer(language)
         
         renderCoordinates()
