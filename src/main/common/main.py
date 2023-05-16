@@ -32,7 +32,7 @@ class Player:
         Player.movementLocked = True
         Player.walkingLeftLocked = False
         Player.walkingRightLocked = False
-        Player.jumpingLocked = False
+        Player.jumpingLocked = True
         Player.debuggingMenu = False
         Player.flight = 0
         Player.collide = 0
@@ -73,8 +73,10 @@ class Player:
                     Player.y_momentum = -30
                     pygame.mixer.Sound.play(jumpsound)
                     Player.jumping = True
+                    print(Player.jumpingLocked)
                 else: 
                     Player.jumping = False
+
             elif key[pygame.K_UP] and Player.jumpingLocked == False and Player.locked == False and Player.movementLocked == False and Player.underWater == True:
                 Player.y_momentum = -5
                     
@@ -223,6 +225,7 @@ class Player:
 
 def TutorialRender(language):
     global Tut_welcome, Tut_walking_right
+    key = pygame.key.get_pressed()
     if Tut_welcome == True:
         if language == 'de_de':
             tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), translatableComponent('text.tutorial.welcome9', language), translatableComponent('text.tutorial.welcome10', language), BLACK, -10, -10)
@@ -242,7 +245,6 @@ def TutorialRender(language):
         Player.jumpingLocked = True
         tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.walking_right', language), translatableComponent('text.tutorial.walking_right1', language), '', '', '', '', '', '', '', '', BLACK, -10, -10)
 
-        
 def renderCoordinates():
     if Player.showPos == 1:
         coordinates = registries.gui.registerFont(35, str(str(Player.rect.x) + ", " + str(Player.rect.y)), WHITE, screen.get_width()//10 * 7, screen.get_height()//12)
@@ -1263,6 +1265,8 @@ def Tut1(language):
         if Tut_welcome == True:
             Player.locked = True
 
+        TutorialRender(language)
+
         camera_pos = player.keybinds(camera_pos)
 
         if key[pygame.K_3]:
@@ -1324,8 +1328,6 @@ def Tut1(language):
         if Player.debuggingMenu == True:
             if exitDebugMenu.draw(screen):
                 Player.debuggingMenu = False
-
-        TutorialRender(language)
         deathEvent(language)
 
         clock.tick(1600)
