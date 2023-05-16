@@ -369,7 +369,7 @@ debugMenu = registries.gui.registerGui(70, 100, 300, 600, False)
 font = pygame.font.Font('src\main/assets/fonts\joystixmonospaceregular.otf', 25)
 
 light = pygame.image.load('src\main/assets/textures\elements/test\circle.png')
-light = pygame.transform.scale(light, (light.get_width() * 10, light.get_height() * 10))
+light = pygame.transform.scale(light, (light.get_width() * 20, light.get_height() * 20))
 
 def renderText(entry, language):
     debugMenuText = font.render(translatableComponent("text.debug_menu", language), True, DARK_ORANGE)
@@ -654,6 +654,8 @@ def genWorld(world, map):
                 hole.drawElement(x, y, deco_rects)
             if tile == 52:
                 specialTorchHolderDeco.drawElement(world, x, y, deco_rects)
+            if tile == 53:
+                cobbleElement.drawElement(world, x, y, deco_rects)
             x += 1
         y += 1
 
@@ -985,16 +987,15 @@ def loadForeGround(map, surface, language):
             npcCurrent = registries.animations.npcTalkingNormal
             npcTalking = True
 
-def loadLights(surface, map):
-    mouse_x, mouse_y = pygame.mouse.get_pos()
+"""def loadLights(surface, map):
     y = 0
     for row in map:
         x = 0
         for tile in row:
             if tile == 53:
-                surface.blit(light, (x * 96, y * 96))
+                surface.blit(light, (x * 32 - 320, y * 32 - 224))
             x += 1
-        y += 1
+        y += 1"""
         
 def health():
         for i in range(Player.defaultHealth):
@@ -1483,10 +1484,10 @@ def Tut2(language):
             if exitDebugMenu.draw(screen):
                 Player.debuggingMenu = False
 
-        filter = pygame.surface.Surface((world.get_width(), world.get_height()))
+        """filter = pygame.surface.Surface((world.get_width(), world.get_height()))
         filter.fill((204,204,204))
         loadLights(filter, tut2_map)
-        screen.blit(filter, (player_x, player_y), special_flags=pygame.BLEND_RGBA_SUB)
+        screen.blit(filter, (player_x, player_y), special_flags=pygame.BLEND_RGBA_SUB)"""
 
         deathEvent(language)
 
