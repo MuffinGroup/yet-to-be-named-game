@@ -110,7 +110,6 @@ class infoPanelIcon:
             surface.blit(self.text10, (x + self.scaledPanel.get_width()//5 - xOffset, y + self.scaledPanel.get_height()//5*3.25 - yOffset))
             surface.blit(self.text11, (x + self.scaledPanel.get_width()//5 - xOffset, y + self.scaledPanel.get_height()//5*3.5 - yOffset))
             surface.blit(self.text12, (x + self.scaledPanel.get_width()//5 - xOffset, y + self.scaledPanel.get_height()//5*3.75 - yOffset))
-
 class infoPanelAnimatedIcon:
     def __init__(self, panelPath, scale):
         self.visible = True

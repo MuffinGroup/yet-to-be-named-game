@@ -424,15 +424,13 @@ cobbleModifier20 = 1
 element_rects = []
 
 poppyPlaced = False
-
 plankTimer = 0
 plankCameraTimer = 0
-
 yellowBannerDamaged = False
-
 hasTorch = False
-
 movesDown = False
+bridgeTimer = 0
+poppyAlert = notification("src\main/assets/textures\elements\gui/notification_bar.png", "src\main/assets/textures\elements\Environment\decoration\Plants\poppy.png", 3, screen.get_width(), 200, 100)
 
 def resetVars():
     global leverOn, leverOff, leverTimer, leverPressed
@@ -545,7 +543,7 @@ def loadExplosion(map, world):
         y += 1
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, yellowBannerDamaged, hasTorch, movesDown
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, yellowBannerDamaged, hasTorch, movesDown, bridgeTimer
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -619,6 +617,7 @@ def genWorld(world, map):
             #Don't use tile 35 it is used for background loading
             if tile == 36:
                 cobble_pedestal_inactive.drawPedestalElement(world, x, y, element_rects)
+                print(x, y)
             if tile == 37:
                 wooden_plank.drawElement(world, x, y, element_rects)
                 wooden_plank.heightModifier = -76
@@ -672,7 +671,17 @@ def genWorld(world, map):
             poppyPlaced = True
         if poppyPlaced == True:
             poppy.pickedUp = False
-            poppy.drawItem(world, Player, 1257, 1158)
+            poppy.texture = pygame.transform.scale(poppy.texture, (32 * 3, 32 * 3))
+            poppy.drawItem(world, Player, 1247, 1158)
+            bridgeTimer += 1
+        if bridgeTimer == 10:
+            tut2_map[15][16] = 37
+        if bridgeTimer == 20:
+            tut2_map[15][17] = 37
+        if bridgeTimer == 30:
+            tut2_map[15][18] = 37
+        if bridgeTimer == 40:
+            tut2_map[15][19] = 37
         if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             exploded = True
