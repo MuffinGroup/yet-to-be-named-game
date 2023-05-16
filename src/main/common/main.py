@@ -227,10 +227,6 @@ def TutorialRender(language):
     global Tut_welcome, Tut_walking_right
     key = pygame.key.get_pressed()
     if Tut_welcome == True:
-        if language == 'de_de':
-            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), translatableComponent('text.tutorial.welcome9', language), translatableComponent('text.tutorial.welcome10', language), BLACK, -10, -10)
-        if language == 'en_us':
-            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), '', BLACK, -10, -10)
         if key[pygame.K_SPACE]:
             Tut_welcome = False
         if key[pygame.K_RETURN]:
@@ -243,6 +239,16 @@ def TutorialRender(language):
         Player.walkingRightLocked = False
         Player.walkingLeftLocked = True
         Player.jumpingLocked = True
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.walking_right', language), translatableComponent('text.tutorial.walking_right1', language), '', '', '', '', '', '', '', '', BLACK, -10, -10)
+
+def TutorialPanelRenderer(language):
+    if Tut_welcome:
+        if language == 'de_de':
+            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), translatableComponent('text.tutorial.welcome9', language), translatableComponent('text.tutorial.welcome10', language), BLACK, -10, -10)
+        if language == 'en_us':
+            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), '', BLACK, -10, -10)
+
+    if Tut_walking_right == True:
         tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.walking_right', language), translatableComponent('text.tutorial.walking_right1', language), '', '', '', '', '', '', '', '', BLACK, -10, -10)
 
 def renderCoordinates():
@@ -1286,6 +1292,7 @@ def Tut1(language):
             if exitDebugMenu.draw(screen):
                 Player.debuggingMenu = False
         deathEvent(language)
+        TutorialPanelRenderer(language)
 
         clock.tick(1600)
         pygame.display.flip()
