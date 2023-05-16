@@ -1237,8 +1237,8 @@ def Tut1(language):
         image_rect = enemy_img_Scaled.get_rect()
         enemy_speed = 5
         enemy_x -= enemy_speed
-        if image_rect <= 0 or image_rect >= screen_width - image_rect.width:
-            enemy_speed *= -1
+        if enemy_x <= 2000:
+           enemy_speed = -10
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
 
         if Tut_welcome == True:
