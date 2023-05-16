@@ -1,5 +1,6 @@
 import json
 
+
 def translatableComponent(path, language):
     try:
         with open("src\main/assets\lang/" + language + ".json", "r") as f:

@@ -2,49 +2,58 @@ import pygame
 import colors
 import animations
 
-class main():
-    #Pygame initialization
+
+class main:
+    # Pygame initialization
     pygame.init()
-    #Setup for fps
+    # Setup for fps
     clock = pygame.time.Clock()
 
-    #Loading world elements
-    background = pygame.image.load("src\main/assets/textures\elements/background\placeholder_background_0.jpg")
-    floor = pygame.image.load("src\main/assets/textures\elements/background\placeholder_floor.jpg")
-    door_closed = pygame.image.load("src\main/assets/textures\elements\doors\door_1_closed.png")
-    door_open = pygame.image.load("src\main/assets/textures/elements\doors\door_1_open.png")
+    # Loading world elements
+    background = pygame.image.load(
+        "src\main/assets/textures\elements/background\placeholder_background_0.jpg"
+    )
+    floor = pygame.image.load(
+        "src\main/assets/textures\elements/background\placeholder_floor.jpg"
+    )
+    door_closed = pygame.image.load(
+        "src\main/assets/textures\elements\doors\door_1_closed.png"
+    )
+    door_open = pygame.image.load(
+        "src\main/assets/textures/elements\doors\door_1_open.png"
+    )
 
-    #Loading utility stuff
-    icon = pygame.image.load('src/main/assets/textures/elements/gui/icon/icon.png')
+    # Loading utility stuff
+    icon = pygame.image.load("src/main/assets/textures/elements/gui/icon/icon.png")
 
-    #Assigning variables
-    #Character size
+    # Assigning variables
+    # Character size
     characterWidth = 32
     characterHeight = 32
 
-    #Screen size
+    # Screen size
     screen_width = 1280
     screen_height = 800
 
-    #Defining scale for character scaling
+    # Defining scale for character scaling
     scale = 10
 
-    #character position
+    # character position
     character_x = 150
     character_y = 410
 
-    #camera position
+    # camera position
     camera_x = 192
     camera_y = 192
 
-    #character speed
+    # character speed
     character_speed = 5
-    
-    #values for animation calculation
+
+    # values for animation calculation
     value = 0
     WalkingValue = 0
 
-    #Door 
+    # Door
     doorOpen = False
 
     screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
@@ -53,23 +62,29 @@ class main():
 
     jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
     doorsound = pygame.mixer.Sound("src\main/assets\sounds\door_closing.wav")
-    character_image = pygame.image.load("src\main/assets/textures\entities\characters\character_1/animations\character_1.png").convert_alpha()
+    character_image = pygame.image.load(
+        "src\main/assets/textures\entities\characters\character_1/animations\character_1.png"
+    ).convert_alpha()
 
     # Create a screen surface
-    leftWall = pygame.draw.rect(screen, (0,0,0), (0,0,2,1000), 0)
-    rightWall = pygame.draw.rect(screen, (0,0,0), (1100,0,2,1000), 0)
+    leftWall = pygame.draw.rect(screen, (0, 0, 0), (0, 0, 2, 1000), 0)
+    rightWall = pygame.draw.rect(screen, (0, 0, 0), (1100, 0, 2, 1000), 0)
 
-    #Create Sound
+    # Create Sound
     jumpsound.set_volume(0.01)
 
     # Load character image
     character_image_inverted = pygame.transform.flip(character_image, True, False)
 
-    #Image dimensions
+    # Image dimensions
     image_width = character_image.get_width()
     image_height = character_image.get_height()
-    character_image = pygame.transform.scale(character_image, (int(image_width * scale), int(image_height * scale)))
-    character_image_inverted = pygame.transform.scale(character_image_inverted, (int(image_width * scale), int(image_height * scale)))
+    character_image = pygame.transform.scale(
+        character_image, (int(image_width * scale), int(image_height * scale))
+    )
+    character_image_inverted = pygame.transform.scale(
+        character_image_inverted, (int(image_width * scale), int(image_height * scale))
+    )
     currentDoorSprite = door_closed
     door_width = currentDoorSprite.get_width()
     door_height = currentDoorSprite.get_height()
@@ -78,7 +93,6 @@ class main():
     # Set initial position
 
     # Set character speed
-
 
     # Game loop
     running = True
@@ -102,13 +116,17 @@ class main():
 
         if WalkingValue >= len(animations.walking_sprite):
             WalkingValue = 0
-    
+
         # Handle keyboard input
         keys = pygame.key.get_pressed()
         Spieler = pygame.Rect(character_x, character_y, 40, 80)
         Door = pygame.Rect(990, 410, 40, 80)
 
-        if keys[pygame.K_LEFT] and not Spieler.colliderect(leftWall) and visible == True:
+        if (
+            keys[pygame.K_LEFT]
+            and not Spieler.colliderect(leftWall)
+            and visible == True
+        ):
             standing = False
             walking = True
             character_x -= character_speed
@@ -122,11 +140,17 @@ class main():
             standing = True
             walking = False
 
-        if keys[pygame.K_RIGHT] and not Spieler.colliderect(rightWall) and visible == True:
+        if (
+            keys[pygame.K_RIGHT]
+            and not Spieler.colliderect(rightWall)
+            and visible == True
+        ):
             standing = False
             walking = True
             character_x += character_speed
-        elif keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True:
+        elif (
+            keys[pygame.K_d] and not Spieler.colliderect(rightWall) and visible == True
+        ):
             standing = False
             walking = True
             character_x += character_speed
@@ -155,7 +179,7 @@ class main():
             n = 1
             if jumpvar < 0:
                 n = -1
-            character_y -= (jumpvar**2)*0.17*n
+            character_y -= (jumpvar**2) * 0.17 * n
             jumpvar -= 1
 
         if doorOpen == True:
@@ -168,12 +192,17 @@ class main():
 
         # Draw the character and update the screen
         screen.fill(colors.BLACK)
-        screen.blit(background, (0,0))
-        screen.blit(floor, (0,730))
-        currentDoorSprite = pygame.transform.scale(currentDoorSprite, (int(door_width * scale/2), int(door_height * scale/2)))
-        screen.blit(currentDoorSprite, (990,420))
+        screen.blit(background, (0, 0))
+        screen.blit(floor, (0, 730))
+        currentDoorSprite = pygame.transform.scale(
+            currentDoorSprite,
+            (int(door_width * scale / 2), int(door_height * scale / 2)),
+        )
+        screen.blit(currentDoorSprite, (990, 420))
 
-        currentSprite = pygame.transform.scale(currentSprite, (int(characterWidth * scale), int(characterHeight * scale)))    
+        currentSprite = pygame.transform.scale(
+            currentSprite, (int(characterWidth * scale), int(characterHeight * scale))
+        )
         if visible == True:
             screen.blit(currentSprite, (character_x, character_y))
         pygame.display.update()

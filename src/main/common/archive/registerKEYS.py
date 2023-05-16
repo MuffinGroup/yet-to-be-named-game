@@ -1,7 +1,20 @@
 import pygame
 
-def keyinput(running, jumpvar, doorhandling, visible, standing, walking, jumping, character_speed, character_x, character_y, leftWall, rightWall):
 
+def keyinput(
+    running,
+    jumpvar,
+    doorhandling,
+    visible,
+    standing,
+    walking,
+    jumping,
+    character_speed,
+    character_x,
+    character_y,
+    leftWall,
+    rightWall,
+):
     pygame.init()
     # Handle keyboard input
     keys = pygame.key.get_pressed()

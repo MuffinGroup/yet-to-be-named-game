@@ -18,7 +18,7 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-            
+
     if key[pygame.K_RIGHT]:
         player.x += 1
     if key[pygame.K_LEFT]:
@@ -27,13 +27,13 @@ while True:
         player.y -= 1
     if key[pygame.K_DOWN]:
         player.y += 1
-#Das hier ist der 1000ste commit. Checkt das Video hier ab: https://www.youtube.com/watch?v=dQw4w9WgXcQ
-        
+    # Das hier ist der 1000ste commit. Checkt das Video hier ab: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+
     screen.fill((255, 255, 255))
     test.drawItem(screen)
     pygame.draw.rect(screen, (255, 0, 255), player, 1000)
-    
+
     for i in range(len(slots)):
         pygame.draw.rect(screen, (0, 0, 0), slots[i], 5)
-    
+
     pygame.display.flip()

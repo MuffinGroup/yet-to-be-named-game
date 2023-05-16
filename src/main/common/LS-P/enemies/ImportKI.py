@@ -1,4 +1,5 @@
 import openai
+
 openai.api_key = "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"
 
 prompt = "Write a poem"
