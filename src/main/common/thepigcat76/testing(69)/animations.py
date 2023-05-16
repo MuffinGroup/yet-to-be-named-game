@@ -9,7 +9,7 @@ def load_animation(
         print("timesLoaded must be 1 or above")
     while timesLoaded <= 0:
         pygame.quit()
-        exit
+        exit()  # NOTE closed off exit statement
     sprite_list = []
     for sprite in range(1, numberofsprites):
         currentimagename = (
@@ -23,7 +23,8 @@ def load_animation(
             + str(format)
         )
         image = pygame.image.load(currentimagename)
-        for i in range(timesLoaded):
+        # NOTE: underscore prefix fixes redundancy with (i)
+        for _ in range(timesLoaded):
             sprite_list.append(image)
     return sprite_list
 

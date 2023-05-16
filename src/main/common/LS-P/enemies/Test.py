@@ -1,4 +1,12 @@
-import cv2
+from os import error
+import sys
+
+
+try:
+    import cv2
+except ImportError:
+    error("Install cv2 before running / install requirments.txt if present.")
+    sys.exit(4)
 
 # Load the two images
 image1 = cv2.imread(

@@ -7,6 +7,18 @@ pygame.init()
 ###
 class Player:
     def __init__(image):
+        """Player constructor is called when player is instanced / declared.
+
+        :param image: Player image to load from (not as a surface)
+        :type image: str
+
+        No self argument is present, as one is not needed.
+
+        Player.image is not defined previously, as that would load image files when this file
+        is imported, which could potentially cause problems if a display hasn't already been declared
+
+        """
+
         Player.image = pygame.image.load(
             "src\main/assets/textures\entities\characters\character_1/animations\character_1.png"
         )  # Create Player Image
@@ -15,6 +27,14 @@ class Player:
         Player.rect = pygame.Rect((50, 50), (30, 30))  # Create Player Rect
 
     def move(self, camera_pos):
+        """Controls player movement
+
+        This function reads player movement and modifies the player rect as needed.
+
+        :param camera_pos: Camera position relative to player
+        :type camera_pos: list[int, int]
+        """
+
         pos_x, pos_y = camera_pos  # Split camara_pos
         #
         key = pygame.key.get_pressed()  # Get Keyboard Input
@@ -39,14 +59,14 @@ class Player:
             pos_x = camera_pos[0]
         if (
             self.rect.y < 0
-        ):  # https://www.youtube.com/watch?v=dQw4w9WgXcQ <- the beauty of open-source
+            ):  # NOTE: https://www.youtube.com/watch?v=dQw4w9WgXcQ <- the beauty of open-source
             self.rect.y = 0
             pos_y = camera_pos[1]
         elif self.rect.y > 1980:
             self.rect.y = 1980
             pos_y = camera_pos[1]
         #
-        return (pos_x, pos_y)  # Return New Camera Pos
+        return (pos_x, pos_y)  # Returns new, modified camera pos
 
     def render(self, display):
         display.blit(self.image, (self.rect.x, self.rect.y))
@@ -59,15 +79,16 @@ class Player:
 background = pygame.image.load(
     "src\main/assets/textures\elements/background\placeholder_background_0.jpg"
 )
-background = pygame.transform.scale(background, (2000, 2000))
+background = pygame.transform.scale(background, (2000, 2000)) # Creates 2k x 2k surface
 
 
+# TODO: refactor Main function to main to match lower case linting standards
 def Main(display, clock):
-    world = pygame.Surface((2000, 2000))  # Create Map Surface
+    world = pygame.Surface((2000, 2000))  # Creates map surface
 
     #
-    player = Player()  # Initialize Player Class
-    camera_pos = (192, 192)  # Create Camara Starting Position
+    player = Player()  # Instantiate player class, runs player initalizer
+    camera_pos = (192, 192)  # Define camera starting position in pixels
     #
     while True:
         clock.tick(60)
@@ -79,12 +100,12 @@ def Main(display, clock):
                 return
         #
         camera_pos = player.move(
-            camera_pos
-        )  # Run Player Move Function And Return New Camera Pos
+            camera_pos # Run Player Move Function And Return New Camera Pos
+        )
         #
-        display.fill(colors["WHITE"])  # Fill The Background White To Avoid Smearing
-        player.render(world)  # Render The Player
-        display.blit(world, camera_pos)  # Render Map To The Display
+        display.fill(colors["WHITE"])  # Fills the background with white to avoid ghosting
+        player.render(world)  # Renders the player to the display
+        display.blit(world, camera_pos)  # Renders map to the display
         world.blit(background, (0, 0))
         #
         pygame.display.flip()
@@ -97,7 +118,7 @@ if __name__ in "__main__":
     pygame.display.set_caption("CameraView")
     clock = pygame.time.Clock()
     #
-    global colors  # Difign Colors
+    global colors  # Define Colors
     colors = {
         "WHITE": (255, 255, 255),
         "RED": (255, 0, 0),

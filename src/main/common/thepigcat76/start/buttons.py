@@ -1,5 +1,5 @@
 import pygame
-import animations
+import animations  # NOTE: unused import here.
 
 # button class
 

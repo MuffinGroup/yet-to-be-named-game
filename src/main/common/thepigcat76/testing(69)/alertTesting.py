@@ -54,7 +54,7 @@ while True:
     screen.fill((90, 90, 90))
     pygame.draw.rect(screen, (255, 255, 255), player, 1000)
     pygame.draw.rect(screen, (255, 0, 255), object, 500)
-    example.render(screen, "uwuuuuuuuu", "uuuuuuuu", (255, 255, 255))
+    example.render(screen, "uwuuuuuuuu", "uuuuuuuu", (255, 255, 255))  # lol
     examplePanel.render(
         screen,
         screen.get_width() // 20,

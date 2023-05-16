@@ -24,7 +24,7 @@ def load_animation(
             + str(format)
         )
         image = pygame.image.load(currentimagename)
-        for i in range(timesLoaded):
+        for _ in range(timesLoaded):
             sprite_list.append(image)
     return sprite_list
 

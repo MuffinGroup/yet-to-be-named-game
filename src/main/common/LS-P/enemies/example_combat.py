@@ -1,5 +1,6 @@
-import pygame
 import math
+
+import pygame
 
 # Initialize Pygame
 pygame.init()
@@ -74,6 +75,7 @@ while True:
     if keys[pygame.K_DOWN]:
         character_y += character_img_speed
     if keys[pygame.K_w]:
+        # FIXME: distance_to_enemy is possibly un-bound
         if distance_to_enemy < attack_range_character_img:
             enemy_health -= character_attack_power
 
@@ -120,6 +122,7 @@ while True:
         pygame.quit
         quit()
 
+        # NOTE: the draw() function is un-reachable at this point.
         draw()
     clock.tick(80)
 

@@ -4,7 +4,8 @@ import pygame
 def game():
     screen = pygame.display.set_mode((800, 800), pygame.RESIZABLE)
     player = pygame.Rect(100, 500, 100, 100)
-    object = pygame.Rect((1400, 600), (100, 100))
+    # NOTE: refactored object to object_ because object is a reserved keyword in python
+    object_ = pygame.Rect((1400, 600), (100, 100))
     x = -16
     modifier = 1
 
@@ -26,17 +27,17 @@ def game():
             x = 15
 
         if x == 15:
-            object.y -= 3 * 1.1 * modifier
-            object.x -= 12
-            if object.x < 650:
+            object_.y -= 3 * 1.1 * modifier
+            object_.x -= 12
+            if object_.x < 650:
                 modifier = -1
-            if object.x <= 100:
-                object.x = 100
-                object.y = 500
+            if object_.x <= 100:
+                object_.x = 100
+                object_.y = 500
 
         screen.fill((90, 90, 90))
         pygame.draw.rect(screen, (255, 255, 255), player, 1000)
-        pygame.draw.rect(screen, (255, 0, 255), object, 500)
+        pygame.draw.rect(screen, (255, 0, 255), object_, 500)
         pygame.display.flip()
         clock.tick(600)
 

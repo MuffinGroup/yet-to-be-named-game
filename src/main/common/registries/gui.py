@@ -6,10 +6,12 @@ pygame.init()
 class registerGui:
     def __init__(self, x, y, width, height, backgroundImage, imagePath=None):
         if backgroundImage == True:
-            self.bgImage = pygame.image.load(
-                "src/main/assets/textures/elements/background/" + imagePath + ".png"
-            )
-            self.backgroundImage = True
+            # NOTE: ensuring that `imagePath` is a string and not None prevents future errors when adding to string.
+            if isinstance(imagePath, str):
+                self.bgImage = pygame.image.load(
+                    "src/main/assets/textures/elements/background/" + imagePath + ".png"
+                )
+                self.backgroundImage = True
         else:
             self.backgroundImage = False
         self.window = pygame.Surface((width, height))
@@ -431,7 +433,7 @@ class registerSlots():
         if texture != None:
          self.texture = pygame.image.load('src/main/assets/textures/elements/gui/' + texture + '.png') #weird indentation
          self.texture = pygame.transform.scale(self.texture, (60, 60))
-    
+
     def drawSlots(self, surface, slotColor):
         for i in range(self.slotCount):
             pygame.draw.rect(surface, slotColor, self.slots[i], 6)

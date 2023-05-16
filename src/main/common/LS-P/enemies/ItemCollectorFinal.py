@@ -1,5 +1,6 @@
-import pygame
 import random
+
+import pygame
 
 # initialize pygame
 pygame.init()
@@ -38,11 +39,13 @@ for i in range(5):
     item_rects.append(item_rect)
 
 # set up the font for the display
-font = pygame.font.SysFont(None, 30)
+# NOTE: gets default font instead of None
+font = pygame.font.SysFont(pygame.font.get_default_font(), 30)
 
 # set up variables for the game loop
 score = 0
-game_running = True
+# NOTE: made game_running upper-case as a constant
+GAME_RUNNING = True
 
 
 # define a function to check if the character has collided with an item
@@ -55,11 +58,11 @@ def check_collision(character_rect, item_rects):
 
 
 # game loop
-while game_running:
+while GAME_RUNNING:
     # handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            game_running = False
+            GAME_RUNNING = False
 
     character_image.blit(character_image, (340, 190))
 

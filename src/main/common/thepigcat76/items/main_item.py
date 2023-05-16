@@ -1,5 +1,12 @@
+import sys
+
 import pygame
-import item
+
+try:
+    import item  # pyright: ignore
+except ImportError:
+    print("Local import needs fixing")
+    sys.exit(1)
 
 pygame.init()
 
