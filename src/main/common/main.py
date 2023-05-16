@@ -361,6 +361,8 @@ def TutorialRender(language):
 
     if Tut_jumping == True:
         Player.jumpingLocked = False
+        if Player.jumping == True:
+            Tut_jumping = False
 
 
 def TutorialPanelRenderer(language):
@@ -731,6 +733,8 @@ def resetVars():
 
 tutWalking = infoPanel("src\main/assets/textures\elements\gui/info_panel.png", 8)
 
+# I'm really sorry I have no idea what happened here. I think when I ran python black . it auto-did this.
+# this might need to be fixed (depending on how much you are willing to scroll to edit any code below this point)
 tut1_map = [
     [
         00,
