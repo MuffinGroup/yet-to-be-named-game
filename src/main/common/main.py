@@ -268,7 +268,7 @@ def TutorialPanelRenderer(language):
         tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.walking_right', language), translatableComponent('text.tutorial.walking_right1', language), translatableComponent('text.tutorial.walking_right2', language), '', translatableComponent('text.tutorial.walking_left', language), translatableComponent('text.tutorial.walking_left1', language), '', '', '', '', BLACK, -10, -10)
 
     if Tut_jumping == True:
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', '', '', translatableComponent('text.tutorial.jumping', language), translatableComponent('text.tutorial.jumping1', language), '', '', '', '', '', '', BLACK, -10, -10)
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', '', '', translatableComponent('text.tutorial.jump', language), translatableComponent('text.tutorial.jump1', language), translatableComponent('text.tutorial.jump2', language), '', '', '', '', '', BLACK, -10, -10)
 
 
 

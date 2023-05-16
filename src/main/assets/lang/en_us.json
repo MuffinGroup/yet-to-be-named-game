@@ -35,9 +35,10 @@
 "text.tutorial.walking_left1": "For this press LEFT.",
 "text.tutorial.walking_left2": "Wonderful!",
 
-"text.tutorial.jump": "Sometimes you may have to jump in the levels.",
-"text.tutorial.jump1": "For this press the UP button.",
-"text.tutorial.jump2": "Nice jump!",
+"text.tutorial.jump": "Sometimes you may have.",
+"text.tutorial.jump1": "to jump in the levels.",
+"text.tutorial.jump2": "For this press the UP button.",
+"text.tutorial.jump3": "Nice jump!",
 
 "text.tutorial.item_system": "Now try to take a poppy and give it to me.",
 "text.tutorial.item_system1": "For this go to a poppy and click on it.",

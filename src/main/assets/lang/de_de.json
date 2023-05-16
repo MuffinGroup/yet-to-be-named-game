@@ -36,9 +36,10 @@
 "text.tutorial.walking_left1": "Druecke dazu LEFT.",
 "text.tutorial.walking_left2": "Wunderbar!",
 
-"text.tutorial.jump": "Manchmal musst du springen, um voran zu kommen.",
-"text.tutorial.jump1": "Drücke dafür UP und du wirst springen.",
-"text.tutorial.jump2": "Cooler Sprung!",
+"text.tutorial.jump": "Manchmal musst du springen,.",
+"text.tutorial.jump1": "um voran zu kommen.",
+"text.tutorial.jump2": "Drücke dafür UP und du wirst springen.",
+"text.tutorial.jump3": "Cooler Sprung!",
 
 "text.tutorial.item_system": "Nun versuch eine Blume zu nehmen und mir zu geben.",
 "text.tutorial.item_system1": "Gehe dazu zu einer der Blumen und klicke darauf.",
