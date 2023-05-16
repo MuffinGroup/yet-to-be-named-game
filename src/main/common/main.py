@@ -902,9 +902,10 @@ def loadBackground(map, surface):
             x += 1
         y += 1
 
-def loadForeGround(map, surface):
+def loadForeGround(map, surface, language):
     global foreground_rects, npcTalking, doorCurrent, n, npcCurrent, npcTalking
     foreground_rects = []
+
     y = 0
     for row in map:
         x = 0
@@ -951,9 +952,9 @@ def loadForeGround(map, surface):
     if n == 50:
         n = 0
         if Player.world == "tut1":
-            Tut2(Player.language)
+            Tut2(language)
         elif Player.world == "tut2":
-            Lvl1(Player.language)
+            Lvl1(language)
     if n >= 1 and n <= 70:
         n += 1
     if Player.world == "tut1":
@@ -1145,7 +1146,7 @@ def Tut1(language):
 
         genWorld(world, tut1_map)
 
-        loadForeGround(tut1_map, world)
+        loadForeGround(tut1_map, world, language)
 
         movementControl(Player)
 
@@ -1223,9 +1224,6 @@ def Tut1(language):
         enemy_facing_left = True
         enemy_x -= enemy_speed
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
-        
-        
-        renderCoordinates()
 
         if Tut_welcome == True:
             Player.locked = True
@@ -1295,10 +1293,12 @@ def Tut1(language):
                 Player.debuggingMenu = False
         deathEvent(language)
         TutorialPanelRenderer(language)
+        
+        renderCoordinates()
 
         clock.tick(1600)
         pygame.display.flip()
-        
+
 def Tut2(language):
     global camera_pos
     world = pygame.Surface((6000,3000), pygame.SRCALPHA) # Create Map
@@ -1331,7 +1331,7 @@ def Tut2(language):
         
         genWorld(world, tut2_map)
 
-        loadForeGround(tut2_map, world)
+        loadForeGround(tut2_map, world, language)
 
         movementControl(Player)
 
@@ -1482,7 +1482,7 @@ def Lvl1(language):
 
         genWorld(world, lvl1_map)
 
-        loadForeGround(tut1_map, world)
+        loadForeGround(tut1_map, world, language)
 
         movementControl(Player)
 
