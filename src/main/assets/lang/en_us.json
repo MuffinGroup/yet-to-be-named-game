@@ -35,6 +35,10 @@
 "text.tutorial.walking_left1": "For this press LEFT.",
 "text.tutorial.walking_left2": "Wonderful!",
 
+"text.tutorial.jump": "Sometimes you may have to jump in the levels.",
+"text.tutorial.jump1": "For this press the UP button.",
+"text.tutorial.jump2": "Nice jump!",
+
 "text.tutorial.sprint": "If you want to be faster you can sprint.",
 "text.tutorial.sprint1": "For this walk and press SHIFT at the same time.",
 "text.tutorial.sprint2": "That's faster right?",
@@ -45,9 +49,5 @@
 "text.tutorial.item_system3": "Now go through the door by pressing E and follow the next instructions.",
 
 "text.tutorial.item_system2.0": "Please put the flower on the table over there by clicking on it.",
-"text.tutorial.item_system2.1": "Thank you!",
-
-"text.tutorial.jump2.0": "As you can see here you may have to jump in the levels.",
-"text.tutorial.jump2.1": "For this press the UP button and walk forward to jump over the water.",
-"text.tutorial.jump2.2": "Nice jump!"
+"text.tutorial.item_system2.1": "Thank you!"
 }
