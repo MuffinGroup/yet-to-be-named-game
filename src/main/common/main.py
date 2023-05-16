@@ -361,6 +361,9 @@ debugMenu = registries.gui.registerGui(70, 100, 300, 600, False)
 
 font = pygame.font.Font('src\main/assets/fonts\joystixmonospaceregular.otf', 25)
 
+light = pygame.image.load('src\main/assets/textures\elements/test\circle.png')
+light = pygame.transform.scale(light, (light.get_width() * 10, light.get_height() * 10))
+
 def renderText(entry, language):
     debugMenuText = font.render(translatableComponent("text.debug_menu", language), True, DARK_ORANGE)
     debugModeText = font.render(translatableComponent("text.debug_mode", language), True, BLUE)
@@ -471,7 +474,7 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,27,27,00,00,00,00,00,00,00,00,00,00,00,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3,16, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,16,16,16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3,16, 3,16, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,15, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3,16, 3,16, 3, 3, 3,53,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,15, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3,16, 3,00,00,00,00,00,36,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16, 3, 3, 3, 3,00,00,00, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3, 3,00,00,00,00,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -973,6 +976,17 @@ def loadForeGround(map, surface, language):
         if Player.rect.colliderect(npc.rect) and key[pygame.K_e]:
             npcCurrent = registries.animations.npcTalkingNormal
             npcTalking = True
+
+def loadLights(surface, map):
+    mouse_x, mouse_y = pygame.mouse.get_pos()
+    y = 0
+    for row in map:
+        x = 0
+        for tile in row:
+            if tile == 53:
+                surface.blit(light, (x * 96, y * 96))
+            x += 1
+        y += 1
         
 def health():
         for i in range(Player.defaultHealth):
@@ -1314,7 +1328,7 @@ def Tut1(language):
         pygame.display.flip()
 
 def Tut2(language):
-    global camera_pos
+    global camera_pos, world
     world = pygame.Surface((6000,3000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
@@ -1461,13 +1475,18 @@ def Tut2(language):
             if exitDebugMenu.draw(screen):
                 Player.debuggingMenu = False
 
+        filter = pygame.surface.Surface((world.get_width(), world.get_height()))
+        filter.fill((204,204,204))
+        loadLights(filter, tut2_map)
+        screen.blit(filter, (player_x, player_y), special_flags=pygame.BLEND_RGBA_SUB)
+
         deathEvent(language)
 
         clock.tick(1600)
         pygame.display.flip()
 
 def Lvl1(language):
-    global command, x, y, camera_pos
+    global command, x, y, camera_pos, world
     enemy_x = 1000
     enemy_y = 1170
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
