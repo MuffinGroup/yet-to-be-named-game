@@ -224,7 +224,7 @@ class Player:
             pass
 
 def TutorialRender(language):
-    global Tut_welcome, Tut_walking_right, Tut_walking_left
+    global Tut_welcome, Tut_walking_right, Tut_walking_left, Tut_jumping
     key = pygame.key.get_pressed()
     if Tut_welcome == True:
         if key[pygame.K_SPACE]:
@@ -244,11 +244,15 @@ def TutorialRender(language):
             Tut_walking_left = True
 
     if Tut_walking_left == True:
-        Player.walkingRightLocked = False
         Player.walkingLeftLocked = False
-        Player.jumpingLocked = True
         if Player.rect.x <= 1300:
             Tut_walking_left = False
+            Tut_jumping = True
+
+    if Tut_jumping == True:
+        Player.jumpingLocked = False
+        if Player.jumping == True:
+            Tut_jumping = False
 
 def TutorialPanelRenderer(language):
     if Tut_welcome:
@@ -262,6 +266,9 @@ def TutorialPanelRenderer(language):
 
     if Tut_walking_left == True:
         tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.walking_right', language), translatableComponent('text.tutorial.walking_right1', language), translatableComponent('text.tutorial.walking_right2', language), '', translatableComponent('text.tutorial.walking_left', language), translatableComponent('text.tutorial.walking_left1', language), '', '', '', '', BLACK, -10, -10)
+
+    if Tut_jumping == True:
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', '', '', translatableComponent('text.tutorial.jump', language), translatableComponent('text.tutorial.jump1', language), translatableComponent('text.tutorial.jump2', language), '', '', '', '', '', BLACK, -10, -10)
 
 
 
@@ -394,6 +401,7 @@ exitDebugMenu = registries.gui.registerExitButton(40, 75)
 Tut_welcome = True
 Tut_walking_right = False
 Tut_walking_left = False
+Tut_jumping = False
 
 doorsound = pygame.mixer.Sound('src/main/assets/sounds/Door_Closing.wav')
 doorsound.set_volume(0.1)

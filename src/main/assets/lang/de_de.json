@@ -36,9 +36,10 @@
 "text.tutorial.walking_left1": "Druecke dazu LEFT.",
 "text.tutorial.walking_left2": "Wunderbar!",
 
-"text.tutorial.sprint": "Wenn du schneller sein möchtest, kannst du sprinten.",
-"text.tutorial.sprint1": "Drücke dazu während du läufst SHIFT.",
-"text.tutorial.sprint2": "Das ist besser, oder?",
+"text.tutorial.jump": "Manchmal musst du springen,.",
+"text.tutorial.jump1": "um voran zu kommen.",
+"text.tutorial.jump2": "Drücke dafür UP und du wirst springen.",
+"text.tutorial.jump3": "Cooler Sprung!",
 
 "text.tutorial.item_system": "Nun versuch eine Blume zu nehmen und mir zu geben.",
 "text.tutorial.item_system1": "Gehe dazu zu einer der Blumen und klicke darauf.",
@@ -46,9 +47,5 @@
 "text.tutorial.item_system3": "Geh jetzt durch die Tür, indem du E drückst und folge den weiteren Anweisungen.",
 
 "text.tutorial.item_system2.0": "Bitte lege die Blume auf den Tisch da drüben, indem du darauf klickst.",
-"text.tutorial.item_system2.1": "Ich danke dir!",
-
-"text.tutorial.jump2.0": "Wie du siehst, musst du manchmal springen, um voran zu kommen.",
-"text.tutorial.jump2.1": "Drücke dafür unter dem Laufen UP und du wirst hinübergelangen.",
-"text.tutorial.jump2.2": "Cooler Sprung!"
+"text.tutorial.item_system2.1": "Ich danke dir!"
 }
