@@ -1122,8 +1122,8 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
     
 def Tut1(language):
     global command, x, y, camera_pos, poppy, npcTalking, npcCurrent
-    enemy_x = 200
-    enemy_y = 305
+    enemy_x = 3000
+    enemy_y = 1170
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
@@ -1219,10 +1219,11 @@ def Tut1(language):
         #Enemy Import
         enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
         enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width() * 8, enemy_img.get_width() * 8))
-        enemy_rect = enemy_img_Scaled.get_rect()
+        image_rect = enemy_img_Scaled.get_rect()
         enemy_speed = 5
-        enemy_facing_left = True
         enemy_x -= enemy_speed
+        if image_rect <= 0 or image_rect >= screen_width - image_rect.width:
+            enemy_speed *= -1
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
 
         if Tut_welcome == True:
