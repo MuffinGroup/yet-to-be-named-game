@@ -23,6 +23,15 @@ Good to know:
     to check it out go to one of the animations.py files.
     We have also made it easy to add buttons, toggles and chats to your game.
     If you want to use this go to gui.py
+  
+# Contributing
+If you want to contribute there are some restrictions:
+1. Follow the formatting and codestyle (Brackets and conditions on one line)
+2. Do not change any of the critical files like README, LICENSE or .gitignore. If you notice issues with them request changes from a contributor.
+3. Of course your contributions also have to follow the github guidelines!
+4. Document your changes! A great example is Pull request #73
+Tip:
+1. Create a discussion thread for features you would like to implement so you can make sure your features will be accepted
 
 # LICENSE
 
