@@ -2,12 +2,16 @@
 
 A project to create a simple 2d game using python
 
-Contributors:
+### Contributors:
 
 - Thepigcat76 - Project Managment, Lead Dev
 - N1cohd1 - Lead Artist
 - TheHackerChampion - Dev
 - ReadyPlayerOne - Dev
+
+### Other contributors:
+- Pfornax - Animations
+- GH-Syn aka Cyré - Documentation and cleanup
 
 A small showcase: https://www.youtube.com/watch?v=33B_9wH1VLU
 
