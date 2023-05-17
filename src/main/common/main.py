@@ -1,19 +1,22 @@
-import pygame
 import sys
 from typing import Tuple
-from registries.colors import *
-from registries.language import *
+
+import pygame
+
 from registries.alerts import *
 import registries.animations
-import registries.elements
 import registries.buttons
+from registries.colors import *
+import registries.elements
 import registries.gui
 import registries.items
+from registries.language import *
 
-#pygame initialization
+# pygame initialization
 pygame.init()
+
 class Player:
-    #Initial Player attribute assignment
+    # Initial Player attribute assignment
     def __init__(self):
         Player.defaultSpeed = 40
         Player.speed = Player.defaultSpeed
@@ -37,7 +40,7 @@ class Player:
         Player.flight = 0
         Player.collide = 0
         Player.showPos = 0
-        Player.defaultHealth = 6 #most of the time it's 6
+        Player.defaultHealth = 6 # most of the time it's 6
         Player.health = Player.defaultHealth
         Player.playedDeathSound = False
         Player.dead = False
@@ -55,16 +58,16 @@ class Player:
         Player.movement = [0, 0]
         Player.underWater = False
 
-    def keybinds(self,camera_pos):
+    def keybinds(self, camera_pos):
         global player_x, player_y, key
-        self.doorhandling = 0 #Door mechanics
-        player_x = self.rect.x #Camera following the player
+        self.doorhandling = 0 # Door mechanics
+        player_x = self.rect.x # Camera following the player
         player_y = self.rect.y
 
         jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
         jumpsound.set_volume(0.09)    
 
-        player_x, player_y = camera_pos #Assign variables to the camera position
+        player_x, player_y = camera_pos # Assign variables to the camera position
         key = pygame.key.get_pressed()
 
         if Player.chatOpen == False:
@@ -211,7 +214,7 @@ class Player:
             poppy.drawItem(world, Player, 0, 0)
 
     def giveItem(world, item):
-        Player.holding = item 
+        Player.holding = item
         item.drawItem(world, Player, 0, 200)
         if Player.visible == True:
             item.pickedUp = True
@@ -396,7 +399,7 @@ chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 
 chat.inputLocked = True
 exitChat = registries.gui.registerExitButton(85, 80)
 exitDebugMenu = registries.gui.registerExitButton(40, 75)
-#continueNpcTalk = registries.gui.registerExitButton(2950, 650, "gui\speech_bubble_button")
+# continueNpcTalk = registries.gui.registerExitButton(2950, 650, "gui\speech_bubble_button")
 
 Tut_welcome = True
 Tut_walking_right = False
@@ -591,7 +594,7 @@ def genWorld(world, map):
                 grass_end.drawRotatedElement(world, x, y, True)
             if tile == 23:
                 cobbleStairs.drawStairElement(world, x, y, False, False, element_rects)
-            #Don't use tile 25. It is used in the loadExplosion method
+            # Don't use tile 25. It is used in the loadExplosion method
             if tile == 26:
                 bush.drawElement(world, x, y, deco_rects)
             if tile == 27:
@@ -603,7 +606,7 @@ def genWorld(world, map):
             if tile == 30:
                 bannerRedDeco.drawElement(world, x, y, deco_rects)
             if tile == 32:
-               bannerBlueDeco.drawElement(world, x, y, deco_rects) 
+                bannerBlueDeco.drawElement(world, x, y, deco_rects) 
             if tile == 33:
                 bannerYellowDeco.drawElement(world, x, y, deco_rects)
                 print(y, x)
@@ -611,7 +614,7 @@ def genWorld(world, map):
                 bannerYellowDeco.xRectModifier = 70
             if tile == 34:
                 shieldDamagedDeco.drawElement(world, x, y, deco_rects)
-            #Don't use tile 35 it is used for background loading
+            # Don't use tile 35 it is used for background loading
             if tile == 36:
                 cobble_pedestal_inactive.drawPedestalElement(world, x, y, element_rects)
                 print(x, y)
@@ -620,21 +623,21 @@ def genWorld(world, map):
                 wooden_plank.heightModifier = -76
             if tile == 38:
                 cobbleOffsetElement.drawElement(world, x, y, element_rects)
-                cobbleOffsetElement.xModifier = -cobbleOffsetElement.rect.width//2
-                cobbleOffsetElement.xRectModifier = -cobbleOffsetElement.rect.width//2
+                cobbleOffsetElement.xModifier = -cobbleOffsetElement.rect.width // 2
+                cobbleOffsetElement.xRectModifier = -cobbleOffsetElement.rect.width // 2
             if tile == 39:
                 brickElement.drawElement(world, x, y, deco_rects)
             if Player.world == "tut1" and tile == 9:
                 brickElement.drawElement(world, x, y, deco_rects)
-            if tile ==  40:
+            if tile == 40:
                 towerWallBottom.drawStairElement(world, x, y, False, False, deco_rects)
             if tile == 41:
                 towerWallBottom.drawStairElement(world, x, y, True, False, deco_rects)
-            if tile ==  42:
+            if tile == 42:
                 towerWall.drawRotatedElement(world, x, y, False)
             if tile == 43:
                 towerWall.drawRotatedElement(world, x, y, True)
-            if tile ==  44:
+            if tile == 44:
                 towerWallTop.drawStairElement(world, x, y, True, False, deco_rects)
             if tile == 45:
                 towerWallTop.drawStairElement(world, x, y, False, False, deco_rects)
@@ -697,7 +700,7 @@ def genWorld(world, map):
             leverPressed += 1
         if explosiveTimer >= 1:
             explosiveTimer += 1
-        leverTimer += 1 #9 32
+        leverTimer += 1
         if explosionCameraTimer >= 1 and player_x <= -2533 and player_y <= -444:
             camera_pos = (player_x + 10, player_y + 5)
             Player.locked = True
@@ -713,7 +716,7 @@ def genWorld(world, map):
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
             world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
             pygame.mixer.music.unpause()
-            cobble2Y -= 64*cobbleModifier2*cobbleModifier20
+            cobble2Y -= 64 * cobbleModifier2 * cobbleModifier20
             cobble2X -= 208
             if cobble2X < 2720:
                 cobbleModifier2 = -1
@@ -721,7 +724,7 @@ def genWorld(world, map):
             if cobble2X <= 2250:
                 cobble2X = 2250
                 cobble2Y = 1350
-            cobble1Y -= 64*cobbleModifier1*cobbleModifier10
+            cobble1Y -= 64 * cobbleModifier1 * cobbleModifier10
             cobble1X -= 192
             if cobble1X < 2720:
                 cobbleModifier1 = -1
@@ -733,15 +736,15 @@ def genWorld(world, map):
             camera_pos = (-2534, -445)
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
             world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
-            cobble2Y -= 64*cobbleModifier2*cobbleModifier20
+            cobble2Y -= 64 * cobbleModifier2 * cobbleModifier20
             cobble2X -= 208
             if cobble2X < 2720:
                 cobbleModifier2 = -1
                 cobbleModifier20 = 4
-            if cobble2X <= 2250: #24, 13
+            if cobble2X <= 2250:
                 cobble2X = 2250
                 cobble2Y = 1350
-            cobble1Y -= 64*cobbleModifier1*cobbleModifier10
+            cobble1Y -= 64 * cobbleModifier1 * cobbleModifier10
             cobble1X -= 192
             if cobble1X < 2720:
                 cobbleModifier1 = -1
@@ -757,14 +760,14 @@ def genWorld(world, map):
             camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
             world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
-            cobble2Y -= 64*cobbleModifier2*cobbleModifier20
+            cobble2Y -= 64 * cobbleModifier2 * cobbleModifier20
             cobble2X -= 208
             if cobble2X < 2720:
                 cobbleModifier2 = -1
                 cobbleModifier20 = 4
             if cobble2X <= 2250:
                 tut2_map[14][24] = 38
-            cobble1Y -= 64*cobbleModifier1*cobbleModifier10
+            cobble1Y -= 64 * cobbleModifier1 * cobbleModifier10
             cobble1X -= 192
             if cobble1X < 2720:
                 cobbleModifier1 = -1
@@ -1170,7 +1173,7 @@ def Tut1(language):
     player = Player() # Initialize Player Class
     resetDebugSettings()
     camera_pos = (0, 0) #camera starting position
-    #values for animation calculation
+    # values for animation calculation
     idleValue = 0
     walkingValue = 0
     
@@ -1181,7 +1184,7 @@ def Tut1(language):
     resetVars()
     while True:
         key = pygame.key.get_pressed()
-        #Fill the background outside of the map
+        # Fill the background outside of the map
         screen.fill(AQUA)
 
         loadBackground(tut1_map, world)
@@ -1225,23 +1228,23 @@ def Tut1(language):
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
                 Start(language)
         
-        #idle animation calculation
+        # idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
             idleValue = 0
 
-        #loading the idle animation
+        # loading the idle animation
         Player.currentSprite = registries.animations.idle_sprite[idleValue]
         
         if walkingValue >= len(registries.animations.walking_sprite):
             walkingValue = 0
         
-        #Movement animation rendering
+        # Movement animation rendering
         if Player.walking == True:
             Player.currentSprite = registries.animations.walking_sprite[walkingValue]
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
-        #bliting to the world
+        # bliting to the world
 
         if Player.visible == True:
             player.render(world)
@@ -1258,7 +1261,7 @@ def Tut1(language):
 
         cloud.drawElement(world, 10, 2, background_rects)
 
-        #Enemy Import
+        # Enemy Import
         enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
         enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width() * 8, enemy_img.get_width() * 8))
         image_rect = enemy_img_Scaled.get_rect()
@@ -1289,7 +1292,7 @@ def Tut1(language):
 
         screen.blit(renderText(1, language), (440, 30))
 
-        #Rendering the debug menu
+        # Rendering the debug menu
         player.renderDebugMenu(language)
 
         health()
@@ -1314,7 +1317,7 @@ def Tut1(language):
         elif Player.dead == False:
             Player.playedDeathSound = False
 
-        #Idle animations
+        # Idle animations
         if Player.standing == True:
             idleValue += 1
         if Player.walking == True:
@@ -1350,7 +1353,7 @@ def Tut2(language):
     resetDebugSettings()
     camera_pos = (0, 0) #camera starting position
 
-    #values for animation calculation
+    # values for animation calculation
     idleValue = 0
     walkingValue = 0
     Player.rect.x, Player.rect.y = 900, 750
@@ -1362,14 +1365,14 @@ def Tut2(language):
     Player.world = "tut2"
     poppyAlert = notification("src\main/assets/textures\elements\gui/notification_bar.png", "src\main/assets/textures\elements\Environment\decoration\Plants\poppy.png", 3, screen.get_width(), 200, 100)
     resetVars()
-    while True: #Render background
+    while True: # Render background
         try:
             print(Player.holding)
         except:
             pass
         world.fill(DARK_GRAY)
 
-        #Fill the background outside of the map
+        # Fill the background outside of the map
         screen.fill(DARK_GRAY)
 
         loadBackground(tut2_map, world)
@@ -1412,20 +1415,20 @@ def Tut2(language):
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
                 Start(language)
         
-        #idle animation calculation
+        # idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
             idleValue = 0
 
-        #loading the idle animation
+        # loading the idle animation
         Player.currentSprite = registries.animations.idle_sprite[idleValue]
         
         if walkingValue >= len(registries.animations.walking_sprite):
             walkingValue = 0
         
-        #Player movement
+        # Player movement
         camera_pos = player.keybinds(camera_pos) 
 
-        #Movement animation rendering
+        # Movement animation rendering
         if Player.walking == True:
             Player.currentSprite = registries.animations.walking_sprite[walkingValue]
         if Player.facingLeft == True:
@@ -1438,7 +1441,7 @@ def Tut2(language):
 
         loadExplosion(tut2_map, world)
         
-        #Render the map to the screen
+        # Render the map to the screen
         screen.blit(world, (player_x, player_y))
         
         renderCoordinates()
@@ -1448,7 +1451,7 @@ def Tut2(language):
             
         screen.blit(renderText(1, language), (440, 30))
 
-        #Rendering the debug menu
+        # Rendering the debug menu
         player.renderDebugMenu(language)	
         
         health()
@@ -1472,7 +1475,7 @@ def Tut2(language):
         elif Player.dead == False:
             Player.playedDeathSound = False
 
-        #Idle animations
+        # Idle animations
         if Player.standing == True:
             idleValue += 1
         if Player.walking == True:
@@ -1513,7 +1516,7 @@ def Lvl1(language):
     player = Player() # Initialize Player Class
     resetDebugSettings()
     camera_pos = (0, 0) #camera starting position
-    #values for animation calculation
+    # values for animation calculation
     idleValue = 0
     walkingValue = 0
     Player.rect.x, Player.rect.y = 350, 1050
@@ -1525,10 +1528,10 @@ def Lvl1(language):
     Player.world = "lvl1"
     resetVars()
     while True:
-        #Fill the background outside of the map
+        # Fill the background outside of the map
         world.fill(DARK_GRAY)
 
-        #Fill the background outside of the map
+        # Fill the background outside of the map
         screen.fill(DARK_GRAY)
 
         loadBackground(lvl1_map, world)
@@ -1572,20 +1575,20 @@ def Lvl1(language):
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
                 Start(language)
         
-        #idle animation calculation
+        # idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
             idleValue = 0
 
-        #loading the idle animation
+        # loading the idle animation
         Player.currentSprite = registries.animations.idle_sprite[idleValue]
         
         if walkingValue >= len(registries.animations.walking_sprite):
             walkingValue = 0
         
-        #Player movement
+        # Player movement
         camera_pos = player.keybinds(camera_pos) 
 
-        #Movement animation rendering
+        # Movement animation rendering
         if Player.walking == True:
             Player.currentSprite = registries.animations.walking_sprite[walkingValue]
         if Player.facingLeft == True:
@@ -1601,7 +1604,7 @@ def Lvl1(language):
 
         loadExplosion(lvl1_map, world)
 
-        #Enemy Import
+        # Enemy
         enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
         enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width() * 8, enemy_img.get_width() * 8))
         enemy_rect = enemy_img_Scaled.get_rect()
@@ -1610,10 +1613,10 @@ def Lvl1(language):
         enemy_x -= enemy_speed
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
         
-        #text implemention
+        # text implemention
         test = font.render(translatableComponent('text.tutorial.walking_left1', language), False, BLACK)
 
-        #Render the map to the screen
+        # Render the map to the screen
         speech_bubble = pygame.image.load('src/main/assets/textures/elements/gui/speech_bubble.png')
         if npcCurrent == registries.animations.npcTalkingNormal:
             world.blit(speech_bubble, (3650, 500))
@@ -1626,7 +1629,7 @@ def Lvl1(language):
             
         screen.blit(renderText(1, language), (440, 30))
 
-        #Rendering the debug menu
+        # Rendering the debug menu
         player.renderDebugMenu(language)
         
         health()
@@ -1651,7 +1654,7 @@ def Lvl1(language):
         elif Player.dead == False:
             Player.playedDeathSound = False
 
-        #Idle animations
+        # Idle animations
         if Player.standing == True:
             idleValue += 1
         if Player.walking == True:
@@ -1683,4 +1686,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Start(Player.language) #this isn't start bc i need to do some debugging and testing
+    Start(Player.language)

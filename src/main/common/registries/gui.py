@@ -200,7 +200,7 @@ class registerChat():
         self.lines = lines
         self.sentMessage = False
     
-    def event(self, event): #this has to be executed withing the event for loop look at main_gui for an example
+    def event(self, event): # this has to be executed withing the event for loop look at main_gui for an example
         if event.type == pygame.KEYDOWN and self.inputLocked == False:
             if event.key == pygame.K_BACKSPACE and self.lessThanOneChar == False:
                 self.userInput = self.userInput[0:-1]
@@ -213,7 +213,7 @@ class registerChat():
                 self.x += self.sampleText.get_width()
                 
             if event.key == pygame.K_RETURN and self.lessThanOneChar == False:
-                for i in range(self.lines): #len in main_gui is 3
+                for i in range(self.lines): # len in main_gui is 3
                         self.linesLoaded[self.lines - i] = self.linesLoaded[self.lines - i - 1]
                 self.linesLoaded[0] = self.userInput
                 self.userInput = ""
@@ -268,7 +268,7 @@ class registerSlots():
             self.slots.append(self.rect)
             print(i)
         if texture != None:
-         self.texture = pygame.image.load('src/main/assets/textures/elements/gui/' + texture + '.png') #weird indentation
+         self.texture = pygame.image.load('src/main/assets/textures/elements/gui/' + texture + '.png') # weird indentation
          self.texture = pygame.transform.scale(self.texture, (60, 60))
     
     def drawSlots(self, surface, slotColor):

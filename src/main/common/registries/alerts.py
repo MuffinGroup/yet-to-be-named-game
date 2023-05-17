@@ -36,7 +36,7 @@ class notification:
         self.scaledTexture.blit(self.text1, (100, self.scaledTexture.get_height()//6))
         self.scaledTexture.blit(self.text2, (100, self.scaledTexture.get_height()//4*2))
         self.scaledTexture.blit(self.scaledIcon, (16, 16))
-        #use self.finished = False to reset the bar
+        # use self.finished = False to reset the bar
 
 class infoPanel:
     def __init__(self, panelPath, scale):
