@@ -5,7 +5,6 @@ import pygame
 
 from registries.alerts import *
 import registries.animations
-import registries.buttons
 from registries.colors import *
 import registries.elements
 import registries.gui
@@ -432,6 +431,7 @@ plankCameraTimer = 0
 yellowBannerDamaged = False
 hasTorch = False
 movesDown = False
+posDone = False
 bridgeTimer = 0
 
 def resetVars():
@@ -545,7 +545,7 @@ def loadExplosion(map, world):
         y += 1
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, yellowBannerDamaged, hasTorch, movesDown, bridgeTimer, poppyAlert
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, yellowBannerDamaged, hasTorch, movesDown, bridgeTimer, poppyAlert, posDone
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -861,6 +861,7 @@ def genWorld(world, map):
 
         if yellowBannerDamaged == True and Player.rect.colliderect(hole) and key[pygame.K_e]:
             movesDown = True
+            hasTorch = False
 
         if Player.rect.colliderect(specialTorchDeco.rect) and key[pygame.K_e] and hasTorch == False:
             lvl1_map[18][2] = 52
@@ -870,14 +871,26 @@ def genWorld(world, map):
             Player.rect.bottom = cobbleStairs.rect1.top
             pygame.draw.rect(world, WHITE, Player.rect, 3)"""
         
-        if movesDown == True and Player.rect.y <= 3000:
-            Player.rect.y += 20
+        if movesDown == True and Player.rect.y < 3078:
             Player.collide = 1
         elif movesDown == True:
             Player.collide = 0
+            movesDown = False
+
+        if movesDown == True and Player.rect.x < 1344:
+            Player.rect.x += 20
+            Player.facingRight = True
+            Player.locked = True
+
+        if movesDown == True and Player.rect.x > 1344:
+            Player.rect.x -= 20
+            Player.facingRight = True
+            Player.locked = True
+
+        if movesDown == False:
+            Player.locked = False
             
         leverTimer += 1
-        pygame.draw.rect(world, WHITE, cobbleStairs.rect1, 3)
 
 drownTime = 0
 def loadFluids(map, surface): 
@@ -1534,12 +1547,6 @@ def Lvl1(language):
         # Fill the background outside of the map
         screen.fill(DARK_GRAY)
 
-        loadBackground(lvl1_map, world)
-
-        genWorld(world, lvl1_map)
-
-        loadForeGround(tut1_map, world, language)
-
         movementControl(Player)
 
         try:
@@ -1584,6 +1591,12 @@ def Lvl1(language):
         
         if walkingValue >= len(registries.animations.walking_sprite):
             walkingValue = 0
+
+        loadBackground(lvl1_map, world)
+
+        genWorld(world, lvl1_map)
+
+        loadForeGround(tut1_map, world, language)
         
         # Player movement
         camera_pos = player.keybinds(camera_pos) 
