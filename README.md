@@ -9,7 +9,7 @@ Contributors:
 - TheHackerChampion - Dev
 - ReadyPlayerOne - Dev
 
-
+# Other contributors
 - Pfornax - Animations
 - GH-Syn aka Cyré - Documentation and cleanup
 
