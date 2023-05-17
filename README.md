@@ -9,6 +9,9 @@ Contributors:
 - TheHackerChampion - Dev
 - ReadyPlayerOne - Dev
 
+- Pfornax - Animations
+- GH-Syn aka Cyré - Documentation and cleanup
+
 A small showcase: https://www.youtube.com/watch?v=33B_9wH1VLU
 
 A showcase of the dynamic map gen: https://www.youtube.com/watch?v=jVYOqr7GQzY
