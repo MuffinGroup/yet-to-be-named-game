@@ -27,5 +27,4 @@ class registerItem():
                 surface.blit(self.flippedTexture, (self.xNew, self.yNew))
             if player.rect.colliderect(self.hitbox):
                 if pygame.key.get_pressed()[pygame.K_e]:
-                    pygame.draw.rect(surface, (255, 255, 255), self.hitbox, 3)
                     self.pickedUp = True

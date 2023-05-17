@@ -430,7 +430,6 @@ yellowBannerDamaged = False
 hasTorch = False
 movesDown = False
 bridgeTimer = 0
-poppyAlert = notification("src\main/assets/textures\elements\gui/notification_bar.png", "src\main/assets/textures\elements\Environment\decoration\Plants\poppy.png", 3, screen.get_width(), 200, 100)
 
 def resetVars():
     global leverOn, leverOff, leverTimer, leverPressed
@@ -543,7 +542,7 @@ def loadExplosion(map, world):
         y += 1
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, yellowBannerDamaged, hasTorch, movesDown, bridgeTimer
+    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, yellowBannerDamaged, hasTorch, movesDown, bridgeTimer, poppyAlert
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -591,7 +590,7 @@ def genWorld(world, map):
             if tile == 22:
                 grass_end.drawRotatedElement(world, x, y, True)
             if tile == 23:
-                cobbleStairs.drawStairElement(world, x, y, False, False, deco_rects)
+                cobbleStairs.drawStairElement(world, x, y, False, False, element_rects)
             #Don't use tile 25. It is used in the loadExplosion method
             if tile == 26:
                 bush.drawElement(world, x, y, deco_rects)
@@ -603,8 +602,6 @@ def genWorld(world, map):
                 chainDeco.drawElement(world, x, y, deco_rects)
             if tile == 30:
                 bannerRedDeco.drawElement(world, x, y, deco_rects)
-            if tile == 31:
-                cobbleStairs.drawRotatedElement(world, x, y, True)
             if tile == 32:
                bannerBlueDeco.drawElement(world, x, y, deco_rects) 
             if tile == 33:
@@ -682,6 +679,7 @@ def genWorld(world, map):
             tut2_map[15][18] = 37
         if bridgeTimer == 40:
             tut2_map[15][19] = 37
+            
         if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             exploded = True
@@ -865,9 +863,9 @@ def genWorld(world, map):
             lvl1_map[18][2] = 52
             hasTorch = True
 
-        if Player.rect.colliderect(cobbleStairs.rect1) and Player.jumping == False:
+        """if Player.rect.colliderect(cobbleStairs.rect1) and Player.jumping == False:
             Player.rect.bottom = cobbleStairs.rect1.top
-            pygame.draw.rect(world, WHITE, Player.rect, 3)
+            pygame.draw.rect(world, WHITE, Player.rect, 3)"""
         
         if movesDown == True and Player.rect.y <= 3000:
             Player.rect.y += 20
@@ -1346,7 +1344,7 @@ def Tut1(language):
         pygame.display.flip()
 
 def Tut2(language):
-    global camera_pos, world
+    global camera_pos, world, poppyAlert
     world = pygame.Surface((6000,3000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
@@ -1362,6 +1360,7 @@ def Tut2(language):
     pygame.mixer.music.set_volume(0.1)
     
     Player.world = "tut2"
+    poppyAlert = notification("src\main/assets/textures\elements\gui/notification_bar.png", "src\main/assets/textures\elements\Environment\decoration\Plants\poppy.png", 3, screen.get_width(), 200, 100)
     resetVars()
     while True: #Render background
         try:
@@ -1499,6 +1498,9 @@ def Tut2(language):
         screen.blit(filter, (player_x, player_y), special_flags=pygame.BLEND_RGBA_SUB)"""
 
         deathEvent(language)
+
+        if bridgeTimer >= 40:
+            poppyAlert.render(screen, "uwu", "amogus", BLACK)
 
         clock.tick(1600)
         pygame.display.flip()
