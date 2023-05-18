@@ -5,6 +5,7 @@
 
 "command.teleport.tut1": "teleported to tut1",
 "command.teleport.tut2": "teleported to tut2",
+"command.teleport.tut3": "teleported to tut3",
 "command.lang": "Current language: ",
 "command.place": "Placed block",
 
@@ -17,6 +18,7 @@
 "text.debug_menu.collide": "collide",
 "text.debug_menu.fly": "flight",
 "text.debug_menu.pos": "show pos",
+"text.debug_menu.editMode": "Editing",
 
 "text.tutorial.welcome": "Welcome to yet-to-be-named-game!",
 "text.tutorial.welcome1": "In this game you will find some ",

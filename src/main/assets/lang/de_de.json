@@ -5,6 +5,7 @@
 
 "command.teleport.tut1": "Zu tut1 teleportiert",
 "command.teleport.tut2": "Zu tut2 teleportiert",
+"command.teleport.tut3": "Zu tut3 teleportiert",
 "command.lang": "Ausgewaehlte Sprache: ",
 
 "text.debug_mode": "Schalte den debug-modus mit d ein",
@@ -16,6 +17,8 @@
 "text.debug_menu.collide": "Kolissionen",
 "text.debug_menu.fly": "Fliegen",
 "text.debug_menu.pos": "zeige pos",
+"text.debug_menu.editMode": "Bearbeitung",
+
 
 "text.tutorial.welcome": "Willkommen bei yet-to-be-named-game!",
 "text.tutorial.welcome1": "In diesem Spiel wirst du einige",

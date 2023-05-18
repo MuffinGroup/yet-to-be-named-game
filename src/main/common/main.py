@@ -56,6 +56,7 @@ class Player:
         Player.holdsItem = False
         Player.movement = [0, 0]
         Player.underWater = False
+        Player.editMode = 0
 
     def keybinds(self, camera_pos):
         global player_x, player_y, key
@@ -187,9 +188,13 @@ class Player:
                 if Player.showPos > 1:
                     Player.showPos = 0
                 Player.showPos += 1
-            if damageButton.draw(debugMenu.window, 225, 450, -35, -10, 75, 100, translatableComponent("button.debug_menu.damage", language), BLACK, "joystixmonospaceregular"):
+            if toggleEditMode.drawToggle(debugMenu.window, 320, 450, 75, 100):
+                if Player.editMode > 1:
+                    Player.editMode = 0
+                Player.editMode += 1
+            if damageButton.draw(debugMenu.window, 225, 550, -35, -10, 75, 100, translatableComponent("button.debug_menu.damage", language), BLACK, "joystixmonospaceregular"):
                 Player.damage(1)
-            if healButton.draw(debugMenu.window, 225, 550, -60, -10, 75, 100, translatableComponent("button.debug_menu.heal", language), BLACK, "joystixmonospaceregular"):
+            if healButton.draw(debugMenu.window, 225, 650, -60, -10, 75, 100, translatableComponent("button.debug_menu.heal", language), BLACK, "joystixmonospaceregular"):
                 Player.heal(1)
         
     def render(self, surface):
@@ -283,9 +288,11 @@ def resetDebugSettings():
     toggleAdvMove.test = 0
     toggleCollisions.test = 0
     togglePos.test = 0
+    toggleEditMode.test = 0
     Player.collide = 0
     Player.flight = 0
     Player.showPos = 0
+    Player.editMode = 0
 
 Player()
 #Loading element textures
@@ -391,6 +398,7 @@ healButton = registries.gui.registerButton("button", 4.0)
 toggleCollisions = registries.gui.registerButton("toggle", 12.0)
 toggleAdvMove = registries.gui.registerButton("toggle", 12.0)
 togglePos = registries.gui.registerButton("toggle", 12.0)
+toggleEditMode = registries.gui.registerButton("toggle", 12.0)
 
 screen_width = 1000
 screen_height = 800
