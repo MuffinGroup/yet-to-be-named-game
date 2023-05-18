@@ -1,5 +1,7 @@
 import sys
+import pickle
 from typing import Tuple
+from os import path
 
 import pygame
 
@@ -167,15 +169,18 @@ class Player:
         if Player.health + health <= Player.defaultHealth:
             Player.health += health
 
-    def renderDebugMenu(self, language):
+    def renderDebugMenu(self, language, map):
+        global tut1_map
         toggleCollisionsText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.collide", language), BLACK, 15, 30)
         toggleAdvMoveText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.fly", language), BLACK, 15, 130)
         togglePosText = registries.gui.registerFont(25, translatableComponent("text.debug_menu.pos", language), BLACK, 15, 230)
+        toggleEditModeText = registries.gui.registerFont(25, translatableComponent("text.debug_menu.editMode", language), BLACK, 15, 330)
         if Player.debuggingMenu == True:
             debugMenu.draw(screen, BLUISH_GRAY)
             toggleCollisionsText.drawFont(debugMenu.window)
             toggleAdvMoveText.drawFont(debugMenu.window)
             togglePosText.drawFont(debugMenu.window)
+            toggleEditModeText.drawFont(debugMenu.window)
             if toggleCollisions.drawToggle(debugMenu.window, 320, 150, 75, 100):
                 if Player.collide > 1:
                     Player.collide = 0
@@ -196,6 +201,15 @@ class Player:
                 Player.damage(1)
             if healButton.draw(debugMenu.window, 225, 650, -60, -10, 75, 100, translatableComponent("button.debug_menu.heal", language), BLACK, "joystixmonospaceregular"):
                 Player.heal(1)
+            if saveButton.draw(debugMenu.window, 225, 750, -15, -10, 75, 100, translatableComponent("button.debug_menu.save", language), BLACK, "joystixmonospaceregular"):
+                pickle_out = open(f'level1_data', 'wb')
+                pickle.dump(map, pickle_out)
+                pickle_out.close()
+            if loadButton.draw(debugMenu.window, 225, 850, -15, -10, 75, 100, translatableComponent("button.debug_menu.load", language), BLACK, "joystixmonospaceregular"):
+                if path.exists(f'level1_data'):
+                    pickle_in = open(f'level1_data', 'rb')
+                    tut1_map = pickle.load(pickle_in)
+            #if loadButton.draw(debugMenu.window, 225, 850, )
         
     def render(self, surface):
             self.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
@@ -207,6 +221,9 @@ class Player:
             Player.itemHandling(surface)
 
     dropped = False
+
+    def editingMode():
+        pass
 
     def itemHandling(world):
         if Player.holding != None:
@@ -377,7 +394,7 @@ deathSound.set_volume(0.25)
 hurtSound = pygame.mixer.Sound("src\main/assets\sounds\hurt.mp3")
 hurtSound.set_volume(0.25)
 
-debugMenu = registries.gui.registerGui(70, 100, 300, 600, False)
+debugMenu = registries.gui.registerGui(70, 100, 300, 800, False)
 
 font = pygame.font.Font('src\main/assets/fonts\joystixmonospaceregular.otf', 25)
 
@@ -394,6 +411,8 @@ debug_menu = pygame.Rect((70, 70), (300, 400))
 
 damageButton = registries.gui.registerButton("button", 4.0)
 healButton = registries.gui.registerButton("button", 4.0)
+saveButton = registries.gui.registerButton("button", 4.0)
+loadButton = registries.gui.registerButton("button", 4.0)
 
 toggleCollisions = registries.gui.registerButton("toggle", 12.0)
 toggleAdvMove = registries.gui.registerButton("toggle", 12.0)
@@ -1316,7 +1335,7 @@ def Tut1(language):
         screen.blit(renderText(1, language), (440, 30))
 
         # Rendering the debug menu
-        player.renderDebugMenu(language)
+        player.renderDebugMenu(language, tut1_map)
 
         health()
         
@@ -1475,7 +1494,7 @@ def Tut2(language):
         screen.blit(renderText(1, language), (440, 30))
 
         # Rendering the debug menu
-        player.renderDebugMenu(language)	
+        player.renderDebugMenu(language, tut2_map)	
         
         health()
         if Player.health > Player.defaultHealth:
@@ -1653,7 +1672,7 @@ def Lvl1(language):
         screen.blit(renderText(1, language), (440, 30))
 
         # Rendering the debug menu
-        player.renderDebugMenu(language)
+        player.renderDebugMenu(language, lvl1_map)
         
         health()
         

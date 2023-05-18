@@ -14,11 +14,13 @@
 
 "button.debug_menu.damage": "Damage",
 "button.debug_menu.heal": "Heal",
+"button.debug_menu.save": "Save",
+"button.debug_menu.load": "Load",
 
 "text.debug_menu.collide": "collide",
 "text.debug_menu.fly": "flight",
 "text.debug_menu.pos": "show pos",
-"text.debug_menu.editMode": "Editing",
+"text.debug_menu.editMode": "Edit Mode",
 
 "text.tutorial.welcome": "Welcome to yet-to-be-named-game!",
 "text.tutorial.welcome1": "In this game you will find some ",

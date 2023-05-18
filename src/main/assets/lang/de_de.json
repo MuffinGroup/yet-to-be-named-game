@@ -13,6 +13,8 @@
 
 "button.debug_menu.damage": "Schaden",
 "button.debug_menu.heal": "Heilen",
+"button.debug_menu.save": "Speichern",
+"button.debug_menu.load": "Laden",
 
 "text.debug_menu.collide": "Kolissionen",
 "text.debug_menu.fly": "Fliegen",
