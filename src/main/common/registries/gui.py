@@ -303,3 +303,59 @@ class registerExitButton():
             else:
                 self.clicked = False
             return self.clicked
+        
+class registerTextBox():
+    def __init__(self, fontSize, textColor, markerColor, chatBoxColor, markerDefaultPos, textBoxX, textBoxY, textBoxWidth, textBoxHeight):
+        self.keyBlacklist = ()
+        self.userInput = ""
+        self.markerColor = markerColor
+        self.sample = "i"
+        self.inputLocked = False
+        self.selected = True
+        self.chatBox = pygame.Rect((textBoxX, textBoxY), (textBoxWidth, textBoxHeight))
+        self.font = pygame.font.Font("src\main/assets/fonts/joystixmonospaceregular.otf", fontSize)
+        self.textColor = textColor
+        self.chatBoxColor = chatBoxColor
+        self.renderMarker = 0
+        self.lessThanOneChar = True
+        self.markerDefaultPos = markerDefaultPos
+        self.x = self.markerDefaultPos
+    
+    def event(self, event): # this has to be executed withing the event for loop look at main_gui for an example
+        if event.type == pygame.KEYDOWN and self.inputLocked == False:
+            if event.key == pygame.K_BACKSPACE and self.lessThanOneChar == False:
+                self.userInput = self.userInput[0:-1]
+                self.x -= self.sampleText.get_width()
+            elif event.key == pygame.K_TAB and self.userText.get_width() < self.chatBox.width - self.sampleText.get_width() * 4:
+                self.userInput += "    "
+                self.x += self.sampleText.get_width() * 4
+            elif not event.key == pygame.K_ESCAPE and not event.key == pygame.K_BACKSPACE and not event.key == pygame.K_LALT and not event.key == pygame.K_RALT and not event.key == pygame.K_LSHIFT and not event.key == pygame.K_RIGHT and not event.key == pygame.K_LEFT and not event.key == pygame.K_UP and not event.key == pygame.K_DOWN and not event.key == pygame.K_LCTRL and not event.key == pygame.K_RCTRL and not event.key == pygame.K_RSHIFT and not event.key == pygame.K_RETURN and self.userText.get_width() < self.chatBox.width - self.sampleText.get_width() * 4:
+                self.userInput += event.unicode
+                self.x += self.sampleText.get_width()
+    
+    def draw(self, surface):
+        self.sampleText = self.font.render(self.sample, False, (0, 0, 0))
+        self.userText = self.font.render(self.userInput, True, self.textColor)
+        
+        surface.blit(self.userText, (self.markerDefaultPos, self.chatBox.height))
+        pygame.draw.rect(surface, self.chatBoxColor, self.chatBox, 5)
+        print(self.chatBox.y)
+        if self.userText.get_width() >= self.sampleText.get_width():
+            self.lessThanOneChar = False
+        else:
+            self.lessThanOneChar = True
+            
+        if self.renderMarker >= 99:
+            self.renderMarker = 0
+        else:
+            pygame.time.wait(10)
+            self.renderMarker += 1
+
+        if self.renderMarker <= 70 and self.inputLocked == False:
+            pygame.draw.line(surface, self.markerColor, (self.x, self.chatBox.height), (self.x, self.chatBox.height + self.userText.get_height()), 5)
+
+        print(self.renderMarker)
+    
+    def clear(self):
+        self.userInput = ""
+        self.x = self.markerDefaultPos
