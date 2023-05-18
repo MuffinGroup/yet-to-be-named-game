@@ -48,7 +48,7 @@ while True:
                     ttt_map[frameX][frameY] = 2
                     inputLocked = False
 
-            #Check lines
+            # Check lines
             if all(cell == 1 for cell in row):
                     gameWon = True
 
@@ -65,8 +65,8 @@ while True:
                     gameWon = True
 
 
-            #Bot winning
-            #Check lines
+            # Bot winning
+            # Check lines
             if all(cell == 2 for cell in row):
                     gameLost = True
 
