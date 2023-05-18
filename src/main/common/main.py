@@ -1308,9 +1308,10 @@ def Tut1(language):
         enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width() * 8, enemy_img.get_width() * 8))
         image_rect = enemy_img_Scaled.get_rect()
         enemy_speed = 5
-        enemy_x -= enemy_speed
-        if enemy_x <= 2000:
-           enemy_speed = -10
+        if enemy_x <= 3000:
+           enemy_x -= enemy_speed
+        if enemy_x <= 2500:
+           enemy_x += 5
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
 
         if Tut_welcome == True:
