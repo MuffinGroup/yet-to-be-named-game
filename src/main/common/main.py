@@ -222,8 +222,20 @@ class Player:
 
     dropped = False
 
-    def editingMode():
-        pass
+    def editingMode(surface, map):
+        if Player.editMode == 1:
+            y = 0
+            for row in map:
+                x = 0
+                for tile in row:
+                    if tile == 0:
+                        frame = pygame.Rect((96, 96), (x * 96, y * 96))
+                        if frame.collidepoint(pygame.mouse.get_pos()):
+                            pygame.draw.rect(surface, (255, 0, 255), frame, 3)
+                        else:
+                            pygame.draw.rect(surface, WHITE, frame, 3)
+                    x += 1
+                y += 1
 
     def itemHandling(world):
         if Player.holding != None:
@@ -1326,6 +1338,8 @@ def Tut1(language):
             if continueNpcTalk.draw(world):
                 npcCurrent = registries.animations.npcIdle
                 npcTalking = False"""
+        
+        Player.editingMode(world, tut1_map)
 
         screen.blit(world, (player_x, player_y))
 
