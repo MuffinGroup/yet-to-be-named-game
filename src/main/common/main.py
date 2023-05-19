@@ -383,6 +383,17 @@ doorCurrent = doorClosedLargeElement
 poppy = registries.items.registerItem("poppy", "elements\Environment\decoration\Plants\poppy")
 torch = registries.items.registerItem("torch", "elements\Environment\decoration\Torches/Torch")
 
+cobbleFlatSide = registries.elements.registerElement("elements\Environment\Blocks\cobble\cobble_flat_side", 3)
+cobbleFlatSide1 = registries.elements.registerElement("elements\Environment\Blocks\cobble\cobble_flat_side_1", 3)
+cobbleEdge = registries.elements.registerElement("elements\Environment\Blocks\cobble\cobble_edge", 3)
+cobbleEdge2 = registries.elements.registerElement("elements\Environment\Blocks\cobble\cobble_edge_2", 3)
+cobbleEdge3 = registries.elements.registerElement("elements\Environment\Blocks\cobble\cobble_edge_3", 3)
+
+cobbleMossyFlatSide = registries.elements.registerElement("elements\Environment\Blocks\mossy_cobble\cobble_mossy_flat_side", 3)
+cobbleMossyEdge = registries.elements.registerElement("elements\Environment\Blocks\mossy_cobble\cobble_mossy_edge", 3)
+cobbleMossyEdge2 = registries.elements.registerElement("elements\Environment\Blocks\mossy_cobble\cobble_mossy_edge_2", 3)
+cobbleMossyEdge3 = registries.elements.registerElement("elements\Environment\Blocks\mossy_cobble\cobble_mossy_edge_3", 3)
+
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
 
@@ -517,18 +528,18 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3,16, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16,16, 3, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3,16,16, 3,16, 3,16,16,16, 3, 3,16,16, 3, 3, 3,16, 3, 3, 3, 3,16, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16,16,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3,16, 3,16,16, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3, 3,16,16,16, 3, 3,16, 3,16, 3, 3, 3,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3,16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3,16, 3,16,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00,00, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3,16, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,27,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,27,27,00,00,00,00,00,00,00,00,00,00,00,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3,16, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3,16,16,16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3,16, 3,16, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,15, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3,16, 3,00,00,00,00,00,36,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3,16, 3, 3, 3, 3,00,00,00, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3, 3,00,00,00,00,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3,16, 3,16,16,55,55, 3, 3, 3,16, 3,16, 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3, 3,16,16,16, 3, 3,16, 3,16, 3, 3, 3,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3, 3,16,54,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3,16,16,54,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3,54,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00,00, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3, 3, 3,54,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,27,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3,54,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,27,27,00,00,00,00,00,00,00,00,00,00,00,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3,16, 3,54,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,16,16,16, 3, 3,16,54,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3,16, 3,16, 3, 3,54,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,15, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3,16,54,00,00,00,00,00,36,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3,16, 3, 3, 3,57,00,00,00, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3, 3,16, 3,16,53,53,53, 3,16, 3, 3,00,00,00,00,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 5, 5, 5, 5, 3, 3,16,16, 3,16,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 4, 4, 4, 4,16,16,16, 3,16, 3,16,16, 3, 3,16, 3, 3,16, 3, 3, 3,16,16, 3, 3,16, 3, 3, 3,16,16, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -632,9 +643,9 @@ def genWorld(world, map):
             if tile == 20:
                 calcite.drawElement(world, x, y, element_rects)
             if tile == 21:
-                grass_end.drawRotatedElement(world, x, y, False)
+                grass_end.drawRotatedElement(world, x, y, False, False)
             if tile == 22:
-                grass_end.drawRotatedElement(world, x, y, True)
+                grass_end.drawRotatedElement(world, x, y, True, False)
             if tile == 23:
                 cobbleStairs.drawStairElement(world, x, y, False, False, element_rects)
             # Don't use tile 25. It is used in the loadExplosion method
@@ -677,17 +688,17 @@ def genWorld(world, map):
             if tile == 41:
                 towerWallBottom.drawStairElement(world, x, y, True, False, deco_rects)
             if tile == 42:
-                towerWall.drawRotatedElement(world, x, y, False)
+                towerWall.drawRotatedElement(world, x, y, False, False)
             if tile == 43:
-                towerWall.drawRotatedElement(world, x, y, True)
+                towerWall.drawRotatedElement(world, x, y, True, False)
             if tile == 44:
                 towerWallTop.drawStairElement(world, x, y, True, False, deco_rects)
             if tile == 45:
                 towerWallTop.drawStairElement(world, x, y, False, False, deco_rects)
             if tile == 46:
-                towerWallLong.drawRotatedElement(world, x, y, False)
+                towerWallLong.drawRotatedElement(world, x, y, False, False)
             if tile == 47:
-                towerWallLong.drawRotatedElement(world, x, y, True)
+                towerWallLong.drawRotatedElement(world, x, y, True, False)
             if tile == 48:
                 towerWallWindow.drawElement(world, x, y, deco_rects)
             if tile == 50:
@@ -696,6 +707,66 @@ def genWorld(world, map):
                 hole.drawElement(x, y, deco_rects)
             if tile == 52:
                 specialTorchHolderDeco.drawElement(world, x, y, deco_rects)
+            # Cobble elements with one side
+            if tile == 53:
+                cobbleFlatSide.drawElement(world, x, y, element_rects)
+            if tile == 54:
+                cobbleFlatSide1.drawElement(world, x, y, element_rects)
+            if tile == 55:
+                cobbleFlatSide.drawPrecRotatedElement(world, x, y, element_rects, 180)
+            if tile == 56:
+                cobbleFlatSide1.drawPrecRotatedElement(world, x, y, element_rects, 180)
+            # Cobble elements with one edge
+            if tile == 57:
+                cobbleEdge.drawElement(world, x, y, element_rects)
+            if tile == 58:
+                cobbleEdge.drawPrecRotatedElement(world, x, y, element_rects, 90)
+            if tile == 59:
+                cobbleEdge.drawElement(world, x, y, element_rects, 180)
+            if tile == 60:
+                cobbleEdge.drawElement(world, x, y, element_rects, 270)
+            # Cobble elements with two edges
+            if tile == 61:
+                cobbleEdge2.drawElement(world, x, y, element_rects)
+            if tile == 62:
+                cobbleEdge2.drawPrecRotatedElement(world, x, y, element_rects, 90)
+            if tile == 63:
+                cobbleEdge2.drawPrecRotatedElement(world, x, y, element_rects, 180)
+            if tile == 64:
+                cobbleEdge2.drawPrecRotatedElement(world, x, y, element_rects, 270)
+            # Cobble elements with 4 round edges
+            if tile == 65:
+                cobbleEdge3.drawElement(world, x, y, element_rects)
+            # Cobble flat
+            if tile == 66:
+                cobbleMossyFlatSide.drawElement(world, x, y, element_rects)
+            if tile == 67:
+                cobbleMossyFlatSide.drawPrecRotatedElement(world, x, y, element_rects, 90)
+            if tile == 68:
+                cobbleMossyFlatSide.drawPrecRotatedElement(world, x, y, element_rects, 180)
+            if tile == 69:
+                cobbleMossyFlatSide.drawPrecRotatedElement(world, x, y, element_rects, 270)
+            # Cobble with one edge
+            if tile == 70:
+                cobbleMossyEdge.drawElement(world, x, y, element_rects)
+            if tile == 71:
+                cobbleMossyEdge.drawPrecRotatedElement(world, x, y, element_rects, 90)
+            if tile == 72:
+                cobbleMossyEdge.drawPrecRotatedElement(world, x, y, element_rects, 180)
+            if tile == 73:
+                cobbleMossyEdge.drawPrecRotatedElement(world, x, y, element_rects, 270)
+            # Cobble with two edges
+            if tile == 74:
+                cobbleMossyEdge2.drawElement(world, x, y, element_rects)
+            if tile == 75:
+                cobbleMossyEdge2.drawPrecRotatedElement(world, x, y, element_rects)
+            if tile == 76:
+                cobbleMossyEdge2.drawPrecRotatedElement(world, x, y, element_rects)
+            if tile == 77:
+                cobbleMossyEdge2.drawPrecRotatedElement(world, x, y, element_rects)
+            # Cobble with 4 edges
+            if tile == 60:
+                cobbleMossyEdge3.drawElement(world, x, y, element_rects)
             x += 1
         y += 1
 
