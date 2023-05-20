@@ -350,6 +350,7 @@ cobbleElement = registries.elements.registerElement("elements/Environment/blocks
 brickElement = registries.elements.registerElement("elements\Environment\Blocks/brick_wall", 3)
 cobbleMossyElement = registries.elements.registerElement("elements/Environment/blocks/cobble_mossy", 3)
 leverOnDeco = registries.elements.registerElement("elements\Environment\decoration\Lever\Lever(activated)", 3)
+leverSwitching = registries.elements.registerAnimatedElement(3)
 leverOffDeco = registries.elements.registerElement("elements\Environment\decoration\Lever\Lever(deactivated)", 3)
 poppyDeco = registries.elements.registerElement("elements\Environment\decoration\Plants\poppy", 3)
 grassDeco = registries.elements.registerElement("elements/Environment/decoration/Plants/grass", 3)
