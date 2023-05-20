@@ -3,8 +3,8 @@ import pygame
 pygame.init()
 
 class registerItem():
-    def __init__(self, id, texturePath):
-        self.id = id
+    def __init__(self, texturePath):
+        self.id = str(self)
         self.pickedUp = False
         self.texture = pygame.image.load("src\main/assets/textures/" + texturePath + ".png")
         self.texture = pygame.transform.scale(self.texture, (self.texture.get_width() * 2.5, self.texture.get_height() * 2.5))

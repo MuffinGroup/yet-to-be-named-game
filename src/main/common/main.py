@@ -297,7 +297,7 @@ def TutorialRender(language):
             Tut_item2 = True
 
     if Tut_item2 == True:
-        if door_open == True:
+        if door0_open == True:
             Tut_item2 = False
             Tut_item3 = True
 
@@ -366,8 +366,10 @@ shieldDamagedDeco = registries.elements.registerElement("elements/Environment/de
 bannerRedDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner1", 5)
 bannerBlueDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner2", 5)
 bannerYellowDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner3", 5)
-doorOpenLargeElement = registries.elements.registerElement("elements/doors/door_0_open", 5)
-doorClosedLargeElement = registries.elements.registerElement("elements/doors/door_0_closed", 5)
+door0OpenLargeElement = registries.elements.registerElement("elements/doors/door_0_open", 5)
+door0ClosedLargeElement = registries.elements.registerElement("elements/doors/door_0_closed", 5)
+door2OpenLargeElement = registries.elements.registerElement("elements/doors/door_2_open", 5)
+door2ClosedLargeElement = registries.elements.registerElement("elements/doors/door_2_closed", 5)
 darkCobble = registries.elements.registerElement("elements\Environment\Blocks\Cobble(Backround)", 3)
 darkMossyCobble = registries.elements.registerElement("elements\Environment\Blocks\Mossy_cobble(Backround)", 3)
 calcite = registries.elements.registerElement("elements\Environment\Blocks\Calcite", 3)
@@ -397,9 +399,10 @@ hole = registries.elements.registerInvisibleElement()
 npc = registries.elements.registerAnimatedElement(8) # 37/6
 waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
-doorCurrent = doorClosedLargeElement
-poppy = registries.items.registerItem("poppy", "elements\Environment\decoration\Plants\poppy")
-torch = registries.items.registerItem("torch", "elements\Environment\decoration\Torches/Torch")
+door0Current = door0ClosedLargeElement
+door2Current = door2ClosedLargeElement
+poppy = registries.items.registerItem("elements\Environment\decoration\Plants\poppy")
+torch = registries.items.registerItem("elements\Environment\decoration\Torches/Torch")
 
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
@@ -471,7 +474,8 @@ Tut_item2 = False
 Tut_item3 = False
 Tut_end = False
 
-door_open = False
+door0_open = False
+door2_open = False
 doorsound = pygame.mixer.Sound('src/main/assets/sounds/Door_Closing.wav')
 doorsound.set_volume(0.1)
 
@@ -541,10 +545,10 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3,16, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16,16, 3, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3,16,16, 3,16, 3,16,16,16, 3, 3,16,16, 3, 3, 3,16, 3, 3, 3, 3,16, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16,16,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3,16, 3,16,16,55,55, 3, 3, 3,16, 3,16, 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3, 3,16,16,16, 3, 3,16, 3,16, 3, 3, 3,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3,16, 3,16,16, 3,16, 3, 3, 3,16, 3,16, 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3, 3,16,16,16, 3, 3,16, 3,16, 3, 3, 3,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3,16,16,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 9,00,00,00, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,53,00,00,00, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,27,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,27,27,00,00,00,00,00,00,00,00,00,00,00,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3,16, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -612,7 +616,7 @@ def loadExplosion(map, world):
         y += 1
 
 def genWorld(world, map):
-    global doorCurrent, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, yellowBannerDamaged, hasTorch, movesDown, bridgeTimer, poppyAlert, posDone
+    global door0Current, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, yellowBannerDamaged, hasTorch, movesDown, bridgeTimer, poppyAlert, posDone
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -719,8 +723,6 @@ def genWorld(world, map):
             if tile == 51:
                 hole.drawElement(x, y, deco_rects)
             if tile == 52:
-                specialTorchHolderDeco.drawElement(world, x, y, deco_rects)
-            if tile == 53:
                 specialTorchHolderDeco.drawElement(world, x, y, deco_rects)
             x += 1
         y += 1
@@ -1018,7 +1020,7 @@ def loadBackground(map, surface):
         y += 1
 
 def loadForeGround(map, surface, language):
-    global foreground_rects, npcTalking, doorCurrent, n, npcCurrent, npcTalking
+    global foreground_rects, npcTalking, door0Current, n, npcCurrent, npcTalking, door0_open, door2Current, door2_open
     foreground_rects = []
 
     y = 0
@@ -1026,11 +1028,11 @@ def loadForeGround(map, surface, language):
         x = 0
         for tile in row:
             if tile == 9:
-                doorCurrent.drawElement(surface, x, y, deco_rects)
-                doorCurrent.yModifier = -22
-                doorCurrent.widthModifier = -75
-                doorCurrent.xRectModifier = 50
-                doorCurrent.yRectModifier = -22
+                door0Current.drawElement(surface, x, y, deco_rects)
+                door0Current.yModifier = -22
+                door0Current.widthModifier = -75
+                door0Current.xRectModifier = 50
+                door0Current.yRectModifier = -22
             if tile == 18:
                 npc.drawAnimatedElement(surface, x, y, foreground_rects, npcCurrent)
                 npc.yModifier = 32
@@ -1038,34 +1040,61 @@ def loadForeGround(map, surface, language):
                 npc.heightModifier = -100
                 npc.xRectModifier = 80
                 npc.yRectModifier = 120
+            if tile == 53:
+                door2Current.drawElement(world, x, y, deco_rects)
+                door2Current.yModifier = -22
+                door2Current.widthModifier = -75
+                door2Current.xRectModifier = 50
+                door2Current.yRectModifier = -22
             x += 1
         y += 1
-    if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and key[pygame.K_e]:
+    if Player.rect.colliderect(door0ClosedLargeElement.rect) and Player.visible == True and key[pygame.K_e]:
         if Player.world != "tut1":
-            door_open = True
-            doorCurrent = doorOpenLargeElement
-            doorCurrent.yModifier = -22
-            doorCurrent.widthModifier = -75
-            doorCurrent.xRectModifier = 50
-            doorCurrent.yRectModifier = -22
+            door0_open = True
+            door0Current = door0OpenLargeElement
+            door0Current.yModifier = -22
+            door0Current.widthModifier = -75
+            door0Current.xRectModifier = 50
+            door0Current.yRectModifier = -22
             n += 1
         elif not Player.rect.colliderect(npc.rect):
-            doorCurrent = doorOpenLargeElement
-            doorCurrent.yModifier = -22
-            doorCurrent.widthModifier = -75
-            doorCurrent.xRectModifier = 50
-            doorCurrent.yRectModifier = -22
+            door0Current = door0OpenLargeElement
+            door0Current.yModifier = -22
+            door0Current.widthModifier = -75
+            door0Current.xRectModifier = 50
+            door0Current.yRectModifier = -22
             n += 1
 
-    if n == 40:
+    if Player.world == "tut2":
+        if Player.rect.colliderect(door2ClosedLargeElement.rect) and Player.visible == True and key[pygame.K_e]:
+            door2_open = True
+            door2Current = door2OpenLargeElement
+            door2Current.yModifier = -22
+            door2Current.widthModifier = -75
+            door2Current.xRectModifier = 50
+            door2Current.yRectModifier = -22
+            n += 1
+
+    if n == 40 and door0_open == True:
         Player.visible = False
-        door_open = False
-        doorCurrent = doorClosedLargeElement
-        doorCurrent.yModifier = -22
-        doorCurrent.widthModifier = -75
-        doorCurrent.xRectModifier = 50
-        doorCurrent.yRectModifier = -22
-        pygame.mixer.Sound.play(doorsound) 
+        door0_open = False
+        door0Current = door0ClosedLargeElement
+        door0Current.yModifier = -22
+        door0Current.widthModifier = -75
+        door0Current.xRectModifier = 50
+        door0Current.yRectModifier = -22
+        pygame.mixer.Sound.play(doorsound)
+
+    if n == 40 and door2_open == True:
+        Player.visible = False
+        door2_open = False
+        door2Current = door2ClosedLargeElement
+        door2Current.yModifier = -22
+        door2Current.widthModifier = -75
+        door2Current.xRectModifier = 50
+        door2Current.yRectModifier = -22
+        pygame.mixer.Sound.play(doorsound)
+
     if n == 50:
         n = 0
         if Player.world == "tut1":
@@ -1074,6 +1103,7 @@ def loadForeGround(map, surface, language):
             Lvl1(language)
     if n >= 1 and n <= 70:
         n += 1
+
     if Player.world == "tut1":
         if Player.rect.colliderect(npc.rect) and key[pygame.K_e]:
             npcCurrent = registries.animations.npcTalkingNormal
