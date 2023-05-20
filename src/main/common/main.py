@@ -392,6 +392,7 @@ towerWall = registries.elements.registerElement("elements\Environment\Blocks/tow
 towerWallTop= registries.elements.registerElement("elements\Environment\Blocks/tower_wall3", 3)
 towerWallLong = registries.elements.registerElement("elements/Environment/Blocks/tower_wall4", 3)
 towerWallWindow = registries.elements.registerElement("elements/Environment/Blocks/tower_window", 3)
+towerWallWindow = registries.elements.registerElement("elements/Environment/Blocks/tower_window", 3)
 hole = registries.elements.registerInvisibleElement()
 npc = registries.elements.registerAnimatedElement(8) # 37/6
 waterFluid = registries.elements.registerAnimatedElement(3)
@@ -399,17 +400,6 @@ waterWavingFluid = registries.elements.registerAnimatedElement(3)
 doorCurrent = doorClosedLargeElement
 poppy = registries.items.registerItem("poppy", "elements\Environment\decoration\Plants\poppy")
 torch = registries.items.registerItem("torch", "elements\Environment\decoration\Torches/Torch")
-
-cobbleFlatSide = registries.elements.registerElement("elements\Environment\Blocks\cobble\cobble_flat_side", 3)
-cobbleFlatSide1 = registries.elements.registerElement("elements\Environment\Blocks\cobble\cobble_flat_side_1", 3)
-cobbleEdge = registries.elements.registerElement("elements\Environment\Blocks\cobble\cobble_edge", 3)
-cobbleEdge2 = registries.elements.registerElement("elements\Environment\Blocks\cobble\cobble_edge_2", 3)
-cobbleEdge3 = registries.elements.registerElement("elements\Environment\Blocks\cobble\cobble_edge_3", 3)
-
-cobbleMossyFlatSide = registries.elements.registerElement("elements\Environment\Blocks\mossy_cobble\cobble_mossy_flat_side", 3)
-cobbleMossyEdge = registries.elements.registerElement("elements\Environment\Blocks\mossy_cobble\cobble_mossy_edge", 3)
-cobbleMossyEdge2 = registries.elements.registerElement("elements\Environment\Blocks\mossy_cobble\cobble_mossy_edge_2", 3)
-cobbleMossyEdge3 = registries.elements.registerElement("elements\Environment\Blocks\mossy_cobble\cobble_mossy_edge_3", 3)
 
 enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
 enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
@@ -729,6 +719,8 @@ def genWorld(world, map):
             if tile == 51:
                 hole.drawElement(x, y, deco_rects)
             if tile == 52:
+                specialTorchHolderDeco.drawElement(world, x, y, deco_rects)
+            if tile == 53:
                 specialTorchHolderDeco.drawElement(world, x, y, deco_rects)
             x += 1
         y += 1
