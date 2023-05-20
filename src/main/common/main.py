@@ -260,7 +260,7 @@ class Player:
             pass
 
 def TutorialRender(language):
-    global Tut_welcome, Tut_walking_right, Tut_walking_left, Tut_jumping, Tut_item1, Tut_item2
+    global Tut_welcome, Tut_walking_right, Tut_walking_left, Tut_jumping, Tut_item1, Tut_item2, Tut_item3, Tut_end
     key = pygame.key.get_pressed()
     if Tut_welcome == True:
         if key[pygame.K_SPACE]:
@@ -296,6 +296,11 @@ def TutorialRender(language):
             Tut_item1 = False
             Tut_item2 = True
 
+    if Tut_item2 == True:
+        if door_open == True:
+            Tut_item2 = False
+            Tut_item3 = True
+
 def TutorialPanelRenderer(language):
     if Tut_welcome:
         if language == 'de_de':
@@ -313,8 +318,10 @@ def TutorialPanelRenderer(language):
         tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', '', '', translatableComponent('text.tutorial.jump', language), translatableComponent('text.tutorial.jump1', language), translatableComponent('text.tutorial.jump2', language), '', '', '', '', '', BLACK, -10, -10)
 
     if Tut_item1 == True:
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', '', translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), '', '', '', '', '', '', BLACK, -10, -10)
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), '', '', '', '', '', '', '', BLACK, -10, -10)
 
+    if Tut_item2 == True:
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), '', '', BLACK, -10, -10)
 
 
 
@@ -464,13 +471,17 @@ exitChat = registries.gui.registerExitButton(85, 80)
 exitDebugMenu = registries.gui.registerExitButton(40, 75)
 # continueNpcTalk = registries.gui.registerExitButton(2950, 650, "gui\speech_bubble_button")
 
+#tutorial working
 Tut_welcome = True
 Tut_walking_right = False
 Tut_walking_left = False
 Tut_jumping = False
 Tut_item1 = False
 Tut_item2 = False
+Tut_item3 = False
+Tut_end = False
 
+door_open = False
 doorsound = pygame.mixer.Sound('src/main/assets/sounds/Door_Closing.wav')
 doorsound.set_volume(0.1)
 
@@ -1099,6 +1110,7 @@ def loadForeGround(map, surface, language):
         y += 1
     if Player.rect.colliderect(doorClosedLargeElement.rect) and Player.visible == True and key[pygame.K_e]:
         if Player.world != "tut1":
+            door_open = True
             doorCurrent = doorOpenLargeElement
             doorCurrent.yModifier = -22
             doorCurrent.widthModifier = -75
@@ -1115,6 +1127,7 @@ def loadForeGround(map, surface, language):
 
     if n == 40:
         Player.visible = False
+        door_open = False
         doorCurrent = doorClosedLargeElement
         doorCurrent.yModifier = -22
         doorCurrent.widthModifier = -75

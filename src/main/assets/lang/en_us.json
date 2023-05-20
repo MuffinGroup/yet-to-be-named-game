@@ -47,7 +47,11 @@
 "text.tutorial.item": "After you got the basics,",
 "text.tutorial.item1": "you could do domething for me.",
 "text.tutorial.item2": "Come to me and press E.",
-"text.tutorial.item3": "Now go through the door by pressing E and follow the next instructions.",
+"text.tutorial.item3": "Here is a poppy.",
+"text.tutorial.item4": "You have to bring it to the",
+"text.tutorial.item5": "plinth in the castle.",
+"text.tutorial.item6": "For this go through the door",
+"text.tutorial.item7": "by pressing E aggain",
 
 "text.tutorial.item2.0": "Please put the flower on the table over there by clicking on it.",
 "text.tutorial.item2.1": "Thank you!"
