@@ -44,11 +44,11 @@
 "text.tutorial.jump2": "For this press the UP button.",
 "text.tutorial.jump3": "Nice jump!",
 
-"text.tutorial.item_system": "Now try to take a poppy and give it to me.",
-"text.tutorial.item_system1": "For this go to a poppy and click on it.",
-"text.tutorial.item_system2": "When you can see it in the inventory, come back to me.",
-"text.tutorial.item_system3": "Now go through the door by pressing E and follow the next instructions.",
+"text.tutorial.item": "After you got the basics,",
+"text.tutorial.item1": "you could do domething for me.",
+"text.tutorial.item2": "Come to me and press E.",
+"text.tutorial.item3": "Now go through the door by pressing E and follow the next instructions.",
 
-"text.tutorial.item_system2.0": "Please put the flower on the table over there by clicking on it.",
-"text.tutorial.item_system2.1": "Thank you!"
+"text.tutorial.item2.0": "Please put the flower on the table over there by clicking on it.",
+"text.tutorial.item2.1": "Thank you!"
 }

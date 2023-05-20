@@ -41,16 +41,17 @@
 "text.tutorial.walking_left1": "Druecke dazu LEFT.",
 "text.tutorial.walking_left2": "Wunderbar!",
 
-"text.tutorial.jump": "Manchmal musst du springen,.",
+"text.tutorial.jump": "Manchmal musst du springen,",
 "text.tutorial.jump1": "um voran zu kommen.",
-"text.tutorial.jump2": "Druecke dafür UP und du wirst springen.",
+"text.tutorial.jump2": "Druecke UP um zu springen.",
 "text.tutorial.jump3": "Cooler Sprung!",
 
-"text.tutorial.item_system": "Nun versuch eine Blume zu nehmen und mir zu geben.",
-"text.tutorial.item_system1": "Gehe dazu zu einer der Blumen und klicke darauf.",
-"text.tutorial.item_system2": "Wenn du es in deinem Inventar sehen kannst, komm hierher zurück.",
-"text.tutorial.item_system3": "Geh jetzt durch die Tuer, indem du E drückst und folge den weiteren Anweisungen.",
+"text.tutorial.item": "Da du die Grundlagen jetzt kennst,",
+"text.tutorial.item1": "koenntest du mir einen Gefallen tun.",
+"text.tutorial.item2": "Komm zu mir nach hinten und druecke E.",
+"text.tutorial.item3": "Wenn du es in deinem Inventar sehen kannst, komm hierher zurück.",
+"text.tutorial.item4": "Geh jetzt durch die Tuer, indem du E drückst und folge den weiteren Anweisungen.",
 
-"text.tutorial.item_system2.0": "Bitte lege die Blume auf den Pfeiler da drueben, indem du darauf klickst.",
-"text.tutorial.item_system2.1": "Ich danke dir!"
+"text.tutorial.item2.0": "Bitte lege die Blume auf den Pfeiler da drueben, indem du darauf klickst.",
+"text.tutorial.item2.1": "Ich danke dir!"
 }
