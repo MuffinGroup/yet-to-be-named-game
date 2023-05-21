@@ -316,13 +316,11 @@ def TutorialPanelRenderer(language):
     if Tut_jumping == True:
         tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', '', '', translatableComponent('text.tutorial.jump', language), translatableComponent('text.tutorial.jump1', language), translatableComponent('text.tutorial.jump2', language), '', '', '', '', '', BLACK, -10, -10)
 
-    if Tut_item1 == True:
+    if Tut_item1 == True and npcTalking == False:
         tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), '', '', '', '', '', '', '', BLACK, -10, -10)
 
-    if Tut_item2 == True:
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), '', '', BLACK, -10, -10)
-
-
+    """if Tut_item2 == True:
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), '', '', BLACK, -10, -10)"""
 
 def renderCoordinates():
     if Player.showPos == 1:
@@ -457,7 +455,7 @@ chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 
 chat.inputLocked = True
 exitChat = registries.gui.registerExitButton(85, 80)
 exitDebugMenu = registries.gui.registerExitButton(40, 75)
-# continueNpcTalk = registries.gui.registerExitButton(2950, 650, "gui\speech_bubble_button")
+continueNpcTalk = registries.gui.registerExitButton(2950, 650, "gui\speech_bubble_button")
 
 #tutorial working
 Tut_welcome = True
@@ -482,7 +480,7 @@ leverPressed = 0
 exploded = False
 explosionCameraTimer = 0
 cobble1X = cobbleElement.scaledTexture.get_width() * 31
-cobble1Y = cobbleElement.scaledTexture.get_height() * 8
+cobble1Y = cobbleElement.scaledTexture.get_height() * 8F
 cobble2X = cobbleElement.scaledTexture.get_width() * 31
 cobble2Y = cobbleElement.scaledTexture.get_height() * 9
 cobbleModifier1 = 1
@@ -507,7 +505,7 @@ def resetVars():
     leverTimer = 0
     leverPressed = 0
 
-tutWalking = infoPanel("src\main/assets/textures\elements\gui/info_panel.png", 8)
+tutWalking = infoPanel("src\main/assets/textures\elements\gui/info_panel.png", 8, 15)
 
 tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
@@ -1385,6 +1383,11 @@ def Tut1(language):
         
         Player.editingMode(world, tut1_map)
 
+        # Render the map to the screen
+        speech_bubble = infoPanel("src\main/assets/textures\elements\gui\speech_bubble.png", 4, 25)
+        if npcTalking == True:
+            speech_bubble.render(world, 3050, 1200, "test", "", "", "", "", "", "", "", "", "", "", "", BLACK, -25, -25)
+
         screen.blit(world, (player_x, player_y))
 
         if Player.debuggingMode == True:
@@ -1708,15 +1711,7 @@ def Lvl1(language):
         enemy_facing_left = True
         enemy_x -= enemy_speed
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
-        
-        # text implemention
-        test = font.render(translatableComponent('text.tutorial.walking_left1', language), False, BLACK)
 
-        # Render the map to the screen
-        speech_bubble = pygame.image.load('src/main/assets/textures/elements/gui/speech_bubble.png')
-        if npcCurrent == registries.animations.npcTalkingNormal:
-            world.blit(speech_bubble, (3650, 500))
-            world.blit(test, (3550, 900))
         screen.blit(world, (player_x, player_y))
         renderCoordinates()
 

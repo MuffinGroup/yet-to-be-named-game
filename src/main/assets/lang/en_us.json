@@ -44,14 +44,13 @@
 "text.tutorial.jump2": "For this press the UP button.",
 "text.tutorial.jump3": "Nice jump!",
 
-"text.tutorial.item": "After you got the basics,",
-"text.tutorial.item1": "you could do domething for me.",
-"text.tutorial.item2": "Come to me and press E.",
+"text.tutorial.item": "Now that you got the basics,",
+"text.tutorial.item1": "you should go to the npc.",
+"text.tutorial.item2": "Talk to him by pressing E.",
 "text.tutorial.item3": "Here is a poppy.",
-"text.tutorial.item4": "You have to bring it to the",
-"text.tutorial.item5": "plinth in the castle.",
-"text.tutorial.item6": "For this go through the door",
-"text.tutorial.item7": "by pressing E aggain",
+"text.tutorial.item4": "Bring it to the pedestal",
+"text.tutorial.item5": "For this go through the door",
+"text.tutorial.item6": "by pressing E aggain",
 
 "text.tutorial.item2.0": "Please put the flower on the table over there by clicking on it.",
 "text.tutorial.item2.1": "Thank you!"
