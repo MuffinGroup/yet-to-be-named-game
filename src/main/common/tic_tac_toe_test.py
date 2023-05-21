@@ -15,14 +15,40 @@ input = 1
 gameWon = False
 gameLost = False
 loseTimer = 0
+selectedXPos = 0
+selectedYPos = 0
 clock = pygame.time.Clock()
 
 while True:
+    if selectedYPos > 2:
+        selectedYPos = 0
+    if selectedYPos < 0:
+        selectedYPos = 2
+    key = pygame.key.get_pressed()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-
+        if event.type == pygame.KEYUP and event.key == pygame.K_RIGHT:
+            if selectedXPos >= 2:
+                selectedXPos = 0
+                selectedYPos += 1
+            else:
+                selectedXPos += 1
+        if event.type == pygame.KEYUP and event.key == pygame.K_LEFT:
+            if selectedXPos <= 0 and not selectedYPos <= 0:
+                selectedXPos = 2
+                selectedYPos -= 1
+            elif selectedXPos == 0 and selectedYPos == 0:
+                 selectedYPos = 2
+                 selectedXPos = 2
+            elif selectedXPos != 0:
+                selectedXPos -= 1
+        if event.type == pygame.KEYUP and event.key == pygame.K_DOWN:
+            selectedYPos += 1
+        if event.type == pygame.KEYUP and event.key == pygame.K_UP:
+            selectedYPos -= 1
+             
     frameX, frameY = random.randint(0, 2), random.randint(0, 2)
 
     y = 0
@@ -30,11 +56,16 @@ while True:
         x = 0
         for tile in row:
             frame = pygame.Rect((x * 100, y * 100), (100, 100))
-            if tile == 0:
-                if frame.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0] == 1 and inputLocked == False and gameWon == False:
-                    ttt_map[frame.y//100][frame.x//100] = 1
+            try:
+                if ttt_map[selectedYPos][selectedXPos] == 0 and key[pygame.K_RETURN]:
+                    ttt_map[selectedYPos][selectedXPos] = 1
                     inputLocked = True
-            pygame.draw.rect(screen, (255, 255, 255), frame, 3)
+            except:
+                pass
+            if x == selectedXPos and y == selectedYPos:
+                pygame.draw.rect(screen, (255, 0, 255), frame, 3)
+            else:
+                pygame.draw.rect(screen, (255, 255, 255), frame, 3)
             if tile == 1:
                 pygame.draw.line(screen, (255, 0, 0), frame.bottomleft, frame.topright, 7)
                 pygame.draw.line(screen, (255, 0, 0), frame.bottomright, frame.topleft, 7)
@@ -50,18 +81,22 @@ while True:
             # Check lines
             if all(cell == 1 for cell in row):
                     gameWon = True
+                    print(1)
 
             # Check columns
             for col in range(3):
                 if all(ttt_map[row][col] == 1 for row in range(3)):
                     gameWon = True
+                    print(2)
 
             # Check diagonals
             if all(ttt_map[i][i] == 1 for i in range(3)):
                     gameWon = True
+                    print(3)
 
             if all(ttt_map[i][2 - i] == 1 for i in range(3)):
                     gameWon = True
+                    print(4)
 
             # Bot winning
             # Check lines
