@@ -301,6 +301,11 @@ def TutorialRender(language):
             Tut_item2 = False
             Tut_item3 = True
 
+    if Tut_item3 == True:
+        if poppyPlaced == True:
+            Tut_item3 = False
+            Tut_end = True
+
 def TutorialPanelRenderer(language):
     if Tut_welcome:
         if language == 'de_de':
@@ -481,7 +486,7 @@ leverPressed = 0
 exploded = False
 explosionCameraTimer = 0
 cobble1X = cobbleElement.scaledTexture.get_width() * 31
-cobble1Y = cobbleElement.scaledTexture.get_height() * 8F
+cobble1Y = cobbleElement.scaledTexture.get_height() * 8
 cobble2X = cobbleElement.scaledTexture.get_width() * 31
 cobble2Y = cobbleElement.scaledTexture.get_height() * 9
 cobbleModifier1 = 1
