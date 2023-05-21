@@ -741,25 +741,22 @@ def genWorld(world, map):
             tut2_map[15][18] = 37
         if bridgeTimer == 40:
             tut2_map[15][19] = 37
-            
+        
         if leverOff == True and Player.rect.colliderect(leverDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
-            exploded = True
             pygame.mixer.music.pause()
             leverOn = True
             leverOff = False
-            leverPressed += 1
-            explosionCameraTimer += 1
-        elif leverOn == True and Player.rect.colliderect(leverDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
-            leverTimer = 0
-            leverOff = True
-            leverOn = False
-            leverPressed += 1
         if explosiveTimer >= 1:
             explosiveTimer += 1
         leverTimer += 1
         if leverOn == True:
             leverDeco.callAnimation()
+            if leverDeco.frame == 34:
+                leverPressed += 1
+                explosionCameraTimer += 1
+                exploded = True
+
         if explosionCameraTimer >= 1 and player_x <= -2533 and player_y <= -444:
             camera_pos = (player_x + 10, player_y + 5)
             Player.locked = True
@@ -1045,7 +1042,7 @@ def loadForeGround(map, surface, language):
             door0Current.xRectModifier = 50
             door0Current.yRectModifier = -22
             n += 1
-        elif not Player.rect.colliderect(npc.rect):
+        elif not Player.rect.colliderect(npc.rect) and Player.holding == poppy.id:
             door0Current = door0OpenLargeElement
             door0Current.yModifier = -22
             door0Current.widthModifier = -75
