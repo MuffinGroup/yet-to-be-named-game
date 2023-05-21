@@ -81,22 +81,18 @@ while True:
             # Check lines
             if all(cell == 1 for cell in row):
                     gameWon = True
-                    print(1)
 
             # Check columns
             for col in range(3):
                 if all(ttt_map[row][col] == 1 for row in range(3)):
                     gameWon = True
-                    print(2)
 
             # Check diagonals
             if all(ttt_map[i][i] == 1 for i in range(3)):
                     gameWon = True
-                    print(3)
 
             if all(ttt_map[i][2 - i] == 1 for i in range(3)):
                     gameWon = True
-                    print(4)
 
             # Bot winning
             # Check lines
