@@ -280,6 +280,7 @@ def TutorialRender(language):
 
     if Tut_walking_left == True:
         Player.walkingLeftLocked = False
+        Player.jumpingLocked = True
         if Player.rect.x <= 1300:
             Tut_walking_left = False
             Tut_jumping = True
