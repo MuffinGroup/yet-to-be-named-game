@@ -607,91 +607,6 @@ lvl1_map = [[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
             [28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,00,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28],
             [28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28]]
 
-ttt_map = [[0, 0, 0],
-           [0, 0, 0],
-           [0, 0, 0]]
-
-inputLocked = True
-input = 1
-gameWon = False
-gameLost = False
-loseTimer = 0
-
-def ticTacToe(world, xPos, yPos):
-    global input, inputLocked, gameLost, gameWon, loseTimer, ttt_map
-    frameX, frameY = random.randint(0, 2), random.randint(0, 2)
-
-    y = 0
-    for row in ttt_map:
-        x = 0
-        for tile in row:
-            frame = pygame.Rect((x * 100 + xPos, y * 100 + yPos), (100, 100))
-            if tile == 0:
-                if frame.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0] == 1 and inputLocked == False and gameWon == False:
-                    ttt_map[(frame.y - yPos)//100][(frame.x - xPos)//100] = 1
-                    inputLocked = True
-            pygame.draw.rect(world, (255, 255, 255), frame, 3)
-            if tile == 1:
-                pygame.draw.line(world, (255, 0, 0), frame.bottomleft, frame.topright, 7)
-                pygame.draw.line(world, (255, 0, 0), frame.bottomright, frame.topleft, 7)
-            if tile == 2:
-                pygame.draw.circle(world, (255, 0, 255), frame.center, frame.width//2, 7)
-
-            if inputLocked == True:
-                if ttt_map[frameX][frameY] == 0:
-                    pygame.time.wait(200)
-                    ttt_map[frameX][frameY] = 2
-                    inputLocked = False
-
-            # Check lines
-            if all(cell == 1 for cell in row):
-                    gameWon = True
-
-            # Check columns
-            for col in range(3):
-                if all(ttt_map[row][col] == 1 for row in range(3)):
-                    gameWon = True
-
-            # Check diagonals
-            if all(ttt_map[i][i] == 1 for i in range(3)):
-                    gameWon = True
-
-            if all(ttt_map[i][2 - i] == 1 for i in range(3)):
-                    gameWon = True
-
-            # Bot winning
-            # Check lines
-            if all(cell == 2 for cell in row):
-                    gameLost = True
-
-            # Check columns
-            for col in range(3):
-                if all(ttt_map[row][col] == 2 for row in range(3)):
-                    gameLost = True
-
-            # Check diagonals
-            if all(ttt_map[i][i] == 2 for i in range(3)):
-                    gameLost = True
-            
-            if all(ttt_map[i][2 - i] == 2 for i in range(3)):
-                    gameLost = True
-    
-            if gameWon == True:
-                print("Player wins!")
-                pygame.quit()
-                sys.exit()
-
-            if gameLost == True:
-                if loseTimer < 180:
-                     loseTimer += 1
-                else:
-                    print("Bot wins!")
-                    pygame.quit()
-                    sys.exit()
-
-            x += 1
-        y += 1
-
 def loadExplosion(map, world):
     y = 0
     for row in map:
@@ -1483,8 +1398,6 @@ def Tut1(language):
         speech_bubble = infoPanel("src\main/assets/textures\elements\gui\speech_bubble.png", 4, 25)
         if npcTalking == True:
             speech_bubble.render(world, 3050, 1200, "test", "", "", "", "", "", "", "", "", "", "", "", BLACK, -25, -25)
-
-        ticTacToe(world)
 
         screen.blit(world, (player_x, player_y))
 
