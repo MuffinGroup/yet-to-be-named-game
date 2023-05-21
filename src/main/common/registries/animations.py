@@ -4,9 +4,7 @@ import pygame
 def load_animation(AlphaImageName, numberofsprites, timesLoaded, directory = None, format = "png"):
     if timesLoaded <= 0:
         print("timesLoaded must be 1 or above")
-    while timesLoaded <= 0:
         pygame.quit()
-        exit
     sprite_list = []
     for sprite in range(1, numberofsprites):
         currentimagename = str(directory)+"/"+str(AlphaImageName)+"("+str(sprite) + ")" + "." +str(format)

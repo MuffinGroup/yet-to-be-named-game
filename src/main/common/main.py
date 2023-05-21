@@ -349,9 +349,7 @@ coarseGrassElement = registries.elements.registerElement("elements/Environment/b
 cobbleElement = registries.elements.registerElement("elements/Environment/blocks/cobble", 3)
 brickElement = registries.elements.registerElement("elements\Environment\Blocks/brick_wall", 3)
 cobbleMossyElement = registries.elements.registerElement("elements/Environment/blocks/cobble_mossy", 3)
-leverOnDeco = registries.elements.registerElement("elements\Environment\decoration\Lever\Lever(activated)", 3)
-leverSwitching = registries.elements.registerAnimatedElement(3)
-leverOffDeco = registries.elements.registerElement("elements\Environment\decoration\Lever\Lever(deactivated)", 3)
+leverDeco = registries.elements.registerCallableAnimatedElement(3)
 poppyDeco = registries.elements.registerElement("elements\Environment\decoration\Plants\poppy", 3)
 grassDeco = registries.elements.registerElement("elements/Environment/decoration/Plants/grass", 3)
 torchLeftDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=left)", 3)
@@ -431,9 +429,6 @@ hurtSound.set_volume(0.25)
 debugMenu = registries.gui.registerGui(70, 100, 300, 800, False)
 
 font = pygame.font.Font('src\main/assets/fonts\joystixmonospaceregular.otf', 25)
-
-light = pygame.image.load('src\main/assets/textures\elements/test\circle.png')
-light = pygame.transform.scale(light, (light.get_width() * 20, light.get_height() * 20))
 
 def renderText(entry, language):
     debugMenuText = font.render(translatableComponent("text.debug_menu", language), True, DARK_ORANGE)
@@ -617,7 +612,7 @@ def loadExplosion(map, world):
         y += 1
 
 def genWorld(world, map):
-    global door0Current, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, yellowBannerDamaged, hasTorch, movesDown, bridgeTimer, poppyAlert, posDone
+    global door0Current, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, yellowBannerDamaged, hasTorch, movesDown, bridgeTimer, poppyAlert, posDone, leverDeco
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -636,16 +631,13 @@ def genWorld(world, map):
                 coarseDirtElement.drawElement(world, x, y, element_rects)
             if tile == 7:
                 coarseGrassElement.drawElement(world, x, y, element_rects)
-            if tile == 8:
-                leverOnDeco.drawElement(world, x, y, deco_rects)
+            #Don't use 9
             if tile == 10:
-                leverOffDeco.drawElement(world, x, y, deco_rects)
+                leverDeco.drawCallableAnimatedElement(world, x, y, deco_rects, registries.animations.lever)
             if tile == 11:
                 grassDeco.drawElement(world, x, y, deco_rects)
             if tile == 12:
                 poppyDeco.drawElement(world, x, y, deco_rects)
-            if tile == 13:
-                leverOnDeco.drawElement(world, x, y, deco_rects)
             if tile == 14:
                 torchLeftDeco.drawElement(world, x, y, deco_rects)
             if tile == 15:
@@ -753,7 +745,7 @@ def genWorld(world, map):
         if bridgeTimer == 40:
             tut2_map[15][19] = 37
             
-        if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
+        if leverOff == True and Player.rect.colliderect(leverDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             exploded = True
             pygame.mixer.music.pause()
@@ -762,7 +754,7 @@ def genWorld(world, map):
             leverOff = False
             leverPressed += 1
             explosionCameraTimer += 1
-        elif leverOn == True and Player.rect.colliderect(leverOnDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
+        elif leverOn == True and Player.rect.colliderect(leverDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             tut2_map[13][42] = 10
             leverOff = True
@@ -847,7 +839,7 @@ def genWorld(world, map):
             Player.locked = False
 
     elif Player.world == "lvl1":
-        if leverOff == True and Player.rect.colliderect(leverOffDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
+        if leverOff == True and Player.rect.colliderect(leverDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             pygame.mixer.music.pause()
             lvl1_map[7][24] = 13
@@ -856,7 +848,7 @@ def genWorld(world, map):
             leverPressed += 1
             plankCameraTimer += 1
             Player.locked = True
-        elif leverOn == True and Player.rect.colliderect(leverOnDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
+        elif leverOn == True and Player.rect.colliderect(leverDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             lvl1_map[7][24] = 10
             leverOff = True

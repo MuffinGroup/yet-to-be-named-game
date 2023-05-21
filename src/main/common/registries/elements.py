@@ -98,3 +98,34 @@ class registerInvisibleElement():
 	def drawElement(self, x, y, rectArray):
 		self.rect = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (96 + self.widthModifier, 96 + self.heightModifier))
 		rectArray.append(self.rect)
+
+class registerCallableAnimatedElement():
+	def __init__(self, scale):
+		self.scale = scale
+		self.xModifier = 0
+		self.yModifier = 0
+		self.xRectModifier = 0
+		self.yRectModifier = 0
+		self.widthModifier = 0
+		self.heightModifier = 0
+		self.frame = 0
+
+	def drawCallableAnimatedElement(self, surface, x, y, rectArray, animationArray):
+		self.texture = animationArray[self.frame]
+		self.animationArray = animationArray
+		self.scaledTexture = pygame.transform.scale(self.texture, (self.texture.get_width() * self.scale, self.texture.get_height() * self.scale))
+		self.rect = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height() + self.heightModifier))
+		surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
+		rectArray.append(self.rect)
+
+	def callAnimation(self):
+		if self.frame <= len(self.animationArray) - 1:
+			self.frame += 1
+		else:
+			self.frame = len(self.animationArray) - 1
+			
+	def callEndlessAnimation(self):
+		if self.frame <= len(self.animationArray) - 1:
+			self.frame += 1
+		else:
+			self.frame = 0
