@@ -10,7 +10,7 @@ ttt_map = [[0, 0, 0],
            [0, 0, 0],
            [0, 0, 0]]
 
-inputLocked = False
+inputLocked = True
 input = 1
 gameWon = False
 gameLost = False
@@ -34,11 +34,10 @@ while True:
                 if frame.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0] == 1 and inputLocked == False and gameWon == False:
                     ttt_map[frame.y//100][frame.x//100] = 1
                     inputLocked = True
-                else:
-                    pygame.draw.rect(screen, (255, 255, 255), frame, 3)
+            pygame.draw.rect(screen, (255, 255, 255), frame, 3)
             if tile == 1:
-                pygame.draw.line(screen, (255, 0, 0), frame.bottomleft, frame.topright, 3)
-                pygame.draw.line(screen, (255, 0, 0), frame.bottomright, frame.topleft, 3)
+                pygame.draw.line(screen, (255, 0, 0), frame.bottomleft, frame.topright, 7)
+                pygame.draw.line(screen, (255, 0, 0), frame.bottomright, frame.topleft, 7)
             if tile == 2:
                 pygame.draw.circle(screen, (255, 0, 255), frame.center, frame.width//2, 7)
 
@@ -63,7 +62,6 @@ while True:
 
             if all(ttt_map[i][2 - i] == 1 for i in range(3)):
                     gameWon = True
-
 
             # Bot winning
             # Check lines
