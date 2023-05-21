@@ -39,9 +39,9 @@ class notification:
         # use self.finished = False to reset the bar
 
 class infoPanel:
-    def __init__(self, panelPath, scale):
+    def __init__(self, panelPath, scale, fontSize):
         self.visible = True
-        self.font = pygame.font.Font("src\main/assets/fonts\joystixmonospaceregular.otf", 15)
+        self.font = pygame.font.Font("src\main/assets/fonts\joystixmonospaceregular.otf", fontSize)
         self.panel = pygame.image.load(panelPath)
         self.scaledPanel = pygame.transform.scale(self.panel, (self.panel.get_width() * scale, self.panel.get_height() * scale))
 
