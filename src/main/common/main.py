@@ -301,6 +301,11 @@ def TutorialRender(language):
             Tut_item2 = False
             Tut_item3 = True
 
+    if Tut_item3 == True:
+        if poppyPlaced == True:
+            Tut_item3 = False
+            Tut_end = True
+
 def TutorialPanelRenderer(language):
     if Tut_welcome:
         if language == 'de_de':
@@ -318,10 +323,14 @@ def TutorialPanelRenderer(language):
         tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', '', '', translatableComponent('text.tutorial.jump', language), translatableComponent('text.tutorial.jump1', language), translatableComponent('text.tutorial.jump2', language), '', '', '', '', '', BLACK, -10, -10)
 
     if Tut_item1 == True:
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), '', '', '', '', '', '', '', BLACK, -10, -10)
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), '', '', '', '', '', '', '', '', BLACK, -10, -10)
 
     if Tut_item2 == True:
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), '', '', BLACK, -10, -10)
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), '', '', '', BLACK, -10, -10)
+    
+    if Tut_item3 == True:
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), translatableComponent('text.tutorial.item2.0', language), translatableComponent('text.tutorial.item2.1', language), '', BLACK, -10, -10)
+
 
 
 
