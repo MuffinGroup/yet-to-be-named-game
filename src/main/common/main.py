@@ -78,7 +78,6 @@ class Player:
                     Player.y_momentum = -30
                     pygame.mixer.Sound.play(jumpsound)
                     Player.jumping = True
-                    print(Player.jumpingLocked)
                 else: 
                     Player.jumping = False
 
@@ -673,7 +672,6 @@ def genWorld(world, map):
                 bannerBlueDeco.drawElement(world, x, y, deco_rects) 
             if tile == 33:
                 bannerYellowDeco.drawElement(world, x, y, deco_rects)
-                print(y, x)
                 bannerYellowDeco.xModifier = 70
                 bannerYellowDeco.xRectModifier = 70
             if tile == 34:
@@ -681,7 +679,6 @@ def genWorld(world, map):
             # Don't use tile 35 it is used for background loading
             if tile == 36:
                 cobble_pedestal_inactive.drawPedestalElement(world, x, y, element_rects)
-                print(x, y)
             if tile == 37:
                 wooden_plank.drawElement(world, x, y, element_rects)
                 wooden_plank.heightModifier = -76
@@ -749,20 +746,20 @@ def genWorld(world, map):
             leverTimer = 0
             exploded = True
             pygame.mixer.music.pause()
-            tut2_map[13][42] = 13
             leverOn = True
             leverOff = False
             leverPressed += 1
             explosionCameraTimer += 1
         elif leverOn == True and Player.rect.colliderect(leverDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
-            tut2_map[13][42] = 10
             leverOff = True
             leverOn = False
             leverPressed += 1
         if explosiveTimer >= 1:
             explosiveTimer += 1
         leverTimer += 1
+        if leverOn == True:
+            leverDeco.callAnimation()
         if explosionCameraTimer >= 1 and player_x <= -2533 and player_y <= -444:
             camera_pos = (player_x + 10, player_y + 5)
             Player.locked = True
@@ -983,7 +980,6 @@ def loadFluids(map, surface):
         for collidingFluids in fluids_collding:
             pygame.draw.rect(surface, (255, 255, 255), collidingFluids, 3)
             drownTime += 4
-            print("collide water")
             pygame.draw.rect(surface, WHITE, Player.rect, 3)
             if drownTime > 0:
                 drownTime -= 1
@@ -991,7 +987,6 @@ def loadFluids(map, surface):
             if drownTime >= 120 or Player.dead == True:
                 Player.damage(1)
                 drownTime = 0
-            print(drownTime)
 
 def loadBackground(map, surface):
     global background_rects, element_rects
@@ -1474,10 +1469,6 @@ def Tut2(language):
     poppyAlert = notification("src\main/assets/textures\elements\gui/notification_bar.png", "src\main/assets/textures\elements\Environment\decoration\Plants\poppy.png", 3, screen.get_width(), 200, 100)
     resetVars()
     while True: # Render background
-        try:
-            print(Player.holding)
-        except:
-            pass
         world.fill(DARK_GRAY)
 
         # Fill the background outside of the map

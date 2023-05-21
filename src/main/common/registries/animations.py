@@ -28,4 +28,4 @@ jump_sprite = load_animation("1jump", 8, 5, "src\main/assets/textures\entities\c
 water_top_sprite = load_animation("Water_topIdel", 8, 30, "src\main/assets/textures\elements\Environment/fluids\WaterAnimations\Water_topIdle")
 water_sprite = load_animation("WaterIdle", 8, 50, "src\main/assets/textures\elements\Environment/fluids\WaterAnimations\WaterIdle")
 explosion = load_animation("ExplosionAnimation", 8, 1, "src\main/assets/textures\elements\Environment\Explosion")
-lever = load_animation("LeverActivate", 8, 7, "src\main/assets/textures\elements\Environment\decoration\Lever")
+lever = load_animation("LeverActivate", 8, 5, "src\main/assets/textures\elements\Environment\decoration\Lever")

@@ -119,13 +119,17 @@ class registerCallableAnimatedElement():
 		rectArray.append(self.rect)
 
 	def callAnimation(self):
-		if self.frame <= len(self.animationArray) - 1:
+		if not self.frame >= len(self.animationArray) - 1:
 			self.frame += 1
 		else:
 			self.frame = len(self.animationArray) - 1
+		print("uwu")
 			
 	def callEndlessAnimation(self):
-		if self.frame <= len(self.animationArray) - 1:
+		if not self.frame >= len(self.animationArray) - 1:
 			self.frame += 1
 		else:
 			self.frame = 0
+
+	def callResetAnimation(self):
+		self.frame = 0
