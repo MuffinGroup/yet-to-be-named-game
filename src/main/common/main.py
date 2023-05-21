@@ -1068,7 +1068,7 @@ def loadForeGround(map, surface, language):
             door2Current.yRectModifier = -22
             n += 1
 
-    if n == 40 and door0_open == True:
+    if n == 30 and door0_open == True:
         Player.visible = False
         door0_open = False
         door0Current = door0ClosedLargeElement
@@ -1078,7 +1078,7 @@ def loadForeGround(map, surface, language):
         door0Current.yRectModifier = -22
         pygame.mixer.Sound.play(doorsound)
 
-    if n == 40 and door2_open == True:
+    if n == 30 and door2_open == True:
         Player.visible = False
         door2_open = False
         door2Current = door2ClosedLargeElement
@@ -1088,13 +1088,13 @@ def loadForeGround(map, surface, language):
         door2Current.yRectModifier = -22
         pygame.mixer.Sound.play(doorsound)
 
-    if n == 50:
+    if n == 40:
         n = 0
         if Player.world == "tut1":
             Tut2(language)
         elif Player.world == "tut2":
             Lvl1(language)
-    if n >= 1 and n <= 70:
+    if n >= 1 and n <= 50:
         n += 1
 
     if Player.world == "tut1":
@@ -1554,8 +1554,6 @@ def Tut2(language):
         
         # Render the map to the screen
         screen.blit(world, (player_x, player_y))
-        
-        TutorialPanelRenderer(language)
 
         renderCoordinates()
 
@@ -1614,6 +1612,8 @@ def Tut2(language):
         screen.blit(filter, (player_x, player_y), special_flags=pygame.BLEND_RGBA_SUB)"""
 
         deathEvent(language)
+
+        TutorialPanelRenderer(language)
 
         if bridgeTimer >= 40:
             poppyAlert.render(screen, "Freundliche", "Geste", BLACK)
