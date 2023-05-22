@@ -602,10 +602,110 @@ lvl1_map = [[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
             [3 ,16,16,16,16,16,16, 3,16, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3],
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3,3 ,3 , 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [28, 3, 3,28,28,28, 3, 3,28,28,28, 3, 3, 3,00,28, 3, 3, 3, 3, 3,28, 3, 3, 3,28,28,28, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,28,28,28, 3, 3, 3,28,28, 3, 3,28,28,28,28,28, 3, 3,28,28],
-            [28,28,28,28,28,28,28,28,28,28,28,28, 3,28,00,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28, 3,28,28,28, 3, 3,28,28,00,00,28,28,28,28,28,28,28,28,28,28,00,28,28,28,28,28],
-            [28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,00,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28],
-            [28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,00,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28],
+            [28,28,28,28,28,28,28,28,28,28,28,28, 3,28,00,28,28,28,28,28,28,00,00,00,28,28,28,28,28,28,28, 3,28,28,28, 3, 3,28,28,00,00,28,28,28,28,28,28,28,28,28,28,00,28,28,28,28,28],
+            [28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,00,00,00,00,00,00,00,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28],
+            [28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,00,00,00,00,00,00,00,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28],
             [28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28]]
+
+ttt_map = [[0, 0, 0],
+           [0, 0, 0],
+           [0, 0, 0]]
+
+inputLocked = True
+input = 1
+gameWon = False
+gameLost = False
+loseTimer = 0
+selectedXPos = 0
+selectedYPos = 0
+allowTicTacToe = False
+
+def ticTacToe(screen, xPos, yPos):
+    global input, inputLocked, gameLost, gameWon, loseTimer, ttt_map, selectedXPos, selectedYPos, frame_rects
+    frameX, frameY = random.randint(0, 2), random.randint(0, 2)
+    frame_rects = []
+
+    y = 0
+    for row in ttt_map:
+        x = 0
+        for tile in row:
+            frame = pygame.Rect((x * 100 + xPos, y * 100 + yPos), (100, 100))
+            try:
+                if ttt_map[selectedYPos][selectedXPos] == 0 and key[pygame.K_RETURN]:
+                    ttt_map[selectedYPos][selectedXPos] = 1
+                    inputLocked = True
+            except:
+                pass
+            if x == selectedXPos and y == selectedYPos:
+                pygame.draw.rect(screen, (255, 0, 255), frame, 3)
+            else:
+                pygame.draw.rect(screen, (255, 255, 255), frame, 3)
+            if tile == 1:
+                pygame.draw.line(screen, (255, 0, 0), frame.bottomleft, frame.topright, 7)
+                pygame.draw.line(screen, (255, 0, 0), frame.bottomright, frame.topleft, 7)
+            if tile == 2:
+                pygame.draw.circle(screen, (255, 0, 255), frame.center, frame.width//2, 7)
+
+            if inputLocked == True:
+                if ttt_map[frameX][frameY] == 0:
+                    pygame.time.wait(200)
+                    ttt_map[frameX][frameY] = 2
+                    inputLocked = False
+
+            # Check lines
+            if all(cell == 1 for cell in row):
+                    gameWon = True
+                    print(1)
+
+            # Check columns
+            for col in range(3):
+                if all(ttt_map[row][col] == 1 for row in range(3)):
+                    gameWon = True
+                    print(2)
+
+            # Check diagonals
+            if all(ttt_map[i][i] == 1 for i in range(3)):
+                    gameWon = True
+                    print(3)
+
+            if all(ttt_map[i][2 - i] == 1 for i in range(3)):
+                    gameWon = True
+                    print(4)
+
+            # Bot winning
+            # Check lines
+            if all(cell == 2 for cell in row):
+                    gameLost = True
+
+            # Check columns
+            for col in range(3):
+                if all(ttt_map[row][col] == 2 for row in range(3)):
+                    gameLost = True
+
+            # Check diagonals
+            if all(ttt_map[i][i] == 2 for i in range(3)):
+                    gameLost = True
+            
+            if all(ttt_map[i][2 - i] == 2 for i in range(3)):
+                    gameLost = True
+    
+            if gameWon == True:
+                print("Player wins!")
+                pygame.quit()
+                sys.exit()
+
+            if gameLost == True:
+                if loseTimer < 180:
+                     loseTimer += 1
+                else:
+                    print("Bot wins!")
+                    pygame.quit()
+                    sys.exit()
+
+            frame_rects.append(frame)
+
+            x += 1
+        y += 1
 
 def loadExplosion(map, world):
     y = 0
@@ -845,20 +945,14 @@ def genWorld(world, map):
         if leverOff == True and Player.rect.colliderect(leverDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             pygame.mixer.music.pause()
-            lvl1_map[7][24] = 13
             leverOn = True
             leverOff = False
-            leverPressed += 1
-            plankCameraTimer += 1
             Player.locked = True
-        elif leverOn == True and Player.rect.colliderect(leverDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
-            leverTimer = 0
-            lvl1_map[7][24] = 10
-            leverOff = True
-            leverOn = False
-            leverPressed += 1
-            plankCameraTimer += 1
-            Player.locked = True
+        if leverOn == True:
+            leverDeco.callAnimation()
+            if leverDeco.frame == 34:
+                leverPressed += 1
+                plankCameraTimer += 1
         if plankCameraTimer >= 1 and player_x <= -400:
             camera_pos = (player_x + 10, player_y - 3)
         if plankCameraTimer >= 1 and player_x >= -400:
@@ -1282,6 +1376,7 @@ def Tut1(language):
     # values for animation calculation
     idleValue = 0
     walkingValue = 0
+    pickUpValue = 0
     
     pygame.mixer.music.load("src\main/assets\sounds\GameMusic.mp3")
     pygame.mixer.music.play(-1)
@@ -1343,10 +1438,22 @@ def Tut1(language):
         
         if walkingValue >= len(registries.animations.walking_sprite):
             walkingValue = 0
+        if registries.items.pickingUp == True:
+            if pickUpValue > len(registries.animations.pickup_sprite) - 3:
+                registries.items.pickingUp = False
+            else:
+                pickUpValue += 1
+
+            if pickUpValue >= len(registries.animations.pickup_sprite) // 2:
+                registries.items.finishedPickup = True
         
         # Movement animation rendering
         if Player.walking == True:
             Player.currentSprite = registries.animations.walking_sprite[walkingValue]
+        
+        if registries.items.pickingUp == True:
+            Player.currentSprite = registries.animations.pickup_sprite[pickUpValue]
+
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
@@ -1399,6 +1506,8 @@ def Tut1(language):
         if npcTalking == True:
             speech_bubble.render(world, 3050, 1200, "test", "", "", "", "", "", "", "", "", "", "", "", BLACK, -25, -25)
 
+        poppy.drawItem(world, Player, 1000, 1000)
+        
         screen.blit(world, (player_x, player_y))
 
         if Player.debuggingMode == True:
@@ -1642,6 +1751,7 @@ def Lvl1(language):
     Player.world = "lvl1"
     resetVars()
     while True:
+        global selectedYPos, selectedXPos, allowTicTacToe
         # Fill the background outside of the map
         world.fill(DARK_GRAY)
 
@@ -1677,6 +1787,30 @@ def Lvl1(language):
                     lvl1_map[y][x] = 17
             except:
                 pass
+            
+            for frame in frame_rects:
+                if key[pygame.K_e] and Player.rect.colliderect(frame):
+                    allowTicTacToe = True
+            if allowTicTacToe == True:
+                if event.type == pygame.KEYUP and event.key == pygame.K_RIGHT:
+                    if selectedXPos >= 2:
+                        selectedXPos = 0
+                        selectedYPos += 1
+                    else:
+                        selectedXPos += 1
+                if event.type == pygame.KEYUP and event.key == pygame.K_LEFT:
+                    if selectedXPos <= 0 and not selectedYPos <= 0:
+                        selectedXPos = 2
+                        selectedYPos -= 1
+                    elif selectedXPos == 0 and selectedYPos == 0:
+                         selectedYPos = 2
+                         selectedXPos = 2
+                    elif selectedXPos != 0:
+                        selectedXPos -= 1
+                if event.type == pygame.KEYUP and event.key == pygame.K_DOWN:
+                    selectedYPos += 1
+                if event.type == pygame.KEYUP and event.key == pygame.K_UP:
+                    selectedYPos -= 1
 
             commandEvent(event, language)
             chat.event(event)
@@ -1698,6 +1832,9 @@ def Lvl1(language):
         genWorld(world, lvl1_map)
 
         loadForeGround(tut1_map, world, language)
+
+        if allowTicTacToe == True:
+            Player.locked = True
         
         # Player movement
         camera_pos = player.keybinds(camera_pos) 
@@ -1726,6 +1863,8 @@ def Lvl1(language):
         enemy_facing_left = True
         enemy_x -= enemy_speed
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
+
+        ticTacToe(world, 2010, 2970)
 
         screen.blit(world, (player_x, player_y))
         renderCoordinates()
