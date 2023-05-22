@@ -1507,7 +1507,7 @@ def Tut1(language):
             speech_bubble.render(world, 3050, 1200, "test", "", "", "", "", "", "", "", "", "", "", "", BLACK, -25, -25)
 
         poppy.drawItem(world, Player, 1000, 1000)
-
+        
         screen.blit(world, (player_x, player_y))
 
         if Player.debuggingMode == True:
