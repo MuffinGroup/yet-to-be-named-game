@@ -611,6 +611,7 @@ ttt_map = [[0, 0, 0],
            [0, 0, 0],
            [0, 0, 0]]
 
+
 inputLocked = True
 input = 1
 gameWon = False
@@ -632,7 +633,7 @@ def ticTacToe(screen, xPos, yPos):
         for tile in row:
             frame = pygame.Rect((x * 100 + xPos, y * 100 + yPos), (100, 100))
             try:
-                if ttt_map[selectedYPos][selectedXPos] == 0 and key[pygame.K_RETURN]:
+                if ttt_map[selectedYPos][selectedXPos] == 0 and key[pygame.K_RETURN] and allowTicTacToe == True:
                     ttt_map[selectedYPos][selectedXPos] = 1
                     inputLocked = True
             except:
@@ -648,12 +649,6 @@ def ticTacToe(screen, xPos, yPos):
                 pygame.draw.line(screen, (255, 0, 0), frame.bottomright, frame.topleft, 7)
             if tile == 2:
                 pygame.draw.circle(screen, (255, 0, 255), frame.center, frame.width//2, 7)
-
-            if inputLocked == True:
-                if ttt_map[frameX][frameY] == 0:
-                    pygame.time.wait(200)
-                    ttt_map[frameX][frameY] = 2
-                    inputLocked = False
 
             # Check lines
             if all(cell == 1 for cell in row):
@@ -691,10 +686,18 @@ def ticTacToe(screen, xPos, yPos):
             
             if all(ttt_map[i][2 - i] == 2 for i in range(3)):
                     gameLost = True
+
+            if inputLocked == True and gameWon == False:
+                if ttt_map[frameX][frameY] == 0:
+                    pygame.time.wait(200)
+                    ttt_map[frameX][frameY] = 2
+                    if Player.world == "lvl1":
+                        inputLocked = False
     
             if gameWon == True:
                 print("Player wins!")
                 lvl1_map[30][22] = 0
+                Player.locked = False
 
             if gameLost == True:
                 if loseTimer < 180:
