@@ -840,7 +840,7 @@ def genWorld(world, map):
         if poppyPlaced == True:
             poppy.pickedUp = False
             poppy.texture = pygame.transform.scale(poppy.texture, (32 * 3, 32 * 3))
-            poppy.drawItem(world, Player, 1247, 1158)
+            poppy.drawGhostItem(world, 1247, 1158)
             bridgeTimer += 1
         if bridgeTimer == 10:
             tut2_map[15][16] = 37

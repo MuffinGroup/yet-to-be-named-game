@@ -39,3 +39,7 @@ class registerItem():
             if finishedPickup == True:
                 self.pickedUp = True
                 finishedPickup = False
+
+    def drawGhostItem(self, surface, x, y):
+        self.hitbox = pygame.Rect((x, y), (self.texture.get_width(), self.texture.get_height()))
+        surface.blit(self.texture, (self.hitbox.x, self.hitbox.y))
