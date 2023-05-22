@@ -1,15 +1,23 @@
 import pygame
 
+import registries.animations
+
 pygame.init()
 
 class registerItem():
     def __init__(self, texturePath):
+        global pickingUp, finishedPickup
+        pickingUp = False
         self.id = str(self)
         self.pickedUp = False
+        self.frame = 0
+        self.pickingUp = False
+        finishedPickup = False
         self.texture = pygame.image.load("src\main/assets/textures/" + texturePath + ".png")
         self.texture = pygame.transform.scale(self.texture, (self.texture.get_width() * 2.5, self.texture.get_height() * 2.5))
     
     def drawItem(self, surface, player, x, y):
+        global pickingUp, finishedPickup
         if player.visible == True:
             if self.pickedUp == False:
                 self.hitbox = pygame.Rect((x, y), (self.texture.get_width(), self.texture.get_height()))
@@ -27,4 +35,7 @@ class registerItem():
                 surface.blit(self.flippedTexture, (self.xNew, self.yNew))
             if player.rect.colliderect(self.hitbox):
                 if pygame.key.get_pressed()[pygame.K_e]:
-                    self.pickedUp = True
+                    pickingUp = True
+            if finishedPickup == True:
+                self.pickedUp = True
+                finishedPickup = False

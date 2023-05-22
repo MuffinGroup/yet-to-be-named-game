@@ -1376,6 +1376,7 @@ def Tut1(language):
     # values for animation calculation
     idleValue = 0
     walkingValue = 0
+    pickUpValue = 0
     
     pygame.mixer.music.load("src\main/assets\sounds\GameMusic.mp3")
     pygame.mixer.music.play(-1)
@@ -1437,10 +1438,22 @@ def Tut1(language):
         
         if walkingValue >= len(registries.animations.walking_sprite):
             walkingValue = 0
+        if registries.items.pickingUp == True:
+            if pickUpValue > len(registries.animations.pickup_sprite) - 3:
+                registries.items.pickingUp = False
+            else:
+                pickUpValue += 1
+
+            if pickUpValue >= len(registries.animations.pickup_sprite) // 2:
+                registries.items.finishedPickup = True
         
         # Movement animation rendering
         if Player.walking == True:
             Player.currentSprite = registries.animations.walking_sprite[walkingValue]
+        
+        if registries.items.pickingUp == True:
+            Player.currentSprite = registries.animations.pickup_sprite[pickUpValue]
+
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
@@ -1492,6 +1505,8 @@ def Tut1(language):
         speech_bubble = infoPanel("src\main/assets/textures\elements\gui\speech_bubble.png", 4, 25)
         if npcTalking == True:
             speech_bubble.render(world, 3050, 1200, "test", "", "", "", "", "", "", "", "", "", "", "", BLACK, -25, -25)
+
+        poppy.drawItem(world, Player, 1000, 1000)
 
         screen.blit(world, (player_x, player_y))
 
