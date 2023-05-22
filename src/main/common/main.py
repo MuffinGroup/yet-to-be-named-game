@@ -611,7 +611,6 @@ ttt_map = [[0, 0, 0],
            [0, 0, 0],
            [0, 0, 0]]
 
-
 inputLocked = True
 input = 1
 gameWon = False
@@ -652,8 +651,8 @@ def ticTacToe(screen, xPos, yPos):
 
             # Check lines
             if all(cell == 1 for cell in row):
-                    gameWon = True
-                    print(1)
+                gameWon = True
+                print(1)
 
             # Check columns
             for col in range(3):
