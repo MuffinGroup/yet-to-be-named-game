@@ -403,6 +403,7 @@ towerWallLong = registries.elements.registerElement("elements/Environment/Blocks
 towerWallWindow = registries.elements.registerElement("elements/Environment/Blocks/tower_window", 3)
 towerWallWindow = registries.elements.registerElement("elements/Environment/Blocks/tower_window", 3)
 hole = registries.elements.registerInvisibleElement()
+hot_air = registries.elements.registerAnimatedElement(6)
 npc = registries.elements.registerAnimatedElement(8) # 37/6
 waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
@@ -611,7 +612,7 @@ lvl1_map = [[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
 ttt_map = [[0, 0, 0],
            [0, 0, 0],
            [0, 0, 0]]
-
+# 33-21
 inputLocked = True
 input = 1
 gameWon = False
@@ -702,6 +703,8 @@ def ticTacToe(screen, xPos, yPos):
                     Player.rect.x += 10
                 if Player.rect.x > 2100:
                     Player.rect.x -= 10
+                for i in range(21, 33):
+                    lvl1_map[i][22] = 49
 
             if gameLost == True:
                 if loseTimer < 180:
@@ -837,6 +840,8 @@ def genWorld(world, map):
                 towerWallLong.drawRotatedElement(world, x, y, True, False)
             if tile == 48:
                 towerWallWindow.drawElement(world, x, y, deco_rects)
+            if tile == 49:
+                hot_air.drawAnimatedElement(world, x, y, deco_rects, registries.animations.hot_air)
             if tile == 50:
                 specialTorchDeco.drawElement(world, x, y, deco_rects)
             if tile == 51:
