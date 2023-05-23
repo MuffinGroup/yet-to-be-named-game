@@ -1533,7 +1533,7 @@ def Tut1(language):
         # Render the map to the screen
         speech_bubble = infoPanel("src\main/assets/textures\elements\gui\speech_bubble.png", 4, 25)
         if npcTalking == True:
-            speech_bubble.render(world, 3050, 1200, "test", "", "", "", "", "", "", "", "", "", "", "", BLACK, -25, -25)
+            speech_bubble.render(world, 3050, 1200, translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), "", "", "", "", "", "", "", BLACK, -25, -25)
 
         poppy.drawItem(world, Player, 1000, 1000)
         
