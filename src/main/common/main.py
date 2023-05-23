@@ -401,7 +401,7 @@ towerWall = registries.elements.registerElement("elements\Environment\Blocks/tow
 towerWallTop= registries.elements.registerElement("elements\Environment\Blocks/tower_wall3", 3)
 towerWallLong = registries.elements.registerElement("elements/Environment/Blocks/tower_wall4", 3)
 towerWallWindow = registries.elements.registerElement("elements/Environment/Blocks/tower_window", 3)
-towerWallWindow = registries.elements.registerElement("elements/Environment/Blocks/tower_window", 3)
+tic_tac_toe_board = registries.elements.registerElement("elements\Environment\TicTacToe\TicTacToe", 3)
 hole = registries.elements.registerInvisibleElement()
 hot_air = registries.elements.registerAnimatedElement(6)
 npc = registries.elements.registerAnimatedElement(8) # 37/6
@@ -511,9 +511,6 @@ posDone = False
 bridgeTimer = 0
 winTimer = 0
 
-tic_tac_toe_board = pygame.image.load("src\main/assets/textures\elements\Environment\TicTacToe\TicTacToe.png")
-tic_tac_toe_board = pygame.transform.scale(tic_tac_toe_board, (tic_tac_toe_board.get_width() * 3, tic_tac_toe_board.get_height() * 3))
-
 def resetVars():
     global leverOn, leverOff, leverTimer, leverPressed
     leverOn = False
@@ -607,7 +604,7 @@ lvl1_map = [[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
             [3 ,16,16,16,16,16,16, 3,16, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3],
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3,3 ,3 , 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [28, 3, 3,28,28,28, 3, 3,28,28,28, 3, 3, 3,00,28, 3, 3, 3, 3, 3,28,37, 3, 3,28,28,28, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,28,28,28, 3, 3, 3,28,28, 3, 3,28,28,28,28,28, 3, 3,28,28],
-            [28,28,28,28,28,28,28,28,28,28,28,28, 3,28,00,28,28,28,28,28,28,00,00,00,28,28,28,28,28,28,28, 3,28,28,28, 3, 3,28,28,00,00,28,28,28,28,28,28,28,28,28,28,00,28,28,28,28,28],
+            [28,28,28,28,28,28,28,28,28,28,28,28, 3,28,00,28,28,28,28,28,28,54,00,00,28,28,28,28,28,28,28, 3,28,28,28, 3, 3,28,28,00,00,28,28,28,28,28,28,28,28,28,28,00,28,28,28,28,28],
             [28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,00,00,00,00,00,00,00,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28],
             [28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,00,00,00,00,00,00,00,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28],
             [28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28]]
@@ -636,14 +633,12 @@ def ticTacToe(screen, xPos, yPos):
     for row in ttt_map:
         x = 0
         for tile in row:
-            frame = pygame.Rect((x * 100 + xPos, y * 100 + yPos), (100, 100))
+            frame = pygame.Rect((x * 96 + xPos, y * 96 + yPos), (96, 96))
             if ttt_map[selectedYPos][selectedXPos] == 0 and key[pygame.K_RETURN] and allowTicTacToe == True:
                 ttt_map[selectedYPos][selectedXPos] = 1
                 inputLocked = True
             if x == selectedXPos and y == selectedYPos:
                 pygame.draw.rect(screen, (255, 0, 255), frame, 3)
-            else:
-                pygame.draw.rect(screen, (255, 255, 255), frame, 3)
             if not tile == 0:
                 not0.append(tile)
             if tile == 1:
@@ -651,27 +646,22 @@ def ticTacToe(screen, xPos, yPos):
                 pygame.draw.line(screen, (255, 0, 0), frame.bottomright, frame.topleft, 7)
             if tile == 2:
                 pygame.draw.circle(screen, (255, 0, 255), frame.center, frame.width//2, 7)
-            screen.blit(tic_tac_toe_board, (2010, 2970))
 
             # Check lines
             if all(cell == 1 for cell in row):
                 gameWon = True
-                print(1)
 
             # Check columns
             for col in range(3):
                 if all(ttt_map[row][col] == 1 for row in range(3)):
                     gameWon = True
-                    print(2)
 
             # Check diagonals
             if all(ttt_map[i][i] == 1 for i in range(3)):
                     gameWon = True
-                    print(3)
 
             if all(ttt_map[i][2 - i] == 1 for i in range(3)):
                     gameWon = True
-                    print(4)
 
             # Bot winning
             # Check lines
@@ -704,9 +694,30 @@ def ticTacToe(screen, xPos, yPos):
 
             if leaveTtt == True:
                 if Player.rect.x < 2100:
-                    Player.rect.x += 10
+                    Player.rect.x += 2
+                    Player.walking = True
+                    Player.facingRight = True
+                elif Player.rect.y <= 1734:
+                    Player.walking = False
+                    Player.rect.y -= 10
+                else:
+                    Player.walking = False
+                    
                 if Player.rect.x > 2100:
-                    Player.rect.x -= 10
+                    Player.rect.x -= 2
+                    Player.walking = True
+                    Player.facingLeft = True
+                elif Player.rect.y <= 1000:
+                    Player.walking = False
+                    Player.rect.y -= 10
+                else:
+                    Player.walking = False
+
+                if winTimer < 50:
+                    winTimer += 1
+                if winTimer == 50 and Player.rect.y >= 1000:
+                    Player.rect.y -= 30
+
                 for i in range(21, 33):
                     lvl1_map[i][22] = 49
 
@@ -714,7 +725,6 @@ def ticTacToe(screen, xPos, yPos):
                 if loseTimer < 180:
                      loseTimer += 1
                 else:
-                    print("Bot wins!")
                     ttt_map = [[0, 0, 0],
                                [0, 0, 0],
                                [0, 0, 0]]
@@ -722,7 +732,6 @@ def ticTacToe(screen, xPos, yPos):
                 gameLost = False
 
             if len(not0) == 9:
-                print("Tie")
                 ttt_map = [[0, 0, 0],
                            [0, 0, 0],
                            [0, 0, 0]]
@@ -750,6 +759,7 @@ def genWorld(world, map):
     element_rects = []
     deco_rects = []
     stair_rects = []
+    hot_air_rects = []
     y = 0
     
     for row in map:
@@ -817,7 +827,6 @@ def genWorld(world, map):
             if tile == 37:
                 wooden_plank.drawElement(world, x, y, element_rects)
                 wooden_plank.heightModifier = -76
-                print(x, y)
             if tile == 38:
                 cobbleOffsetElement.drawElement(world, x, y, element_rects)
                 cobbleOffsetElement.xModifier = -cobbleOffsetElement.rect.width // 2
@@ -851,7 +860,8 @@ def genWorld(world, map):
             if tile == 51:
                 hole.drawElement(x, y, deco_rects)
             if tile == 52:
-                specialTorchHolderDeco.drawElement(world, x, y, deco_rects)
+                specialTorchHolderDeco.drawElement(world, x, y, hot_air_rects)
+            #Don't use 53
             x += 1
         y += 1
 
@@ -1163,8 +1173,11 @@ def loadForeGround(map, surface, language):
                 door2Current.widthModifier = -75
                 door2Current.xRectModifier = 50
                 door2Current.yRectModifier = -22
+            if tile == 54:
+                tic_tac_toe_board.drawElement(surface, x, y, foreground_rects)
             x += 1
         y += 1
+
     if Player.rect.colliderect(door0ClosedLargeElement.rect) and Player.visible == True and key[pygame.K_e]:
         if Player.world != "tut1":
             door0_open = True
@@ -1815,10 +1828,6 @@ def Lvl1(language):
                     lvl1_map[y][x] = 17
             except:
                 pass
-            
-            for frame in frame_rects:
-                if key[pygame.K_e] and Player.rect.colliderect(frame):
-                    allowTicTacToe = True
 
             if allowTicTacToe == True:
                 if event.type == pygame.KEYUP and event.key == pygame.K_RIGHT:
@@ -1863,7 +1872,7 @@ def Lvl1(language):
 
         genWorld(world, lvl1_map)
 
-        loadForeGround(tut1_map, world, language)
+        loadForeGround(lvl1_map, world, language)
 
         if allowTicTacToe == True:
             Player.locked = True
@@ -1899,7 +1908,11 @@ def Lvl1(language):
         enemy_x -= enemy_speed
         world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
 
-        ticTacToe(world, 2010, 2970)
+        ticTacToe(world, 2016, 2976)
+            
+        for frame in frame_rects:
+            if key[pygame.K_e] and Player.rect.colliderect(frame):
+                allowTicTacToe = True
 
         screen.blit(world, (player_x, player_y))
         renderCoordinates()
