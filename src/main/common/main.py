@@ -29,7 +29,7 @@ class Player:
         Player.walking = False
         Player.collidingLeft = False
         Player.collidingRight = False
-        Player.rect = pygame.Rect((1200, 870), (95, 186)) # Create the players hitbox
+        Player.rect = pygame.Rect((1200, 870), (86, 186)) # Create the players hitbox
         Player.animationFrameUpdate = 1
         Player.debuggingMode = False
         Player.visible = True
@@ -622,9 +622,10 @@ selectedXPos = 0
 selectedYPos = 0
 allowTicTacToe = False
 leaveTtt = False
+exitedTtt = False
 
 def ticTacToe(screen, xPos, yPos):
-    global input, inputLocked, gameLost, gameWon, loseTimer, ttt_map, selectedXPos, selectedYPos, frame_rects, lvl1_map, winTimer, leaveTtt, allowTicTacToe
+    global input, inputLocked, gameLost, gameWon, loseTimer, ttt_map, selectedXPos, selectedYPos, frame_rects, lvl1_map, winTimer, leaveTtt, allowTicTacToe, exitedTtt
     frameX, frameY = random.randint(0, 2), random.randint(0, 2)
     frame_rects = []
     not0 = []
@@ -688,18 +689,14 @@ def ticTacToe(screen, xPos, yPos):
                         inputLocked = False
     
             if gameWon == True:
-                lvl1_map[30][22] = 0
                 allowTicTacToe = False
                 leaveTtt = True
 
-            if leaveTtt == True:
+            if leaveTtt == True and exitedTtt == False:
                 if Player.rect.x < 2100:
                     Player.rect.x += 2
                     Player.walking = True
                     Player.facingRight = True
-                elif Player.rect.y <= 1734:
-                    Player.walking = False
-                    Player.rect.y -= 10
                 else:
                     Player.walking = False
                     
@@ -707,18 +704,20 @@ def ticTacToe(screen, xPos, yPos):
                     Player.rect.x -= 2
                     Player.walking = True
                     Player.facingLeft = True
-                elif Player.rect.y <= 1000:
-                    Player.walking = False
-                    Player.rect.y -= 10
                 else:
                     Player.walking = False
 
                 if winTimer < 50:
                     winTimer += 1
-                if winTimer == 50 and Player.rect.y >= 1000:
-                    Player.rect.y -= 30
 
-                for i in range(21, 33):
+                if winTimer == 50 and Player.rect.y >= 1734:
+                    Player.rect.y -= 30
+                    leaveTtt = False
+                    exitedTT = False
+                elif Player.rect.y < 1734:
+                    exitedTtt = True
+
+                for i in range(20, 33):
                     lvl1_map[i][22] = 49
 
             if gameLost == True:
@@ -1849,9 +1848,11 @@ def Lvl1(language):
                     elif selectedXPos != 0:
                         selectedXPos -= 1
                 if event.type == pygame.KEYUP and event.key == pygame.K_DOWN:
-                    selectedYPos += 1
+                    if selectedYPos <= 2:
+                        selectedYPos += 1
                 if event.type == pygame.KEYUP and event.key == pygame.K_UP:
-                    selectedYPos -= 1
+                    if selectedYPos >= 0:
+                        selectedYPos -= 1
 
             commandEvent(event, language)
             chat.event(event)
@@ -1879,6 +1880,9 @@ def Lvl1(language):
 
         if leaveTtt == True:
             Player.locked = True
+
+        if exitedTtt == True:
+            Player.locked = False
         
         # Player movement
         camera_pos = player.keybinds(camera_pos) 
