@@ -511,6 +511,9 @@ posDone = False
 bridgeTimer = 0
 winTimer = 0
 
+tic_tac_toe_board = pygame.image.load("src\main/assets/textures\elements\Environment\TicTacToe\TicTacToe.png")
+tic_tac_toe_board = pygame.transform.scale(tic_tac_toe_board, (tic_tac_toe_board.get_width() * 3, tic_tac_toe_board.get_height() * 3))
+
 def resetVars():
     global leverOn, leverOff, leverTimer, leverPressed
     leverOn = False
@@ -648,6 +651,7 @@ def ticTacToe(screen, xPos, yPos):
                 pygame.draw.line(screen, (255, 0, 0), frame.bottomright, frame.topleft, 7)
             if tile == 2:
                 pygame.draw.circle(screen, (255, 0, 255), frame.center, frame.width//2, 7)
+            screen.blit(tic_tac_toe_board, (2010, 2970))
 
             # Check lines
             if all(cell == 1 for cell in row):
@@ -1757,7 +1761,7 @@ def Tut2(language):
         pygame.display.flip()
 
 def Lvl1(language):
-    global command, x, y, camera_pos, world
+    global command, x, y, camera_pos, world, selectedYPos, selectedXPos, allowTicTacToe, frame_rects
     enemy_x = 1000
     enemy_y = 1170
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
@@ -1776,7 +1780,6 @@ def Lvl1(language):
     Player.world = "lvl1"
     resetVars()
     while True:
-        global selectedYPos, selectedXPos, allowTicTacToe, frame_rects
         # Fill the background outside of the map
         world.fill(DARK_GRAY)
 
