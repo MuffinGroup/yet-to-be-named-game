@@ -508,6 +508,7 @@ hasTorch = False
 movesDown = False
 posDone = False
 bridgeTimer = 0
+winTimer = 0
 
 def resetVars():
     global leverOn, leverOff, leverTimer, leverPressed
@@ -552,7 +553,7 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3, 3,16, 3,16,16, 3,16, 3, 3, 3,16, 3,16, 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3, 3,16,16,16, 3, 3,16, 3,16, 3, 3, 3,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3,16,16,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,53,00,00,00, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,53,00, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,27,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,27,27,00,00,00,00,00,00,00,00,00,00,00,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3,16, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -619,9 +620,10 @@ loseTimer = 0
 selectedXPos = 0
 selectedYPos = 0
 allowTicTacToe = False
+leaveTtt = False
 
 def ticTacToe(screen, xPos, yPos):
-    global input, inputLocked, gameLost, gameWon, loseTimer, ttt_map, selectedXPos, selectedYPos, frame_rects, lvl1_map
+    global input, inputLocked, gameLost, gameWon, loseTimer, ttt_map, selectedXPos, selectedYPos, frame_rects, lvl1_map, winTimer, leaveTtt, allowTicTacToe
     frameX, frameY = random.randint(0, 2), random.randint(0, 2)
     frame_rects = []
     not0 = []
@@ -631,12 +633,9 @@ def ticTacToe(screen, xPos, yPos):
         x = 0
         for tile in row:
             frame = pygame.Rect((x * 100 + xPos, y * 100 + yPos), (100, 100))
-            try:
-                if ttt_map[selectedYPos][selectedXPos] == 0 and key[pygame.K_RETURN] and allowTicTacToe == True:
-                    ttt_map[selectedYPos][selectedXPos] = 1
-                    inputLocked = True
-            except:
-                pass
+            if ttt_map[selectedYPos][selectedXPos] == 0 and key[pygame.K_RETURN] and allowTicTacToe == True:
+                ttt_map[selectedYPos][selectedXPos] = 1
+                inputLocked = True
             if x == selectedXPos and y == selectedYPos:
                 pygame.draw.rect(screen, (255, 0, 255), frame, 3)
             else:
@@ -694,9 +693,15 @@ def ticTacToe(screen, xPos, yPos):
                         inputLocked = False
     
             if gameWon == True:
-                print("Player wins!")
                 lvl1_map[30][22] = 0
-                Player.locked = False
+                allowTicTacToe = False
+                leaveTtt = True
+
+            if leaveTtt == True:
+                if Player.rect.x < 2100:
+                    Player.rect.x += 10
+                if Player.rect.x > 2100:
+                    Player.rect.x -= 10
 
             if gameLost == True:
                 if loseTimer < 180:
@@ -706,6 +711,7 @@ def ticTacToe(screen, xPos, yPos):
                     ttt_map = [[0, 0, 0],
                                [0, 0, 0],
                                [0, 0, 0]]
+
                 gameLost = False
 
             if len(not0) == 9:
@@ -1765,7 +1771,7 @@ def Lvl1(language):
     Player.world = "lvl1"
     resetVars()
     while True:
-        global selectedYPos, selectedXPos, allowTicTacToe
+        global selectedYPos, selectedXPos, allowTicTacToe, frame_rects
         # Fill the background outside of the map
         world.fill(DARK_GRAY)
 
@@ -1805,11 +1811,15 @@ def Lvl1(language):
             for frame in frame_rects:
                 if key[pygame.K_e] and Player.rect.colliderect(frame):
                     allowTicTacToe = True
+
             if allowTicTacToe == True:
                 if event.type == pygame.KEYUP and event.key == pygame.K_RIGHT:
                     if selectedXPos >= 2:
                         selectedXPos = 0
-                        selectedYPos += 1
+                        if selectedYPos != 2:
+                            selectedYPos += 1
+                        else:
+                            selectedYPos = 0
                     else:
                         selectedXPos += 1
                 if event.type == pygame.KEYUP and event.key == pygame.K_LEFT:
@@ -1848,6 +1858,9 @@ def Lvl1(language):
         loadForeGround(tut1_map, world, language)
 
         if allowTicTacToe == True:
+            Player.locked = True
+
+        if leaveTtt == True:
             Player.locked = True
         
         # Player movement
