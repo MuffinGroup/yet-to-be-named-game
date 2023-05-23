@@ -49,9 +49,10 @@
 "text.tutorial.item2": "Talk to him by pressing E.",
 "text.tutorial.item3": "Here is a poppy.",
 "text.tutorial.item4": "Bring it to the pedestal",
-"text.tutorial.item5": "For this go through the door",
-"text.tutorial.item6": "by pressing E aggain",
+"text.tutorial.item5": "in the castle.",
+"text.tutorial.item6": "For this go through the door",
+"text.tutorial.item7": "by pressing E aggain",
 
-"text.tutorial.item2.0": "In front of you is the plinth.",
+"text.tutorial.item2.0": "In front of you is the pedestal.",
 "text.tutorial.item2.1": "Go to it and press E."
 }
