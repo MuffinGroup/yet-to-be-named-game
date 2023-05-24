@@ -31,3 +31,7 @@ explosion = load_animation("ExplosionAnimation", 8, 1, "src\main/assets/textures
 lever = load_animation("LeverActivate", 8, 5, "src\main/assets/textures\elements\Environment\decoration\Lever")
 pickup_sprite = load_animation("1Pickup", 8, 6, "src\main/assets/textures\entities\characters\character_1/animations/1Pickup", "png")
 hot_air = load_animation("hot_air", 4, 6, "src\main/assets/textures\elements\Environment\decoration\hot_air")
+torch = load_animation("torchburning", 4, 6, "src\main/assets/textures\elements\Environment\decoration\Torches\Animations\TorchAnimation")
+torchWallLeft = load_animation("torch(wall=left)Burning", 4, 6, "src\main/assets/textures\elements\Environment\decoration\Torches\Animations\TorchLeftAnimation")
+torchWallRight = load_animation("torch(wall=right)Burning", 4, 6, "src\main/assets/textures\elements\Environment\decoration\Torches\Animations\TorchRightAnimation")
+torchWallTop = load_animation("torch(wall=top)Burning", 4, 6, "src\main/assets/textures\elements\Environment\decoration\Torches\Animations\TorchTopAnimation")

@@ -866,21 +866,13 @@ def genWorld(world, map):
             #Don't use 53
             #Don't use 54 either
             if tile == 55:
-                cobbleY16Element.drawElement(world, x, y, element_rects)
-                cobbleY16Element.yModifier = 16
-                cobbleY16Element.yRectModifier = 16
+                cobbleY16Element.drawYOffsetElement(world, x, y, element_rects, 16)
             if tile == 56:
-                cobbleY32Element.drawElement(world, x, y, element_rects)
-                cobbleY32Element.yModifier = 32
-                cobbleY32Element.yRectModifier = 32
+                cobbleY32Element.drawYOffsetElement(world, x, y, element_rects, 32)
             if tile == 57:
-                cobbleY64Element.drawElement(world, x, y, element_rects)
-                cobbleY64Element.yModifier = 64
-                cobbleY64Element.yRectModifier = 64
+                cobbleY64Element.drawYOffsetElement(world, x, y, element_rects, 64)
             if tile == 58:
-                cobbleY80Element.drawElement(world, x, y, element_rects)
-                cobbleY80Element.yModifier = 80
-                cobbleY80Element.yRectModifier = 80
+                cobbleY80Element.drawYOffsetElement(world, x, y, element_rects, 80)
             if tile == 59:
                 cobbleStairs.drawStairElement(world, x, y, True, False, element_rects)
             x += 1
