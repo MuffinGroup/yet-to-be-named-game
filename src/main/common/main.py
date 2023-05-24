@@ -76,7 +76,7 @@ class Player:
         if Player.chatOpen == False:
             if key[pygame.K_UP] and Player.jumpingLocked == False and Player.locked == False and Player.movementLocked == False and Player.underWater == False:
                 if Player.air_timer < 8:
-                    Player.y_momentum = -30
+                    Player.y_momentum = -45
                     pygame.mixer.Sound.play(jumpsound)
                     Player.jumping = True
                 else: 
@@ -557,7 +557,7 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3, 3, 3, 3, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,53,00, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,27,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,27,27,00,00,00,00,00,00,00,00,00,00,00,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3,16, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3,16, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,16,16,16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3,16, 3,16, 3, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,15, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3,16,16,00,00,00,00,00,36,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -612,6 +612,7 @@ lvl1_map = [[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
 ttt_map = [[0, 0, 0],
            [0, 0, 0],
            [0, 0, 0]]
+
 # 33-21
 inputLocked = True
 input = 1
@@ -807,6 +808,7 @@ def genWorld(world, map):
                 bush.drawElement(world, x, y, deco_rects)
             if tile == 27:
                 explosive.drawElement(world, x, y, element_rects)
+                print(x, y)
             if tile == 28:
                 light_dark_cobble.drawElement(world, x, y, element_rects)
             if tile == 29:
@@ -862,6 +864,15 @@ def genWorld(world, map):
             if tile == 52:
                 specialTorchHolderDeco.drawElement(world, x, y, hot_air_rects)
             #Don't use 53
+            #Don't use 54 either
+            if tile == 55:
+                cobbleY16Element.drawElement()
+            if tile == 56:
+                cobbleY32Element.drawElement()
+            if tile == 57:
+                cobbleY64Element.drawElement()
+            if tile == 58:
+                cobbleY80Element.drawElement()
             x += 1
         y += 1
 
@@ -1302,7 +1313,7 @@ def movementControl(self):
         Player.movement[0] -= 5
 
     Player.movement[1] += self.y_momentum
-    self.y_momentum += 1
+    self.y_momentum += 6
     if self.y_momentum > 20:
         self.y_momentum = 20
 
