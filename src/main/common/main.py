@@ -1355,7 +1355,7 @@ def Start(language):
                 pygame.quit()
                 sys.exit()
 
-        startFont = registries.gui.registerFont(40, "YET-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
+        startFont = registries.gui.registerFont(40, "YET-TO-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
         screen.fill(BLUISH_GRAY)
         if startButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 2.75, registries.animations.startButton, 48, 48, 6, -125, -25, translatableComponent("button.start", language), BLACK, "joystixmonospaceregular"):
             Tut1(language)
@@ -1984,4 +1984,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Start(Player.language)
+    Lvl1(Player.language)
