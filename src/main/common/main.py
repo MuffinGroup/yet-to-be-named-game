@@ -866,13 +866,23 @@ def genWorld(world, map):
             #Don't use 53
             #Don't use 54 either
             if tile == 55:
-                cobbleY16Element.drawElement()
+                cobbleY16Element.drawElement(world, x, y, element_rects)
+                cobbleY16Element.yModifier = 16
+                cobbleY16Element.yRectModifier = 16
             if tile == 56:
-                cobbleY32Element.drawElement()
+                cobbleY32Element.drawElement(world, x, y, element_rects)
+                cobbleY32Element.yModifier = 32
+                cobbleY32Element.yRectModifier = 32
             if tile == 57:
-                cobbleY64Element.drawElement()
+                cobbleY64Element.drawElement(world, x, y, element_rects)
+                cobbleY64Element.yModifier = 64
+                cobbleY64Element.yRectModifier = 64
             if tile == 58:
-                cobbleY80Element.drawElement()
+                cobbleY80Element.drawElement(world, x, y, element_rects)
+                cobbleY80Element.yModifier = 80
+                cobbleY80Element.yRectModifier = 80
+            if tile == 59:
+                cobbleStairs.drawStairElement(world, x, y, True, False, element_rects)
             x += 1
         y += 1
 
@@ -928,6 +938,16 @@ def genWorld(world, map):
             tut2_map[8][32] = 0
             tut2_map[8][31] = 0
             tut2_map[9][31] = 0
+            tut2_map[10][27] = 0
+            tut2_map[10][28] = 0
+            tut2_map[10][29] = 0
+            tut2_map[11][27] = 57
+            tut2_map[11][28] = 56
+            tut2_map[11][29] = 3
+            tut2_map[10][30] = 57
+            tut2_map[10][31] = 56
+            tut2_map[10][32] = 55
+            tut2_map[10][33] = 55
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
             world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
             pygame.mixer.music.unpause()
@@ -965,7 +985,7 @@ def genWorld(world, map):
                 cobbleModifier1 = -1
                 cobbleModifier10 = 4
             if cobble1X <= 2300:
-                tut2_map[13][24] = 3
+                tut2_map[13][24] = 59
             Player.locked = False
         if explosionCameraTimer >= 1 and explosiveTimer >= 1 and explosiveTimer < 5:
             explosion_sound = pygame.mixer.Sound('src/main/assets/sounds/explosion.mp3')
@@ -988,7 +1008,7 @@ def genWorld(world, map):
                 cobbleModifier1 = -1
                 cobbleModifier10 = 4
             if cobble1X <= 2300:
-                tut2_map[13][24] = 3
+                tut2_map[13][24] = 59
             Player.locked = False
 
     elif Player.world == "lvl1":
@@ -1313,7 +1333,7 @@ def movementControl(self):
         Player.movement[0] -= 5
 
     Player.movement[1] += self.y_momentum
-    self.y_momentum += 6
+    self.y_momentum += 7.5
     if self.y_momentum > 20:
         self.y_momentum = 20
 
