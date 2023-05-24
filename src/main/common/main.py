@@ -360,10 +360,10 @@ cobbleMossyElement = registries.elements.registerElement("elements/Environment/b
 leverDeco = registries.elements.registerCallableAnimatedElement(3)
 poppyDeco = registries.elements.registerElement("elements\Environment\decoration\Plants\poppy", 3)
 grassDeco = registries.elements.registerElement("elements/Environment/decoration/Plants/grass", 3)
-torchLeftDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=left)", 3)
-torchRightDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=right)", 3)
-torchTopDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=top)", 3)
-torchDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch", 3)
+torchLeftDeco = registries.elements.registerAnimatedElement(3)
+torchRightDeco = registries.elements.registerAnimatedElement(3)
+torchTopDeco = registries.elements.registerAnimatedElement(3)
+torchDeco = registries.elements.registerAnimatedElement(3)
 specialTorchDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/special_torch", 3)
 specialTorchHolderDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/special_torch_holder", 3)
 chainDeco = registries.elements.registerElement("elements/Environment/decoration/Chain/Chain", 3)
@@ -784,13 +784,13 @@ def genWorld(world, map):
             if tile == 12:
                 poppyDeco.drawElement(world, x, y, deco_rects)
             if tile == 14:
-                torchLeftDeco.drawElement(world, x, y, deco_rects)
+                torchLeftDeco.drawAnimatedElement(world, x, y, deco_rects, registries.animations.torchWallLeft)
             if tile == 15:
-                torchRightDeco.drawElement(world, x, y, deco_rects)
+                torchRightDeco.drawAnimatedElement(world, x, y, deco_rects, registries.animations.torchWallRight)
             if tile == 16:
                 cobbleMossyElement.drawElement(world, x, y, element_rects)
             if tile == 17:
-                torchDeco.drawElement(world, x, y, deco_rects)
+                torchDeco.drawAnimatedElement(world, x, y, deco_rects, registries.animations.torch)
             if tile == 19:
                 gravel.drawElement(world, x, y, element_rects)
             if tile == 20:
@@ -1135,11 +1135,10 @@ def loadFluids(map, surface):
         for fluid in fluid_rects:
             if Player.rect.colliderect(fluid):
                 fluids_collding.append(fluid)
-                Player.underWater = True
-            if not Player.rect.colliderect(fluid):
-                Player.underWater = False
 
         for collidingFluids in fluids_collding:
+            if Player.rect.colliderect(collidingFluids):
+                Player.underWater = True
             pygame.draw.rect(surface, (255, 255, 255), collidingFluids, 3)
             drownTime += 4
             pygame.draw.rect(surface, WHITE, Player.rect, 3)
@@ -1149,6 +1148,9 @@ def loadFluids(map, surface):
             if drownTime >= 120 or Player.dead == True:
                 Player.damage(1)
                 drownTime = 0
+            
+            if Player.rect.y < 1550:
+                Player.underWater = False
 
 def loadBackground(map, surface):
     global background_rects, element_rects
