@@ -1544,9 +1544,9 @@ def Tut1(language):
         Player.editingMode(world, tut1_map)
 
         # Render the map to the screen
-        speech_bubble = infoPanel("src\main/assets/textures\elements\gui\speech_bubble.png", 4, 25)
+        speech_bubble = infoPanel("src\main/assets/textures\elements\gui\speech_bubble.png", 5.1, 25)
         if npcTalking == True:
-            speech_bubble.render(world, 3050, 1200, translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), "", "", "", "", "", "", "", BLACK, -25, -25)
+            speech_bubble.render(world, 2900, 1100, translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), "", "", "", "", "", "", "", BLACK, -25, -25)
 
         poppy.drawItem(world, Player, 1000, 1000)
         
@@ -1984,4 +1984,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Lvl1(Player.language)
+    Tut1(Player.language)
