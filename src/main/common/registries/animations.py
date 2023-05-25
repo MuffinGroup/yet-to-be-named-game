@@ -30,7 +30,7 @@ water_sprite = load_animation("WaterIdle", 8, 50, "src\main/assets/textures\elem
 explosion = load_animation("ExplosionAnimation", 8, 1, "src\main/assets/textures\elements\Environment\Explosion")
 lever = load_animation("LeverActivate", 8, 5, "src\main/assets/textures\elements\Environment\decoration\Lever")
 pickup_sprite = load_animation("1Pickup", 8, 6, "src\main/assets/textures\entities\characters\character_1/animations/1Pickup", "png")
-hot_air = load_animation("hot_air", 4, 6, "src\main/assets/textures\elements\Environment\decoration\hot_air")
+hot_air = load_animation("hot_air", 4, 6, "src\main/assets/textures\elements\Environment\decoration\hot_air/Animations")
 torch = load_animation("torchburning", 4, 3, "src\main/assets/textures\elements\Environment\decoration\Torches\Animations\TorchAnimation")
 torchWallLeft = load_animation("torch(wall=left)Burning", 4, 3, "src\main/assets/textures\elements\Environment\decoration\Torches\Animations\TorchLeftAnimation")
 torchWallRight = load_animation("torch(wall=right)Burning", 4, 3, "src\main/assets/textures\elements\Environment\decoration\Torches\Animations\TorchRightAnimation")
