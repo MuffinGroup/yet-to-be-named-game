@@ -417,9 +417,6 @@ door2Current = door2ClosedLargeElement
 poppy = registries.items.registerItem("elements\Environment\decoration\Plants\poppy")
 torch = registries.items.registerItem("elements\Environment\decoration\Torches/Torch")
 
-enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
-enemy_img_Scaled=pygame.transform.scale(enemy_img,(enemy_img.get_width( ) * 8, enemy_img.get_width() * 8))
-
 creepy_sound = pygame.mixer.Sound("src/main/assets/sounds/scary.mp3")
 creepy_sound.set_volume(0.2)
 
@@ -1469,8 +1466,6 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
     
 def Tut1(language):
     global command, x, y, camera_pos, poppy, npcTalking, npcCurrent
-    enemy_x = 3000
-    enemy_y = 1170
     world = pygame.Surface((8000,4000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
@@ -1578,17 +1573,6 @@ def Tut1(language):
 
         cloud.drawElement(world, 10, 2, background_rects)
 
-        # Enemy Import
-        enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
-        enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width() * 8, enemy_img.get_width() * 8))
-        image_rect = enemy_img_Scaled.get_rect()
-        enemy_speed = 5
-        if enemy_x <= 3000:
-           enemy_x -= enemy_speed
-        if enemy_x <= 2500:
-           enemy_x += 5
-        world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
-
         if Tut_welcome == True:
             Player.locked = True
 
@@ -1609,8 +1593,6 @@ def Tut1(language):
         speech_bubble = infoPanel("src\main/assets/textures\elements\gui\speech_bubble.png", 4, 25)
         if npcTalking == True:
             speech_bubble.render(world, 3050, 1200, translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), "", "", "", "", "", "", "", BLACK, -25, -25)
-
-        poppy.drawItem(world, Player, 1000, 1000)
         
         screen.blit(world, (player_x, player_y))
 
@@ -1842,8 +1824,6 @@ def Tut2(language):
 
 def Lvl1(language):
     global command, x, y, camera_pos, world, selectedYPos, selectedXPos, allowTicTacToe, frame_rects, leverDeco
-    enemy_x = 1000
-    enemy_y = 1170
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
@@ -1972,15 +1952,6 @@ def Lvl1(language):
         loadFluids(lvl1_map, world)
 
         loadExplosion(lvl1_map, world)
-
-        # Enemy
-        enemy_img = pygame.image.load("src\main/assets/textures\entities\enemies\placeholder_enemy.png")
-        enemy_img_Scaled = pygame.transform.scale(enemy_img,(enemy_img.get_width() * 8, enemy_img.get_width() * 8))
-        enemy_rect = enemy_img_Scaled.get_rect()
-        enemy_speed = 5
-        enemy_facing_left = True
-        enemy_x -= enemy_speed
-        world.blit(enemy_img_Scaled,(enemy_x, enemy_y))
 
         ticTacToe(world, 2016, 2976)
             
