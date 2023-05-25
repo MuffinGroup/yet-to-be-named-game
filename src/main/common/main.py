@@ -1984,4 +1984,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Tut1(Player.language)
+    Start(Player.language)
