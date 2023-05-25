@@ -402,6 +402,10 @@ towerWallTop= registries.elements.registerElement("elements\Environment\Blocks/t
 towerWallLong = registries.elements.registerElement("elements/Environment/Blocks/tower_wall4", 3)
 towerWallWindow = registries.elements.registerElement("elements/Environment/Blocks/tower_window", 3)
 tic_tac_toe_board = registries.elements.registerElement("elements\Environment\TicTacToe\TicTacToe", 3)
+cobble_pillar_bottom = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\Cobblepillar(part=bottom)", 3)
+cobble_pillar_middle = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\Cobblepillar(part=middle)", 3)
+cobble_pillar_middle_broken = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\CobblepillarBroken(part=middle)", 3)
+cobble_pillar_top = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\Cobblepillar(part=top)", 3)
 hole = registries.elements.registerInvisibleElement()
 hot_air = registries.elements.registerAnimatedElement(6)
 npc = registries.elements.registerAnimatedElement(8) # 37/6
@@ -552,16 +556,16 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3, 3,16,16, 3, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3,16,16, 3,16, 3,16,16,16, 3, 3,16,16, 3, 3, 3,16, 3, 3, 3, 3,16, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16,16,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16, 3,16,16, 3,16, 3, 3, 3,16, 3,16, 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3, 3,16,16,16, 3, 3,16, 3,16, 3, 3, 3,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3,16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3,16, 3,16,16,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,53,00, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3,16, 3, 3, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,27,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,27,27,00,00,00,00,00,00,00,00,00,00,00,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3,16, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3,16,16,16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3,16, 3,16, 3, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,15, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3,16,16,00,00,00,00,00,36,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3,16, 3, 3, 3,00,00,00,00,16, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3, 3,16, 3,00,29,00,62,00,00,00,00,00,00,00,00,00,00,00,62,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3,16,16,16,00,29,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3,16,00,29,00,63,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,53,00, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3, 3, 3,16,00,29,00,00,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00, 3,27,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3,00,29,00,00,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00,16,27,27,00,00,00,00,00,00,00,00,00,00,00,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3,16, 3, 3,37,37,37,65,37,00,00,00,00,00,00,00,00,00,00,61,00,00,00, 3,16, 3, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,16,16,16, 3, 3,16, 3,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,62,00,00,00,00,00,00,00,00,00,00,00,00,00,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3,16, 3,16, 3, 3,16,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,15, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3,16,16,00,00,00,61,00,36,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,10, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3,16, 3, 3, 3,00,00,00,60,00, 3,16,00,00,00,00,00,00,00,00,60,00,00,00,00,00,60,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3, 3,00,00,00,00,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 5, 5, 5, 5, 3, 3,16,16, 3,16,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -729,13 +733,12 @@ def ticTacToe(screen, xPos, yPos):
                     ttt_map = [[0, 0, 0],
                                [0, 0, 0],
                                [0, 0, 0]]
+                    Player.damage(1)
 
                 gameLost = False
 
-            if len(not0) == 9:
-                ttt_map = [[0, 0, 0],
-                           [0, 0, 0],
-                           [0, 0, 0]]
+            if len(not0) >= 9:
+                gameLost = True
                 not0 = []
 
             frame_rects.append(frame)
@@ -875,6 +878,20 @@ def genWorld(world, map):
                 cobbleY80Element.drawYOffsetElement(world, x, y, element_rects, 80)
             if tile == 59:
                 cobbleStairs.drawStairElement(world, x, y, True, False, element_rects)
+            if tile == 60:
+                cobble_pillar_bottom.drawElement(world, x, y, deco_rects)
+            if tile == 61:
+                cobble_pillar_middle.drawElement(world, x, y, deco_rects)
+            if tile == 62:
+                cobble_pillar_top.drawElement(world, x, y, deco_rects)
+            if tile == 63:
+                cobble_pillar_bottom.drawElement(world, x, y, element_rects)
+            if tile == 64:
+                cobble_pillar_middle.drawElement(world, x, y, element_rects)
+            if tile == 65:
+                cobble_pillar_top.drawElement(world, x, y, element_rects)
+            if tile == 66:
+                cobble_pillar_middle_broken.drawElement(world, x, y, deco_rects)
             x += 1
         y += 1
 
@@ -940,8 +957,12 @@ def genWorld(world, map):
             tut2_map[10][31] = 56
             tut2_map[10][32] = 55
             tut2_map[10][33] = 55
+            cobble1Rect = pygame.Rect((cobble1Y, cobble1X), (96, 96))
+            cobble2Rect = pygame.Rect((cobble2Y, cobble2X), (96, 96))
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
             world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
+            pygame.draw.rect(world , WHITE, cobble1Rect, 3)
+            pygame.draw.rect(world , WHITE, cobble2Rect, 3)
             pygame.mixer.music.unpause()
             cobble2Y -= 64 * cobbleModifier2 * cobbleModifier20
             cobble2X -= 208
@@ -994,6 +1015,7 @@ def genWorld(world, map):
                 cobbleModifier20 = 4
             if cobble2X <= 2250:
                 tut2_map[14][24] = 38
+                tut2_map[14][23] = 0
             cobble1Y -= 64 * cobbleModifier1 * cobbleModifier10
             cobble1X -= 192
             if cobble1X < 2720:
@@ -1001,6 +1023,7 @@ def genWorld(world, map):
                 cobbleModifier10 = 4
             if cobble1X <= 2300:
                 tut2_map[13][24] = 59
+                tut2_map[13][23] = 66
             Player.locked = False
 
     elif Player.world == "lvl1":
@@ -1793,7 +1816,7 @@ def Tut2(language):
         TutorialPanelRenderer(language)
 
         if bridgeTimer >= 40:
-            poppyAlert.render(screen, "Freundliche", "Geste", BLACK)
+            poppyAlert.render(screen, translatableComponent("text.tutorial.infoToast1", language), translatableComponent("text.tutorial.infoToast2", language), BLACK)
 
         clock.tick(1600)
         pygame.display.flip()

@@ -64,7 +64,7 @@ class registerElement():
 			rectArray.append(self.rect2)
 
 	def drawPedestalElement(self, surface, x, y, rectArray):
-		self.rect1 = pygame.Rect((x * 96 + self.scale * 3 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() - self.scale * 6 + self.widthModifier, self.scaledTexture.get_height() + self.heightModifier))
+		self.rect1 = pygame.Rect((x * 96 + self.scale * 3 + self.xRectModifier, y * 96 + self.scale * 6 + self.yRectModifier), (self.scaledTexture.get_width() - self.scale * 6 + self.widthModifier, self.scaledTexture.get_height() - self.scale * 6 + self.heightModifier))
 		self.rect2 = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height() + self.heightModifier))
 		surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
 		rectArray.append(self.rect1)
