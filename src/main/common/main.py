@@ -405,6 +405,7 @@ tic_tac_toe_board = registries.elements.registerElement("elements\Environment\Ti
 cobble_pillar_bottom = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\Cobblepillar(part=bottom)", 3)
 cobble_pillar_middle = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\Cobblepillar(part=middle)", 3)
 cobble_pillar_middle_broken = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\CobblepillarBroken(part=middle)", 3)
+cobble_pillar_top_broken = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\CobblepillarBroken(part=top)", 3)
 cobble_pillar_top = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\Cobblepillar(part=top)", 3)
 hole = registries.elements.registerInvisibleElement()
 hot_air = registries.elements.registerAnimatedElement(6)
@@ -564,8 +565,8 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3, 3, 3,16, 3, 3,37,37,37,65,37,00,00,00,00,00,00,00,00,00,00,61,00,00,00, 3,16, 3, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,16,16,16, 3, 3,16, 3,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,62,00,00,00,00,00,00,00,00,00,00,00,00,00,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3,16, 3,16, 3, 3,16,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,15, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3,16,16,00,00,00,61,00,36,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,10, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3,16, 3, 3, 3,00,00,00,60,00, 3,16,00,00,00,00,00,00,00,00,60,00,00,00,00,00,60,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3,16,16,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,10, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3,16, 3, 3, 3,00,00,00,60,00,36,00,00,00,00,00,00,00,00,00,60,00,00,00,00,00,60,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3, 3,00,00,00,00,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 5, 5, 5, 5, 3, 3,16,16, 3,16,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -892,6 +893,8 @@ def genWorld(world, map):
                 cobble_pillar_top.drawElement(world, x, y, element_rects)
             if tile == 66:
                 cobble_pillar_middle_broken.drawElement(world, x, y, deco_rects)
+            if tile == 67:
+                cobble_pillar_top_broken.drawElement(world, x, y, deco_rects)
             x += 1
         y += 1
 
@@ -925,8 +928,10 @@ def genWorld(world, map):
             pygame.mixer.music.pause()
             leverOn = True
             leverOff = False
+
         if explosiveTimer >= 1:
             explosiveTimer += 1
+
         leverTimer += 1
         if leverOn == True:
             leverDeco.callAnimation()
@@ -937,7 +942,6 @@ def genWorld(world, map):
 
         if explosionCameraTimer >= 1 and explosiveTimer < 32 and player_x <= -2533 and player_y <= -444:
             camera_pos = (player_x + 10, player_y + 5)
-            Player.locked = True
             Player.facingLeft = True
         elif explosionCameraTimer >= 1 and explosiveTimer < 8:
             camera_pos = (-2533, -444)
@@ -1016,6 +1020,9 @@ def genWorld(world, map):
             if cobble2X <= 2250:
                 tut2_map[14][24] = 38
                 tut2_map[14][23] = 0
+                tut2_map[10][29] = 0
+                tut2_map[11][29] = 0
+                tut2_map[12][29] = 67
             cobble1Y -= 64 * cobbleModifier1 * cobbleModifier10
             cobble1X -= 192
             if cobble1X < 2720:
@@ -1024,7 +1031,6 @@ def genWorld(world, map):
             if cobble1X <= 2300:
                 tut2_map[13][24] = 59
                 tut2_map[13][23] = 66
-            Player.locked = False
 
     elif Player.world == "lvl1":
         if leverOff == True and Player.rect.colliderect(leverDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
@@ -1492,10 +1498,12 @@ def Tut1(language):
             command, x, y = parse_input(chat.userInput.lower())
         except:
             pass
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
             if chat.userInput.lower() == "/lang de_de" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 chat.userInput = ""
                 chat.x = chat.markerDefaultPos
@@ -1562,6 +1570,8 @@ def Tut1(language):
 
         loadFluids(tut1_map, world)
 
+        loadForeGround(tut1_map, world, language)
+
         loadExplosion(tut1_map, world)
 
         cloud.drawElement(world, 10, 2, background_rects)
@@ -1581,8 +1591,6 @@ def Tut1(language):
             Player.locked = True
 
         TutorialRender(language)
-
-        loadForeGround(tut1_map, world, language)
 
         camera_pos = player.keybinds(camera_pos)
 
@@ -1727,7 +1735,7 @@ def Tut2(language):
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
                 Start(language)
-        
+    
         # idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
             idleValue = 0
@@ -1740,8 +1748,10 @@ def Tut2(language):
         
         TutorialRender(language)
 
-        if explosionCameraTimer >= 1:
+        if explosionCameraTimer >= 1 and explosionCameraTimer < 32:
             Player.locked = True
+        elif explosionCameraTimer >= 32:
+            Player.locked = False
 
         # Player movement
         camera_pos = player.keybinds(camera_pos) 
