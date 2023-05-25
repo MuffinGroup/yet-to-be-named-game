@@ -76,7 +76,7 @@ class Player:
         if Player.chatOpen == False:
             if key[pygame.K_UP] and Player.jumpingLocked == False and Player.locked == False and Player.movementLocked == False and Player.underWater == False:
                 if Player.air_timer < 8:
-                    Player.y_momentum = -30
+                    Player.y_momentum = -45
                     pygame.mixer.Sound.play(jumpsound)
                     Player.jumping = True
                 else: 
@@ -360,10 +360,10 @@ cobbleMossyElement = registries.elements.registerElement("elements/Environment/b
 leverDeco = registries.elements.registerCallableAnimatedElement(3)
 poppyDeco = registries.elements.registerElement("elements\Environment\decoration\Plants\poppy", 3)
 grassDeco = registries.elements.registerElement("elements/Environment/decoration/Plants/grass", 3)
-torchLeftDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=left)", 3)
-torchRightDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=right)", 3)
-torchTopDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch(wall=top)", 3)
-torchDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/Torch", 3)
+torchLeftDeco = registries.elements.registerAnimatedElement(3)
+torchRightDeco = registries.elements.registerAnimatedElement(3)
+torchTopDeco = registries.elements.registerAnimatedElement(3)
+torchDeco = registries.elements.registerAnimatedElement(3)
 specialTorchDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/special_torch", 3)
 specialTorchHolderDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/special_torch_holder", 3)
 chainDeco = registries.elements.registerElement("elements/Environment/decoration/Chain/Chain", 3)
@@ -402,6 +402,10 @@ towerWallTop= registries.elements.registerElement("elements\Environment\Blocks/t
 towerWallLong = registries.elements.registerElement("elements/Environment/Blocks/tower_wall4", 3)
 towerWallWindow = registries.elements.registerElement("elements/Environment/Blocks/tower_window", 3)
 tic_tac_toe_board = registries.elements.registerElement("elements\Environment\TicTacToe\TicTacToe", 3)
+cobble_pillar_bottom = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\Cobblepillar(part=bottom)", 3)
+cobble_pillar_middle = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\Cobblepillar(part=middle)", 3)
+cobble_pillar_middle_broken = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\CobblepillarBroken(part=middle)", 3)
+cobble_pillar_top = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\Cobblepillar(part=top)", 3)
 hole = registries.elements.registerInvisibleElement()
 hot_air = registries.elements.registerAnimatedElement(6)
 npc = registries.elements.registerAnimatedElement(8) # 37/6
@@ -520,48 +524,48 @@ def resetVars():
 
 tutWalking = infoPanel("src\main/assets/textures\elements\gui/info_panel.png", 8, 15)
 
-tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 2, 2, 2, 2, 2,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 1, 1, 1, 1, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 1, 1, 1, 1, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [ 1, 1, 1, 1, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,22, 2, 2, 2, 2, 2, 2, 2, 2],
-            [ 1, 1, 1, 1, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 1, 1, 1, 1, 1, 1, 1, 1],
-            [ 1, 1, 1, 1, 1,00,00,00,00,11,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,44,39,39,39,45,00,00,00,00,00,00,00,00,00, 1, 1, 1, 6, 6, 1, 1, 1],
-            [ 1, 1, 1, 1, 1, 2,21,00,22, 7, 7, 2,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,46,39,48,39,47,00,00,00,00,00,11,11,12,11, 1,1 , 6, 6, 6, 6, 1, 1],
-            [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,42,39,39,39,43,00,00,00,00,22, 7, 7, 7, 2, 1, 1, 6, 6, 6, 6, 6, 1],
-            [ 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,18,46, 9,39,39,47,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,42,39,39,39,43,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,26,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,00,00,40,39,39,39,41,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6],
-            [ 1, 1, 1, 1, 1, 6, 6, 1, 6, 6, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 1],
-            [ 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 1],
-            [ 1, 1, 1, 1, 6, 1, 1, 1, 6, 1, 1, 1, 1, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 1, 1, 1, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 1],
-            [ 1, 1, 1, 6, 1, 1, 1, 1, 1, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 6, 6, 1, 1],
-            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 1, 1, 1, 1, 1, 1, 1, 1],
-            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,22, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1,00,00,00,00,11,00,11,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,44,39,39,39,45,00,00,00,00,00,00,00,00,00, 1, 1, 1, 6, 6, 1, 1, 1, 1],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 2,21,00,22, 7, 7, 2,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,46,39,48,39,47,00,00,00,00,00,11,11,12,11, 1,1 , 6, 6, 6, 6, 1, 1, 1],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,42,39,39,39,43,00,00,00,00,22, 7, 7, 7, 2, 1, 1, 6, 6, 6, 6, 6, 1, 1],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,18,46, 9,39,39,47,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,42,39,39,39,43,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,26,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,00,00,40,39,39,39,41,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 6],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 6, 6, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 1, 1],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 1, 1, 1, 6, 1, 1, 1, 1, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 1, 1, 1, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 1, 1],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 6, 1, 1, 1, 1, 1, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 6, 6, 1, 1, 1],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 
 tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 3,16,16, 3, 3,16, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3,16, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16,16, 3, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3,16,16, 3,16, 3,16,16,16, 3, 3,16,16, 3, 3, 3,16, 3, 3, 3, 3,16, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16,16,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16, 3,16,16, 3,16, 3, 3, 3,16, 3,16, 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3, 3,16,16,16, 3, 3,16, 3,16, 3, 3, 3,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3,16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3,16, 3,16,16,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,53,00, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3,16, 3, 3, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,27,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,27,27,00,00,00,00,00,00,00,00,00,00,00,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3,16, 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3,16,16,16, 3, 3,16, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3,16, 3,16, 3, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,15, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3,16,16,00,00,00,00,00,36,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,10, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3,16, 3, 3, 3,00,00,00,00,16, 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3, 3,16, 3,00,29,00,62,00,00,00,00,00,00,00,00,00,00,00,62,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3,16,16,16,00,29,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3,16,00,29,00,63,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,53,00, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3, 3, 3,16,00,29,00,00,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00, 3,27,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3,00,29,00,00,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00,16,27,27,00,00,00,00,00,00,00,00,00,00,00,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3,16, 3, 3,37,37,37,65,37,00,00,00,00,00,00,00,00,00,00,61,00,00,00, 3,16, 3, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,16,16,16, 3, 3,16, 3,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,62,00,00,00,00,00,00,00,00,00,00,00,00,00,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3,16, 3,16, 3, 3,16,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,15, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3,16,16,00,00,00,61,00,36,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,10, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3,16, 3, 3, 3,00,00,00,60,00, 3,16,00,00,00,00,00,00,00,00,60,00,00,00,00,00,60,00,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3, 3,00,00,00,00,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3,16, 3, 3,00,00,00,00, 3, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 5, 5, 5, 5, 3, 3,16,16, 3,16,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -580,7 +584,7 @@ lvl1_map = [[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,3 ,3 ,3 ,3 ,16,3 ,3 ,16,3 ,3 ,3 ,16,3 ,16,3 ,16,16,3 ,3 ,16,3 ,3 ,16,3 ,3 ,3 ,3 ,16,16,3 ,3 ,3 ,3 ,3 ,16,16,16,3 ,16,3 ,3 ,16,16],
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3,3 ,16,3 ,3 ,3 ,3 ,16,3 ,3 ,16,16,16,16,3 ,16,3 ,16,3 ,16,3 ,16,3 ,16,16,16,3 ,16,3 ,3 ,3 ,16,16,3 ,3 ,3 ,3 ,16,3 ,16,16,3 ,3 ,16],
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16,3 ,3 ,3 ,3 ,16,00,00,00,00,00,16,16,3 ,16,16,3 ,16,00,00,00,00,00,00,00,00,32,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
-            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3,16,16,3 ,16,16,00,00,00,00,00,10,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,9 ,00,00,3 ,16],
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3,16,16,3 ,16,16,00,00,00,00,00,10,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,53,00,00,3 ,16],
             [ 3, 3,00,00,00,00,00,00,00,29,00,29,00,00,00,00,00,00,29,00,00,00,00,00,00,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
             [ 3, 3,14,00,00,00,30,00,00,29,00,29,00,00,00,00,00,00,00,00,00,23,3 ,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
             [ 3,16,00,00,00,00,00,00,00,29,00,29,00,00,00,00,00,00,00,00,23,16,16,3 ,16,3 ,16,3 ,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -612,6 +616,7 @@ lvl1_map = [[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
 ttt_map = [[0, 0, 0],
            [0, 0, 0],
            [0, 0, 0]]
+
 # 33-21
 inputLocked = True
 input = 1
@@ -728,13 +733,12 @@ def ticTacToe(screen, xPos, yPos):
                     ttt_map = [[0, 0, 0],
                                [0, 0, 0],
                                [0, 0, 0]]
+                    Player.damage(1)
 
                 gameLost = False
 
-            if len(not0) == 9:
-                ttt_map = [[0, 0, 0],
-                           [0, 0, 0],
-                           [0, 0, 0]]
+            if len(not0) >= 9:
+                gameLost = True
                 not0 = []
 
             frame_rects.append(frame)
@@ -783,13 +787,13 @@ def genWorld(world, map):
             if tile == 12:
                 poppyDeco.drawElement(world, x, y, deco_rects)
             if tile == 14:
-                torchLeftDeco.drawElement(world, x, y, deco_rects)
+                torchLeftDeco.drawAnimatedElement(world, x, y, deco_rects, registries.animations.torchWallLeft)
             if tile == 15:
-                torchRightDeco.drawElement(world, x, y, deco_rects)
+                torchRightDeco.drawAnimatedElement(world, x, y, deco_rects, registries.animations.torchWallRight)
             if tile == 16:
                 cobbleMossyElement.drawElement(world, x, y, element_rects)
             if tile == 17:
-                torchDeco.drawElement(world, x, y, deco_rects)
+                torchDeco.drawAnimatedElement(world, x, y, deco_rects, registries.animations.torch)
             if tile == 19:
                 gravel.drawElement(world, x, y, element_rects)
             if tile == 20:
@@ -807,6 +811,7 @@ def genWorld(world, map):
                 bush.drawElement(world, x, y, deco_rects)
             if tile == 27:
                 explosive.drawElement(world, x, y, element_rects)
+                print(x, y)
             if tile == 28:
                 light_dark_cobble.drawElement(world, x, y, element_rects)
             if tile == 29:
@@ -862,6 +867,31 @@ def genWorld(world, map):
             if tile == 52:
                 specialTorchHolderDeco.drawElement(world, x, y, hot_air_rects)
             #Don't use 53
+            #Don't use 54 either
+            if tile == 55:
+                cobbleY16Element.drawYOffsetElement(world, x, y, element_rects, 16)
+            if tile == 56:
+                cobbleY32Element.drawYOffsetElement(world, x, y, element_rects, 32)
+            if tile == 57:
+                cobbleY64Element.drawYOffsetElement(world, x, y, element_rects, 64)
+            if tile == 58:
+                cobbleY80Element.drawYOffsetElement(world, x, y, element_rects, 80)
+            if tile == 59:
+                cobbleStairs.drawStairElement(world, x, y, True, False, element_rects)
+            if tile == 60:
+                cobble_pillar_bottom.drawElement(world, x, y, deco_rects)
+            if tile == 61:
+                cobble_pillar_middle.drawElement(world, x, y, deco_rects)
+            if tile == 62:
+                cobble_pillar_top.drawElement(world, x, y, deco_rects)
+            if tile == 63:
+                cobble_pillar_bottom.drawElement(world, x, y, element_rects)
+            if tile == 64:
+                cobble_pillar_middle.drawElement(world, x, y, element_rects)
+            if tile == 65:
+                cobble_pillar_top.drawElement(world, x, y, element_rects)
+            if tile == 66:
+                cobble_pillar_middle_broken.drawElement(world, x, y, deco_rects)
             x += 1
         y += 1
 
@@ -905,7 +935,7 @@ def genWorld(world, map):
                 explosionCameraTimer += 1
                 exploded = True
 
-        if explosionCameraTimer >= 1 and player_x <= -2533 and player_y <= -444:
+        if explosionCameraTimer >= 1 and explosiveTimer < 32 and player_x <= -2533 and player_y <= -444:
             camera_pos = (player_x + 10, player_y + 5)
             Player.locked = True
             Player.facingLeft = True
@@ -917,8 +947,22 @@ def genWorld(world, map):
             tut2_map[8][32] = 0
             tut2_map[8][31] = 0
             tut2_map[9][31] = 0
+            tut2_map[10][27] = 0
+            tut2_map[10][28] = 0
+            tut2_map[10][29] = 0
+            tut2_map[11][27] = 57
+            tut2_map[11][28] = 56
+            tut2_map[11][29] = 3
+            tut2_map[10][30] = 57
+            tut2_map[10][31] = 56
+            tut2_map[10][32] = 55
+            tut2_map[10][33] = 55
+            cobble1Rect = pygame.Rect((cobble1Y, cobble1X), (96, 96))
+            cobble2Rect = pygame.Rect((cobble2Y, cobble2X), (96, 96))
             world.blit(cobbleElement.scaledTexture, (cobble1X, cobble1Y))
             world.blit(cobbleElement.scaledTexture, (cobble2X, cobble2Y))
+            pygame.draw.rect(world , WHITE, cobble1Rect, 3)
+            pygame.draw.rect(world , WHITE, cobble2Rect, 3)
             pygame.mixer.music.unpause()
             cobble2Y -= 64 * cobbleModifier2 * cobbleModifier20
             cobble2X -= 208
@@ -954,7 +998,7 @@ def genWorld(world, map):
                 cobbleModifier1 = -1
                 cobbleModifier10 = 4
             if cobble1X <= 2300:
-                tut2_map[13][24] = 3
+                tut2_map[13][24] = 59
             Player.locked = False
         if explosionCameraTimer >= 1 and explosiveTimer >= 1 and explosiveTimer < 5:
             explosion_sound = pygame.mixer.Sound('src/main/assets/sounds/explosion.mp3')
@@ -971,13 +1015,15 @@ def genWorld(world, map):
                 cobbleModifier20 = 4
             if cobble2X <= 2250:
                 tut2_map[14][24] = 38
+                tut2_map[14][23] = 0
             cobble1Y -= 64 * cobbleModifier1 * cobbleModifier10
             cobble1X -= 192
             if cobble1X < 2720:
                 cobbleModifier1 = -1
                 cobbleModifier10 = 4
             if cobble1X <= 2300:
-                tut2_map[13][24] = 3
+                tut2_map[13][24] = 59
+                tut2_map[13][23] = 66
             Player.locked = False
 
     elif Player.world == "lvl1":
@@ -1112,11 +1158,10 @@ def loadFluids(map, surface):
         for fluid in fluid_rects:
             if Player.rect.colliderect(fluid):
                 fluids_collding.append(fluid)
-                Player.underWater = True
-            if not Player.rect.colliderect(fluid):
-                Player.underWater = False
 
         for collidingFluids in fluids_collding:
+            if Player.rect.colliderect(collidingFluids):
+                Player.underWater = True
             pygame.draw.rect(surface, (255, 255, 255), collidingFluids, 3)
             drownTime += 4
             pygame.draw.rect(surface, WHITE, Player.rect, 3)
@@ -1126,6 +1171,9 @@ def loadFluids(map, surface):
             if drownTime >= 120 or Player.dead == True:
                 Player.damage(1)
                 drownTime = 0
+            
+            if Player.rect.y < 1550:
+                Player.underWater = False
 
 def loadBackground(map, surface):
     global background_rects, element_rects
@@ -1186,13 +1234,16 @@ def loadForeGround(map, surface, language):
             door0Current.widthModifier = -75
             door0Current.xRectModifier = 50
             door0Current.yRectModifier = -22
+            Player.locked = True
             n += 1
+            
         elif not Player.rect.colliderect(npc.rect) and Player.holding == poppy.id:
             door0Current = door0OpenLargeElement
             door0Current.yModifier = -22
             door0Current.widthModifier = -75
             door0Current.xRectModifier = 50
             door0Current.yRectModifier = -22
+            Player.locked = True
             n += 1
 
     if Player.world == "tut2":
@@ -1203,6 +1254,7 @@ def loadForeGround(map, surface, language):
             door2Current.widthModifier = -75
             door2Current.xRectModifier = 50
             door2Current.yRectModifier = -22
+            Player.locked = True
             n += 1
 
     if n == 30 and door0_open == True:
@@ -1302,7 +1354,7 @@ def movementControl(self):
         Player.movement[0] -= 5
 
     Player.movement[1] += self.y_momentum
-    self.y_momentum += 1
+    self.y_momentum += 7.5
     if self.y_momentum > 20:
         self.y_momentum = 20
 
@@ -1411,7 +1463,7 @@ def Tut1(language):
     global command, x, y, camera_pos, poppy, npcTalking, npcCurrent
     enemy_x = 3000
     enemy_y = 1170
-    world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
+    world = pygame.Surface((8000,4000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
     camera_pos = (0, 0) #camera starting position
@@ -1433,8 +1485,6 @@ def Tut1(language):
         loadBackground(tut1_map, world)
 
         genWorld(world, tut1_map)
-
-        loadForeGround(tut1_map, world, language)
 
         movementControl(Player)
 
@@ -1531,6 +1581,8 @@ def Tut1(language):
             Player.locked = True
 
         TutorialRender(language)
+
+        loadForeGround(tut1_map, world, language)
 
         camera_pos = player.keybinds(camera_pos)
 
@@ -1688,6 +1740,9 @@ def Tut2(language):
         
         TutorialRender(language)
 
+        if explosionCameraTimer >= 1:
+            Player.locked = True
+
         # Player movement
         camera_pos = player.keybinds(camera_pos) 
 
@@ -1768,7 +1823,7 @@ def Tut2(language):
         TutorialPanelRenderer(language)
 
         if bridgeTimer >= 40:
-            poppyAlert.render(screen, "Freundliche", "Geste", BLACK)
+            poppyAlert.render(screen, translatableComponent("text.tutorial.infoToast1", language), translatableComponent("text.tutorial.infoToast2", language), BLACK)
 
         clock.tick(1600)
         pygame.display.flip()
