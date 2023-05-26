@@ -1067,7 +1067,7 @@ def genWorld(world, map):
             plankTimer += 1
         if plankTimer >= 1:
             plankTimer += 1
-        if plankTimer > 1 and plankTimer < 67:
+        if plankTimer > 1 and plankTimer < 152:
             platformY += 10
 
         if Player.rect.colliderect(bannerYellowDeco.rect) and key[pygame.K_e] and yellowBannerDamaged == False and hasTorch == True:
@@ -1888,11 +1888,13 @@ def Lvl1(language):
 
         loadBackground(lvl1_map, world)
 
+        platformHandling()
+
+        world.blit(platform, (platformX, platformY))
+
         genWorld(world, lvl1_map)
 
         loadForeGround(lvl1_map, world, language)
-
-        platformHandling()
 
         if allowTicTacToe == True:
             Player.locked = True
@@ -1923,8 +1925,6 @@ def Lvl1(language):
         loadExplosion(lvl1_map, world)
 
         ticTacToe(world, 2016, 2976)
-
-        world.blit(platform, (platformX, platformY))
         pygame.draw.rect(world, WHITE, platformRect, 3)
             
         for frame in frame_rects:
