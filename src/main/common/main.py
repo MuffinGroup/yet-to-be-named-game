@@ -464,6 +464,17 @@ screen_height = 800
 
 icon = pygame.image.load("src/main/assets/textures/elements/gui/icon/icon_32x.png")
 
+platformX, platformY = 865, -290
+platform = pygame.image.load("src\main/assets/textures\elements\Environment\Blocks\platform.png")
+platform = pygame.transform.scale(platform, (platform.get_width() * 3, platform.get_height() * 3))
+
+def platformHandling():
+    global platformRect
+    platformRect = pygame.Rect((platformX, platformY + platform.get_height() - 96), (288, 96))
+    if Player.rect.colliderect(platformRect):
+        Player.rect.bottom = platformRect.top
+        Player.movement[1] = 0
+
 chatBackground = registries.gui.registerGui(110, 100, 800, 600, False)
 chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 100, 800, 600, 140, 575, 735, 100)
 chat.inputLocked = True
@@ -583,11 +594,11 @@ lvl1_map = [[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3,3 ,16,3 ,3 ,3 ,3 ,16,3 ,3 ,16,16,16,16,3 ,16,3 ,16,3 ,16,3 ,16,3 ,16,16,16,3 ,16,3 ,3 ,3 ,16,16,3 ,3 ,3 ,3 ,16,3 ,16,16,3 ,3 ,16],
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16,3 ,3 ,3 ,3 ,16,00,00,00,00,00,16,16,3 ,16,16,3 ,16,00,00,00,00,00,00,00,00,32,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3,16,16,3 ,16,16,00,00,00,00,00,10,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,53,00,00,3 ,16],
-            [ 3, 3,00,00,00,00,00,00,00,29,00,29,00,00,00,00,00,00,29,00,00,00,00,00,00,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
-            [ 3, 3,14,00,00,00,30,00,00,29,00,29,00,00,00,00,00,00,00,00,00,23,3 ,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
-            [ 3,16,00,00,00,00,00,00,00,29,00,29,00,00,00,00,00,00,00,00,23,16,16,3 ,16,3 ,16,3 ,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3,3 ,00,00,00,00,00,00,00,29,00,29,00,23,3 ,3 ,3 ,3 ,3 ,3 ,3 , 3, 3, 3,16,3 ,3 ,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3,16,16, 3, 3, 3, 3,16, 3,37,37,37,3 , 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16,16,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,29,00,00,00,00,00,00,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
+            [ 3, 3,14,00,00,00,30,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,3 ,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16,3 ],
+            [ 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,16,16,3 ,16,3 ,16,3 ,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,3 ,00,00,00,00,00,00,00,00,00,00,00,23,3 ,3 ,3 ,3 ,3 ,3 ,3 , 3, 3, 3,16,3 ,3 ,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,16,16, 3, 3, 3, 3,16, 3,00,00,00,3 , 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16,16,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,16,16, 3, 3, 3, 3,16, 3,00,00,00,3 , 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,16,16,16, 3, 3, 3, 3,16,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,16,16,16, 3, 3, 3, 3,16,00,00,00, 3,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16, 3,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -757,7 +768,7 @@ def loadExplosion(map, world):
         y += 1
 
 def genWorld(world, map):
-    global door0Current, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, yellowBannerDamaged, hasTorch, movesDown, bridgeTimer, poppyAlert, posDone, leverDeco
+    global door0Current, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, yellowBannerDamaged, hasTorch, movesDown, bridgeTimer, poppyAlert, posDone, leverDeco, platformY
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -830,6 +841,7 @@ def genWorld(world, map):
             if tile == 37:
                 wooden_plank.drawElement(world, x, y, element_rects)
                 wooden_plank.heightModifier = -76
+                print(wooden_plank.rect.x, wooden_plank.rect.y)
             if tile == 38:
                 cobbleOffsetElement.drawElement(world, x, y, element_rects)
                 cobbleOffsetElement.xModifier = -cobbleOffsetElement.rect.width // 2
@@ -914,12 +926,14 @@ def genWorld(world, map):
             poppy.drawGhostItem(world, 1247, 1158)
             bridgeTimer += 1
         if bridgeTimer == 10:
-            tut2_map[15][16] = 37
+            tut2_map[15][15] = 37
         if bridgeTimer == 20:
-            tut2_map[15][17] = 37
+            tut2_map[15][16] = 37
         if bridgeTimer == 30:
-            tut2_map[15][18] = 37
+            tut2_map[15][17] = 37
         if bridgeTimer == 40:
+            tut2_map[15][18] = 37
+        if bridgeTimer == 50:
             tut2_map[15][19] = 37
         
         if leverOff == True and Player.rect.colliderect(leverDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
@@ -1047,61 +1061,14 @@ def genWorld(world, map):
         if plankCameraTimer >= 1 and player_x >= -400:
             camera_pos = (-400, player_y)
             plankCameraTimer += 1
-        if plankCameraTimer >= 96:
+        if plankCameraTimer >= 128:
             camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
-        if Player.rect.x >= 864 and Player.rect.x <= 1057 and Player.rect.y == 966 and leverOn == True:
+        if Player.rect.x >= 864 and Player.rect.x <= 1057 and leverOn == True:
             plankTimer += 1
         if plankTimer >= 1:
             plankTimer += 1
-        if plankTimer == 30:
-            lvl1_map[12][11] = 29
-            lvl1_map[12][10] = 0
-            lvl1_map[12][9] = 29
-            lvl1_map[13][11] = 37
-            lvl1_map[13][10] = 37
-            lvl1_map[13][9] = 37
-        if plankTimer == 60:
-            lvl1_map[13][11] = 29
-            lvl1_map[13][10] = 0
-            lvl1_map[13][9] = 29
-            lvl1_map[14][11] = 37
-            lvl1_map[14][10] = 37
-            lvl1_map[14][9] = 37
-        if plankTimer == 90:
-            lvl1_map[14][11] = 29
-            lvl1_map[14][10] = 0
-            lvl1_map[14][9] = 29
-            lvl1_map[15][11] = 37
-            lvl1_map[15][10] = 37
-            lvl1_map[15][9] = 37
-        if plankTimer == 120:
-            lvl1_map[15][11] = 29
-            lvl1_map[15][10] = 0
-            lvl1_map[15][9] = 29
-            lvl1_map[16][11] = 37
-            lvl1_map[16][10] = 37
-            lvl1_map[16][9] = 37
-        if plankTimer == 150:
-            lvl1_map[16][11] = 29
-            lvl1_map[16][10] = 0
-            lvl1_map[16][9] = 29
-            lvl1_map[17][11] = 37
-            lvl1_map[17][10] = 37
-            lvl1_map[17][9] = 37
-        if plankTimer == 180:
-            lvl1_map[17][11] = 29
-            lvl1_map[17][10] = 0
-            lvl1_map[17][9] = 29
-            lvl1_map[18][11] = 37
-            lvl1_map[18][10] = 37
-            lvl1_map[18][9] = 37
-        if plankTimer == 210:
-            lvl1_map[18][11] = 29
-            lvl1_map[18][10] = 0
-            lvl1_map[18][9] = 29
-            lvl1_map[19][11] = 37
-            lvl1_map[19][10] = 37
-            lvl1_map[19][9] = 37
+        if plankTimer > 1 and plankTimer < 152:
+            platformY += 10
 
         if Player.rect.colliderect(bannerYellowDeco.rect) and key[pygame.K_e] and yellowBannerDamaged == False and hasTorch == True:
             lvl1_map[17][13] = 0
@@ -1921,6 +1888,10 @@ def Lvl1(language):
 
         loadBackground(lvl1_map, world)
 
+        platformHandling()
+
+        world.blit(platform, (platformX, platformY))
+
         genWorld(world, lvl1_map)
 
         loadForeGround(lvl1_map, world, language)
@@ -1954,6 +1925,7 @@ def Lvl1(language):
         loadExplosion(lvl1_map, world)
 
         ticTacToe(world, 2016, 2976)
+        pygame.draw.rect(world, WHITE, platformRect, 3)
             
         for frame in frame_rects:
             if key[pygame.K_e] and Player.rect.colliderect(frame):
