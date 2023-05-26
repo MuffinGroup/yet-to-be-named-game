@@ -13,7 +13,7 @@ def load_animation(AlphaImageName, numberofsprites, timesLoaded, directory = Non
             sprite_list.append(image)
     return sprite_list
 
-walkingLoaded = 2
+walkingLoaded = 3
 
 # walking_sprite = load_animation("1running", 8, 5, "src\main/assets/textures\entities\characters\character_1/animations/1Running", "png") 
 idle_sprite = load_animation("1idle", 8, 6, "src\main/assets/textures\entities\characters\character_1/animations/1Idle", "png")
@@ -35,3 +35,4 @@ torch = load_animation("torchburning", 4, 3, "src\main/assets/textures\elements\
 torchWallLeft = load_animation("torch(wall=left)Burning", 4, 3, "src\main/assets/textures\elements\Environment\decoration\Torches\Animations\TorchLeftAnimation")
 torchWallRight = load_animation("torch(wall=right)Burning", 4, 3, "src\main/assets/textures\elements\Environment\decoration\Torches\Animations\TorchRightAnimation")
 torchWallTop = load_animation("torch(wall=top)Burning", 4, 3, "src\main/assets/textures\elements\Environment\decoration\Torches\Animations\TorchTopAnimation")
+yellowBannerBurning = load_animation("Yellow_BannerBurning", 8, 6, "src\main/assets/textures\elements\Environment\decoration\Banners\Animations\Yellow_BannerBurning")

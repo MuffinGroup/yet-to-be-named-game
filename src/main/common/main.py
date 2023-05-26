@@ -373,6 +373,7 @@ shieldDamagedDeco = registries.elements.registerElement("elements/Environment/de
 bannerRedDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner1", 5)
 bannerBlueDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner2", 5)
 bannerYellowDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner3", 5)
+bannerYellowBurning = registries.elements.registerAnimatedElement(5)
 door0OpenLargeElement = registries.elements.registerElement("elements/doors/door_0_open", 5)
 door0ClosedLargeElement = registries.elements.registerElement("elements/doors/door_0_closed", 5)
 door2OpenLargeElement = registries.elements.registerElement("elements/doors/door_2_open", 5)
@@ -414,6 +415,7 @@ waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
 door0Current = door0ClosedLargeElement
 door2Current = door2ClosedLargeElement
+bannerYellowCurrent = bannerYellowDeco
 poppy = registries.items.registerItem("elements\Environment\decoration\Plants\poppy")
 torch = registries.items.registerItem("elements\Environment\decoration\Torches/Torch")
 
@@ -828,11 +830,7 @@ def genWorld(world, map):
             if tile == 30:
                 bannerRedDeco.drawElement(world, x, y, deco_rects)
             if tile == 32:
-                bannerBlueDeco.drawElement(world, x, y, deco_rects) 
-            if tile == 33:
-                bannerYellowDeco.drawElement(world, x, y, deco_rects)
-                bannerYellowDeco.xModifier = 70
-                bannerYellowDeco.xRectModifier = 70
+                bannerBlueDeco.drawElement(world, x, y, deco_rects)
             if tile == 34:
                 shieldDamagedDeco.drawElement(world, x, y, deco_rects)
             # Don't use tile 35 it is used for background loading
@@ -923,7 +921,7 @@ def genWorld(world, map):
         if poppyPlaced == True:
             poppy.pickedUp = False
             poppy.texture = pygame.transform.scale(poppy.texture, (32 * 3, 32 * 3))
-            poppy.drawGhostItem(world, 1247, 1158)
+            poppy.drawGhostItem(world, 1247, 1290)
             bridgeTimer += 1
         if bridgeTimer == 10:
             tut2_map[15][15] = 37
@@ -1071,7 +1069,7 @@ def genWorld(world, map):
             platformY += 10
 
         if Player.rect.colliderect(bannerYellowDeco.rect) and key[pygame.K_e] and yellowBannerDamaged == False and hasTorch == True:
-            lvl1_map[17][13] = 0
+            lvl1_map[17][13] = 69
             yellowBannerDamaged = True
 
         if yellowBannerDamaged == True and Player.rect.colliderect(hole) and key[pygame.K_e]:
@@ -1195,6 +1193,16 @@ def loadForeGround(map, surface, language):
             if tile == 54:
                 cobbleElement.drawElement(world, x, y, foreground_rects)
                 tic_tac_toe_board.drawElement(surface, x, y, foreground_rects)
+            if tile == 33:
+                bannerYellowCurrent.drawElement(world, x, y, deco_rects)
+                bannerYellowCurrent.xModifier = 70
+                bannerYellowCurrent.xRectModifier = 70
+                bannerYellowCurrent.yModifier = -20
+                bannerYellowCurrent.yRectModifier = -20
+                print(x, y)
+            if tile == 69:
+                cobbleElement.drawElement(world, x, y, deco_rects)
+
             x += 1
         y += 1
 
@@ -1458,6 +1466,8 @@ def Tut1(language):
 
         movementControl(Player)
 
+        loadForeGround(tut1_map, world, language)
+
         try:
             command, x, y = parse_input(chat.userInput.lower())
         except:
@@ -1533,8 +1543,6 @@ def Tut1(language):
             Player.giveItem(world, poppy)
 
         loadFluids(tut1_map, world)
-
-        loadForeGround(tut1_map, world, language)
 
         loadExplosion(tut1_map, world)
 
