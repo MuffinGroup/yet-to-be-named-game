@@ -1061,7 +1061,7 @@ def genWorld(world, map):
         if plankCameraTimer >= 1 and player_x >= -400:
             camera_pos = (-400, player_y)
             plankCameraTimer += 1
-        if plankCameraTimer >= 96:
+        if plankCameraTimer >= 128:
             camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
         if Player.rect.x >= 864 and Player.rect.x <= 1057 and leverOn == True:
             plankTimer += 1
