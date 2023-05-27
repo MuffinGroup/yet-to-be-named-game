@@ -1272,7 +1272,7 @@ def loadForeGround(map, surface, language):
             print(yellowBaner.frame)
             if yellowBaner.frame == len(registries.animations.yellowBanner) - 1:
                 lvl1_map[17][13] = 0
-                lvl1_map[19][1] = 0
+                lvl1_map[20][14] = 0
                 hasTorch = False
 
         if Player.rect.colliderect(hole.rect) and yellowBannerDamaged == True and hasTorch == True:
