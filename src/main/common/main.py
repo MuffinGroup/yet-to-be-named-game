@@ -1379,9 +1379,9 @@ def Start(language):
     quitButton = registries.gui.registerButton("button", 6.0)
     clock = pygame.time.Clock()
     resetVars()
-    pygame.mixer.music.load("src\main/assets\sounds\GameMusic.mp3")
+    pygame.mixer.music.load("src\main/assets\sounds/tests/bg_music1.mp3")
     pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(100)
+    pygame.mixer.music.set_volume(0.1)
     while True:
         key = pygame.key.get_pressed()
         language = Player.languageList[i]
@@ -2017,4 +2017,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Tut1(Player.language)
+    Start(Player.language)
