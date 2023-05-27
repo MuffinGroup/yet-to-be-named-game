@@ -74,5 +74,17 @@
 "text.tutorial.end7": "Viel Glueck und vor allem",
 "text.tutorial.end8": "VIEL SPASS!",
 "text.tutorial.end9": "Druecke ENTER zum Beenden",
-"text.tutorial.end10": "des Tutorials."
+"text.tutorial.end10": "des Tutorials.",
+
+"text.tutorial.ttt": "Hier ist die Steuerung fuer",
+"text.tutorial.ttt1": "das TicTacToe Spiel hier.",
+"text.tutorial.ttt2": "Du spielst als Kreuz",
+"text.tutorial.ttt3": "und dein Ziel sind drei Kreuze",
+"text.tutorial.ttt4": "in einer Reihe.",
+"text.tutorial.ttt5": "Um dein Feld zu waehlen",
+"text.tutorial.ttt6": "verwende die Pfeiltasten.",
+"text.tutorial.ttt7": "Wenn du einloggen moechtest,",
+"text.tutorial.ttt8": "druecke wie immer E.",
+"text.tutorial.ttt9": "Zum Beenden dieses Tutorials",
+"text.tutorial.ttt10": "druecke SPACE."
 }
