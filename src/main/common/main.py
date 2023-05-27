@@ -1562,7 +1562,7 @@ def Tut1(language):
         Player.editingMode(world, tut1_map)
 
         # Render the map to the screen
-        speech_bubble = infoPanel("src\main/assets/textures\elements\gui\speech_bubble.png", 5, 25)
+        speech_bubble = infoPanel("src\main/assets/textures\elements\gui\speech_bubble.png", 5.1, 25)
         if npcTalking == True:
             speech_bubble.render(world, 3400, 1150, translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), "", "", "", "", "", "", "", BLACK, -25, -25)
         
