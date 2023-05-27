@@ -1269,11 +1269,14 @@ def loadForeGround(map, surface, language):
             yellowBannerDamaged = True
 
         if yellowBannerDamaged == True:
-            hasTorch = False
             bannerYellow.callAnimation()
             print(bannerYellow.frame)
             if bannerYellow.frame == len(registries.animations.yellowBanner) - 1:
                 lvl1_map[17][13] = 0
+                hasTorch = False
+
+        if Player.rect.colliderect(hole.rect) and yellowBannerDamaged == True and hasTorch == True:
+            Player.collide = 1
 
 """def loadLights(surface, map):
     y = 0
