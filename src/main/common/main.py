@@ -317,7 +317,7 @@ def TutorialRender(language):
         Tut_ttt = True
 
     if Tut_ttt == True:
-        if key[pygame.K_SPACE]:
+        if key[pygame.K_SPACE] or Player.finishedTicTacToe == True:
             Tut_ttt = False
 
 def TutorialPanelRenderer(language):
