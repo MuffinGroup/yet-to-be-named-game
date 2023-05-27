@@ -1819,8 +1819,6 @@ def Lvl1(language):
 
         movementControl(Player)
 
-        TutorialRender(language)
-
         try:
             command, x, y = parse_input(chat.userInput.lower())
         except:
@@ -1881,6 +1879,11 @@ def Lvl1(language):
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
                 Start(language)
+        
+
+        TutorialRender(language)
+
+        TutorialPanelRenderer(language)
         
         # idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
