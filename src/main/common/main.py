@@ -1733,8 +1733,9 @@ def Tut2(language):
 
         if Player.debuggingMode == True:
             screen.blit(renderText(0, language), (440, 90))
-            
-        screen.blit(renderText(1, language), (440, 30))
+
+        if dev_enable == True:    
+            screen.blit(renderText(1, language), (440, 30))
 
         # Rendering the debug menu
         player.renderDebugMenu(language, tut2_map)	
@@ -1951,8 +1952,9 @@ def Lvl1(language):
 
         if Player.debuggingMode == True:
             screen.blit(renderText(0, language), (440, 90))
-            
-        screen.blit(renderText(1, language), (440, 30))
+
+        if dev_enable == True:   
+            screen.blit(renderText(1, language), (440, 30))
 
         # Rendering the debug menu
         player.renderDebugMenu(language, lvl1_map)
