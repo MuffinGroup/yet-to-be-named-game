@@ -645,6 +645,12 @@ selectedYPos = 0
 allowTicTacToe = False
 leaveTtt = False
 exitedTtt = False
+tttCircle = pygame.image.load("src\main/assets/textures\elements\Environment\TicTacToe\TicTacToeCircle.png")
+tttCircle = pygame.transform.scale(tttCircle, (96, 96))
+tttCross = pygame.image.load("src\main/assets/textures\elements\Environment\TicTacToe\TicTacToeCross.png")
+tttCross = pygame.transform.scale(tttCross, (96, 96))
+tttSelection = pygame.image.load("src\main/assets/textures\elements\Environment\TicTacToe\TicTacToeSelection.png")
+tttSelection = pygame.transform.scale(tttSelection, (96, 96))
 
 def ticTacToe(screen, xPos, yPos):
     global input, inputLocked, gameLost, gameWon, loseTimer, ttt_map, selectedXPos, selectedYPos, frame_rects, lvl1_map, winTimer, leaveTtt, allowTicTacToe, exitedTtt
@@ -660,15 +666,14 @@ def ticTacToe(screen, xPos, yPos):
             if ttt_map[selectedYPos][selectedXPos] == 0 and key[pygame.K_RETURN] and allowTicTacToe == True:
                 ttt_map[selectedYPos][selectedXPos] = 1
                 inputLocked = True
+            if tile == 1:
+                screen.blit(tttCross, frame.topleft)
+            if tile == 2:
+                screen.blit(tttCircle, frame.topleft)
             if x == selectedXPos and y == selectedYPos:
-                pygame.draw.rect(screen, (255, 0, 255), frame, 3)
+                screen.blit(tttSelection, frame.topleft)
             if not tile == 0:
                 not0.append(tile)
-            if tile == 1:
-                pygame.draw.line(screen, (255, 0, 0), frame.bottomleft, frame.topright, 7)
-                pygame.draw.line(screen, (255, 0, 0), frame.bottomright, frame.topleft, 7)
-            if tile == 2:
-                pygame.draw.circle(screen, (255, 0, 255), frame.center, frame.width//2, 7)
 
             # Check lines
             if all(cell == 1 for cell in row):
@@ -1371,7 +1376,7 @@ def movementControl(self):
         Player.walkingLeftLocked = False
         Player.walkingRightLocked = False
         Player.jumpingLocked = False
-    
+
 def Start(language):
     Player()
     resetDebugSettings()
