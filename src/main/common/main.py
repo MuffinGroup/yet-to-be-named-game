@@ -298,7 +298,7 @@ def TutorialRender(language):
             Tut_item2 = True
 
     if Tut_item2 == True:
-        if door0_open == True:
+        if Player.world == "tut2":
             Tut_item2 = False
             Tut_item3 = True
 
