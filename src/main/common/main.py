@@ -770,7 +770,7 @@ def loadExplosion(map, world):
         y += 1
 
 def genWorld(world, map):
-    global door0Current, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, yellowBannerDamaged, hasTorch, movesDown, bridgeTimer, poppyAlert, posDone, leverDeco, platformY
+    global door0Current, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, hasTorch, movesDown, bridgeTimer, poppyAlert, posDone, leverDeco, platformY
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -1068,14 +1068,6 @@ def genWorld(world, map):
         if plankTimer > 1 and plankTimer < 152:
             platformY += 10
 
-        if Player.rect.colliderect(bannerYellowDeco.rect) and key[pygame.K_e] and yellowBannerDamaged == False and hasTorch == True:
-            lvl1_map[17][13] = 69
-            yellowBannerDamaged = True
-
-        if yellowBannerDamaged == True and Player.rect.colliderect(hole) and key[pygame.K_e]:
-            movesDown = True
-            hasTorch = False
-
         if Player.rect.colliderect(specialTorchDeco.rect) and key[pygame.K_e] and hasTorch == False:
             lvl1_map[18][2] = 52
             hasTorch = True
@@ -1164,7 +1156,7 @@ def loadBackground(map, surface):
         y += 1
 
 def loadForeGround(map, surface, language):
-    global foreground_rects, npcTalking, door0Current, n, npcCurrent, npcTalking, door0_open, door2Current, door2_open
+    global foreground_rects, npcTalking, door0Current, n, npcCurrent, npcTalking, door0_open, door2Current, door2_open, yellowBannerDamaged
     foreground_rects = []
 
     y = 0
@@ -1270,6 +1262,15 @@ def loadForeGround(map, surface, language):
         if Player.rect.colliderect(npc.rect) and key[pygame.K_e]:
             npcCurrent = registries.animations.npcTalkingNormal
             npcTalking = True
+
+    if Player.world == "lvl1": 
+        if Player.rect.colliderect(bannerYellowDeco.rect) and key[pygame.K_e] and yellowBannerDamaged == False and hasTorch == True:
+            lvl1_map[17][13] = 69
+            yellowBannerDamaged = True
+
+        if yellowBannerDamaged == True and Player.rect.colliderect(hole) and key[pygame.K_e]:
+            movesDown = True
+            hasTorch = False
 
 """def loadLights(surface, map):
     y = 0
