@@ -390,7 +390,7 @@ shieldDeco = registries.elements.registerElement("elements/Environment/decoratio
 shieldDamagedDeco = registries.elements.registerElement("elements/Environment/decoration/Shields/Shield1(harmed)", 3)
 bannerRedDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner1", 5)
 bannerBlueDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner2", 5)
-bannerYellow = registries.elements.registerCallableAnimatedElement(5)
+yellowBaner = registries.elements.registerCallableAnimatedElement(5)
 door0OpenLargeElement = registries.elements.registerElement("elements/doors/door_0_open", 5)
 door0ClosedLargeElement = registries.elements.registerElement("elements/doors/door_0_closed", 5)
 door2OpenLargeElement = registries.elements.registerElement("elements/doors/door_2_open", 5)
@@ -485,6 +485,7 @@ icon = pygame.image.load("src/main/assets/textures/elements/gui/icon/icon_32x.pn
 platformX, platformY = 865, -290
 platform = pygame.image.load("src\main/assets/textures\elements\Environment\Blocks\platform.png")
 platform = pygame.transform.scale(platform, (platform.get_width() * 3, platform.get_height() * 3))
+platformMoving = False
 
 def platformHandling():
     global platformRect
@@ -626,7 +627,7 @@ lvl1_map = [[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
             [ 3,3 ,00,00,00,00,00,00,00,00,00,00,00,33,00,00,00,00,19,19,19,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [16,3 ,50,00,00,00,00,00,00,00,00,00,00,00,51,00,00,00,19,19,19,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [16,16,00,00,00,00,00,00,00,00,00,00,00,00,51,00,00,00,19,19,19,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,3 ,16,16,3 ,16,3 ,16,3 , 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3 ,3 ,16,16,3 ,16,3 ,16,3 , 3, 3, 3, 3, 3,37, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,16, 3, 3,16,3 ,16,3 ,3 ,3 ,16,16,3 ,3 ,00,16,3 ,3 , 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3 ,16, 3, 3,16,3 ,16,3 ,3 ,16,3 ,3 ,3 ,16,00,16,3 , 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [16,3 ,3 ,16,3 ,3 ,3 ,16,16,16,16,16,16, 3,00, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -793,7 +794,7 @@ def loadExplosion(map, world):
         y += 1
 
 def genWorld(world, map):
-    global door0Current, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, hasTorch, movesDown, bridgeTimer, poppyAlert, posDone, leverDeco, platformY
+    global door0Current, n, element_rects, deco_rects, npcCurrent, stair_rects, npcTalking, leverOff, leverOn, leverTimer, exploded, explosiveTimer, leverPressed, explosionCameraTimer, player_y, player_x, camera_pos, cobble1X, cobble1Y, cobble2X, cobble2Y, cobbleModifier1, cobbleModifier2, cobbleModifier10, cobbleModifier20, plankTimer, plankCameraTimer, poppyPlaced, hasTorch, movesDown, bridgeTimer, poppyAlert, posDone, leverDeco, platformY, platformMoving
     element_rects = []
     deco_rects = []
     stair_rects = []
@@ -1082,11 +1083,12 @@ def genWorld(world, map):
             plankCameraTimer += 1
         if plankCameraTimer >= 128:
             camera_pos = (-Player.rect.x + 680, -Player.rect.y + 400)
-        if Player.rect.x >= 864 and Player.rect.x <= 1057 and leverOn == True:
+        if Player.rect.x >= 864 and Player.rect.x <= 1057 and leverOn == True and platformMoving == False:
             plankTimer += 1
+            platformMoving = True
         if plankTimer >= 1:
             plankTimer += 1
-        if plankTimer > 1 and plankTimer < 152:
+        if plankTimer > 1 and plankTimer < 76:
             platformY += 10
 
         if Player.rect.colliderect(specialTorchDeco.rect) and key[pygame.K_e] and hasTorch == False:
@@ -1096,25 +1098,6 @@ def genWorld(world, map):
         """if Player.rect.colliderect(cobbleStairs.rect1) and Player.jumping == False:
             Player.rect.bottom = cobbleStairs.rect1.top
             pygame.draw.rect(world, WHITE, Player.rect, 3)"""
-        
-        if movesDown == True and Player.rect.y < 3078:
-            Player.collide = 1
-        elif movesDown == True:
-            Player.collide = 0
-            movesDown = False
-
-        if movesDown == True and Player.rect.x < 1344:
-            Player.rect.x += 20
-            Player.facingRight = True
-            Player.locked = True
-
-        if movesDown == True and Player.rect.x > 1344:
-            Player.rect.x -= 20
-            Player.facingRight = True
-            Player.locked = True
-
-        if movesDown == False:
-            Player.locked = False
             
         leverTimer += 1
 
@@ -1207,11 +1190,11 @@ def loadForeGround(map, surface, language):
                 cobbleElement.drawElement(world, x, y, foreground_rects)
                 tic_tac_toe_board.drawElement(surface, x, y, foreground_rects)
             if tile == 33:
-                bannerYellow.drawCallableAnimatedElement(surface, x, y, deco_rects, registries.animations.yellowBanner)
-                bannerYellow.xModifier = 70
-                bannerYellow.xRectModifier = 70
-                bannerYellow.yRectModifier = -20
-                bannerYellow.yModifier = -20
+                yellowBaner.drawCallableAnimatedElement(surface, x, y, deco_rects, registries.animations.yellowBanner)
+                yellowBaner.xModifier = 70
+                yellowBaner.xRectModifier = 70
+                yellowBaner.yRectModifier = -20
+                yellowBaner.yModifier = -20
             x += 1
         y += 1
 
@@ -1282,18 +1265,19 @@ def loadForeGround(map, surface, language):
             npcTalking = True
 
     if Player.world == "lvl1": 
-        if Player.rect.colliderect(bannerYellow.rect) and key[pygame.K_e] and yellowBannerDamaged == False and hasTorch == True:
+        if Player.rect.colliderect(yellowBaner.rect) and key[pygame.K_e] and yellowBannerDamaged == False and hasTorch == True:
             yellowBannerDamaged = True
 
         if yellowBannerDamaged == True:
-            bannerYellow.callAnimation()
-            print(bannerYellow.frame)
-            if bannerYellow.frame == len(registries.animations.yellowBanner) - 1:
+            yellowBaner.callAnimation()
+            print(yellowBaner.frame)
+            if yellowBaner.frame == len(registries.animations.yellowBanner) - 1:
                 lvl1_map[17][13] = 0
+                lvl1_map[19][1] = 0
                 hasTorch = False
 
         if Player.rect.colliderect(hole.rect) and yellowBannerDamaged == True and hasTorch == True:
-            Player.collide = 1
+                lvl1_map[19][14] = 0
 
 """def loadLights(surface, map):
     y = 0
@@ -1324,6 +1308,7 @@ def collisionTest(player, rectArray):
     return hit_list
 
 def move(player, movement, rectArray):
+    global collision_types
     collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
     player.x += movement[0]
     hit_list = collisionTest(player, rectArray)
