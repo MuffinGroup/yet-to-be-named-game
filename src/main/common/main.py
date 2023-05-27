@@ -1642,7 +1642,7 @@ def Tut2(language):
     # values for animation calculation
     idleValue = 0
     walkingValue = 0
-    Player.rect.x, Player.rect.y = 900, 750
+    Player.rect.x, Player.rect.y = 900, 1200
 
     pygame.mixer.music.load("src\main/assets\sounds\MysteriousGameMusic.mp3")
     pygame.mixer.music.play(1000)
