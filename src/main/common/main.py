@@ -1190,14 +1190,8 @@ def loadForeGround(map, surface, language):
                 cobbleElement.drawElement(world, x, y, foreground_rects)
                 tic_tac_toe_board.drawElement(surface, x, y, foreground_rects)
             if tile == 33:
-                bannerYellow.drawCallableAnimatedElement(screen, x, y, deco_rects, registries.animations.yellowBanner)
-                bannerYellow.xModifier = 70
-                bannerYellow.xRectModifier = 70
-                bannerYellow.yModifier = -20
-                bannerYellow.yRectModifier = -20
+                bannerYellow.drawCallableAnimatedElement(surface, x, y, deco_rects, registries.animations.yellowBanner)
                 print("banner visible")
-            if tile == 69:
-                cobbleElement.drawElement(world, x, y, deco_rects)
 
             x += 1
         y += 1
@@ -1916,6 +1910,8 @@ def Lvl1(language):
 
         genWorld(world, lvl1_map)
 
+        loadForeGround(lvl1_map, world, language)
+
         if allowTicTacToe == True:
             Player.locked = True
 
@@ -1933,8 +1929,6 @@ def Lvl1(language):
             Player.currentSprite = registries.animations.walking_sprite[walkingValue]
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
-
-        loadForeGround(lvl1_map, world, language)
 
         if Player.visible == True:
             player.render(world)
