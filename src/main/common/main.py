@@ -1996,6 +1996,8 @@ def Lvl1(language):
                 
         deathEvent(language)
 
+        TutorialPanelRenderer(language)
+
         clock.tick(1600)
         pygame.display.flip()
 
