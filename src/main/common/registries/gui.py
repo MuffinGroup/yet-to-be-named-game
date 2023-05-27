@@ -152,7 +152,7 @@ class registerButton():
 			self.test += 1
 			self.toggled = True
 			action = True
-			pygame.time.wait(100)
+			pygame.time.wait(10)
 
 		if self.rect.collidepoint(pos):
 			pygame.draw.rect(surface, (255, 255, 255), (self.rect.x - xTextureOffset,self.rect.y - yTextureOffset, self.rect.width, self.rect.height), 4)
