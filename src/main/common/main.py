@@ -1191,8 +1191,10 @@ def loadForeGround(map, surface, language):
                 tic_tac_toe_board.drawElement(surface, x, y, foreground_rects)
             if tile == 33:
                 bannerYellow.drawCallableAnimatedElement(surface, x, y, deco_rects, registries.animations.yellowBanner)
-                print("banner visible")
-
+                bannerYellow.xModifier = 70
+                bannerYellow.xRectModifier = 70
+                bannerYellow.yRectModifier = -20
+                bannerYellow.yModifier = -20
             x += 1
         y += 1
 
@@ -1264,12 +1266,14 @@ def loadForeGround(map, surface, language):
 
     if Player.world == "lvl1": 
         if Player.rect.colliderect(bannerYellow.rect) and key[pygame.K_e] and yellowBannerDamaged == False and hasTorch == True:
-            bannerYellow.callAnimation()
             yellowBannerDamaged = True
 
-        if yellowBannerDamaged == True and Player.rect.colliderect(hole) and key[pygame.K_e]:
-            movesDown = True
+        if yellowBannerDamaged == True:
             hasTorch = False
+            bannerYellow.callAnimation()
+            print(bannerYellow.frame)
+            if bannerYellow.frame == len(registries.animations.yellowBanner) - 1:
+                lvl1_map[17][13] = 0
 
 """def loadLights(surface, map):
     y = 0
@@ -1280,7 +1284,7 @@ def loadForeGround(map, surface, language):
                 surface.blit(light, (x * 32 - 320, y * 32 - 224))
             x += 1
         y += 1"""
-        
+
 def health():
         for i in range(Player.defaultHealth):
             if (i % 2) == 0:
