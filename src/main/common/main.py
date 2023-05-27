@@ -1450,7 +1450,7 @@ def Tut1(language):
     idleValue = 0
     walkingValue = 0
     pickUpValue = 0
-    
+    Player.rect.x, Player.rect.y = 1700, 870    
     pygame.mixer.music.load("src\main/assets\sounds\GameMusic.mp3")
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.1)
