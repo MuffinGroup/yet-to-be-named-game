@@ -1374,6 +1374,9 @@ def Start(language):
     optionsButton = registries.gui.registerButton("button", 6.0)
     quitButton = registries.gui.registerButton("button", 6.0)
     clock = pygame.time.Clock()
+    pygame.mixer.music.load("src\main/assets\sounds\GameMusic.mp3")
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(0.1)
     resetVars()
     while True:
         key = pygame.key.get_pressed()
