@@ -58,5 +58,17 @@
 "text.tutorial.item2.2": "will be placed on it.",
 
 "text.tutorial.infoToast1": "Helping out",
-"text.tutorial.infoToast2": "a friend"
+"text.tutorial.infoToast2": "a friend",
+
+"text.tutorial.end": "Now you got the controls",
+"text.tutorial.end1": "you need for the game.",
+"text.tutorial.end2": "One last thing:",
+"text.tutorial.end3": "If you want to interact",
+"text.tutorial.end4": "with an object,",
+"text.tutorial.end5": "just press E.",
+"text.tutorial.end6": "Now that was all.",
+"text.tutorial.end7": "Good luck and, above all,",
+"text.tutorial.end8": "HAVE FUN!",
+"text.tutorial.end9": "Press ENTER to exit",
+"text.tutorial.end10": "the tutorial."
 }

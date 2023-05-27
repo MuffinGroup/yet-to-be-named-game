@@ -60,5 +60,17 @@
 "text.tutorial.item2.2": "Blume wird platziert.",
 
 "text.tutorial.infoToast1": "Einem Freund",
-"text.tutorial.infoToast2": "aushelfen"
+"text.tutorial.infoToast2": "aushelfen",
+
+"text.tutorial.end": "Jetzt hast du die Steuerung,",
+"text.tutorial.end1": "die du im Spiel brauchst.",
+"text.tutorial.end2": "Zum Ende noch:",
+"text.tutorial.end3": "Wenn du mit einem Gegenstand",
+"text.tutorial.end4": "interagieren moechtest,",
+"text.tutorial.end5": "druecke einfach E.",
+"text.tutorial.end6": "Das war jetzt aber alles.",
+"text.tutorial.end7": "Viel Glueck und vor allem",
+"text.tutorial.end8": "VIEL SPAß!",
+"text.tutorial.end9": "Druecke ENTER zum Beenden",
+"text.tutorial.end10": "des Tutorials."
 }
