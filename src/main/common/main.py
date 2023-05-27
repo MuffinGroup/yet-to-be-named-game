@@ -1379,7 +1379,7 @@ def Start(language):
     quitButton = registries.gui.registerButton("button", 6.0)
     clock = pygame.time.Clock()
     resetVars()
-    pygame.mixer.music.load("src\main/assets\sounds/tests/bg_music1.mp3")
+    pygame.mixer.music.load("src\main/assets\sounds/tests/bg_music2.mp3")
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.1)
     while True:
