@@ -1163,7 +1163,7 @@ def loadBackground(map, surface):
         y += 1
 
 def loadForeGround(map, surface, language):
-    global foreground_rects, npcTalking, door0Current, n, npcCurrent, npcTalking, door0_open, door2Current, door2_open, yellowBannerDamaged
+    global foreground_rects, npcTalking, door0Current, n, npcCurrent, npcTalking, door0_open, door2Current, door2_open, yellowBannerDamaged, hasTorch
     foreground_rects = []
 
     y = 0
