@@ -1878,8 +1878,6 @@ def Lvl1(language):
 
             commandEvent(event, language)
 
-            TutorialPanelRenderer(language)
-
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
                 Start(language)
@@ -1994,6 +1992,8 @@ def Lvl1(language):
                 Player.debuggingMenu = False
                 
         deathEvent(language)
+
+        TutorialPanelRenderer(language)
 
         clock.tick(1600)
         pygame.display.flip()
