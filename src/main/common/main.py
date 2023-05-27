@@ -275,14 +275,14 @@ def TutorialRender(language):
         Player.walkingRightLocked = False
         Player.walkingLeftLocked = True
         Player.jumpingLocked = True
-        if Player.rect.x >= 1600:
+        if Player.rect.x >= 2000:
             Tut_walking_right = False
             Tut_walking_left = True
 
     if Tut_walking_left == True:
         Player.walkingLeftLocked = False
         Player.jumpingLocked = True
-        if Player.rect.x <= 1300:
+        if Player.rect.x <= 1750:
             Tut_walking_left = False
             Tut_jumping = True
 
@@ -1450,7 +1450,7 @@ def Tut1(language):
     idleValue = 0
     walkingValue = 0
     pickUpValue = 0
-    Player.rect.x, Player.rect.y = 1700, 870    
+    Player.rect.x, Player.rect.y = 1740, 1400    
     pygame.mixer.music.load("src\main/assets\sounds\GameMusic.mp3")
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.1)
