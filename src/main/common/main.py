@@ -106,7 +106,7 @@ class Player:
                 Player.moving_left = False
 
             #Debug mode to help developers
-            if key[pygame.K_d] and Player.debuggingMode == False and Player.locked == False:
+            if key[pygame.K_d] and Player.debuggingMode == False and Player.locked == False and dev_enable == True:
                 pygame.time.wait(200)
                 Player.debuggingMode = True
             elif key[pygame.K_d] and Player.debuggingMode == True and Player.debuggingMenu == False and Player.locked == False:
@@ -530,6 +530,7 @@ movesDown = False
 posDone = False
 bridgeTimer = 0
 winTimer = 0
+dev_enable = False
 
 def resetVars():
     global leverOn, leverOff, leverTimer, leverPressed
@@ -1414,6 +1415,7 @@ def Start(language):
         clock.tick(1000)
         
 def commandEvent(event, language):
+    global dev_enable
     if chat.userInput.lower() == "/world tut2" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut2" and Player.debuggingMode == True:
         chat.userInput = ""
         chat.linesLoaded[0] = translatableComponent("command.teleport.tut2", language)
@@ -1431,6 +1433,12 @@ def commandEvent(event, language):
         chat.linesLoaded[0] = translatableComponent("command.teleport.lvl1", language)
         chat.x = chat.markerDefaultPos
         Lvl1(language)
+
+    if chat.userInput.lower() == "/dev" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not dev_enable == True:
+        chat.userInput = ""
+        chat.linesLoaded[0] = translatableComponent("command.enable.d-mode", language)
+        chat.x = chat.markerDefaultPos
+        dev_enable = True
 
 def deathEvent(language):
     if Player.rect.y >= 4000:
@@ -1579,7 +1587,8 @@ def Tut1(language):
         if Player.debuggingMode == True:
             screen.blit(renderText(0, language), (440, 90))
 
-        screen.blit(renderText(1, language), (440, 30))
+        if dev_enable == True:
+            screen.blit(renderText(1, language), (440, 30))
 
         # Rendering the debug menu
         player.renderDebugMenu(language, tut1_map)
