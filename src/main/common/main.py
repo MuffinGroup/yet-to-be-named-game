@@ -307,6 +307,10 @@ def TutorialRender(language):
             Tut_item3 = False
             Tut_end = True
 
+    if Tut_end == True:
+        if key[pygame.K_RETURN]:
+            Tut_end = False
+
 def TutorialPanelRenderer(language):
     if Tut_welcome:
         if language == 'de_de':
@@ -331,6 +335,9 @@ def TutorialPanelRenderer(language):
 
     if Tut_item3 == True:
         tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language),translatableComponent('text.tutorial.item2.0', language), translatableComponent('text.tutorial.item2.1', language), translatableComponent('text.tutorial.item2.2', language), '', BLACK, -10, -10)
+
+    if Tut_end == True:
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.end', language), translatableComponent('text.tutorial.end1', language), translatableComponent('text.tutorial.end2', language), translatableComponent('text.tutorial.end3', language), translatableComponent('text.tutorial.end4', language), translatableComponent('text.tutorial.end5', language), translatableComponent('text.tutorial.end6', language), translatableComponent('text.tutorial.end7', language),translatableComponent('text.tutorial.end8', language), '', translatableComponent('text.tutorial.end9', language), translatableComponent('text.tutorial.end10', language), BLACK, -10, -10)
 
 
 def renderCoordinates():
