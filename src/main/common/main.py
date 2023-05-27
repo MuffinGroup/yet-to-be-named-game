@@ -1269,11 +1269,14 @@ def loadForeGround(map, surface, language):
             yellowBannerDamaged = True
 
         if yellowBannerDamaged == True:
-            hasTorch = False
             bannerYellow.callAnimation()
             print(bannerYellow.frame)
             if bannerYellow.frame == len(registries.animations.yellowBanner) - 1:
                 lvl1_map[17][13] = 0
+                hasTorch = False
+
+        if Player.rect.colliderect(hole.rect) and yellowBannerDamaged == True and hasTorch == True:
+            Player.collide = 1
 
 """def loadLights(surface, map):
     y = 0
@@ -1381,7 +1384,7 @@ def Start(language):
     resetVars()
     pygame.mixer.music.load("src\main/assets\sounds\GameMusic.mp3")
     pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(100)
+    pygame.mixer.music.set_volume(0.1)
     while True:
         key = pygame.key.get_pressed()
         language = Player.languageList[i]
@@ -2017,4 +2020,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Tut1(Player.language)
+    Start(Player.language)
