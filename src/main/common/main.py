@@ -313,8 +313,8 @@ def TutorialRender(language):
             Tut_end = False
             Tut_wait = True
 
-    if Player.rect.x == 1700 and Player.rect.y == 1378:
-        tut_ttt = True
+    if Player.rect.x >= 1700 and Player.rect.x <=1800 and Player.rect.y == 3078:
+        Tut_ttt = True
 
     if Tut_ttt == True:
         if key[pygame.K_SPACE]:
