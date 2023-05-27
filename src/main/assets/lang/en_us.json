@@ -71,5 +71,17 @@
 "text.tutorial.end7": "Good luck and, above all,",
 "text.tutorial.end8": "HAVE FUN!",
 "text.tutorial.end9": "Press ENTER to exit",
-"text.tutorial.end10": "the tutorial."
+"text.tutorial.end10": "the tutorial.",
+
+"text.tutorial.ttt": "Here are the controls",
+"text.tutorial.ttt1": "for this TicTacToe game.",
+"text.tutorial.ttt2": "You are the cross",
+"text.tutorial.ttt3": "and your goal are three",
+"text.tutorial.ttt4": "crosses in a row.",
+"text.tutorial.ttt5": "To choose the square",
+"text.tutorial.ttt6": "use the arrow keys.",
+"text.tutorial.ttt7": "If you want to log in,",
+"text.tutorial.ttt8": "press E as usual.",
+"text.tutorial.ttt9": "To end this tutorial",
+"text.tutorial.ttt10": "press SPACE."
 }

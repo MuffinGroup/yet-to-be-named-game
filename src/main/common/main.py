@@ -260,7 +260,7 @@ class Player:
             pass
 
 def TutorialRender(language):
-    global Tut_welcome, Tut_walking_right, Tut_walking_left, Tut_jumping, Tut_item1, Tut_item2, Tut_item3, Tut_end, Tut_wait, Tut_ttt
+    global Tut_welcome, Tut_walking_right, Tut_walking_left, Tut_jumping, Tut_item1, Tut_item2, Tut_item3, Tut_end, Tut_ttt, yellowBannerDamaged
     key = pygame.key.get_pressed()
     if Tut_welcome == True:
         if key[pygame.K_SPACE]:
@@ -312,10 +312,8 @@ def TutorialRender(language):
             Tut_end = False
             Tut_wait = True
 
-    if Tut_wait == True:
-        if yellowBannerDamaged == True:
-            Tut_wait = False
-            Tut_ttt = True
+    if allowTicTacToe == True:
+        tut_ttt = True
 
     if Tut_ttt == True:
         if key[pygame.K_SPACE]:
@@ -348,6 +346,10 @@ def TutorialPanelRenderer(language):
 
     if Tut_end == True:
         tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.end', language), translatableComponent('text.tutorial.end1', language), translatableComponent('text.tutorial.end2', language), translatableComponent('text.tutorial.end3', language), translatableComponent('text.tutorial.end4', language), translatableComponent('text.tutorial.end5', language), translatableComponent('text.tutorial.end6', language), translatableComponent('text.tutorial.end7', language),translatableComponent('text.tutorial.end8', language), '', translatableComponent('text.tutorial.end9', language), translatableComponent('text.tutorial.end10', language), BLACK, -10, -10)
+
+    if Tut_ttt == True:
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.ttt', language), translatableComponent('text.tutorial.ttt1', language), translatableComponent('text.tutorial.ttt2', language), translatableComponent('text.tutorial.ttt3', language), translatableComponent('text.tutorial.ttt4', language), translatableComponent('text.tutorial.ttt5', language), translatableComponent('text.tutorial.ttt6', language), translatableComponent('text.tutorial.ttt7', language),translatableComponent('text.tutorial.ttt8', language), '', translatableComponent('text.tutorial.ttt9', language), translatableComponent('text.tutorial.ttt10', language), BLACK, -10, -10)
+
 
 def renderCoordinates():
     if Player.showPos == 1:
@@ -507,7 +509,6 @@ Tut_item1 = False
 Tut_item2 = False
 Tut_item3 = False
 Tut_end = False
-Tut_wait = False
 Tut_ttt = False
 
 door0_open = False
