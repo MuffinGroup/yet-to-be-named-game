@@ -312,7 +312,7 @@ def TutorialRender(language):
             Tut_end = False
             Tut_wait = True
 
-    if allowTicTacToe == True:
+    if Player.rect.x == 1700 and Player.rect.y == 1378:
         tut_ttt = True
 
     if Tut_ttt == True:
@@ -1842,6 +1842,8 @@ def Lvl1(language):
 
         movementControl(Player)
 
+        TutorialRender(language)
+
         try:
             command, x, y = parse_input(chat.userInput.lower())
         except:
@@ -1898,6 +1900,9 @@ def Lvl1(language):
                         selectedYPos -= 1
 
             commandEvent(event, language)
+
+            TutorialPanelRenderer(language)
+
             chat.event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.chatOpen == False and Player.debuggingMenu == False:
                 Start(language)
