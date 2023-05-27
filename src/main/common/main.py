@@ -758,8 +758,7 @@ def ticTacToe(screen, xPos, yPos):
                     exitedTtt = True
 
                 for i in range(20, 33):
-                    for x in range(21, 26):
-                        lvl1_map[i][x] = 49
+                    lvl1_map[i][23] = 49
 
             if gameLost == True:
                 if loseTimer < 180:
@@ -895,7 +894,7 @@ def genWorld(world, map):
             if tile == 51:
                 hole.drawElement(x, y, deco_rects)
             if tile == 52:
-                specialTorchHolderDeco.drawElement(world, x, y, hot_air_rects)
+                specialTorchHolderDeco.drawElement(world, x, y, deco_rects)
             #Don't use 53
             #Don't use 54 either
             if tile == 55:
