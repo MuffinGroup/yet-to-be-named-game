@@ -1198,25 +1198,26 @@ def loadForeGround(map, surface, language):
             x += 1
         y += 1
 
-    if Player.rect.colliderect(door0ClosedLargeElement.rect) and Player.visible == True and key[pygame.K_e]:
-        if Player.world != "tut1":
-            door0_open = True
-            door0Current = door0OpenLargeElement
-            door0Current.yModifier = -22
-            door0Current.widthModifier = -75
-            door0Current.xRectModifier = 50
-            door0Current.yRectModifier = -22
-            Player.locked = True
-            n += 1
-            
-        elif not Player.rect.colliderect(npc.rect) and Player.holding == poppy.id:
-            door0Current = door0OpenLargeElement
-            door0Current.yModifier = -22
-            door0Current.widthModifier = -75
-            door0Current.xRectModifier = 50
-            door0Current.yRectModifier = -22
-            Player.locked = True
-            n += 1
+    if Player.world == "tut1":
+        if Player.rect.colliderect(door0ClosedLargeElement.rect) and Player.visible == True and key[pygame.K_e]:
+            if Player.world != "tut1":
+                door0_open = True
+                door0Current = door0OpenLargeElement
+                door0Current.yModifier = -22
+                door0Current.widthModifier = -75
+                door0Current.xRectModifier = 50
+                door0Current.yRectModifier = -22
+                Player.locked = True
+                n += 1
+
+            elif not Player.rect.colliderect(npc.rect) and Player.holding == poppy.id:
+                door0Current = door0OpenLargeElement
+                door0Current.yModifier = -22
+                door0Current.widthModifier = -75
+                door0Current.xRectModifier = 50
+                door0Current.yRectModifier = -22
+                Player.locked = True
+                n += 1
 
     if Player.world == "tut2":
         if Player.rect.colliderect(door2ClosedLargeElement.rect) and Player.visible == True and key[pygame.K_e]:
