@@ -1382,7 +1382,7 @@ def Start(language):
     quitButton = registries.gui.registerButton("button", 6.0)
     clock = pygame.time.Clock()
     resetVars()
-    pygame.mixer.music.load("src\main/assets\sounds/tests/bg_music1.mp3")
+    pygame.mixer.music.load("src\main/assets\sounds/tests/bg_music2.mp3")
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.1)
     while True:
@@ -1396,7 +1396,7 @@ def Start(language):
                 pygame.quit()
                 sys.exit()
 
-        startFont = registries.gui.registerFont(40, "YET-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
+        startFont = registries.gui.registerFont(40, "YET-TO-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
         screen.fill(BLUISH_GRAY)
         if startButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 2.75, registries.animations.startButton, 48, 48, 6, -125, -25, translatableComponent("button.start", language), BLACK, "joystixmonospaceregular"):
             Tut1(language)
