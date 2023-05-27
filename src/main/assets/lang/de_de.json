@@ -7,6 +7,8 @@
 "command.teleport.tut2": "Zu tut2 teleportiert",
 "command.teleport.tut3": "Zu tut3 teleportiert",
 "command.lang": "Ausgewaehlte Sprache: ",
+"command.place": "Block platziert",
+"command.enable.d-mode": "Willkommen Dev!",
 
 "text.debug_mode": "Schalte den debug-modus mit d ein",
 "text.debug_menu": "Oeffne den debug-menue mit 0",
