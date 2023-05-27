@@ -1883,8 +1883,6 @@ def Lvl1(language):
 
         TutorialRender(language)
 
-        TutorialPanelRenderer(language)
-        
         # idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
             idleValue = 0
@@ -1932,6 +1930,8 @@ def Lvl1(language):
         loadFluids(lvl1_map, world)
 
         loadExplosion(lvl1_map, world)
+
+        TutorialPanelRenderer(language)
 
         if Player.finishedTicTacToe == False:
             ticTacToe(world, 2016, 2976)
