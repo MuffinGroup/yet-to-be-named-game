@@ -312,11 +312,11 @@ def TutorialRender(language):
         if key[pygame.K_RETURN]:
             Tut_end = False
 
-    if Player.rect.x == 1700 and Player.rect.y == 1378:
+    if Player.rect.x >= 1700 and Player.rect.x <=1800 and Player.rect.y == 3078:
         Tut_ttt = True
 
     if Tut_ttt == True:
-        if key[pygame.K_SPACE]:
+        if key[pygame.K_SPACE] or Player.finishedTicTacToe == True:
             Tut_ttt = False
 
 def TutorialPanelRenderer(language):
