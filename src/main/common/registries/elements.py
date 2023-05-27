@@ -128,7 +128,6 @@ class registerCallableAnimatedElement():
 			self.frame += 1
 		else:
 			self.frame = len(self.animationArray) - 1
-		print("uwu")
 
 	def callEndlessAnimation(self):
 		if not self.frame >= len(self.animationArray) - 1:

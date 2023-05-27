@@ -35,4 +35,4 @@ torch = load_animation("torchburning", 4, 3, "src\main/assets/textures\elements\
 torchWallLeft = load_animation("torch(wall=left)Burning", 4, 3, "src\main/assets/textures\elements\Environment\decoration\Torches\Animations\TorchLeftAnimation")
 torchWallRight = load_animation("torch(wall=right)Burning", 4, 3, "src\main/assets/textures\elements\Environment\decoration\Torches\Animations\TorchRightAnimation")
 torchWallTop = load_animation("torch(wall=top)Burning", 4, 3, "src\main/assets/textures\elements\Environment\decoration\Torches\Animations\TorchTopAnimation")
-yellowBannerBurning = load_animation("Yellow_BannerBurning", 9, 6, "src\main/assets/textures\elements\Environment\decoration\Banners\Animations\Yellow_BannerBurning")
+yellowBanner = load_animation("Yellow_BannerBurning", 9, 6, "src\main/assets/textures\elements\Environment\decoration\Banners\Animations\Yellow_BannerBurning")

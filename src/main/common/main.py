@@ -379,8 +379,7 @@ shieldDeco = registries.elements.registerElement("elements/Environment/decoratio
 shieldDamagedDeco = registries.elements.registerElement("elements/Environment/decoration/Shields/Shield1(harmed)", 3)
 bannerRedDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner1", 5)
 bannerBlueDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner2", 5)
-bannerYellowDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner3", 5)
-bannerYellowBurning = registries.elements.registerAnimatedElement(5)
+bannerYellow = registries.elements.registerCallableAnimatedElement(5)
 door0OpenLargeElement = registries.elements.registerElement("elements/doors/door_0_open", 5)
 door0ClosedLargeElement = registries.elements.registerElement("elements/doors/door_0_closed", 5)
 door2OpenLargeElement = registries.elements.registerElement("elements/doors/door_2_open", 5)
@@ -422,7 +421,6 @@ waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
 door0Current = door0ClosedLargeElement
 door2Current = door2ClosedLargeElement
-bannerYellowCurrent = bannerYellowDeco
 poppy = registries.items.registerItem("elements\Environment\decoration\Plants\poppy")
 torch = registries.items.registerItem("elements\Environment\decoration\Torches/Torch")
 
@@ -829,7 +827,6 @@ def genWorld(world, map):
                 bush.drawElement(world, x, y, deco_rects)
             if tile == 27:
                 explosive.drawElement(world, x, y, element_rects)
-                print(x, y)
             if tile == 28:
                 light_dark_cobble.drawElement(world, x, y, element_rects)
             if tile == 29:
@@ -846,7 +843,6 @@ def genWorld(world, map):
             if tile == 37:
                 wooden_plank.drawElement(world, x, y, element_rects)
                 wooden_plank.heightModifier = -76
-                print(wooden_plank.rect.x, wooden_plank.rect.y)
             if tile == 38:
                 cobbleOffsetElement.drawElement(world, x, y, element_rects)
                 cobbleOffsetElement.xModifier = -cobbleOffsetElement.rect.width // 2
@@ -1193,12 +1189,12 @@ def loadForeGround(map, surface, language):
                 cobbleElement.drawElement(world, x, y, foreground_rects)
                 tic_tac_toe_board.drawElement(surface, x, y, foreground_rects)
             if tile == 33:
-                bannerYellowCurrent.drawElement(world, x, y, deco_rects)
-                bannerYellowCurrent.xModifier = 70
-                bannerYellowCurrent.xRectModifier = 70
-                bannerYellowCurrent.yModifier = -20
-                bannerYellowCurrent.yRectModifier = -20
-                print(x, y)
+                bannerYellow.drawCallableAnimatedElement(screen, x, y, deco_rects, registries.animations.yellowBanner)
+                bannerYellow.xModifier = 70
+                bannerYellow.xRectModifier = 70
+                bannerYellow.yModifier = -20
+                bannerYellow.yRectModifier = -20
+                print("banner visible")
             if tile == 69:
                 cobbleElement.drawElement(world, x, y, deco_rects)
 
@@ -1272,8 +1268,8 @@ def loadForeGround(map, surface, language):
             npcTalking = True
 
     if Player.world == "lvl1": 
-        if Player.rect.colliderect(bannerYellowDeco.rect) and key[pygame.K_e] and yellowBannerDamaged == False and hasTorch == True:
-            lvl1_map[17][13] = 69
+        if Player.rect.colliderect(bannerYellow.rect) and key[pygame.K_e] and yellowBannerDamaged == False and hasTorch == True:
+            bannerYellow.callAnimation()
             yellowBannerDamaged = True
 
         if yellowBannerDamaged == True and Player.rect.colliderect(hole) and key[pygame.K_e]:
@@ -1423,13 +1419,13 @@ def commandEvent(event, language):
         chat.linesLoaded[0] = translatableComponent("command.teleport.tut2", language)
         chat.x = chat.markerDefaultPos
         Tut2(language)
-                
+
     if chat.userInput.lower() == "/world tut1" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "tut1" and Player.debuggingMode == True:
         chat.userInput = ""
         chat.linesLoaded[0] = translatableComponent("command.teleport.tut1", language)
         chat.x = chat.markerDefaultPos
         Tut1(language)
-                
+
     if chat.userInput.lower() == "/world lvl1" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not Player.world == "lvl1" and Player.debuggingMode == True:
         chat.userInput = ""
         chat.linesLoaded[0] = translatableComponent("command.teleport.lvl1", language)
@@ -1499,7 +1495,7 @@ def Tut1(language):
                 language = Player.languageList[0]
                 chat.linesLoaded[0] = translatableComponent("command.lang", language) + language
             try:
-                if parse_input(str(chat.userInput.lower())) and command == "/place block" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                if parse_input(str(chat.userInput.lower())) and command == "/place block" and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and Player.debuggingMode == True:
                     chat.userInput = ""
                     chat.x = chat.markerDefaultPos
                     chat.linesLoaded[0] = translatableComponent("command.place", language)
@@ -1911,8 +1907,6 @@ def Lvl1(language):
 
         genWorld(world, lvl1_map)
 
-        loadForeGround(lvl1_map, world, language)
-
         if allowTicTacToe == True:
             Player.locked = True
 
@@ -1931,6 +1925,8 @@ def Lvl1(language):
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
+        loadForeGround(lvl1_map, world, language)
+
         if Player.visible == True:
             player.render(world)
 
@@ -1942,7 +1938,6 @@ def Lvl1(language):
         loadExplosion(lvl1_map, world)
 
         ticTacToe(world, 2016, 2976)
-        pygame.draw.rect(world, WHITE, platformRect, 3)
             
         for frame in frame_rects:
             if key[pygame.K_e] and Player.rect.colliderect(frame):
