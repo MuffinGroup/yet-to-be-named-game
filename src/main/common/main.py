@@ -60,6 +60,7 @@ class Player:
         Player.movement = [0, 0]
         Player.underWater = False
         Player.editMode = 0
+        Player.finishedTicTacToe = False
 
     def keybinds(self, camera_pos):
         global player_x, player_y, key
@@ -731,34 +732,10 @@ def ticTacToe(screen, xPos, yPos):
             if gameWon == True:
                 allowTicTacToe = False
                 leaveTtt = True
-
-            if leaveTtt == True and exitedTtt == False:
-                if Player.rect.x < 2100:
-                    Player.rect.x += 2
-                    Player.walking = True
-                    Player.facingRight = True
-                else:
-                    Player.walking = False
-                    
-                if Player.rect.x > 2100:
-                    Player.rect.x -= 2
-                    Player.walking = True
-                    Player.facingLeft = True
-                else:
-                    Player.walking = False
-
-                if winTimer < 50:
-                    winTimer += 1
-
-                if winTimer == 50 and Player.rect.y >= 1734:
-                    Player.rect.y -= 30
-                    leaveTtt = False
-                    exitedTT = False
-                elif Player.rect.y < 1734:
-                    exitedTtt = True
+                Player.finishedTicTacToe = True
 
                 for i in range(20, 33):
-                    lvl1_map[i][23] = 49
+                    lvl1_map[i][22] = 49
 
             if gameLost == True:
                 if loseTimer < 180:
@@ -1950,8 +1927,9 @@ def Lvl1(language):
 
         loadExplosion(lvl1_map, world)
 
-        ticTacToe(world, 2016, 2976)
-            
+        if Player.finishedTicTacToe == False:
+            ticTacToe(world, 2016, 2976)
+        
         for frame in frame_rects:
             if key[pygame.K_e] and Player.rect.colliderect(frame):
                 allowTicTacToe = True
