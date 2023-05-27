@@ -330,7 +330,7 @@ def TutorialPanelRenderer(language):
         tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), '', '', '', BLACK, -10, -10)"""
 
     if Tut_item3 == True:
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language),translatableComponent('text.tutorial.item2.0', language), translatableComponent('text.tutorial.item2.1', language), translatableComponent('text.tutorial.item2.2', language), translatableComponent('text.tutorial.item2.3', language), BLACK, -10, -10)
+        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language),translatableComponent('text.tutorial.item2.0', language), translatableComponent('text.tutorial.item2.1', language), '', BLACK, -10, -10)
 
 
 def renderCoordinates():
@@ -567,12 +567,12 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3, 3,16,16, 3, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3,16,16, 3,16, 3,16,16,16, 3, 3,16,16, 3, 3, 3,16, 3, 3, 3, 3,16, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16,16,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16, 3,16,16, 3,16, 3, 3, 3,16, 3,16, 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3, 3,16,16,16, 3, 3,16, 3,16, 3, 3, 3,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3,16, 3, 3,16, 3,00,29,00,62,00,00,00,00,00,00,00,00,00,00,00,62,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3,16, 3,16,16,16,00,29,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3, 3,16,00,29,00,63,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,53,00, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3,16, 3, 3, 3,16,00,29,00,00,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00, 3,27,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3, 3, 3,00,29,00,00,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00,16,27,27,00,00,00,00,00,00,00,00,00,00,00,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3,16, 3, 3,37,37,37,65,37,00,00,00,00,00,00,00,00,00,00,61,00,00,00, 3,16, 3, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3, 3,16, 3,00,00,00,62,00,00,00,00,00,00,00,00,00,00,00,62,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3,16,16,16,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3,16,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,53,00, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3, 3, 3,16,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00, 3,27,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00,16,27,27,00,00,00,00,00,00,00,00,00,00,00,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3,16, 3, 3,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00, 3,16, 3, 3,16, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,16,16,16, 3, 3,16, 3,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,62,00,00,00,00,00,00,00,00,00,00,00,00,00,16,16, 3, 3,16,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3,16, 3,16, 3, 3,16,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,15, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3,16,16,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,10, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -2005,4 +2005,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Start(Player.language)
+    Tut2(Player.language)
