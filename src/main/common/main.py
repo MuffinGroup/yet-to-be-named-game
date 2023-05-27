@@ -155,9 +155,9 @@ class Player:
             Player.chatOpen = False
 
         if Player.world == "tut1":
-            return (-self.rect.x + 680, -self.rect.y + 550)# Return new player position
+            return (-self.rect.x + 680, -self.rect.y + 350)# Return new player position
         else:
-            return (-self.rect.x + 680, -self.rect.y + 400)
+            return (-self.rect.x + 680, -self.rect.y + 300)
         
     def damage(damage):
         if Player.health > 0:
