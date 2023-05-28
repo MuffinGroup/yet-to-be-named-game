@@ -29,7 +29,7 @@ class Player:
         Player.walking = False
         Player.collidingLeft = False
         Player.collidingRight = False
-        Player.rect = pygame.Rect((1200, 870), (86, 186)) # Create the players hitbox
+        Player.rect = pygame.Rect((1200, 870), (76, 186)) # Create the players hitbox
         Player.animationFrameUpdate = 1
         Player.debuggingMode = False
         Player.visible = True
@@ -514,6 +514,9 @@ Tut_item3 = False
 Tut_end = False
 Tut_ttt = False
 
+renderTtt = True
+hot_air_timer = 20
+
 door0_open = False
 door2_open = False
 doorsound = pygame.mixer.Sound('src/main/assets/sounds/Door_Closing.wav')
@@ -607,6 +610,11 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 3,16,16, 3, 3,16, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3, 3, 3,16,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16,16,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16, 3,16,16, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3, 3,16,16,16, 3, 3,16, 3,16, 3, 3, 3,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3,16, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3,16, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3,16, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3,16, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3, 3,16,16, 3, 3,16, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3,16, 3,16, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3, 3, 3,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3]]
 
 lvl1_map = [[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -644,12 +652,12 @@ lvl1_map = [[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
             [28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,00,00,00,00,68,68,68,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28],
             [28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,00,00,00,00,68,68,68,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28],
             [28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
-            [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00]]
+            [28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28],
+            [28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28],
+            [28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28],
+            [28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28],
+            [28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28],
+            [28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28]]
 
 ttt_map = [[0, 0, 0],
            [0, 0, 0],
@@ -664,8 +672,6 @@ loseTimer = 0
 selectedXPos = 0
 selectedYPos = 0
 allowTicTacToe = False
-leaveTtt = False
-exitedTtt = False
 tttCircle = pygame.image.load("src\main/assets/textures\elements\Environment\TicTacToe\TicTacToeCircle.png")
 tttCircle = pygame.transform.scale(tttCircle, (96, 96))
 tttCross = pygame.image.load("src\main/assets/textures\elements\Environment\TicTacToe\TicTacToeCross.png")
@@ -674,7 +680,7 @@ tttSelection = pygame.image.load("src\main/assets/textures\elements\Environment\
 tttSelection = pygame.transform.scale(tttSelection, (96, 96))
 
 def ticTacToe(screen, xPos, yPos):
-    global input, inputLocked, gameLost, gameWon, loseTimer, ttt_map, selectedXPos, selectedYPos, frame_rects, lvl1_map, winTimer, leaveTtt, allowTicTacToe, exitedTtt
+    global input, inputLocked, gameLost, gameWon, loseTimer, ttt_map, selectedXPos, selectedYPos, frame_rects, lvl1_map, winTimer, allowTicTacToe, renderTtt, hot_air_timer
     frameX, frameY = random.randint(0, 2), random.randint(0, 2)
     frame_rects = []
     not0 = []
@@ -684,18 +690,18 @@ def ticTacToe(screen, xPos, yPos):
         x = 0
         for tile in row:
             frame = pygame.Rect((x * 96 + xPos, y * 96 + yPos), (96, 96))
-            if ttt_map[selectedYPos][selectedXPos] == 0 and key[pygame.K_RETURN] and allowTicTacToe == True:
-                ttt_map[selectedYPos][selectedXPos] = 1
-                inputLocked = True
-            if tile == 1:
-                screen.blit(tttCross, frame.topleft)
-            if tile == 2:
-                screen.blit(tttCircle, frame.topleft)
-            if x == selectedXPos and y == selectedYPos:
-                screen.blit(tttSelection, frame.topleft)
-            if not tile == 0:
-                not0.append(tile)
-            print(not0)
+            if renderTtt == True:
+                if ttt_map[selectedYPos][selectedXPos] == 0 and key[pygame.K_RETURN] and allowTicTacToe == True or ttt_map[selectedYPos][selectedXPos] == 0 and key[pygame.K_e] and allowTicTacToe == True :
+                    ttt_map[selectedYPos][selectedXPos] = 1
+                    inputLocked = True
+                if tile == 1:
+                    screen.blit(tttCross, frame.topleft)
+                if tile == 2:
+                    screen.blit(tttCircle, frame.topleft)
+                if x == selectedXPos and y == selectedYPos:
+                    screen.blit(tttSelection, frame.topleft)
+                if not tile == 0:
+                    not0.append(tile)
 
             # Check lines
             if all(cell == 1 for cell in row):
@@ -739,11 +745,14 @@ def ticTacToe(screen, xPos, yPos):
     
             if gameWon == True:
                 allowTicTacToe = False
-                leaveTtt = True
                 Player.finishedTicTacToe = True
-
-                for i in range(20, 33):
+                renderTtt = False
+                for i in range(20, hot_air_timer):
                     lvl1_map[i][22] = 49
+                if hot_air_timer < 36:
+                    hot_air_timer += 1
+                
+            print(gameWon)
 
             if gameLost == True:
                 if loseTimer < 180:
@@ -753,8 +762,7 @@ def ticTacToe(screen, xPos, yPos):
                                [0, 0, 0],
                                [0, 0, 0]]
                     Player.damage(1)
-
-                gameLost = False
+                    gameLost = False
 
             if len(not0) >= 9:
                 gameLost = True
@@ -909,7 +917,8 @@ def genWorld(world, map):
             if tile == 67:
                 cobble_pillar_top_broken.drawElement(world, x, y, deco_rects)
             if tile == 68:
-                cobbleElement.drawElement(world, x, y, deco_rects)
+                if renderTtt == True:
+                    cobbleElement.drawElement(world, x, y, deco_rects)
             # Don't use 69
             if tile == 70:
                 towerTop1.drawElement(world, x, y, deco_rects)
@@ -1053,7 +1062,8 @@ def genWorld(world, map):
                 cobbleModifier10 = 4
             if cobble1X <= 2300:
                 tut2_map[13][24] = 59
-                tut2_map[13][23] = 66
+                tut2_map[13][23] = 0
+                tut2_map[12][23] = 66
 
     elif Player.world == "lvl1":
         if leverOff == True and Player.rect.colliderect(leverDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
@@ -1177,7 +1187,7 @@ def loadForeGround(map, surface, language):
                 door2Current.widthModifier = -75
                 door2Current.xRectModifier = 50
                 door2Current.yRectModifier = -22
-            if tile == 54:
+            if tile == 54 and renderTtt == True:
                 cobbleElement.drawElement(world, x, y, foreground_rects)
                 tic_tac_toe_board.drawElement(surface, x, y, foreground_rects)
             if tile == 33:
@@ -1573,7 +1583,7 @@ def Tut1(language):
         # Render the map to the screen
         speech_bubble = infoPanel("src\main/assets/textures\elements\gui\speech_bubble.png", 5.1, 25)
         if npcTalking == True:
-            speech_bubble.render(world, 3400, 1150, translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), "", "", "", "", "", "", "", BLACK, -25, -25)
+            speech_bubble.render(world, 3400, 1150, translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), "", "", "", "", "", "", "", BLACK, -50, -50)
         
         screen.blit(world, (player_x, player_y))
 
@@ -1647,8 +1657,7 @@ def Tut2(language):
     # values for animation calculation
     idleValue = 0
     walkingValue = 0
-    Player.rect.x, Player.rect.y = 900, 1200
-
+    Player.rect.x, Player.rect.y = 900, 500
     pygame.mixer.music.load("src\main/assets\sounds\MysteriousGameMusic.mp3")
     pygame.mixer.music.play(1000)
     pygame.mixer.music.set_volume(0.1)
@@ -1918,11 +1927,7 @@ def Lvl1(language):
 
         if allowTicTacToe == True:
             Player.locked = True
-
-        if leaveTtt == True:
-            Player.locked = True
-
-        if exitedTtt == True:
+        else:
             Player.locked = False
         
         # Player movement
@@ -1953,7 +1958,7 @@ def Lvl1(language):
             Player.finishedTicTacToe = True
         
         for frame in frame_rects:
-            if key[pygame.K_e] and Player.rect.colliderect(frame):
+            if key[pygame.K_e] and Player.rect.colliderect(frame) and gameWon == False and gameLost == False:
                 allowTicTacToe = True
 
         screen.blit(world, (player_x, player_y))
