@@ -261,7 +261,7 @@ class Player:
             pass
 
 def TutorialRender(language):
-    global Tut_welcome, Tut_walking_right, Tut_walking_left, Tut_jumping, Tut_item1, Tut_item2, Tut_item3, Tut_end, Tut_ttt, yellowBannerDamaged
+    global Tut_welcome, Tut_walking_right, Tut_walking_left, Tut_jumping, Tut_item1, Tut_item2, Tut_item3, Tut_end, Tut_ttt, yellowBannerDamaged, Tut_ttt_counter
     key = pygame.key.get_pressed()
     if Tut_welcome == True:
         if key[pygame.K_SPACE]:
@@ -312,8 +312,9 @@ def TutorialRender(language):
         if key[pygame.K_RETURN]:
             Tut_end = False
 
-    if Player.rect.x >= 1700 and Player.rect.x <=1800 and Player.rect.y == 3078:
+    if Player.rect.x >= 1700 and Player.rect.x <=1800 and Player.rect.y == 3078 and Tut_ttt_counter == 0:
         Tut_ttt = True
+        Tut_ttt_counter	+= 1
 
     if Tut_ttt == True:
         if key[pygame.K_SPACE] or Player.finishedTicTacToe == True:
@@ -513,6 +514,7 @@ Tut_item2 = False
 Tut_item3 = False
 Tut_end = False
 Tut_ttt = False
+Tut_ttt_counter = 0
 
 renderTtt = True
 hot_air_timer = 20
@@ -742,17 +744,16 @@ def ticTacToe(screen, xPos, yPos):
                     ttt_map[frameX][frameY] = 2
                     if Player.world == "lvl1":
                         inputLocked = False
-    
+
             if gameWon == True:
                 allowTicTacToe = False
                 Player.finishedTicTacToe = True
                 renderTtt = False
-                for i in range(20, hot_air_timer):
+                for i in range(20, 34):
                     lvl1_map[i][22] = 49
-                if hot_air_timer < 36:
-                    hot_air_timer += 1
-                
-            print(gameWon)
+                    lvl1_map[33][23] = 73
+                    lvl1_map[32][23] = 73
+                    lvl1_map[31][23] = 73
 
             if gameLost == True:
                 if loseTimer < 180:
@@ -926,6 +927,10 @@ def genWorld(world, map):
                 towerTop2.drawElement(world, x, y, deco_rects)
             if tile == 72:
                 towerTop1.drawRotatedElement(world, x, y, True, False)
+            if tile == 73:
+                darkCobble.drawElement(world, x, y, deco_rects)
+            if tile == 74:
+                cobbleStairs.drawElement
             x += 1
         y += 1
 
