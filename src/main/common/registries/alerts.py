@@ -33,9 +33,9 @@ class notification:
         if self.finished == True and self.x <= surface.get_width() - self.scaledTexture.get_width() and not self.timer == self.stopTimer:
             self.x = surface.get_width() - self.scaledTexture.get_width()
         surface.blit(self.scaledTexture, (self.x, self.y))
-        self.scaledTexture.blit(self.text1, (100, self.scaledTexture.get_height()//6))
-        self.scaledTexture.blit(self.text2, (100, self.scaledTexture.get_height()//4*2))
-        self.scaledTexture.blit(self.scaledIcon, (16, 16))
+        surface.blit(self.text1, (self.x + 100, self.y + self.scaledTexture.get_height()//6))
+        surface.blit(self.text2, (self.x + 100, self.y + self.scaledTexture.get_height()//4*2))
+        surface.blit(self.scaledIcon, (self.x + 16, self.y + 16))
         # use self.finished = False to reset the bar
 
 class infoPanel:

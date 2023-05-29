@@ -261,7 +261,7 @@ class Player:
             pass
 
 def TutorialRender(language):
-    global Tut_welcome, Tut_walking_right, Tut_walking_left, Tut_jumping, Tut_item1, Tut_item2, Tut_item3, Tut_end, Tut_ttt, yellowBannerDamaged
+    global Tut_welcome, Tut_walking_right, Tut_walking_left, Tut_jumping, Tut_item1, Tut_item2, Tut_item3, Tut_end, Tut_ttt, yellowBannerDamaged, Tut_ttt_counter
     key = pygame.key.get_pressed()
     if Tut_welcome == True:
         if key[pygame.K_SPACE]:
@@ -301,19 +301,20 @@ def TutorialRender(language):
     if Tut_item2 == True:
         if Player.world == "tut2":
             Tut_item2 = False
-            Tut_item3 = True
+            Tut_item3= True
 
-    if Tut_item3 == True:
+    if Tut_item3== True:
         if poppyPlaced == True:
-            Tut_item3 = False
+            Tut_item3= False
             Tut_end = True
 
     if Tut_end == True:
         if key[pygame.K_RETURN]:
             Tut_end = False
 
-    if Player.rect.x >= 1700 and Player.rect.x <=1800 and Player.rect.y == 3078:
+    if Player.rect.x >= 1700 and Player.rect.x <=1800 and Player.rect.y == 3078 and Tut_ttt_counter == 0:
         Tut_ttt = True
+        Tut_ttt_counter	+= 1
 
     if Tut_ttt == True:
         if key[pygame.K_SPACE] or Player.finishedTicTacToe == True:
@@ -322,33 +323,33 @@ def TutorialRender(language):
 def TutorialPanelRenderer(language):
     if Tut_welcome:
         if language == 'de_de':
-            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), translatableComponent('text.tutorial.welcome9', language), translatableComponent('text.tutorial.welcome10', language), BLACK, -10, -10)
+            tutorialPanel.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), translatableComponent('text.tutorial.welcome9', language), translatableComponent('text.tutorial.welcome10', language), BLACK, -10, -10)
         if language == 'en_us':
-            tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), '', BLACK, -10, -10)
+            tutorialPanel.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.welcome', language), translatableComponent('text.tutorial.welcome1', language), translatableComponent('text.tutorial.welcome2', language), translatableComponent('text.tutorial.welcome3', language), translatableComponent('text.tutorial.welcome4', language), translatableComponent('text.tutorial.welcome5', language), translatableComponent('text.tutorial.welcome6', language), translatableComponent('text.tutorial.welcome7', language), translatableComponent('text.tutorial.welcome8', language), '', BLACK, -10, -10)
 
     if Tut_walking_right == True:
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.walking_right', language), translatableComponent('text.tutorial.walking_right1', language), '', '', '', '', '', '', '', '', BLACK, -10, -10)
+        tutorialPanel.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.walking_right', language), translatableComponent('text.tutorial.walking_right1', language), '', '', '', '', '', '', '', '', BLACK, -10, -10)
 
     if Tut_walking_left == True:
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.walking_right', language), translatableComponent('text.tutorial.walking_right1', language), translatableComponent('text.tutorial.walking_right2', language), '', translatableComponent('text.tutorial.walking_left', language), translatableComponent('text.tutorial.walking_left1', language), '', '', '', '', BLACK, -10, -10)
+        tutorialPanel.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', translatableComponent('text.tutorial.walking_right', language), translatableComponent('text.tutorial.walking_right1', language), translatableComponent('text.tutorial.walking_right2', language), '', translatableComponent('text.tutorial.walking_left', language), translatableComponent('text.tutorial.walking_left1', language), '', '', '', '', BLACK, -10, -10)
 
     if Tut_jumping == True:
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', '', '', translatableComponent('text.tutorial.jump', language), translatableComponent('text.tutorial.jump1', language), translatableComponent('text.tutorial.jump2', language), '', '', '', '', '', BLACK, -10, -10)
+        tutorialPanel.render(screen, screen.get_width()//20, screen.get_width()//20, '', '', '', '', translatableComponent('text.tutorial.jump', language), translatableComponent('text.tutorial.jump1', language), translatableComponent('text.tutorial.jump2', language), '', '', '', '', '', BLACK, -10, -10)
 
     if Tut_item1 == True and npcTalking == False:
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), '', '', '', '', '', '', '', '', BLACK, -10, -10)
+        tutorialPanel.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), '', '', '', '', '', '', '', '', BLACK, -10, -10)
 
     """if Tut_item2 == True:
         tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, '', translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), '', '', '', BLACK, -10, -10)"""
 
     if Tut_item3 == True:
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language),translatableComponent('text.tutorial.item2.0', language), translatableComponent('text.tutorial.item2.1', language), translatableComponent('text.tutorial.item2.2', language), '', BLACK, -10, -10)
+        tutorialPanel.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.item', language), translatableComponent('text.tutorial.item1', language), translatableComponent('text.tutorial.item2', language), translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language),translatableComponent('text.tutorial.item2.0', language), translatableComponent('text.tutorial.item2.1', language), translatableComponent('text.tutorial.item2.2', language), '', BLACK, -10, -10)
 
     if Tut_end == True:
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.end', language), translatableComponent('text.tutorial.end1', language), translatableComponent('text.tutorial.end2', language), translatableComponent('text.tutorial.end3', language), translatableComponent('text.tutorial.end4', language), translatableComponent('text.tutorial.end5', language), translatableComponent('text.tutorial.end6', language), translatableComponent('text.tutorial.end7', language),translatableComponent('text.tutorial.end8', language), '', translatableComponent('text.tutorial.end9', language), translatableComponent('text.tutorial.end10', language), BLACK, -10, -10)
+        tutorialPanel.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.end', language), translatableComponent('text.tutorial.end1', language), translatableComponent('text.tutorial.end2', language), translatableComponent('text.tutorial.end3', language), translatableComponent('text.tutorial.end4', language), translatableComponent('text.tutorial.end5', language), translatableComponent('text.tutorial.end6', language), translatableComponent('text.tutorial.end7', language),translatableComponent('text.tutorial.end8', language), '', translatableComponent('text.tutorial.end9', language), translatableComponent('text.tutorial.end10', language), BLACK, -10, -10)
 
     if Tut_ttt == True:
-        tutWalking.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.ttt', language), translatableComponent('text.tutorial.ttt1', language), translatableComponent('text.tutorial.ttt2', language), translatableComponent('text.tutorial.ttt3', language), translatableComponent('text.tutorial.ttt4', language), translatableComponent('text.tutorial.ttt5', language), translatableComponent('text.tutorial.ttt6', language), translatableComponent('text.tutorial.ttt7', language),translatableComponent('text.tutorial.ttt8', language), '', translatableComponent('text.tutorial.ttt9', language), translatableComponent('text.tutorial.ttt10', language), BLACK, -10, -10)
+        tutorialPanel.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.ttt', language), translatableComponent('text.tutorial.ttt1', language), translatableComponent('text.tutorial.ttt2', language), translatableComponent('text.tutorial.ttt3', language), translatableComponent('text.tutorial.ttt4', language), translatableComponent('text.tutorial.ttt5', language), translatableComponent('text.tutorial.ttt6', language), translatableComponent('text.tutorial.ttt7', language),translatableComponent('text.tutorial.ttt8', language), '', translatableComponent('text.tutorial.ttt9', language), translatableComponent('text.tutorial.ttt10', language), BLACK, -10, -10)
 
 
 def renderCoordinates():
@@ -513,6 +514,7 @@ Tut_item2 = False
 Tut_item3 = False
 Tut_end = False
 Tut_ttt = False
+Tut_ttt_counter = 0
 
 renderTtt = True
 hot_air_timer = 20
@@ -557,7 +559,7 @@ def resetVars():
     leverTimer = 0
     leverPressed = 0
 
-tutWalking = infoPanel("src\main/assets/textures\elements\gui/info_panel.png", 8, 15)
+tutorialPanel = infoPanel("src\main/assets/textures\elements\gui/info_panel.png", 8, 15)
 
 tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
             [00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00],
@@ -591,7 +593,7 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
             [ 3, 3, 3, 3,16,16, 3, 3, 3,16,16, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3,16,16, 3,16, 3,16,16,16, 3, 3,16,16, 3, 3, 3,16, 3, 3, 3, 3,16, 3,16,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16, 3,16,16, 3, 3, 3,16, 3, 3, 3,16, 3, 3,16,16,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3,16, 3,16,16, 3,16, 3, 3, 3,16, 3,16, 3, 3, 3,16, 3, 3,16, 3,16, 3, 3,16, 3, 3,16,16,16, 3, 3,16, 3,16, 3, 3, 3,16, 3,16,16,16, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3,16, 3, 3,16, 3,00,29,00,62,00,00,00,00,00,00,00,00,00,00,00,62,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3, 3,16, 3,74,29,00,62,00,00,00,00,00,00,00,00,00,00,00,62,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3,16,16,16,00,29,00,61,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3, 3,16,00,29,00,63,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,53,00, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3,16, 3, 3, 3,16,00,29,00,00,00,00,00,00,00,00,00,00,00,00,00,61,00,00,00,00,00,00,00, 3,27,00,00,00,00,00,00,00,00,00,00,00,00, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -619,34 +621,34 @@ tut2_map = [[ 3, 3, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16, 
 
 lvl1_map = [[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ],
-            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16,3 ,3 ,3 ,3 ,16,3 ,16,3 ,3 ,3 ,16,3 ,16,16,16,3 ,3 ,16,3 ,3 ,16,16,3 ],
-            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,3 ,3 ,3 ,3 ,16,3 ,3 ,16,3 ,3 ,3 ,16,3 ,16,3 ,16,16,3 ,3 ,16,3 ,3 ,16,3 ,3 ,3 ,3 ,16,16,3 ,3 ,3 ,3 ,3 ,16,16,16,3 ,16,3 ,3 ,16,16],
-            [ 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3,3 ,16,3 ,3 ,3 ,3 ,16,3 ,3 ,16,16,16,16,3 ,16,3 ,16,3 ,16,3 ,16,3 ,16,16,16,3 ,16,3 ,3 ,3 ,16,16,3 ,3 ,3 ,3 ,16,3 ,16,16,3 ,3 ,16],
-            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16,3 ,3 ,3 ,3 ,16,00,00,00,00,00,16,16,3 ,16,16,3 ,16,00,00,00,00,00,00,00,00,32,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16, 3],
-            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3,16,16,3 ,16,16,00,00,00,00,00,10,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,53,00,00,00,00,00, 3,16],
-            [ 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,29,00,00,00,00,00,00,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16, 3],
-            [ 3, 3,14,00,00,00,30,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,3 ,16,3 ,3 ,16,3 ,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,36,36,00,00,00,36,36,00,16, 3],
-            [ 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,16,16,3 ,16,3 ,16,3 ,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3,3 ,00,00,00,00,00,00,00,00,00,00,00,23,3 ,3 ,3 ,3 ,3 ,3 ,3 , 3, 3, 3,16,3 ,3 ,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3,16,16, 3, 3, 3, 3,16, 3,00,00,00,3 , 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16,16,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3,16,16, 3, 3, 3, 3,16, 3,00,00,00,3 , 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3,16,16,16, 3, 3, 3, 3,16,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3,16,16,16, 3, 3, 3, 3,16,00,00,00, 3,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,16, 3,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3,16, 3,16, 3, 3, 3,16, 3,16,16,16, 3, 3,16, 3, 3,16,16, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3,16, 3, 3, 3,16, 3,16, 3,16,16, 3, 3,16, 3, 3,16, 3, 3, 3, 3,16,16, 3, 3, 3, 3, 3,16,16,16, 3,16, 3, 3,16,16],
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3,16, 3, 3, 3,16, 3, 3, 3, 3,16, 3, 3,16,16,16,16, 3,16, 3,16, 3,16, 3,16, 3,16,16,16, 3,16, 3, 3, 3,16,16, 3, 3, 3, 3,16, 3,16,16, 3, 3,16],
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3, 3,74,00,00,00,00,00,16,16, 3,16,16, 3,74,00,00,00,00,00,00,00,00,32,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3,16,16, 3,16,74,00,00,00,00,00,10,16, 3, 3,16, 3,74,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,53,00,00,00,00,00, 3,16],
+            [ 3, 3,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,29,00,00,00,00,00,00,00, 3, 3,16, 3,74,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,16, 3],
+            [ 3, 3,14,00,00,00,30,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23, 3,16, 3, 3,16, 3,74,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,36,36,00,00,00,36,36,00,16, 3],
+            [ 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,23,16,16, 3,16, 3,16,74,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3,00,00,00,00,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3,74,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,16,16, 3, 3, 3, 3,16, 3,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,16,74,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,16,16, 3, 3, 3, 3,16, 3,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3,16, 3, 3, 3,74,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,16,16,16, 3, 3, 3, 3,16,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3,74,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,16,16,16, 3, 3, 3, 3,16,00,00,00, 3, 3, 3, 3, 3, 3, 3, 3, 3,16,74,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,19,19,19,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [ 3,3 ,00,00,00,00,00,00,00,00,00,00,00,33,00,00,00,00,19,19,19,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [16,3 ,50,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,19,19,19,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3,00,00,00,00,00,00,00,00,00,00,00,33,00,00,00,00,19,19,19,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [16, 3,50,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,19,19,19,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [16,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,19,19,19,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,3 ,16,16,3 ,16,3 ,16,3 , 3, 3, 3, 3, 3,37, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,16, 3, 3,16,3 ,16,3 ,3 ,3 ,16,16,3 ,3 ,00,16,3 ,3 , 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,16, 3, 3,16,3 ,16,3 ,3 ,16,3 ,3 ,3 ,16,00,16,3 , 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [16,3 ,3 ,16,3 ,3 ,3 ,16,16,16,16,16,16, 3,00, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [16,3 , 3, 3,16,3 ,16,3 ,3 ,16,3 , 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,3 ,16,16,3 ,16,3 ,16, 3, 3,3 , 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,3 ,3 ,16,3 ,3 ,3 ,16,16,16,16,16,16, 3,00, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [16,3 ,3 ,16,3 ,3 ,3 ,16,16, 3, 3,16, 3, 3,00, 3, 3,16, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3 ,16,16,16,16,16,16, 3,16, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3],
-            [ 3, 3, 3, 3, 3, 3, 3, 3, 3,3 ,3 , 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3,37, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,16, 3, 3,16, 3,16, 3, 3, 3,16,16, 3, 3,00,16, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,16, 3, 3,16, 3,16, 3, 3,16, 3, 3, 3,16,00,16, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [16, 3, 3,16, 3, 3, 3,16,16,16,16,16,16, 3,00, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [16, 3, 3, 3,16, 3,16, 3, 3,16, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3, 3, 3,16, 3, 3, 3,16,16,16,16,16,16, 3,00, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [16, 3, 3,16, 3, 3, 3,16,16, 3, 3,16, 3, 3,00, 3, 3,16, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [ 3,16,16,16,16,16,16, 3,16, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,16, 3],
+            [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [28, 3, 3,28,28,28, 3, 3,28,28,28, 3, 3, 3,00,28, 3, 3, 3, 3, 3,28,37, 3, 3,28,28,28, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,28,28,28, 3, 3, 3,28,28, 3, 3,28,28,28,28,28, 3, 3,28,28],
             [28,28,28,28,28,28,28,28,28,28,28,28, 3,28,00,28,28,28,28,28,28,54,68,68,28,28,28,28,28,28,28, 3,28,28,28, 3, 3,28,28,00,00,28,28,28,28,28,28,28,28,28,28,00,28,28,28,28,28],
             [28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,00,00,00,00,68,68,68,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,00,00,00,28,28,28,00,00,00,28,00,28,28],
@@ -742,17 +744,16 @@ def ticTacToe(screen, xPos, yPos):
                     ttt_map[frameX][frameY] = 2
                     if Player.world == "lvl1":
                         inputLocked = False
-    
+
             if gameWon == True:
                 allowTicTacToe = False
                 Player.finishedTicTacToe = True
                 renderTtt = False
-                for i in range(20, hot_air_timer):
+                for i in range(20, 34):
                     lvl1_map[i][22] = 49
-                if hot_air_timer < 36:
-                    hot_air_timer += 1
-                
-            print(gameWon)
+                    lvl1_map[33][23] = 73
+                    lvl1_map[32][23] = 73
+                    lvl1_map[31][23] = 73
 
             if gameLost == True:
                 if loseTimer < 180:
@@ -881,7 +882,7 @@ def genWorld(world, map):
             if tile == 48:
                 towerWallWindow.drawElement(world, x, y, deco_rects)
             if tile == 49:
-                hot_air.drawAnimatedElement(world, x, y, deco_rects, registries.animations.hot_air)
+                hot_air.drawAnimatedElement(world, x, y, hot_air_rects, registries.animations.hot_air)
             if tile == 50:
                 specialTorchDeco.drawElement(world, x, y, deco_rects)
             if tile == 51:
@@ -926,6 +927,10 @@ def genWorld(world, map):
                 towerTop2.drawElement(world, x, y, deco_rects)
             if tile == 72:
                 towerTop1.drawRotatedElement(world, x, y, True, False)
+            if tile == 73:
+                darkCobble.drawElement(world, x, y, deco_rects)
+            if tile == 74:
+                cobbleStairs.drawStairElement(world, x, y, True, True, element_rects)
             x += 1
         y += 1
 
@@ -1099,6 +1104,10 @@ def genWorld(world, map):
         """if Player.rect.colliderect(cobbleStairs.rect1) and Player.jumping == False:
             Player.rect.bottom = cobbleStairs.rect1.top
             pygame.draw.rect(world, WHITE, Player.rect, 3)"""
+        
+        for hot_airs in hot_air_rects:
+            if Player.rect.colliderect(hot_airs):
+                Player.rect.y -= 10
             
         leverTimer += 1
 
