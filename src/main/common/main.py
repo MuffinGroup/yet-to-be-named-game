@@ -69,7 +69,7 @@ class Player:
         player_y = self.rect.y
 
         jumpsound = pygame.mixer.Sound("src/main/assets/sounds/jump.wav")
-        jumpsound.set_volume(0.09)    
+        jumpsound.set_volume(0.09)
 
         player_x, player_y = camera_pos # Assign variables to the camera position
         key = pygame.key.get_pressed()
@@ -1466,9 +1466,9 @@ def Tut1(language):
     walkingValue = 0
     pickUpValue = 0
     Player.rect.x, Player.rect.y = 1740, 1400    
-    pygame.mixer.music.load("src\main/assets\sounds\GameMusic.mp3")
+    pygame.mixer.music.load("src\main/assets\sounds\Adventure-320bit.mp3")
     pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(0.1)
+    pygame.mixer.music.set_volume(0.2)
     Player.world = "tut1"
     resetVars()
     while True:
@@ -1824,13 +1824,10 @@ def Lvl1(language):
     idleValue = 0
     walkingValue = 0
     Player.rect.x, Player.rect.y = 350, 1050
-
-    pygame.mixer.music.pause()
-
-    pygame.mixer.Sound.play(creepy_sound)
     
     Player.world = "lvl1"
     leverDeco.frame = 0
+    pygame.mixer.Sound.play(creepy_sound)
     resetVars()
     while True:
         # Fill the background outside of the map
