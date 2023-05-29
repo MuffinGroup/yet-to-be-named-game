@@ -215,7 +215,7 @@ class Player:
     def render(self, surface):
             self.currentSprite = pygame.transform.scale(Player.currentSprite, (32 * 8, 32 * 8))
             # Drawing the player to the screen
-            surface.blit(self.currentSprite,(self.rect.x - 75, self.rect.y - 70))
+            surface.blit(self.currentSprite,(self.rect.x - 85, self.rect.y - 70))
             if Player.debuggingMode == True:
                 # Drawing the hitbox to the screen
                 pygame.draw.rect(surface, (0, 255, 0), Player.rect, 4)
@@ -429,7 +429,7 @@ cobble_pillar_middle_broken = registries.elements.registerElement("elements\Envi
 cobble_pillar_top_broken = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\CobblepillarBroken(part=top)", 3)
 cobble_pillar_top = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\Cobblepillar(part=top)", 3)
 hole = registries.elements.registerInvisibleElement()
-hot_air = registries.elements.registerAnimatedElement(6)
+hot_air = registries.elements.registerAnimatedElement(3)
 npc = registries.elements.registerAnimatedElement(8) # 37/6
 waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
@@ -638,7 +638,7 @@ lvl1_map = [[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
             [ 3,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,19,19,19,00,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3,00,00,00,00,00,00,00,00,00,00,00,33,00,00,00,00,19,19,19,00,00,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [16, 3,50,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,19,19,19,00,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [16,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,19,19,19,00,00,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [16,16,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,19,19,19,00,51,00,23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3, 3,16,16, 3,16, 3,16, 3, 3, 3, 3, 3, 3,37, 3, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,16, 3, 3,16, 3,16, 3, 3, 3,16,16, 3, 3,00,16, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [ 3,16, 3, 3,16, 3,16, 3, 3,16, 3, 3, 3,16,00,16, 3, 3, 3, 3, 3, 3,00, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -683,7 +683,7 @@ tttSelection = pygame.transform.scale(tttSelection, (96, 96))
 
 def ticTacToe(screen, xPos, yPos):
     global input, inputLocked, gameLost, gameWon, loseTimer, ttt_map, selectedXPos, selectedYPos, frame_rects, lvl1_map, winTimer, allowTicTacToe, renderTtt, hot_air_timer
-    frameX, frameY = random.randint(0, 2), random.randint(0, 2)
+    randPosX, randPosY = random.randint(0, 2), random.randint(0, 2)
     frame_rects = []
     not0 = []
 
@@ -739,9 +739,9 @@ def ticTacToe(screen, xPos, yPos):
                     gameLost = True
 
             if inputLocked == True and gameWon == False:
-                if ttt_map[frameX][frameY] == 0:
+                if ttt_map[randPosX][randPosY] == 0:
                     pygame.time.wait(200)
-                    ttt_map[frameX][frameY] = 2
+                    ttt_map[randPosX][randPosY] = 2
                     if Player.world == "lvl1":
                         inputLocked = False
 
@@ -751,10 +751,7 @@ def ticTacToe(screen, xPos, yPos):
                 renderTtt = False
                 for i in range(20, 34):
                     lvl1_map[i][22] = 49
-                    lvl1_map[33][23] = 73
-                    lvl1_map[32][23] = 73
-                    lvl1_map[31][23] = 73
-
+        
             if gameLost == True:
                 if loseTimer < 180:
                      loseTimer += 1
@@ -931,6 +928,8 @@ def genWorld(world, map):
                 darkCobble.drawElement(world, x, y, deco_rects)
             if tile == 74:
                 cobbleStairs.drawStairElement(world, x, y, True, True, element_rects)
+            if tile == 75:
+                hot_air.drawElement(world, x, y, True, True, element_rects)
             x += 1
         y += 1
 
@@ -1106,8 +1105,8 @@ def genWorld(world, map):
             pygame.draw.rect(world, WHITE, Player.rect, 3)"""
         
         for hot_airs in hot_air_rects:
-            if Player.rect.colliderect(hot_airs):
-                Player.rect.y -= 10
+            if Player.rect.colliderect(hot_airs) and Player.rect.y > 1734 and Player.rect.x >= 2112 and Player.rect.x <= 2132 or Player.rect.colliderect(hole.rect) and Player.rect.y > 1734: #1734
+                Player.rect.y -= 25
             
         leverTimer += 1
 
@@ -1162,7 +1161,7 @@ def loadBackground(map, surface):
                 sky.drawElement(surface, x * 4, y * 4, background_rects)
             if Player.world == "tut2" and tile != 35:
                 darkCobble.drawElement(surface, x, y, background_rects)
-            if Player.world == "lvl1" and tile != 35 and tile != 51:
+            if Player.world == "lvl1" and tile != 35:
                 darkCobble.drawElement(surface, x, y, background_rects)
             if tile == 35:
                 darkMossyCobble.drawElement(surface, x, y, deco_rects)
