@@ -1478,6 +1478,8 @@ def Tut1(language):
     pygame.mixer.music.load("src\main/assets\sounds\Adventure-320bit.mp3")
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.2)
+    FONT = pygame.font.SysFont("Sans", 20)
+    TEXT_COLOR = (0, 0, 0)
     Player.world = "tut1"
     resetVars()
     while True:
@@ -1492,6 +1494,14 @@ def Tut1(language):
         movementControl(Player)
 
         loadForeGround(tut1_map, world, language)
+       
+
+        start_time = pygame.time.get_ticks()
+
+        if start_time:
+           time_since_enter = pygame.time.get_ticks() - start_time
+           message = 'Milliseconds since enter: ' + str(time_since_enter)
+           screen.blit(FONT.render(message, True, TEXT_COLOR), (500, 1000))
 
         try:
             command, x, y = parse_input(chat.userInput.lower())
