@@ -1,32 +1,23 @@
-import pygame
+import time
 
-pygame.init()
+def start_timer():
+    start_time = time.time()
+    print("Das Spiel hat begonnen!")
+    
+    while True:
+        elapsed_time = time.time() - start_time
+        minutes = int(elapsed_time // 60)
+        seconds = int(elapsed_time % 60)
+        milliseconds = int((elapsed_time * 1000) % 1000)
+        
+        # Formatierung der Zeit in HH:MM:SS.mmm
+        time_format = "{:02d}:{:02d}:{:03d}".format(minutes, seconds, milliseconds)
+        
+        # Ausgabe der aktuellen Zeit
+        print("Verstrichene Zeit:", time_format)
+        
+        # Verzögerung von 1 Millisekunde, um den Prozessor nicht zu überlasten
+        time.sleep(0.001)
 
-FONT = pygame.font.SysFont("Sans", 20)
-TEXT_COLOR = (0, 0, 0)
-BG_COLOR = (255, 255, 255)
-
-loop = True
-start_time = None
-screen = pygame.display.set_mode((800, 600))
-clock = pygame.time.Clock()
-while loop:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            quit()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN:
-                start_time = pygame.time.get_ticks()
-
-    screen.fill(BG_COLOR)
-
-    if start_time:
-        time_since_enter = pygame.time.get_ticks() - start_time
-        message = 'Milliseconds since enter: ' + str(time_since_enter)
-        screen.blit(FONT.render(message, True, TEXT_COLOR), (20, 20))
-
-    pygame.display.flip()
-    clock.tick(60)
-
-pygame.quit()
+# Beispielaufruf
+start_timer()
