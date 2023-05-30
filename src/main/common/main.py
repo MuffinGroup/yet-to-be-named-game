@@ -172,16 +172,16 @@ class Player:
 
     def renderDebugMenu(self, language, map):
         global tut1_map
-        toggleCollisionsText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.collide", language), BLACK, 15, 30)
-        toggleAdvMoveText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.fly", language), BLACK, 15, 130)
-        togglePosText = registries.gui.registerFont(25, translatableComponent("text.debug_menu.pos", language), BLACK, 15, 230)
-        toggleEditModeText = registries.gui.registerFont(25, translatableComponent("text.debug_menu.editMode", language), BLACK, 15, 330)
+        toggleCollisionsText = registries.gui.registerText(30, translatableComponent("text.debug_menu.collide", language), BLACK, 15, 30)
+        toggleAdvMoveText = registries.gui.registerText(30, translatableComponent("text.debug_menu.fly", language), BLACK, 15, 130)
+        togglePosText = registries.gui.registerText(25, translatableComponent("text.debug_menu.pos", language), BLACK, 15, 230)
+        toggleEditModeText = registries.gui.registerText(25, translatableComponent("text.debug_menu.editMode", language), BLACK, 15, 330)
         if Player.debuggingMenu == True:
             debugMenu.draw(screen, BLUISH_GRAY)
-            toggleCollisionsText.drawFont(debugMenu.window)
-            toggleAdvMoveText.drawFont(debugMenu.window)
-            togglePosText.drawFont(debugMenu.window)
-            toggleEditModeText.drawFont(debugMenu.window)
+            toggleCollisionsText.drawText(debugMenu.window)
+            toggleAdvMoveText.drawText(debugMenu.window)
+            togglePosText.drawText(debugMenu.window)
+            toggleEditModeText.drawText(debugMenu.window)
             if toggleCollisions.drawToggle(debugMenu.window, 320, 150, 75, 100):
                 if Player.collide > 1:
                     Player.collide = 0
@@ -354,8 +354,8 @@ def TutorialPanelRenderer(language):
 
 def renderCoordinates():
     if Player.showPos == 1:
-        coordinates = registries.gui.registerFont(35, str(str(Player.rect.x) + ", " + str(Player.rect.y)), WHITE, screen.get_width()//10 * 7, screen.get_height()//12)
-        coordinates.drawFont(screen)
+        coordinates = registries.gui.registerText(35, str(str(Player.rect.x) + ", " + str(Player.rect.y)), WHITE, screen.get_width()//10 * 7, screen.get_height()//12)
+        coordinates.drawText(screen)
 
 def resetDebugSettings():
     toggleAdvMove.test = 0
@@ -435,8 +435,8 @@ waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
 door0Current = door0ClosedLargeElement
 door2Current = door2ClosedLargeElement
-poppy = registries.items.registerItem("elements\Environment\decoration\Plants\poppy")
-torch = registries.items.registerItem("elements\Environment\decoration\Torches/Torch")
+poppy = registries.items.registerItem("poppy", "elements\Environment\decoration\Plants\poppy")
+torch = registries.items.registerItem("torch", "elements\Environment\decoration\Torches/Torch")
 
 creepy_sound = pygame.mixer.Sound("src/main/assets/sounds/scary.mp3")
 creepy_sound.set_volume(0.2)
@@ -577,7 +577,7 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,42,39,39,39,43,00,00,00,00,22, 7, 7, 7, 2, 1, 1, 6, 6, 6, 6, 6, 1, 1],
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,18,46, 9,39,39,47,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1],
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,42,39,39,39,43,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
-            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,26,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,00,00,42,39,39,39,43,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,36,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,00,00,42,39,39,39,43,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 6],
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 6, 6, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 1, 1],
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1],
@@ -848,7 +848,7 @@ def genWorld(world, map):
                 shieldDamagedDeco.drawElement(world, x, y, deco_rects)
             # Don't use tile 35 it is used for background loading
             if tile == 36:
-                cobble_pedestal_inactive.drawPedestalElement(world, x, y, element_rects)
+                cobble_pedestal_inactive.drawDedicatedPedestalElement(world, x, y, element_rects, Player, poppy)
             if tile == 37:
                 wooden_plank.drawElement(world, x, y, element_rects)
                 wooden_plank.heightModifier = -76
@@ -1217,7 +1217,7 @@ def loadForeGround(map, surface, language):
                 Player.locked = True
                 n += 1
 
-            elif not Player.rect.colliderect(npc.rect) and Player.holding == poppy.id:
+            elif not Player.rect.colliderect(npc.rect) and Player.holding.id == poppy.id:
                 door0Current = door0OpenLargeElement
                 door0Current.yModifier = -22
                 door0Current.widthModifier = -75
@@ -1277,7 +1277,6 @@ def loadForeGround(map, surface, language):
 
         if yellowBannerDamaged == True:
             yellowBaner.callAnimation()
-            print(yellowBaner.frame)
             if yellowBaner.frame == len(registries.animations.yellowBanner) - 1:
                 lvl1_map[17][19] = 0
                 lvl1_map[20][20] = 0
@@ -1402,7 +1401,7 @@ def Start(language):
                 pygame.quit()
                 sys.exit()
 
-        startFont = registries.gui.registerFont(40, "YET-TO-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
+        startFont = registries.gui.registerText(40, "YET-TO-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
         screen.fill(BLUISH_GRAY)
         if startButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 2.75, registries.animations.startButton, 48, 48, 6, -125, -25, translatableComponent("button.start", language), BLACK, "joystixmonospaceregular"):
             Tut1(language)
@@ -1419,7 +1418,7 @@ def Start(language):
             pygame.quit()
             sys.exit()
 
-        startFont.drawFont(screen)
+        startFont.drawText(screen)
         pygame.display.flip()
         clock.tick(1000)
         

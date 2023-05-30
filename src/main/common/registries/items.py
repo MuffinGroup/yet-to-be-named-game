@@ -5,12 +5,13 @@ import registries.animations
 pygame.init()
 
 class registerItem():
-    def __init__(self, texturePath):
+    def __init__(self, id, texturePath):
         global pickingUp, finishedPickup
         pickingUp = False
-        self.id = str(self)
+        self.id = id
         self.pickedUp = False
         self.frame = 0
+        self.xNewNew, self.yNewNew = 0, 0
         self.pickingUp = False
         finishedPickup = False
         self.texture = pygame.image.load("src\main/assets/textures/" + texturePath + ".png")
@@ -18,12 +19,17 @@ class registerItem():
     
     def drawItem(self, surface, player, x, y):
         global pickingUp, finishedPickup
+        self.x, self.y = x, y
         if player.visible == True:
             if self.pickedUp == False:
-                self.hitbox = pygame.Rect((x, y), (self.texture.get_width(), self.texture.get_height()))
-                surface.blit(self.texture, (self.hitbox.x, self.hitbox.y))
+                if self.xNewNew == 0 and self.yNewNew == 0:
+                    self.hitbox = pygame.Rect((x, y), (self.texture.get_width(), self.texture.get_height()))
+                    surface.blit(self.texture, (self.hitbox.x, self.hitbox.y))
+                else:
+                    self.hitbox = pygame.Rect((self.xNewNew, self.yNewNew), (self.texture.get_width(), self.texture.get_height()))
+                    surface.blit(self.texture, (self.hitbox.x, self.hitbox.y))
             if self.pickedUp == True:
-                player.holding = self.id
+                player.holding = self
                 self.texture = pygame.transform.scale(self.texture, (player.rect.width//1.5, player.rect.width//1.5))
                 if player.facingRight == True:
                     self.xNew, self.yNew = player.rect.x + player.rect.width//16 + 20, player.rect.y + player.rect.height//2 + 15

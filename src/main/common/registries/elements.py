@@ -10,6 +10,8 @@ class registerElement():
 		self.yRectModifier = 0
 		self.widthModifier = 0
 		self.heightModifier = 0
+		self.item = None
+		self.hasItem = False
 		self.texture = pygame.image.load("src/main/assets/textures/" + elementLocation + ".png")
 		self.scaledTexture = pygame.transform.scale(self.texture, (self.texture.get_width() * scale, self.texture.get_height() * scale))
 
@@ -63,11 +65,29 @@ class registerElement():
 			rectArray.append(self.rect1)
 			rectArray.append(self.rect2)
 
-	def drawPedestalElement(self, surface, x, y, rectArray):
-		self.rect1 = pygame.Rect((x * 96 + self.scale * 3 + self.xRectModifier, y * 96 + self.scale * 6 + self.yRectModifier), (self.scaledTexture.get_width() - self.scale * 6 + self.widthModifier, self.scaledTexture.get_height() - self.scale * 6 + self.heightModifier))
+	def drawDedicatedPedestalElement(self, surface, x, y, rectArray, player, acceptedItem):
+		self.acceptedItem = acceptedItem
+		self.rect1 = pygame.Rect((x * 96 + self.scale * 3 + self.xRectModifier, y * 96 + self.scale * 6 + self.yRectModifier), (self.scaledTexture.get_width() - self.scale * 6 + self.widthModifier, (self.scaledTexture.get_height() - self.scale * 6) + self.heightModifier))
 		self.rect2 = pygame.Rect((x * 96 + self.xRectModifier, y * 96 + self.yRectModifier), (self.scaledTexture.get_width() + self.widthModifier, self.scaledTexture.get_height() + self.heightModifier))
 		surface.blit(self.scaledTexture, (x * 96 + self.xModifier, y * 96 + self.yModifier))
 		rectArray.append(self.rect1)
+		if player.rect.colliderect(self.rect2) and player.holding != None and pygame.key.get_pressed()[pygame.K_e]:
+			self.hasItem = True
+		if self.hasItem == True:
+			self.item = player.holding
+			player.holding.pickedUp = False
+			player.holding.yNewNew, player.holding.xNewNew = self.rect1.y - 24, self.rect1.x + self.rect1.width//2 - player.holding.hitbox.width//2
+			if self.item == acceptedItem:
+				return True
+			else:
+				return False
+			
+		if player.holding == None and self.hasItem == True:
+			if player.rect.colliderect(self.rect2) and pygame.key.get_pressed()[pygame.K_e]:
+				self.hasItem = False
+				player.holding = self.item
+				self.item.pickedUp = True
+				self.item.xNewNew, self.item.yNewNew = 0, 0
 
 class registerAnimatedElement():
 	def __init__(self, scale):
