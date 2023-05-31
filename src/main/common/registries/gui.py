@@ -25,7 +25,6 @@ class registerGui():
         if self.backgroundImage == True:
             self.window.blit(self.bgImage, (0, 0))
 
-
 class registerObject():
     def __init__(self, x, y, width, height, color, borderWidth):
         self.color = color
@@ -161,14 +160,14 @@ class registerButton():
 
 	clock.tick(60)
  
-class registerFont():
+class registerText():
     def __init__(self, fontSize, displayText, color, x, y):
         self.font = pygame.font.Font("src\main/assets/fonts/joystixmonospaceregular.otf", fontSize)
         self.text = self.font.render(displayText, True, color)
         self.rect = self.text.get_rect()
         self.rect.center = (x, y)
         
-    def drawFont(self, surface):
+    def drawText(self, surface):
         surface.blit(self.text, (self.rect.center))
     
 class registerImages():

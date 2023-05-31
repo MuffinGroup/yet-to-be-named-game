@@ -61,6 +61,8 @@ class Player:
         Player.underWater = False
         Player.editMode = 0
         Player.finishedTicTacToe = False
+        Player.allowPedestalGame = False
+        Player.finishedPedestalGame = False
 
     def keybinds(self, camera_pos):
         global player_x, player_y, key
@@ -172,16 +174,16 @@ class Player:
 
     def renderDebugMenu(self, language, map):
         global tut1_map
-        toggleCollisionsText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.collide", language), BLACK, 15, 30)
-        toggleAdvMoveText = registries.gui.registerFont(30, translatableComponent("text.debug_menu.fly", language), BLACK, 15, 130)
-        togglePosText = registries.gui.registerFont(25, translatableComponent("text.debug_menu.pos", language), BLACK, 15, 230)
-        toggleEditModeText = registries.gui.registerFont(25, translatableComponent("text.debug_menu.editMode", language), BLACK, 15, 330)
+        toggleCollisionsText = registries.gui.registerText(30, translatableComponent("text.debug_menu.collide", language), BLACK, 15, 30)
+        toggleAdvMoveText = registries.gui.registerText(30, translatableComponent("text.debug_menu.fly", language), BLACK, 15, 130)
+        togglePosText = registries.gui.registerText(25, translatableComponent("text.debug_menu.pos", language), BLACK, 15, 230)
+        toggleEditModeText = registries.gui.registerText(25, translatableComponent("text.debug_menu.editMode", language), BLACK, 15, 330)
         if Player.debuggingMenu == True:
             debugMenu.draw(screen, BLUISH_GRAY)
-            toggleCollisionsText.drawFont(debugMenu.window)
-            toggleAdvMoveText.drawFont(debugMenu.window)
-            togglePosText.drawFont(debugMenu.window)
-            toggleEditModeText.drawFont(debugMenu.window)
+            toggleCollisionsText.drawText(debugMenu.window)
+            toggleAdvMoveText.drawText(debugMenu.window)
+            togglePosText.drawText(debugMenu.window)
+            toggleEditModeText.drawText(debugMenu.window)
             if toggleCollisions.drawToggle(debugMenu.window, 320, 150, 75, 100):
                 if Player.collide > 1:
                     Player.collide = 0
@@ -354,8 +356,8 @@ def TutorialPanelRenderer(language):
 
 def renderCoordinates():
     if Player.showPos == 1:
-        coordinates = registries.gui.registerFont(35, str(str(Player.rect.x) + ", " + str(Player.rect.y)), WHITE, screen.get_width()//10 * 7, screen.get_height()//12)
-        coordinates.drawFont(screen)
+        coordinates = registries.gui.registerText(35, str(str(Player.rect.x) + ", " + str(Player.rect.y)), WHITE, screen.get_width()//10 * 7, screen.get_height()//12)
+        coordinates.drawText(screen)
 
 def resetDebugSettings():
     toggleAdvMove.test = 0
@@ -435,8 +437,8 @@ waterFluid = registries.elements.registerAnimatedElement(3)
 waterWavingFluid = registries.elements.registerAnimatedElement(3)
 door0Current = door0ClosedLargeElement
 door2Current = door2ClosedLargeElement
-poppy = registries.items.registerItem("elements\Environment\decoration\Plants\poppy")
-torch = registries.items.registerItem("elements\Environment\decoration\Torches/Torch")
+poppy = registries.items.registerItem("poppy", "elements\Environment\decoration\Plants\poppy")
+torch = registries.items.registerItem("torch", "elements\Environment\decoration\Torches/Torch")
 
 creepy_sound = pygame.mixer.Sound("src/main/assets/sounds/scary.mp3")
 creepy_sound.set_volume(0.2)
@@ -482,6 +484,11 @@ toggleEditMode = registries.gui.registerButton("toggle", 12.0)
 
 screen_width = 1000
 screen_height = 800
+
+# We need to make this random at some point using sets
+pedestals = [2, 4, 1, 3]
+checked1, checked2 = None, None
+pedestalSelectionPos = 0
 
 icon = pygame.image.load("src/main/assets/textures/elements/gui/icon/icon_32x.png")
 
@@ -577,7 +584,7 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,42,39,39,39,43,00,00,00,00,22, 7, 7, 7, 2, 1, 1, 6, 6, 6, 6, 6, 1, 1],
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,18,46, 9,39,39,47,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1],
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,42,39,39,39,43,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
-            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,26,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,00,00,42,39,39,39,43,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,00,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,00,00,42,39,39,39,43,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 6],
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 6, 6, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 1, 1],
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1],
@@ -848,7 +855,19 @@ def genWorld(world, map):
                 shieldDamagedDeco.drawElement(world, x, y, deco_rects)
             # Don't use tile 35 it is used for background loading
             if tile == 36:
-                cobble_pedestal_inactive.drawPedestalElement(world, x, y, element_rects)
+                if cobble_pedestal_inactive.drawDedicatedPedestalElement(world, x, y, element_rects, Player, poppy):
+                    bridgeTimer += 1
+                    poppy.drawGhostItem(world, 1271, 1326)
+                if bridgeTimer == 10:
+                    tut2_map[15][15] = 37
+                if bridgeTimer == 20:
+                    tut2_map[15][16] = 37
+                if bridgeTimer == 30:
+                    tut2_map[15][17] = 37
+                if bridgeTimer == 40:
+                    tut2_map[15][18] = 37
+                if bridgeTimer == 50:
+                    tut2_map[15][19] = 37
             if tile == 37:
                 wooden_plank.drawElement(world, x, y, element_rects)
                 wooden_plank.heightModifier = -76
@@ -940,24 +959,6 @@ def genWorld(world, map):
             pygame.draw.rect(world, (255, 255, 255), tiles, 3)
 
     if Player.world == "tut2":
-        if Player.rect.colliderect(cobble_pedestal_inactive.rect2) and poppy.pickedUp == True:
-            poppyPlaced = True
-        if poppyPlaced == True:
-            poppy.pickedUp = False
-            poppy.texture = pygame.transform.scale(poppy.texture, (32 * 3, 32 * 3))
-            poppy.drawGhostItem(world, 1247, 1290)
-            bridgeTimer += 1
-        if bridgeTimer == 10:
-            tut2_map[15][15] = 37
-        if bridgeTimer == 20:
-            tut2_map[15][16] = 37
-        if bridgeTimer == 30:
-            tut2_map[15][17] = 37
-        if bridgeTimer == 40:
-            tut2_map[15][18] = 37
-        if bridgeTimer == 50:
-            tut2_map[15][19] = 37
-        
         if leverOff == True and Player.rect.colliderect(leverDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             pygame.mixer.music.pause()
@@ -1103,9 +1104,9 @@ def genWorld(world, map):
             pygame.draw.rect(world, WHITE, Player.rect, 3)"""
         
         for hot_airs in hot_air_rects:
-            if Player.rect.colliderect(hot_airs) and Player.rect.y > 1734 and Player.rect.x >= 2.688 and Player.rect.x <= 2.708 or Player.rect.colliderect(hole.rect) and Player.rect.y > 1734: #1734
+            if Player.rect.colliderect(hot_airs) and Player.rect.y >= 1734 or Player.rect.colliderect(hole.rect) and Player.rect.y > 1734: #1734
                 Player.rect.y -= 25
-            
+
         leverTimer += 1
 
 drownTime = 0
@@ -1206,28 +1207,42 @@ def loadForeGround(map, surface, language):
         y += 1
 
     if Player.world == "tut1":
-        if Player.rect.colliderect(door0ClosedLargeElement.rect) and Player.visible == True and key[pygame.K_e]:
-            if Player.world != "tut1":
-                door0_open = True
-                door0Current = door0OpenLargeElement
-                door0Current.yModifier = -22
-                door0Current.widthModifier = -75
-                door0Current.xRectModifier = 50
-                door0Current.yRectModifier = -22
-                Player.locked = True
-                n += 1
+        try:
+            if Player.rect.colliderect(door0ClosedLargeElement.rect) and Player.visible == True and key[pygame.K_e]:
+                if Player.world != "tut1":
+                    door0_open = True
+                    door0Current = door0OpenLargeElement
+                    door0Current.yModifier = -22
+                    door0Current.widthModifier = -75
+                    door0Current.xRectModifier = 50
+                    door0Current.yRectModifier = -22
+                    Player.locked = True
+                    n += 1
 
-            elif not Player.rect.colliderect(npc.rect) and Player.holding == poppy.id:
-                door0Current = door0OpenLargeElement
-                door0Current.yModifier = -22
-                door0Current.widthModifier = -75
-                door0Current.xRectModifier = 50
-                door0Current.yRectModifier = -22
-                Player.locked = True
-                n += 1
+                elif not Player.rect.colliderect(npc.rect) and Player.holding.id == poppy.id:
+                        door0Current = door0OpenLargeElement
+                        door0Current.yModifier = -22
+                        door0Current.widthModifier = -75
+                        door0Current.xRectModifier = 50
+                        door0Current.yRectModifier = -22
+                        Player.locked = True
+                        n += 1
+        except:
+            pass
 
     if Player.world == "tut2":
         if Player.rect.colliderect(door2ClosedLargeElement.rect) and Player.visible == True and key[pygame.K_e]:
+            door2_open = True
+            door2Current = door2OpenLargeElement
+            door2Current.yModifier = -22
+            door2Current.widthModifier = -75
+            door2Current.xRectModifier = 50
+            door2Current.yRectModifier = -22
+            Player.locked = True
+            n += 1
+
+    if Player.world == "lvl1":
+        if Player.rect.colliderect(door2ClosedLargeElement) and Player.finishedPedestalGame == True and Player.visible == True and key[pygame.K_e]:
             door2_open = True
             door2Current = door2OpenLargeElement
             door2Current.yModifier = -22
@@ -1263,6 +1278,8 @@ def loadForeGround(map, surface, language):
             Tut2(language)
         elif Player.world == "tut2":
             Lvl1(language)
+        elif Player.world == "lvl1":
+            Credits(language)
     if n >= 1 and n <= 50:
         n += 1
 
@@ -1277,7 +1294,6 @@ def loadForeGround(map, surface, language):
 
         if yellowBannerDamaged == True:
             yellowBaner.callAnimation()
-            print(yellowBaner.frame)
             if yellowBaner.frame == len(registries.animations.yellowBanner) - 1:
                 lvl1_map[17][19] = 0
                 lvl1_map[20][20] = 0
@@ -1402,7 +1418,7 @@ def Start(language):
                 pygame.quit()
                 sys.exit()
 
-        startFont = registries.gui.registerFont(40, "YET-TO-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
+        startFont = registries.gui.registerText(40, "YET-TO-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
         screen.fill(BLUISH_GRAY)
         if startButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 2.75, registries.animations.startButton, 48, 48, 6, -125, -25, translatableComponent("button.start", language), BLACK, "joystixmonospaceregular"):
             Tut1(language)
@@ -1419,7 +1435,7 @@ def Start(language):
             pygame.quit()
             sys.exit()
 
-        startFont.drawFont(screen)
+        startFont.drawText(screen)
         pygame.display.flip()
         clock.tick(1000)
         
@@ -1829,7 +1845,7 @@ def Tut2(language):
         pygame.display.flip()
 
 def Lvl1(language):
-    global command, x, y, camera_pos, world, selectedYPos, selectedXPos, allowTicTacToe, frame_rects, leverDeco
+    global command, x, y, camera_pos, world, selectedYPos, selectedXPos, allowTicTacToe, frame_rects, leverDeco, pedestals, pedestalSelectionPos, checked1, checked2
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
@@ -1907,6 +1923,26 @@ def Lvl1(language):
                     if selectedYPos > 0:
                         selectedYPos -= 1
 
+            if Player.allowPedestalGame == True:
+                if event.type == pygame.KEYUP and event.key == pygame.K_RIGHT:
+                    if pedestalSelectionPos < 3:
+                        pedestalSelectionPos += 1
+                if event.type == pygame.KEYUP and event.key == pygame.K_LEFT:
+                    if pedestalSelectionPos > 0:
+                        pedestalSelectionPos -= 1
+                if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
+                    if checked1 == None:
+                        if pedestalSelectionPos <= 1:
+                            checked1 = pedestalSelector.x // 96 - 53
+                        else:
+                            checked1 = pedestalSelector.x // 96 - 56
+                    elif checked1 != pedestalSelectionPos:
+                        if pedestalSelectionPos <= 1:
+                            checked2 = pedestalSelector.x // 96 - 53
+                        else:
+                            checked2 = pedestalSelector.x // 96 - 56
+                print(checked1, checked2)
+
             commandEvent(event, language)
 
             chat.event(event)
@@ -1915,6 +1951,9 @@ def Lvl1(language):
         
 
         TutorialRender(language)
+
+        if Player.rect.x > 4451 and Player.rect.y <= 700:
+            Player.allowPedestalGame = True
 
         # idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
@@ -1940,9 +1979,55 @@ def Lvl1(language):
             Player.locked = True
         else:
             Player.locked = False
+
+        if Player.allowPedestalGame == True:
+            if pedestalSelectionPos <= 1:
+                pedestalSelector = pygame.Rect(((53 + pedestalSelectionPos) * 96, 8 * 96), (96, 96))
+            else:
+                pedestalSelector = pygame.Rect(((56 + pedestalSelectionPos) * 96, 8 * 96), (96, 96))
+            if checked1 != None and checked2 != None:
+                try:
+                    pedestals[checked1], pedestals[checked2] = pedestals[checked2], pedestals[checked1]
+                except:
+                    pass
+                checked1, checked2 = None, None
+
+            if pedestals == [1, 2, 3, 4]:
+                Player.finishedPedestalGame = True
+
+            if Player.finishedPedestalGame == True:
+                Player.allowPedestalGame = False
+            else:
+                Player.allowPedestalGame = True
         
+            pedestalX = 0
+            for index, tile in enumerate(pedestals):
+                if tile == 1:
+                    if index == 0 or index == 1:
+                        grassElement.drawElement(world, pedestalX + 53, 8, deco_rects)
+                    elif index == 2 or index == 3:
+                        grassElement.drawElement(world, pedestalX + 56, 8, deco_rects)
+                if tile == 2:
+                    if index == 0 or index == 1:
+                        dirtElement.drawElement(world, pedestalX + 53, 8, deco_rects)
+                    elif index == 2 or index == 3:
+                        dirtElement.drawElement(world, pedestalX + 56, 8, deco_rects)
+                if tile == 3:
+                    if index == 0 or index == 1:
+                        coarseGrassElement.drawElement(world, pedestalX + 53, 8, deco_rects)
+                    elif index == 2 or index == 3:
+                        coarseGrassElement.drawElement(world, pedestalX + 56, 8, deco_rects)
+                if tile == 4:
+                    if index == 0 or index == 1:
+                        coarseDirtElement.drawElement(world, pedestalX + 53, 8, deco_rects)
+                    elif index == 2 or index == 3:
+                        coarseDirtElement.drawElement(world, pedestalX + 56, 8, deco_rects)
+                pedestalX += 1
+            
+            pygame.draw.rect(world, (255, 255, 255), pedestalSelector, 3)
+
         # Player movement
-        camera_pos = player.keybinds(camera_pos) 
+        camera_pos = player.keybinds(camera_pos)
 
         # Movement animation rendering
         if Player.walking == True:
@@ -2033,6 +2118,38 @@ def Lvl1(language):
 
         clock.tick(1600)
         pygame.display.flip()
+
+def Credits(language):    
+    Player()
+    resetDebugSettings()
+    i = 0
+    Player.world = "Credits"
+    clock = pygame.time.Clock()
+    resetVars()
+    pygame.mixer.music.load("src\main/assets\sounds/tests/bg_music2.mp3")
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(0.1)
+    while True:
+        key = pygame.key.get_pressed()
+        language = Player.languageList[i]
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.world == None:
+                pygame.quit()
+                sys.exit()
+
+        startFont = registries.gui.registerText(40, "YET-TO-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
+            
+        if key[pygame.K_RETURN] and Player.world == None:
+            pygame.quit()
+            sys.exit()
+
+        startFont.drawText(screen)
+        pygame.display.flip()
+        clock.tick(1000)
+
 
 if __name__ in "__main__":
     Player()
