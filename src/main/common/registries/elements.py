@@ -73,14 +73,17 @@ class registerElement():
 		rectArray.append(self.rect1)
 		if player.rect.colliderect(self.rect2) and player.holding != None and pygame.key.get_pressed()[pygame.K_e]:
 			self.hasItem = True
-		if self.hasItem == True:
-			self.item = player.holding
-			player.holding.pickedUp = False
-			player.holding.yNewNew, player.holding.xNewNew = self.rect1.y - 24, self.rect1.x + self.rect1.width//2 - player.holding.hitbox.width//2
-			if self.item == acceptedItem:
-				return True
-			else:
-				return False
+		try:
+			if self.hasItem == True:
+				self.item = player.holding
+				player.holding.pickedUp = False
+				player.holding.yNewNew, player.holding.xNewNew = self.rect1.y - 24, self.rect1.x + self.rect1.width//2 - player.holding.hitbox.width//2
+				if self.item == acceptedItem:
+					return True
+				else:
+					return False
+		except:
+			pass
 			
 		if player.holding == None and self.hasItem == True:
 			if player.rect.colliderect(self.rect2) and pygame.key.get_pressed()[pygame.K_e]:

@@ -1613,8 +1613,8 @@ def Tut1(language):
         # Render the map to the screen
         speech_bubble = infoPanel("src\main/assets/textures\elements\gui\speech_bubble.png", 5.1, 25)
         if npcTalking == True:
-            speech_bubble.render(world, 3400, 1150, translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), "", "", "", "", "", "", "", BLACK, -50, -50)
-        
+            speech_bubble.render(world, 3400, 1150, translatableComponent('text.tutorial.item3', language), translatableComponent('text.tutorial.item4', language), translatableComponent('text.tutorial.item5', language), translatableComponent('text.tutorial.item6', language), translatableComponent('text.tutorial.item7', language), "", "", "", "", "", "", "", BLACK, -25, -50)
+
         screen.blit(world, (player_x, player_y))
 
         if Player.debuggingMode == True:
@@ -1627,7 +1627,7 @@ def Tut1(language):
         player.renderDebugMenu(language, tut1_map)
 
         health()
-        
+
         if Player.health > Player.defaultHealth:
             Player.health = Player.defaultHealth
             
@@ -1853,7 +1853,7 @@ def Lvl1(language):
     # values for animation calculation
     idleValue = 0
     walkingValue = 0
-    Player.rect.x, Player.rect.y = 350, 1050
+    Player.rect.x, Player.rect.y = 950, 1050
     
     Player.world = "lvl1"
     leverDeco.frame = 0
@@ -1952,8 +1952,10 @@ def Lvl1(language):
 
         TutorialRender(language)
 
-        if Player.rect.x > 4451 and Player.rect.y <= 700:
+        if Player.rect.x > 4451 and Player.finishedPedestalGame == False:
             Player.allowPedestalGame = True
+        else:
+            Player.allowPedestalGame = False
 
         # idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
