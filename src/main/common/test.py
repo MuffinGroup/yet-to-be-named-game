@@ -13,9 +13,8 @@ selectedPedestal1, selectedPedestal2 = None, None
 pedestals = [1, 2, 3, 4]
 
 while True:
-    checked = [checked1, checked2]
     screen.fill((0, 0, 0))
-    selectionBox1 = pygame.Rect(((2 + selectionPos) * 96, 2 * 96), (96, 96))
+    pedestalSelector = pygame.Rect(((2 + selectionPos) * 96, 2 * 96), (96, 96))
     key = pygame.key.get_pressed()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -42,19 +41,18 @@ while True:
     if pedestals == [4, 3, 2, 1]:
         exit()
 
-    x = 0
+    pedestalX = 0
     for tile in pedestals:
         if tile == 1:
-            grassElement.drawElement(screen, x + 2, 2, rect_array)
+            grassElement.drawElement(screen, pedestalX + 2, 2, rect_array)
         if tile == 2:
-            dirtElement.drawElement(screen, x + 2, 2, rect_array)
+            dirtElement.drawElement(screen, pedestalX + 2, 2, rect_array)
         if tile == 3:
-            coarseGrassElement.drawElement(screen, x + 2, 2, rect_array)
+            coarseGrassElement.drawElement(screen, pedestalX + 2, 2, rect_array)
         if tile == 4:
-            coarseDirtElement.drawElement(screen, x + 2, 2, rect_array)
-        x += 1
+            coarseDirtElement.drawElement(screen, pedestalX + 2, 2, rect_array)
+        pedestalX += 1
 
-    pygame.draw.rect(screen, (255, 255, 255), selectionBox1, 3)
-    print(checked)
+    pygame.draw.rect(screen, (255, 255, 255), pedestalSelector, 3)
     
     pygame.display.flip()

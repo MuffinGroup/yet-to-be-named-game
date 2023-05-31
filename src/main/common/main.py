@@ -61,6 +61,7 @@ class Player:
         Player.underWater = False
         Player.editMode = 0
         Player.finishedTicTacToe = False
+        Player.allowPedestalGame = False
 
     def keybinds(self, camera_pos):
         global player_x, player_y, key
@@ -482,6 +483,11 @@ toggleEditMode = registries.gui.registerButton("toggle", 12.0)
 
 screen_width = 1000
 screen_height = 800
+
+# We need to make this random at some point using sets
+pedestals = [2, 4, 1, 3]
+checked1, checked2 = None, None
+pedestalSelectionPos = 0
 
 icon = pygame.image.load("src/main/assets/textures/elements/gui/icon/icon_32x.png")
 
@@ -1825,7 +1831,7 @@ def Tut2(language):
         pygame.display.flip()
 
 def Lvl1(language):
-    global command, x, y, camera_pos, world, selectedYPos, selectedXPos, allowTicTacToe, frame_rects, leverDeco
+    global command, x, y, camera_pos, world, selectedYPos, selectedXPos, allowTicTacToe, frame_rects, leverDeco, pedestals, pedestalSelectionPos, checked1, checked2
     world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
@@ -1903,6 +1909,26 @@ def Lvl1(language):
                     if selectedYPos > 0:
                         selectedYPos -= 1
 
+            if Player.allowPedestalGame == True:
+                if event.type == pygame.KEYUP and event.key == pygame.K_RIGHT:
+                    if pedestalSelectionPos < 3:
+                        pedestalSelectionPos += 1
+                if event.type == pygame.KEYUP and event.key == pygame.K_LEFT:
+                    if pedestalSelectionPos > 0:
+                        pedestalSelectionPos -= 1
+                if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
+                    if checked1 == None:
+                        if pedestalSelectionPos <= 1:
+                            checked1 = pedestalSelector.x // 96 - 53
+                        else:
+                            checked1 = pedestalSelector.x // 96 - 56
+                    elif checked1 != pedestalSelectionPos:
+                        if pedestalSelectionPos <= 1:
+                            checked2 = pedestalSelector.x // 96 - 53
+                        else:
+                            checked2 = pedestalSelector.x // 96 - 56
+                print(checked1, checked2)
+
             commandEvent(event, language)
 
             chat.event(event)
@@ -1911,6 +1937,9 @@ def Lvl1(language):
         
 
         TutorialRender(language)
+
+        if Player.rect.x > 4451 and Player.rect.y <= 700:
+            Player.allowPedestalGame = True
 
         # idle animation calculation
         if idleValue >= len(registries.animations.idle_sprite):
@@ -1936,9 +1965,50 @@ def Lvl1(language):
             Player.locked = True
         else:
             Player.locked = False
+
+        if Player.allowPedestalGame == True:
+            if pedestalSelectionPos <= 1:
+                pedestalSelector = pygame.Rect(((53 + pedestalSelectionPos) * 96, 8 * 96), (96, 96))
+            else:
+                pedestalSelector = pygame.Rect(((56 + pedestalSelectionPos) * 96, 8 * 96), (96, 96))
+            if checked1 != None and checked2 != None:
+                try:
+                    pedestals[checked1], pedestals[checked2] = pedestals[checked2], pedestals[checked1]
+                except:
+                    pass
+                checked1, checked2 = None, None
+
+            if pedestals == [1, 2, 3, 4]:
+                exit()
         
+            pedestalX = 0
+            for index, tile in enumerate(pedestals):
+                if tile == 1:
+                    if index == 0 or index == 1:
+                        grassElement.drawElement(world, pedestalX + 53, 8, deco_rects)
+                    elif index == 2 or index == 3:
+                        grassElement.drawElement(world, pedestalX + 56, 8, deco_rects)
+                if tile == 2:
+                    if index == 0 or index == 1:
+                        dirtElement.drawElement(world, pedestalX + 53, 8, deco_rects)
+                    elif index == 2 or index == 3:
+                        dirtElement.drawElement(world, pedestalX + 56, 8, deco_rects)
+                if tile == 3:
+                    if index == 0 or index == 1:
+                        coarseGrassElement.drawElement(world, pedestalX + 53, 8, deco_rects)
+                    elif index == 2 or index == 3:
+                        coarseGrassElement.drawElement(world, pedestalX + 56, 8, deco_rects)
+                if tile == 4:
+                    if index == 0 or index == 1:
+                        coarseDirtElement.drawElement(world, pedestalX + 53, 8, deco_rects)
+                    elif index == 2 or index == 3:
+                        coarseDirtElement.drawElement(world, pedestalX + 56, 8, deco_rects)
+                pedestalX += 1
+            
+            pygame.draw.rect(world, (255, 255, 255), pedestalSelector, 3)
+
         # Player movement
-        camera_pos = player.keybinds(camera_pos) 
+        camera_pos = player.keybinds(camera_pos)
 
         # Movement animation rendering
         if Player.walking == True:
