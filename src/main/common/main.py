@@ -848,7 +848,19 @@ def genWorld(world, map):
                 shieldDamagedDeco.drawElement(world, x, y, deco_rects)
             # Don't use tile 35 it is used for background loading
             if tile == 36:
-                cobble_pedestal_inactive.drawDedicatedPedestalElement(world, x, y, element_rects, Player, poppy)
+                if cobble_pedestal_inactive.drawDedicatedPedestalElement(world, x, y, element_rects, Player, poppy):
+                    bridgeTimer += 1
+                    poppy.drawGhostItem(world, 1271, 1326)
+                if bridgeTimer == 10:
+                    tut2_map[15][15] = 37
+                if bridgeTimer == 20:
+                    tut2_map[15][16] = 37
+                if bridgeTimer == 30:
+                    tut2_map[15][17] = 37
+                if bridgeTimer == 40:
+                    tut2_map[15][18] = 37
+                if bridgeTimer == 50:
+                    tut2_map[15][19] = 37
             if tile == 37:
                 wooden_plank.drawElement(world, x, y, element_rects)
                 wooden_plank.heightModifier = -76
@@ -940,24 +952,6 @@ def genWorld(world, map):
             pygame.draw.rect(world, (255, 255, 255), tiles, 3)
 
     if Player.world == "tut2":
-        if Player.rect.colliderect(cobble_pedestal_inactive.rect2) and poppy.pickedUp == True:
-            poppyPlaced = True
-        if poppyPlaced == True:
-            poppy.pickedUp = False
-            poppy.texture = pygame.transform.scale(poppy.texture, (32 * 3, 32 * 3))
-            poppy.drawGhostItem(world, 1247, 1290)
-            bridgeTimer += 1
-        if bridgeTimer == 10:
-            tut2_map[15][15] = 37
-        if bridgeTimer == 20:
-            tut2_map[15][16] = 37
-        if bridgeTimer == 30:
-            tut2_map[15][17] = 37
-        if bridgeTimer == 40:
-            tut2_map[15][18] = 37
-        if bridgeTimer == 50:
-            tut2_map[15][19] = 37
-        
         if leverOff == True and Player.rect.colliderect(leverDeco.rect) and key[pygame.K_e] and leverTimer >= 5:
             leverTimer = 0
             pygame.mixer.music.pause()
@@ -1206,25 +1200,28 @@ def loadForeGround(map, surface, language):
         y += 1
 
     if Player.world == "tut1":
-        if Player.rect.colliderect(door0ClosedLargeElement.rect) and Player.visible == True and key[pygame.K_e]:
-            if Player.world != "tut1":
-                door0_open = True
-                door0Current = door0OpenLargeElement
-                door0Current.yModifier = -22
-                door0Current.widthModifier = -75
-                door0Current.xRectModifier = 50
-                door0Current.yRectModifier = -22
-                Player.locked = True
-                n += 1
+        try:
+            if Player.rect.colliderect(door0ClosedLargeElement.rect) and Player.visible == True and key[pygame.K_e]:
+                if Player.world != "tut1":
+                    door0_open = True
+                    door0Current = door0OpenLargeElement
+                    door0Current.yModifier = -22
+                    door0Current.widthModifier = -75
+                    door0Current.xRectModifier = 50
+                    door0Current.yRectModifier = -22
+                    Player.locked = True
+                    n += 1
 
-            elif not Player.rect.colliderect(npc.rect) and Player.holding.id == poppy.id:
-                door0Current = door0OpenLargeElement
-                door0Current.yModifier = -22
-                door0Current.widthModifier = -75
-                door0Current.xRectModifier = 50
-                door0Current.yRectModifier = -22
-                Player.locked = True
-                n += 1
+                elif not Player.rect.colliderect(npc.rect) and Player.holding.id == poppy.id:
+                        door0Current = door0OpenLargeElement
+                        door0Current.yModifier = -22
+                        door0Current.widthModifier = -75
+                        door0Current.xRectModifier = 50
+                        door0Current.yRectModifier = -22
+                        Player.locked = True
+                        n += 1
+        except:
+            pass
 
     if Player.world == "tut2":
         if Player.rect.colliderect(door2ClosedLargeElement.rect) and Player.visible == True and key[pygame.K_e]:
