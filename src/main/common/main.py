@@ -62,6 +62,7 @@ class Player:
         Player.editMode = 0
         Player.finishedTicTacToe = False
         Player.allowPedestalGame = False
+        Player.finishedPedestalGame = False
 
     def keybinds(self, camera_pos):
         global player_x, player_y, key
@@ -583,7 +584,7 @@ tut1_map = [[00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,0
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 6, 1,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,42,39,39,39,43,00,00,00,00,22, 7, 7, 7, 2, 1, 1, 6, 6, 6, 6, 6, 1, 1],
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 6, 6, 6,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,18,46, 9,39,39,47,00,00,00,00,11, 1, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1],
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 6, 6, 6,26,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,42,39,39,39,43,00,00,12,22, 7, 6, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
-            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,36,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,00,00,42,39,39,39,43,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
+            [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 7,21,00,00,11,11,11,11,11,11,00,26,11,11,11,11,11,11,00,12,00,11,00,00,00,42,39,39,39,43,26,22, 2, 2, 6, 6, 6, 6, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6],
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 6],
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 6, 6, 1, 1, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 1, 1],
             [ 1, 1 ,1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1],
@@ -1103,9 +1104,9 @@ def genWorld(world, map):
             pygame.draw.rect(world, WHITE, Player.rect, 3)"""
         
         for hot_airs in hot_air_rects:
-            if Player.rect.colliderect(hot_airs) and Player.rect.y > 1734 and Player.rect.x >= 2.688 and Player.rect.x <= 2.708 or Player.rect.colliderect(hole.rect) and Player.rect.y > 1734: #1734
+            if Player.rect.colliderect(hot_airs) and Player.rect.y >= 1734 or Player.rect.colliderect(hole.rect) and Player.rect.y > 1734: #1734
                 Player.rect.y -= 25
-            
+
         leverTimer += 1
 
 drownTime = 0
@@ -1240,6 +1241,17 @@ def loadForeGround(map, surface, language):
             Player.locked = True
             n += 1
 
+    if Player.world == "lvl1":
+        if Player.rect.colliderect(door2ClosedLargeElement) and Player.finishedPedestalGame == True and Player.visible == True and key[pygame.K_e]:
+            door2_open = True
+            door2Current = door2OpenLargeElement
+            door2Current.yModifier = -22
+            door2Current.widthModifier = -75
+            door2Current.xRectModifier = 50
+            door2Current.yRectModifier = -22
+            Player.locked = True
+            n += 1
+
     if n == 30 and door0_open == True:
         Player.visible = False
         door0_open = False
@@ -1266,6 +1278,8 @@ def loadForeGround(map, surface, language):
             Tut2(language)
         elif Player.world == "tut2":
             Lvl1(language)
+        elif Player.world == "lvl1":
+            Credits(language)
     if n >= 1 and n <= 50:
         n += 1
 
@@ -1979,7 +1993,12 @@ def Lvl1(language):
                 checked1, checked2 = None, None
 
             if pedestals == [1, 2, 3, 4]:
-                exit()
+                Player.finishedPedestalGame = True
+
+            if Player.finishedPedestalGame == True:
+                Player.allowPedestalGame = False
+            else:
+                Player.allowPedestalGame = True
         
             pedestalX = 0
             for index, tile in enumerate(pedestals):
@@ -2099,6 +2118,38 @@ def Lvl1(language):
 
         clock.tick(1600)
         pygame.display.flip()
+
+def Credits(language):    
+    Player()
+    resetDebugSettings()
+    i = 0
+    Player.world = "Credits"
+    clock = pygame.time.Clock()
+    resetVars()
+    pygame.mixer.music.load("src\main/assets\sounds/tests/bg_music2.mp3")
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(0.1)
+    while True:
+        key = pygame.key.get_pressed()
+        language = Player.languageList[i]
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.world == None:
+                pygame.quit()
+                sys.exit()
+
+        startFont = registries.gui.registerText(40, "YET-TO-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
+            
+        if key[pygame.K_RETURN] and Player.world == None:
+            pygame.quit()
+            sys.exit()
+
+        startFont.drawText(screen)
+        pygame.display.flip()
+        clock.tick(1000)
+
 
 if __name__ in "__main__":
     Player()
