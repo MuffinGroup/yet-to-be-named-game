@@ -263,7 +263,7 @@ class Player:
             pass
 
 def TutorialRender(language):
-    global Tut_welcome, Tut_walking_right, Tut_walking_left, Tut_jumping, Tut_item1, Tut_item2, Tut_item3, Tut_end, Tut_ttt, yellowBannerDamaged, Tut_ttt_counter, Tut_map, Tut_map_counter
+    global Tut_welcome, Tut_walking_right, Tut_walking_left, Tut_jumping, Tut_item1, Tut_item2, Tut_item3, Tut_end, Tut_ttt, yellowBannerDamaged, Tut_ttt_counter, Tut_ped, Tut_ped_counter
     key = pygame.key.get_pressed()
     if Tut_welcome == True:
         if key[pygame.K_SPACE]:
@@ -322,13 +322,13 @@ def TutorialRender(language):
         if key[pygame.K_SPACE] or Player.finishedTicTacToe == True:
             Tut_ttt = False
 
-    if Player.rect.x >= 4700 and Player.rect.x <= 4800 and Player.rect.y == 774 and Tut_map_counter == 0:
-        Tut_map = True
-        Tut_map_counter += 1
+    if Player.rect.x >= 4700 and Player.rect.x <= 4800 and Player.rect.y == 774 and Tut_ped_counter == 0:
+        Tut_ped = True
+        Tut_ped_counter += 1
 
-    if Tut_map == True or Player.finishedPedestalGame == True:
+    if Tut_ped == True or Player.finishedPedestalGame == True:
         if key[pygame.K_SPACE]:
-            Tut_map = False
+            Tut_ped = False
 
 def TutorialPanelRenderer(language):
     if Tut_welcome:
@@ -360,6 +360,9 @@ def TutorialPanelRenderer(language):
 
     if Tut_ttt == True:
         tutorialPanel.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.ttt', language), translatableComponent('text.tutorial.ttt1', language), translatableComponent('text.tutorial.ttt2', language), translatableComponent('text.tutorial.ttt3', language), translatableComponent('text.tutorial.ttt4', language), translatableComponent('text.tutorial.ttt5', language), translatableComponent('text.tutorial.ttt6', language), translatableComponent('text.tutorial.ttt7', language),translatableComponent('text.tutorial.ttt8', language), '', translatableComponent('text.tutorial.ttt9', language), translatableComponent('text.tutorial.ttt10', language), BLACK, -10, -10)
+
+    if Tut_ped == True:
+        tutorialPanel.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.ped', language), translatableComponent('text.tutorial.ped1', language), translatableComponent('text.tutorial.ped2', language), translatableComponent('text.tutorial.ped3', language), translatableComponent('text.tutorial.ped4', language), translatableComponent('text.tutorial.ped5', language), translatableComponent('text.tutorial.ped6', language), translatableComponent('text.tutorial.ped7', language),translatableComponent('text.tutorial.ped8', language), translatableComponent('text.tutorial.ped9', language), '', translatableComponent('text.tutorial.ped10', language), translatableComponent('text.tutorial.ped11', language), BLACK, -10, -10)
 
 
 def renderCoordinates():
@@ -529,9 +532,9 @@ Tut_item2 = False
 Tut_item3 = False
 Tut_end = False
 Tut_ttt = False
-Tut_map = False
+Tut_ped = False
 Tut_ttt_counter = 0
-Tut_map_counter = 0
+Tut_ped_counter = 0
 
 renderTtt = True
 hot_air_timer = 20
