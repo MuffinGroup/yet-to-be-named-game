@@ -263,7 +263,7 @@ class Player:
             pass
 
 def TutorialRender(language):
-    global Tut_welcome, Tut_walking_right, Tut_walking_left, Tut_jumping, Tut_item1, Tut_item2, Tut_item3, Tut_end, Tut_ttt, yellowBannerDamaged, Tut_ttt_counter
+    global Tut_welcome, Tut_walking_right, Tut_walking_left, Tut_jumping, Tut_item1, Tut_item2, Tut_item3, Tut_end, Tut_ttt, yellowBannerDamaged, Tut_ttt_counter, Tut_ped, Tut_ped_counter
     key = pygame.key.get_pressed()
     if Tut_welcome == True:
         if key[pygame.K_SPACE]:
@@ -314,13 +314,21 @@ def TutorialRender(language):
         if key[pygame.K_RETURN]:
             Tut_end = False
 
-    if Player.rect.x >= 1700 and Player.rect.x <=1800 and Player.rect.y == 3078 and Tut_ttt_counter == 0:
+    if Player.rect.x >= 2300 and Player.rect.x <= 2400 and Player.rect.y == 3078 and Tut_ttt_counter == 0:
         Tut_ttt = True
         Tut_ttt_counter	+= 1
 
     if Tut_ttt == True:
         if key[pygame.K_SPACE] or Player.finishedTicTacToe == True:
             Tut_ttt = False
+
+    if Player.rect.x >= 4700 and Player.rect.x <= 4800 and Player.rect.y == 774 and Tut_ped_counter == 0:
+        Tut_ped = True
+        Tut_ped_counter += 1
+
+    if Tut_ped == True or Player.finishedPedestalGame == True:
+        if key[pygame.K_SPACE]:
+            Tut_ped = False
 
 def TutorialPanelRenderer(language):
     if Tut_welcome:
@@ -352,6 +360,9 @@ def TutorialPanelRenderer(language):
 
     if Tut_ttt == True:
         tutorialPanel.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.ttt', language), translatableComponent('text.tutorial.ttt1', language), translatableComponent('text.tutorial.ttt2', language), translatableComponent('text.tutorial.ttt3', language), translatableComponent('text.tutorial.ttt4', language), translatableComponent('text.tutorial.ttt5', language), translatableComponent('text.tutorial.ttt6', language), translatableComponent('text.tutorial.ttt7', language),translatableComponent('text.tutorial.ttt8', language), '', translatableComponent('text.tutorial.ttt9', language), translatableComponent('text.tutorial.ttt10', language), BLACK, -10, -10)
+
+    if Tut_ped == True:
+        tutorialPanel.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.ped', language), translatableComponent('text.tutorial.ped1', language), translatableComponent('text.tutorial.ped2', language), translatableComponent('text.tutorial.ped3', language), translatableComponent('text.tutorial.ped4', language), translatableComponent('text.tutorial.ped5', language), translatableComponent('text.tutorial.ped6', language), translatableComponent('text.tutorial.ped7', language),translatableComponent('text.tutorial.ped8', language), translatableComponent('text.tutorial.ped9', language), '', translatableComponent('text.tutorial.ped10', language), translatableComponent('text.tutorial.ped11', language), BLACK, -10, -10)
 
 
 def renderCoordinates():
@@ -521,7 +532,9 @@ Tut_item2 = False
 Tut_item3 = False
 Tut_end = False
 Tut_ttt = False
+Tut_ped = False
 Tut_ttt_counter = 0
+Tut_ped_counter = 0
 
 renderTtt = True
 hot_air_timer = 20
@@ -2166,4 +2179,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Credits(Player.language)
+    Start(Player.language)

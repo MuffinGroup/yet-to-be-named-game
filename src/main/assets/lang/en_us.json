@@ -86,5 +86,18 @@
 "text.tutorial.ttt9": "To end this tutorial",
 "text.tutorial.ttt10": "press SPACE.",
 
-"credits.topText": "This was:"
+"credits.topText": "This was:",
+
+"text.tutorial.ped": "Here are the controls",
+"text.tutorial.ped1": "for this minigame.",
+"text.tutorial.ped2": "If you watched this level carefully,",
+"text.tutorial.ped3": "you will know the correct order.",
+"text.tutorial.ped4": "To change poppys go to one by using the",
+"text.tutorial.ped5": "arrow keys and then press ENTER.",
+"text.tutorial.ped6": "Then do the same with the other one.",
+"text.tutorial.ped7": "So you can log in your order.",
+"text.tutorial.ped8": "If you got it right, they will disappear",
+"text.tutorial.ped9": "and you can walk through the door.",
+"text.tutorial.ped10": "To end this Tutorial",
+"text.tutorial.ped11": "press SPACE."
 }
