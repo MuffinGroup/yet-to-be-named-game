@@ -86,6 +86,19 @@
 "text.tutorial.ttt9": "To end this tutorial",
 "text.tutorial.ttt10": "press SPACE.",
 
+"text.tutorial.ped": "Here are the controls",
+"text.tutorial.ped1": "for this minigame.",
+"text.tutorial.ped2": "If you watched this level carefully,",
+"text.tutorial.ped3": "you will know the correct order.",
+"text.tutorial.ped4": "To change poppys go to one by using the",
+"text.tutorial.ped5": "arrow keys and then press ENTER.",
+"text.tutorial.ped6": "Then do the same with the other one.",
+"text.tutorial.ped7": "So you can log in your order.",
+"text.tutorial.ped8": "If you got it right, they will disappear",
+"text.tutorial.ped9": "and you can walk through the door.",
+"text.tutorial.ped10": "To end this Tutorial",
+"text.tutorial.ped11": "press SPACE.",
+
 "credits.topText": "This was:",
 "credits.text1": "A game by:",
 "credits.text2": "MuffinGroup",
@@ -98,18 +111,5 @@
 "credits.text9": "All code is owned by the MuffinGroup",
 "credits.text10": "For more infos on the license visit:",
 "credits.text11": "https://muffingroup.github.io/MuffinSite/license",
-"credits.text12": "Our own assets:",
-
-"text.tutorial.ped": "Here are the controls",
-"text.tutorial.ped1": "for this minigame.",
-"text.tutorial.ped2": "If you watched this level carefully,",
-"text.tutorial.ped3": "you will know the correct order.",
-"text.tutorial.ped4": "To change poppys go to one by using the",
-"text.tutorial.ped5": "arrow keys and then press ENTER.",
-"text.tutorial.ped6": "Then do the same with the other one.",
-"text.tutorial.ped7": "So you can log in your order.",
-"text.tutorial.ped8": "If you got it right, they will disappear",
-"text.tutorial.ped9": "and you can walk through the door.",
-"text.tutorial.ped10": "To end this Tutorial",
-"text.tutorial.ped11": "press SPACE."
+"credits.text12": "Our own assets:"
 }

@@ -100,5 +100,19 @@
 "text.tutorial.ped8": "Wenn du sie richtig hast, verschwinden",
 "text.tutorial.ped9": "sie und du kannst weiter durch die Tuer.",
 "text.tutorial.ped10": "Zum Beenden dieses Tutorials",
-"text.tutorial.ped11": "druecke SPACE."
+"text.tutorial.ped11": "druecke SPACE.",
+
+"credits.topText": "Das war:",
+"credits.text1": "Ein Spiel der:",
+"credits.text2": "MuffinGroup",
+"credits.text3": "Quellen:",
+"credits.text4": "Geräusche:",
+"credits.text5": "Zapslat, serpentSoundStudios",
+"credits.text6": "Texturen:",
+"credits.text7": "Alle Texturen gehören der MuffinGroup*",
+"credits.text8": "Code:",
+"credits.text9": "Der Code gehört der MuffinGroup*",
+"credits.text10": "*Für genauere Lizenz infos:",
+"credits.text11": "https://muffingroup.github.io/MuffinSite/license",
+"credits.text12": "Unsere eigenen Ressourcen:"
 }
