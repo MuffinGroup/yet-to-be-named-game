@@ -314,7 +314,7 @@ def TutorialRender(language):
         if key[pygame.K_RETURN]:
             Tut_end = False
 
-    if Player.rect.x >= 1700 and Player.rect.x <=1800 and Player.rect.y == 3078 and Tut_ttt_counter == 0:
+    if Player.rect.x >=2300 and Player.rect.x <=2400 and Player.rect.y == 3078 and Tut_ttt_counter == 0:
         Tut_ttt = True
         Tut_ttt_counter	+= 1
 
@@ -2162,4 +2162,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Credits(Player.language)
+    Start(Player.language)
