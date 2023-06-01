@@ -858,6 +858,7 @@ def genWorld(world, map):
                 if cobble_pedestal_inactive.drawDedicatedPedestalElement(world, x, y, element_rects, Player, poppy):
                     bridgeTimer += 1
                     poppy.drawGhostItem(world, 1271, 1326)
+                    poppyPlaced = True
                 if bridgeTimer == 10:
                     tut2_map[15][15] = 37
                 if bridgeTimer == 20:
@@ -2131,7 +2132,11 @@ def Credits(language):
     pygame.mixer.music.load("src\main/assets\sounds/tests/bg_music2.mp3")
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.1)
+    startText1 = registries.gui.registerVanishedText(40, screen.get_width()//2 - 150, screen.get_height()//10 - 75, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText2 = registries.gui.registerVanishedText(40, screen.get_width()//2 - 300, screen.get_height()//9, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText3 = registries.gui.registerVanishedText(40, screen.get_width()//2 - 300, screen.get_height()//9, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
     while True:
+        screen.fill(BLACK)
         key = pygame.key.get_pressed()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -2141,10 +2146,9 @@ def Credits(language):
                 pygame.quit()
                 sys.exit()
 
-        startFont = registries.gui.registerText(40, "YET-TO-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
+        startText1.drawVanishedText(screen, translatableComponent("credits.topText", language))
+        startText2.drawVanishedText(screen, "YET-TO-BE-NAMED-GAME")
 
-        startFont.drawText(screen)
-            
         if key[pygame.K_RETURN] and Player.world == None:
             pygame.quit()
             sys.exit()
@@ -2152,11 +2156,10 @@ def Credits(language):
         pygame.display.flip()
         clock.tick(1000)
 
-
 if __name__ in "__main__":
     Player()
     screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Start(Player.language)
+    Credits(Player.language)
