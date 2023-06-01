@@ -57,9 +57,10 @@
 "text.tutorial.item6": "Gehe dafuer durch die Tuer,",
 "text.tutorial.item7": "indem du wieder E drueckst.",
 
-"text.tutorial.item2.0": "Vor dir siehst du den Sockel",
-"text.tutorial.item2.1": "Gehe zu ihm hin und die",
-"text.tutorial.item2.2": "Blume wird platziert.",
+"text.tutorial.item2.0": "Wenn du hier hinunter springst,",
+"text.tutorial.item2.1": "siehst du den Sockel neben dir.",
+"text.tutorial.item2.2": "Um die Blume zu platzieren,",
+"text.tutorial.item2.3": "druecke E wenn du ihn berührst.",
 
 "text.tutorial.infoToast1": "Einem Freund",
 "text.tutorial.infoToast2": "aushelfen",
