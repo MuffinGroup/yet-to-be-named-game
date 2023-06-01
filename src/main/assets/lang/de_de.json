@@ -60,7 +60,7 @@
 "text.tutorial.item2.0": "Wenn du hier hinunter springst,",
 "text.tutorial.item2.1": "siehst du den Sockel neben dir.",
 "text.tutorial.item2.2": "Um die Blume zu platzieren,",
-"text.tutorial.item2.3": "druecke E wenn du ihn berührst.",
+"text.tutorial.item2.3": "druecke E wenn du ihn beruehrst.",
 
 "text.tutorial.infoToast1": "Einem Freund",
 "text.tutorial.infoToast2": "aushelfen",
@@ -87,5 +87,18 @@
 "text.tutorial.ttt7": "Wenn du einloggen moechtest,",
 "text.tutorial.ttt8": "druecke wie immer E.",
 "text.tutorial.ttt9": "Zum Beenden dieses Tutorials",
-"text.tutorial.ttt10": "druecke SPACE."
+"text.tutorial.ttt10": "druecke SPACE.",
+
+"text.tutorial.ped": "Hier ist die Steuerung fuer",
+"text.tutorial.ped1": "dieses Minispiel.",
+"text.tutorial.ped2": "Wenn du auf dieses Level geachtet",
+"text.tutorial.ped3": "hast, wirst du die Reihenfolge wissen.",
+"text.tutorial.ped4": "Um Blumen zu vertauschen, gehe mit den",
+"text.tutorial.ped5": "Pfeiltasten zu einer und druecke ENTER.",
+"text.tutorial.ped6": "Dann mache das Selbe mit der anderen.",
+"text.tutorial.ped7": "So kannst du die Reihenfolge eingeben.",
+"text.tutorial.ped8": "Wenn du sie richtig hast, verschwinden sie",
+"text.tutorial.ped9": "und du kannst weiter durch die Tuer.",
+"text.tutorial.ped10": "Zum Beenden dieses Tutorials",
+"text.tutorial.ped11": "druecke SPACE."
 }

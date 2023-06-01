@@ -263,7 +263,7 @@ class Player:
             pass
 
 def TutorialRender(language):
-    global Tut_welcome, Tut_walking_right, Tut_walking_left, Tut_jumping, Tut_item1, Tut_item2, Tut_item3, Tut_end, Tut_ttt, yellowBannerDamaged, Tut_ttt_counter
+    global Tut_welcome, Tut_walking_right, Tut_walking_left, Tut_jumping, Tut_item1, Tut_item2, Tut_item3, Tut_end, Tut_ttt, yellowBannerDamaged, Tut_ttt_counter, Tut_map, Tut_map_counter
     key = pygame.key.get_pressed()
     if Tut_welcome == True:
         if key[pygame.K_SPACE]:
@@ -314,13 +314,21 @@ def TutorialRender(language):
         if key[pygame.K_RETURN]:
             Tut_end = False
 
-    if Player.rect.x >=2300 and Player.rect.x <=2400 and Player.rect.y == 3078 and Tut_ttt_counter == 0:
+    if Player.rect.x >= 2300 and Player.rect.x <= 2400 and Player.rect.y == 3078 and Tut_ttt_counter == 0:
         Tut_ttt = True
         Tut_ttt_counter	+= 1
 
     if Tut_ttt == True:
         if key[pygame.K_SPACE] or Player.finishedTicTacToe == True:
             Tut_ttt = False
+
+    if Player.rect.x >= 4700 and Player.rect.x <= 4800 and Player.rect.y == 774 and Tut_map_counter == 0:
+        Tut_map = True
+        Tut_map_counter += 1
+
+    if Tut_map == True or Player.finishedPedestalGame == True:
+        if key[pygame.K_SPACE]:
+            Tut_map = False
 
 def TutorialPanelRenderer(language):
     if Tut_welcome:
@@ -521,7 +529,9 @@ Tut_item2 = False
 Tut_item3 = False
 Tut_end = False
 Tut_ttt = False
+Tut_map = False
 Tut_ttt_counter = 0
+Tut_map_counter = 0
 
 renderTtt = True
 hot_air_timer = 20
