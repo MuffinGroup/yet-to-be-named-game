@@ -364,7 +364,6 @@ def TutorialPanelRenderer(language):
     if Tut_ped == True:
         tutorialPanel.render(screen, screen.get_width()//20, screen.get_width()//20, translatableComponent('text.tutorial.ped', language), translatableComponent('text.tutorial.ped1', language), translatableComponent('text.tutorial.ped2', language), translatableComponent('text.tutorial.ped3', language), translatableComponent('text.tutorial.ped4', language), translatableComponent('text.tutorial.ped5', language), translatableComponent('text.tutorial.ped6', language), translatableComponent('text.tutorial.ped7', language),translatableComponent('text.tutorial.ped8', language), translatableComponent('text.tutorial.ped9', language), '', translatableComponent('text.tutorial.ped10', language), translatableComponent('text.tutorial.ped11', language), BLACK, -10, -10)
 
-
 def renderCoordinates():
     if Player.showPos == 1:
         coordinates = registries.gui.registerText(35, str(str(Player.rect.x) + ", " + str(Player.rect.y)), WHITE, screen.get_width()//10 * 7, screen.get_height()//12)
@@ -391,6 +390,9 @@ brickElement = registries.elements.registerElement("elements\Environment\Blocks/
 cobbleMossyElement = registries.elements.registerElement("elements/Environment/blocks/cobble_mossy", 3)
 leverDeco = registries.elements.registerCallableAnimatedElement(3)
 poppyDeco = registries.elements.registerElement("elements\Environment\decoration\Plants\poppy", 3)
+cyanFlowerDeco = registries.elements.registerElement("elements\Environment\decoration\Plants\cyan_flower", 3)
+yellowFlowerDeco = registries.elements.registerElement("elements\Environment\decoration\Plants\yellow_flower", 3)
+pinkFlowerDeco = registries.elements.registerElement("elements\Environment\decoration\Plants\pink_flower", 3)
 grassDeco = registries.elements.registerElement("elements/Environment/decoration/Plants/grass", 3)
 torchLeftDeco = registries.elements.registerAnimatedElement(3)
 torchRightDeco = registries.elements.registerAnimatedElement(3)
@@ -2020,24 +2022,24 @@ def Lvl1(language):
             for index, tile in enumerate(pedestals):
                 if tile == 1:
                     if index == 0 or index == 1:
-                        grassElement.drawElement(world, pedestalX + 53, 8, deco_rects)
+                        poppyDeco.drawElement(world, pedestalX + 53, 8, deco_rects)
                     elif index == 2 or index == 3:
-                        grassElement.drawElement(world, pedestalX + 56, 8, deco_rects)
+                        poppyDeco.drawElement(world, pedestalX + 56, 8, deco_rects)
                 if tile == 2:
                     if index == 0 or index == 1:
-                        dirtElement.drawElement(world, pedestalX + 53, 8, deco_rects)
+                        yellowFlowerDeco.drawElement(world, pedestalX + 53, 8, deco_rects)
                     elif index == 2 or index == 3:
-                        dirtElement.drawElement(world, pedestalX + 56, 8, deco_rects)
+                        yellowFlowerDeco.drawElement(world, pedestalX + 56, 8, deco_rects)
                 if tile == 3:
                     if index == 0 or index == 1:
-                        coarseGrassElement.drawElement(world, pedestalX + 53, 8, deco_rects)
+                        pinkFlowerDeco.drawElement(world, pedestalX + 53, 8, deco_rects)
                     elif index == 2 or index == 3:
-                        coarseGrassElement.drawElement(world, pedestalX + 56, 8, deco_rects)
+                        pinkFlowerDeco.drawElement(world, pedestalX + 56, 8, deco_rects)
                 if tile == 4:
                     if index == 0 or index == 1:
-                        coarseDirtElement.drawElement(world, pedestalX + 53, 8, deco_rects)
+                        cyanFlowerDeco.drawElement(world, pedestalX + 53, 8, deco_rects)
                     elif index == 2 or index == 3:
-                        coarseDirtElement.drawElement(world, pedestalX + 56, 8, deco_rects)
+                        cyanFlowerDeco.drawElement(world, pedestalX + 56, 8, deco_rects)
                 pedestalX += 1
             
             pygame.draw.rect(world, (255, 255, 255), pedestalSelector, 3)
@@ -2138,16 +2140,25 @@ def Lvl1(language):
 def Credits(language):    
     Player()
     resetDebugSettings()
-    creditsCouter1 = 0
+    creditsCounter = 0
     Player.world = "Credits"
     clock = pygame.time.Clock()
     resetVars()
     pygame.mixer.music.load("src\main/assets\sounds/tests/bg_music2.mp3")
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.1)
-    startText1 = registries.gui.registerVanishedText(40, screen.get_width()//2 - 150, screen.get_height()//10 - 75, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
-    startText2 = registries.gui.registerVanishedText(40, screen.get_width()//2 - 300, screen.get_height()//9, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
-    startText3 = registries.gui.registerVanishedText(40, screen.get_width()//2 - 300, screen.get_height()//5, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    #This exists because timers and me is lazy
+    startText1 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText2 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText3 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText4 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText5 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText6 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText7 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText8 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText9 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText10 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText11 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
     while True:
         screen.fill(BLACK)
         key = pygame.key.get_pressed()
@@ -2158,13 +2169,39 @@ def Credits(language):
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.world == "Credits":
                 Start(language)
 
-        startText1.drawVanishedText(screen, translatableComponent("credits.topText", language))
-        startText2.drawVanishedText(screen, "YET-TO-BE-NAMED-GAME")
-        if startText2.vanishCounter == 300:    
-            if creditsCouter1 < 100:
-                creditsCouter1 += 1
-            else:
-                startText3.drawVanishedText(screen, translatableComponent("credits.text1", language))
+        startText1.drawVanishedText(screen, translatableComponent("credits.topText", language), screen.get_width()//2 - 150, screen.get_height()//10 - 75)
+        startText2.drawVanishedText(screen, "YET-TO-BE-NAMED-GAME", screen.get_width()//2 - 300, screen.get_height()//9)
+        if startText2.vanishCounter >= 300:
+            creditsCounter += 1
+            if creditsCounter >= 100:
+                startText3.drawVanishedText(screen, translatableComponent("credits.text1", language), screen.get_width()//2 - 180, screen.get_height()//5 + 100)
+            if creditsCounter >= 150:
+                startText4.drawVanishedText(screen, translatableComponent("credits.text2", language), screen.get_width()//2 - 200, screen.get_height()//5 + 200)
+            if creditsCounter >= 400:
+                startText4.drawVanishedText(screen, translatableComponent("credits.text3", language), screen.get_width()//2 - 300, screen.get_height()//5 + 400)
+            if creditsCounter >= 500:
+                startText4.drawVanishedText(screen, translatableComponent("credits.text4", language), screen.get_width()//2 - 100, screen.get_height()//5 + 500)
+            if creditsCounter >= 600:
+                startText4.drawVanishedText(screen, translatableComponent("credits.text5", language), screen.get_width()//2 - 400, screen.get_height()//5 + 600)
+            if creditsCounter == 800:
+                startText1.vanishCounter = 301
+                startText2.vanishCounter = 301
+                startText3.vanishCounter = 301
+                startText4.vanishCounter = 301
+            if creditsCounter >= 1000:
+                startText10.drawVanishedText(screen, translatableComponent("credits.text12", language), screen.get_width()//2 - 300, screen.get_height()//10)
+            if creditsCounter >= 1000:
+                startText5.drawVanishedText(screen, translatableComponent("credits.text6", language), screen.get_width()//2 - 100, screen.get_height()//10 + 100)
+            if creditsCounter >= 1100:
+                startText6.drawVanishedText(screen, translatableComponent("credits.text7", language), screen.get_width()//2 - 550, screen.get_height()//5 + 100)
+            if creditsCounter >= 1150:
+                startText7.drawVanishedText(screen, translatableComponent("credits.text8", language), screen.get_width()//2 - 100, screen.get_height()//5 + 200)
+            if creditsCounter >= 1300:
+                startText8.drawVanishedText(screen, translatableComponent("credits.text9", language), screen.get_width()//2 - 550, screen.get_height()//5 + 300)
+            if creditsCounter >= 1350:
+                startText9.drawVanishedText(screen, translatableComponent("credits.text10", language), screen.get_width()//2 - 550, screen.get_height()//5 + 500)
+            if creditsCounter >= 1600:
+                startText10.drawVanishedText(screen, translatableComponent("credits.text11", language), screen.get_width()//2 - 650, screen.get_height()//5 + 600)
 
         if key[pygame.K_RETURN] and Player.world == None:
             pygame.quit()
@@ -2179,4 +2216,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Start(Player.language)
+    Credits(Player.language)

@@ -87,6 +87,18 @@
 "text.tutorial.ttt10": "press SPACE.",
 
 "credits.topText": "This was:",
+"credits.text1": "A game by:",
+"credits.text2": "MuffinGroup",
+"credits.text3": "Additional Sources:",
+"credits.text4": "Sounds:",
+"credits.text5": "Zapslat, serpentSoundStudios",
+"credits.text6": "Art:",
+"credits.text7": "All Art is owned by the MuffinGroup",
+"credits.text8": "Code:",
+"credits.text9": "All code is owned by the MuffinGroup",
+"credits.text10": "For more infos on the license visit:",
+"credits.text11": "https://muffingroup.github.io/MuffinSite/license",
+"credits.text12": "Our own assets:",
 
 "text.tutorial.ped": "Here are the controls",
 "text.tutorial.ped1": "for this minigame.",

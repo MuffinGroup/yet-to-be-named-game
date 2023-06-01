@@ -171,10 +171,9 @@ class registerText():
         surface.blit(self.text, (self.rect.center))
     
 class registerVanishedText():
-    def __init__(self, fontSize, x, y, colorVanished, color1, color2, color3, color4, color5):
+    def __init__(self, fontSize, colorVanished, color1, color2, color3, color4, color5):
          self.font = pygame.font.Font("src\main/assets/fonts/joystixmonospaceregular.otf", fontSize)
          self.vanishCounter = 0
-         self.x, self.y = x, y
          self.colorVanished = colorVanished
          self.color1 = color1
          self.color2 = color2
@@ -182,7 +181,8 @@ class registerVanishedText():
          self.color4 = color4
          self.color5 = color5
 
-    def drawVanishedText(self, surface, displayText):
+    def drawVanishedText(self, surface, displayText, x, y):
+        self.x, self.y = x, y
         self.textVanished = self.font.render(displayText, True, self.colorVanished)
         self.text1 = self.font.render(displayText, True, self.color1)
         self.text2 = self.font.render(displayText, True, self.color2)
@@ -204,6 +204,19 @@ class registerVanishedText():
         if self.vanishCounter <= 300 and self.vanishCounter > 250:
              surface.blit(self.text5, (self.x, self.y))
         print(self.vanishCounter)
+
+        if self.vanishCounter > 300:
+            self.vanishCounter += 1
+            if self.vanishCounter <= 350 and self.vanishCounter > 300:
+                surface.blit(self.text5, (self.x, self.y))
+            if self.vanishCounter <= 400 and self.vanishCounter > 350:
+                surface.blit(self.text4, (self.x, self.y))
+            if self.vanishCounter <= 450 and self.vanishCounter > 400:
+                surface.blit(self.text3, (self.x, self.y))
+            if self.vanishCounter <= 500 and self.vanishCounter > 450:
+                surface.blit(self.text2, (self.x, self.y))
+            if self.vanishCounter <= 550 and self.vanishCounter > 500:
+                surface.blit(self.textVanished, (self.x, self.y))
 
 class registerImages():
 	def __init__(self, imagePath):
