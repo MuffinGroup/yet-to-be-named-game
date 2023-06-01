@@ -54,9 +54,10 @@
 "text.tutorial.item6": "Now go through the door",
 "text.tutorial.item7": "by pressing E again",
 
-"text.tutorial.item2.0": "In front of you is the pedestal",
-"text.tutorial.item2.1": "Go to it and the poppy",
-"text.tutorial.item2.2": "will be placed on it.",
+"text.tutorial.item2.0": "If you jump down there,",
+"text.tutorial.item2.1": "you will see the pedestal.",
+"text.tutorial.item2.2": "To place the poppy press",
+"text.tutorial.item2.3": "E while touching the pedestal.",
 
 "text.tutorial.infoToast1": "Helping out",
 "text.tutorial.infoToast2": "a friend",
