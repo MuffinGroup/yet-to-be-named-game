@@ -1957,7 +1957,6 @@ def Lvl1(language):
                             checked2 = pedestalSelector.x // 96 - 53
                         else:
                             checked2 = pedestalSelector.x // 96 - 56
-                print(checked1, checked2)
 
             commandEvent(event, language)
 
@@ -2003,12 +2002,20 @@ def Lvl1(language):
                 pedestalSelector = pygame.Rect(((53 + pedestalSelectionPos) * 96, 8 * 96), (96, 96))
             else:
                 pedestalSelector = pygame.Rect(((56 + pedestalSelectionPos) * 96, 8 * 96), (96, 96))
-            if checked1 != None and checked2 != None:
-                try:
-                    pedestals[checked1], pedestals[checked2] = pedestals[checked2], pedestals[checked1]
-                except:
-                    pass
-                checked1, checked2 = None, None
+
+            try:
+                if checked1 <= 1:
+                    pedestalChecker1 = pygame.Rect(((53 + checked1) * 96, 8 * 96), (96, 96))
+                else:
+                    pedestalChecker1 = pygame.Rect(((56 + checked1) * 96, 8 * 96), (96, 96))
+                if checked1 != None and checked2 != None:
+                    try:
+                        pedestals[checked1], pedestals[checked2] = pedestals[checked2], pedestals[checked1]
+                    except:
+                        pass
+                    checked1, checked2 = None, None
+            except:
+                pass
 
             if pedestals == [1, 2, 3, 4]:
                 Player.finishedPedestalGame = True
@@ -2043,6 +2050,9 @@ def Lvl1(language):
                 pedestalX += 1
             
             pygame.draw.rect(world, (255, 255, 255), pedestalSelector, 3)
+
+            if checked1 != None:
+                pygame.draw.rect(world, BLUE, pedestalChecker1, 3)
 
         # Player movement
         camera_pos = player.keybinds(camera_pos)
@@ -2216,4 +2226,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Credits(Player.language)
+    Start(Player.language)
