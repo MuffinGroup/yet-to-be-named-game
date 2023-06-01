@@ -2125,7 +2125,7 @@ def Lvl1(language):
 def Credits(language):    
     Player()
     resetDebugSettings()
-    i = 0
+    creditsCouter1 = 0
     Player.world = "Credits"
     clock = pygame.time.Clock()
     resetVars()
@@ -2134,7 +2134,7 @@ def Credits(language):
     pygame.mixer.music.set_volume(0.1)
     startText1 = registries.gui.registerVanishedText(40, screen.get_width()//2 - 150, screen.get_height()//10 - 75, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
     startText2 = registries.gui.registerVanishedText(40, screen.get_width()//2 - 300, screen.get_height()//9, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
-    startText3 = registries.gui.registerVanishedText(40, screen.get_width()//2 - 300, screen.get_height()//9, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText3 = registries.gui.registerVanishedText(40, screen.get_width()//2 - 300, screen.get_height()//5, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
     while True:
         screen.fill(BLACK)
         key = pygame.key.get_pressed()
@@ -2142,12 +2142,16 @@ def Credits(language):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.world == None:
-                pygame.quit()
-                sys.exit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.world == "Credits":
+                Start(language)
 
         startText1.drawVanishedText(screen, translatableComponent("credits.topText", language))
         startText2.drawVanishedText(screen, "YET-TO-BE-NAMED-GAME")
+        if startText2.vanishCounter == 300:    
+            if creditsCouter1 < 100:
+                creditsCouter1 += 1
+            else:
+                startText3.drawVanishedText(screen, translatableComponent("credits.text1", language))
 
         if key[pygame.K_RETURN] and Player.world == None:
             pygame.quit()
