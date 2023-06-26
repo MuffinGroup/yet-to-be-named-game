@@ -48,7 +48,7 @@ class Player:
         Player.dead = False
         Player.chatOpen = False
         Player.world = None
-        Player.langCounter = 0
+        Player.langCounter = 1
         Player.languageList = ["en_us", "de_de"]
         Player.language = Player.languageList[Player.langCounter]
         Player.moving_right = False
@@ -165,8 +165,6 @@ class Player:
     def damage(damage):
         if Player.health > 0:
             Player.health -= damage
-            if Player.health > 0.5:
-                pygame.mixer.Sound.play(hurtSound)
 
     def heal(health):
         if Player.health + health <= Player.defaultHealth:
@@ -249,9 +247,12 @@ class Player:
         if poppy.pickedUp == True and Player.world == "tut2" and Player.visible == True:
             poppy.drawItem(world, Player, 0, 0)
 
+        if torch.pickedUp == True and Player.world == "lvl1" and Player.visible == True:
+            torch.drawItem(world, Player, 0, 0)
+
     def giveItem(world, item):
         Player.holding = item
-        item.drawItem(world, Player, 0, 200)
+        item.drawItem(world, Player, Player.rect.x, Player.rect.y)
         if Player.visible == True:
             item.pickedUp = True
 
@@ -468,11 +469,6 @@ emptyHealthScaled = pygame.transform.scale(emptyHealth, (70, 70))
 n = 0
 npcCurrent = registries.animations.npcIdle
 npcTalking = False
-
-deathSound = pygame.mixer.Sound("src\main/assets\sounds\death.mp3")
-deathSound.set_volume(0.25)
-hurtSound = pygame.mixer.Sound("src\main/assets\sounds\hurt.mp3")
-hurtSound.set_volume(0.25)
 
 debugMenu = registries.gui.registerGui(70, 100, 300, 800, False)
 
@@ -1443,7 +1439,7 @@ def Start(language):
         screen.fill(BLUISH_GRAY)
         if startButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 2.75, registries.animations.startButton, 48, 48, 6, -125, -25, translatableComponent("button.start", language), BLACK, "joystixmonospaceregular"):
             Tut1(language)
-        if optionsButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -125, -25, translatableComponent("button.options", language), BLACK, "joystixmonospaceregular"):
+        if optionsButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -100, -25, translatableComponent("button.options", language), BLACK, "joystixmonospaceregular"):
             if i < len(Player.languageList) -1:
                 i += 1
             else:
@@ -1499,8 +1495,8 @@ def parse_input(input_str: str) -> Tuple[str, int, int]:
     return command, x, y
     
 def Tut1(language):
-    global command, x, y, camera_pos, poppy, npcTalking, npcCurrent
-    world = pygame.Surface((8000,4000), pygame.SRCALPHA) # Create Map
+    global command, x, y, camera_pos, poppy, npcTalking, npcCurrent, hasTorch
+    world = pygame.Surface((8000, 4000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
     camera_pos = (0, 0) #camera starting position
@@ -1603,6 +1599,11 @@ def Tut1(language):
         if Player.visible == True:
             player.render(world)
 
+        if hasTorch == True:
+            Player.holding = torch
+            torch.drawItem(world, Player, Player.rect.x, Player.rect.y)
+            torch.pickedUp = True
+
         if key[pygame.K_4]:
             Player.giveItem(world, poppy)
 
@@ -1663,7 +1664,6 @@ def Tut1(language):
             Player.movementLocked = False
             
         if Player.dead == True and Player.playedDeathSound == False:
-            pygame.mixer.Sound.play(deathSound)
             Player.playedDeathSound = True
 
         elif Player.dead == False:
@@ -1824,7 +1824,6 @@ def Tut2(language):
             Player.movementLocked = False
             
         if Player.dead == True and Player.playedDeathSound == False:
-            pygame.mixer.Sound.play(deathSound)
             Player.playedDeathSound = True
 
         elif Player.dead == False:
@@ -1867,7 +1866,7 @@ def Tut2(language):
 
 def Lvl1(language):
     global command, x, y, camera_pos, world, selectedYPos, selectedXPos, allowTicTacToe, frame_rects, leverDeco, pedestals, pedestalSelectionPos, checked1, checked2
-    world = pygame.Surface((6000,6000), pygame.SRCALPHA) # Create Map
+    world = pygame.Surface((7000,6000), pygame.SRCALPHA) # Create Map
     player = Player() # Initialize Player Class
     resetDebugSettings()
     camera_pos = (0, 0) #camera starting position
@@ -1877,6 +1876,7 @@ def Lvl1(language):
     Player.rect.x, Player.rect.y = 950, 1050
     
     Player.world = "lvl1"
+    Player.holding = None
     leverDeco.frame = 0
     pygame.mixer.Sound.play(creepy_sound)
     resetVars()
@@ -2072,7 +2072,9 @@ def Lvl1(language):
             player.render(world)
 
         if hasTorch == True:
-            Player.giveItem(world, torch)
+            Player.holding = torch
+            torch.pickedUp = True
+            torch.drawItem(world, player, 0, 0)
 
         loadFluids(lvl1_map, world)
 
@@ -2118,7 +2120,6 @@ def Lvl1(language):
             Player.movementLocked = False
             
         if Player.dead == True and Player.playedDeathSound == False:
-            pygame.mixer.Sound.play(deathSound)
             Player.playedDeathSound = True
 
         elif Player.dead == False:
@@ -2174,6 +2175,7 @@ def Credits(language):
     startText9 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
     startText10 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
     startText11 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    showCredits = False
     while True:
         screen.fill(BLACK)
         key = pygame.key.get_pressed()
@@ -2184,39 +2186,43 @@ def Credits(language):
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and Player.world == "Credits":
                 Start(language)
 
-        startText1.drawVanishedText(screen, translatableComponent("credits.topText", language), screen.get_width()//2 - 150, screen.get_height()//10 - 75)
-        startText2.drawVanishedText(screen, "YET-TO-BE-NAMED-GAME", screen.get_width()//2 - 300, screen.get_height()//9)
-        if startText2.vanishCounter >= 300:
-            creditsCounter += 1
-            if creditsCounter >= 100:
-                startText3.drawVanishedText(screen, translatableComponent("credits.text1", language), screen.get_width()//2 - 180, screen.get_height()//5 + 100)
-            if creditsCounter >= 150:
-                startText4.drawVanishedText(screen, translatableComponent("credits.text2", language), screen.get_width()//2 - 200, screen.get_height()//5 + 200)
-            if creditsCounter >= 400:
-                startText4.drawVanishedText(screen, translatableComponent("credits.text3", language), screen.get_width()//2 - 300, screen.get_height()//5 + 400)
-            if creditsCounter >= 500:
-                startText4.drawVanishedText(screen, translatableComponent("credits.text4", language), screen.get_width()//2 - 100, screen.get_height()//5 + 500)
-            if creditsCounter >= 600:
-                startText4.drawVanishedText(screen, translatableComponent("credits.text5", language), screen.get_width()//2 - 400, screen.get_height()//5 + 600)
-            if creditsCounter == 800:
-                startText1.vanishCounter = 301
-                startText2.vanishCounter = 301
-                startText3.vanishCounter = 301
-                startText4.vanishCounter = 301
-            if creditsCounter >= 1000:
-                startText10.drawVanishedText(screen, translatableComponent("credits.text12", language), screen.get_width()//2 - 300, screen.get_height()//10)
-            if creditsCounter >= 1000:
-                startText5.drawVanishedText(screen, translatableComponent("credits.text6", language), screen.get_width()//2 - 100, screen.get_height()//10 + 100)
-            if creditsCounter >= 1100:
-                startText6.drawVanishedText(screen, translatableComponent("credits.text7", language), screen.get_width()//2 - 550, screen.get_height()//5 + 100)
-            if creditsCounter >= 1150:
-                startText7.drawVanishedText(screen, translatableComponent("credits.text8", language), screen.get_width()//2 - 100, screen.get_height()//5 + 200)
-            if creditsCounter >= 1300:
-                startText8.drawVanishedText(screen, translatableComponent("credits.text9", language), screen.get_width()//2 - 550, screen.get_height()//5 + 300)
-            if creditsCounter >= 1350:
-                startText9.drawVanishedText(screen, translatableComponent("credits.text10", language), screen.get_width()//2 - 550, screen.get_height()//5 + 500)
-            if creditsCounter >= 1600:
-                startText10.drawVanishedText(screen, translatableComponent("credits.text11", language), screen.get_width()//2 - 650, screen.get_height()//5 + 600)
+        if key[pygame.K_e]:
+            showCredits = True
+
+        if showCredits == True:
+            startText1.drawVanishedText(screen, translatableComponent("credits.topText", language), screen.get_width()//2 - 130, screen.get_height()//10 - 75)
+            startText2.drawVanishedText(screen, "YET-TO-BE-NAMED-GAME", screen.get_width()//2 - 300, screen.get_height()//9)
+            if startText2.vanishCounter >= 300:
+                creditsCounter += 1
+                if creditsCounter >= 100:
+                    startText3.drawVanishedText(screen, translatableComponent("credits.text1", language), screen.get_width()//2 - 220, screen.get_height()//5 + 100)
+                if creditsCounter >= 150:
+                    startText4.drawVanishedText(screen, translatableComponent("credits.text2", language), screen.get_width()//2 - 180, screen.get_height()//5 + 200)
+                if creditsCounter >= 400:
+                    startText4.drawVanishedText(screen, translatableComponent("credits.text3", language), screen.get_width()//2 - 130, screen.get_height()//5 + 400)
+                if creditsCounter >= 500:
+                    startText4.drawVanishedText(screen, translatableComponent("credits.text4", language), screen.get_width()//2 - 180, screen.get_height()//5 + 500)
+                if creditsCounter >= 600:
+                    startText4.drawVanishedText(screen, translatableComponent("credits.text5", language), screen.get_width()//2 - 400, screen.get_height()//5 + 600)
+                if creditsCounter == 800:
+                    startText1.vanishCounter = 301
+                    startText2.vanishCounter = 301
+                    startText3.vanishCounter = 301
+                    startText4.vanishCounter = 301
+                if creditsCounter >= 1000:
+                    startText10.drawVanishedText(screen, translatableComponent("credits.text12", language), screen.get_width()//2 - 400, screen.get_height()//10)
+                if creditsCounter >= 1000:
+                    startText5.drawVanishedText(screen, translatableComponent("credits.text6", language), screen.get_width()//2 - 150, screen.get_height()//10 + 100)
+                if creditsCounter >= 1100:
+                    startText6.drawVanishedText(screen, translatableComponent("credits.text7", language), screen.get_width()//2 - 550, screen.get_height()//5 + 100)
+                if creditsCounter >= 1150:
+                    startText7.drawVanishedText(screen, translatableComponent("credits.text8", language), screen.get_width()//2 - 100, screen.get_height()//5 + 200)
+                if creditsCounter >= 1300:
+                    startText8.drawVanishedText(screen, translatableComponent("credits.text9", language), screen.get_width()//2 - 450, screen.get_height()//5 + 300)
+                if creditsCounter >= 1350:
+                    startText9.drawVanishedText(screen, translatableComponent("credits.text10", language), screen.get_width()//2 - 450, screen.get_height()//5 + 500)
+                if creditsCounter >= 1600:
+                    startText10.drawVanishedText(screen, translatableComponent("credits.text11", language), screen.get_width()//2 - 750, screen.get_height()//5 + 600)
 
         if key[pygame.K_RETURN] and Player.world == None:
             pygame.quit()
@@ -2231,4 +2237,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Start(Player.language)
+    Credits(Player.language)
