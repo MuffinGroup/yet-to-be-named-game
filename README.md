@@ -13,7 +13,7 @@ A project to create a simple 2d game using python
 https://discord.gg/XGvWxtgaaB
 
 ### Other contributors:
-- Pfornax - Animations
+- Pfornax - Animation loader
 - GH-Syn aka Cyré - Documentation and cleanup
 
 A small showcase: https://www.youtube.com/watch?v=33B_9wH1VLU
