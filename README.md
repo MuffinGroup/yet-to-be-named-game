@@ -9,6 +9,9 @@ A project to create a simple 2d game using python
 - TheHackerChampion - Dev
 - ReadyPlayerOne - Dev
 
+### Discord:
+https://discord.gg/XGvWxtgaaB
+
 ### Other contributors:
 - Pfornax - Animations
 - GH-Syn aka Cyré - Documentation and cleanup
