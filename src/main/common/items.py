@@ -1,7 +1,5 @@
 import pygame
 
-import registries.animations
-
 pygame.init()
 
 class registerItem():

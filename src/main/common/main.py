@@ -6,13 +6,13 @@ from os import path
 
 import pygame
 
-from registries.alerts import *
-import registries.animations
-from registries.colors import *
-import registries.elements
-import registries.gui
-import registries.items
-from registries.language import *
+from alerts import *
+import animations
+from colors import *
+import elements
+import gui
+import items
+from language import *
 
 # pygame initialization
 pygame.init()
@@ -172,10 +172,10 @@ class Player:
 
     def renderDebugMenu(self, language, map):
         global tut1_map
-        toggleCollisionsText = registries.gui.registerText(30, translatableComponent("text.debug_menu.collide", language), BLACK, 15, 30)
-        toggleAdvMoveText = registries.gui.registerText(30, translatableComponent("text.debug_menu.fly", language), BLACK, 15, 130)
-        togglePosText = registries.gui.registerText(25, translatableComponent("text.debug_menu.pos", language), BLACK, 15, 230)
-        toggleEditModeText = registries.gui.registerText(25, translatableComponent("text.debug_menu.editMode", language), BLACK, 15, 330)
+        toggleCollisionsText = gui.registerText(30, translatableComponent("text.debug_menu.collide", language), BLACK, 15, 30)
+        toggleAdvMoveText = gui.registerText(30, translatableComponent("text.debug_menu.fly", language), BLACK, 15, 130)
+        togglePosText = gui.registerText(25, translatableComponent("text.debug_menu.pos", language), BLACK, 15, 230)
+        toggleEditModeText = gui.registerText(25, translatableComponent("text.debug_menu.editMode", language), BLACK, 15, 330)
         if Player.debuggingMenu == True:
             debugMenu.draw(screen, BLUISH_GRAY)
             toggleCollisionsText.drawText(debugMenu.window)
@@ -367,7 +367,7 @@ def TutorialPanelRenderer(language):
 
 def renderCoordinates():
     if Player.showPos == 1:
-        coordinates = registries.gui.registerText(35, str(str(Player.rect.x) + ", " + str(Player.rect.y)), WHITE, screen.get_width()//10 * 7, screen.get_height()//12)
+        coordinates = gui.registerText(35, str(str(Player.rect.x) + ", " + str(Player.rect.y)), WHITE, screen.get_width()//10 * 7, screen.get_height()//12)
         coordinates.drawText(screen)
 
 def resetDebugSettings():
@@ -382,78 +382,78 @@ def resetDebugSettings():
 
 Player()
 #Loading element textures
-grassElement = registries.elements.registerElement("elements/Environment/blocks/grass_dirt", 3)
-dirtElement = registries.elements.registerElement("elements/Environment/blocks/Dirt", 3)
-coarseDirtElement = registries.elements.registerElement("elements/Environment/blocks/Coarse_Dirt", 3)
-coarseGrassElement = registries.elements.registerElement("elements/Environment/blocks/Coarse_Grass", 3)
-cobbleElement = registries.elements.registerElement("elements/Environment/blocks/cobble", 3)
-brickElement = registries.elements.registerElement("elements\Environment\Blocks/brick_wall", 3)
-cobbleMossyElement = registries.elements.registerElement("elements/Environment/blocks/cobble_mossy", 3)
-leverDeco = registries.elements.registerCallableAnimatedElement(3)
-poppyDeco = registries.elements.registerElement("elements\Environment\decoration\Plants\poppy", 3)
-cyanFlowerDeco = registries.elements.registerElement("elements\Environment\decoration\Plants\cyan_flower", 3)
-yellowFlowerDeco = registries.elements.registerElement("elements\Environment\decoration\Plants\yellow_flower", 3)
-pinkFlowerDeco = registries.elements.registerElement("elements\Environment\decoration\Plants\pink_flower", 3)
-grassDeco = registries.elements.registerElement("elements/Environment/decoration/Plants/grass", 3)
-torchLeftDeco = registries.elements.registerAnimatedElement(3)
-torchRightDeco = registries.elements.registerAnimatedElement(3)
-torchTopDeco = registries.elements.registerAnimatedElement(3)
-torchDeco = registries.elements.registerAnimatedElement(3)
-specialTorchDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/special_torch", 3)
-specialTorchHolderDeco = registries.elements.registerElement("elements/Environment/decoration/Torches/special_torch_holder", 3)
-chainDeco = registries.elements.registerElement("elements/Environment/decoration/Chain/Chain", 3)
-chainPartedDeco = registries.elements.registerElement("elements/Environment/decoration/Chain/Chain(parted)", 3) 
-shieldDeco = registries.elements.registerElement("elements/Environment/decoration/Shields/Shield1", 3)
-shieldDamagedDeco = registries.elements.registerElement("elements/Environment/decoration/Shields/Shield1(harmed)", 3)
-bannerRedDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner1", 5)
-bannerBlueDeco = registries.elements.registerElement("elements/Environment/decoration/Banners/Banner2", 5)
-wallCarpet = registries.elements.registerElement("elements\Environment\decoration\Banners\wall_carpet", 6)
-yellowBaner = registries.elements.registerCallableAnimatedElement(5)
-door0OpenLargeElement = registries.elements.registerElement("elements/doors/door_0_open", 5)
-door0ClosedLargeElement = registries.elements.registerElement("elements/doors/door_0_closed", 5)
-door2OpenLargeElement = registries.elements.registerElement("elements/doors/door_2_open", 5)
-door2ClosedLargeElement = registries.elements.registerElement("elements/doors/door_2_closed", 5)
-darkCobble = registries.elements.registerElement("elements\Environment\Blocks\Cobble(Backround)", 3)
-darkMossyCobble = registries.elements.registerElement("elements\Environment\Blocks\Mossy_cobble(Backround)", 3)
-calcite = registries.elements.registerElement("elements\Environment\Blocks\Calcite", 3)
-gravel = registries.elements.registerElement("elements\Environment\Blocks\Gravel", 3)
-grass_end = registries.elements.registerElement("elements\Environment\Blocks\grass_side", 3)
-sky = registries.elements.registerElement("elements\Environment\Sky\Sky", 6)
-cloud = registries.elements.registerElement("elements\Environment\Sky\cloud", 1.5)
-cobbleStairs = registries.elements.registerElement("elements\Environment\Blocks\Cobble_stairs", 3)
-bush = registries.elements.registerElement("elements\Environment\decoration\Plants\Small_bush", 3)
-explosion = registries.elements.registerAnimatedElement(16)
-explosive = registries.elements.registerElement("elements\Environment\Blocks\TNT", 3)
-light_dark_cobble = registries.elements.registerElement("elements\Environment\Blocks\light_dark_cobble", 3)
-cobble_pedestal_inactive = registries.elements.registerElement("elements\Environment\Blocks\Pedestals\cobble_pedestal", 3)
-wooden_plank = registries.elements.registerElement("elements/Environment/Blocks/wooden_plank", 3)
-cobbleOffsetElement = registries.elements.registerElement("elements/Environment/blocks/cobble", 3)
-cobbleY16Element = registries.elements.registerElement("elements/Environment/blocks/cobble", 3)
-cobbleY32Element = registries.elements.registerElement("elements/Environment/blocks/cobble", 3)
-cobbleY64Element = registries.elements.registerElement("elements/Environment/blocks/cobble", 3)
-cobbleY80Element = registries.elements.registerElement("elements/Environment/blocks/cobble", 3)
-towerWallBottom = registries.elements.registerElement("elements\Environment\Blocks/tower_wall", 3)
-towerWall = registries.elements.registerElement("elements\Environment\Blocks/tower_wall2", 3)
-towerWallTop= registries.elements.registerElement("elements\Environment\Blocks/tower_wall3", 3)
-towerWallLong = registries.elements.registerElement("elements/Environment/Blocks/tower_wall4", 3)
-towerTop1 = registries.elements.registerElement("elements/Environment/Blocks/tower_top_1", 3)
-towerTop2 = registries.elements.registerElement("elements/Environment/Blocks/tower_top_2", 3)
-towerWallWindow = registries.elements.registerElement("elements/Environment/Blocks/tower_window", 3)
-tic_tac_toe_board = registries.elements.registerElement("elements\Environment\TicTacToe\TicTacToe", 3)
-cobble_pillar_bottom = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\Cobblepillar(part=bottom)", 3)
-cobble_pillar_middle = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\Cobblepillar(part=middle)", 3)
-cobble_pillar_middle_broken = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\CobblepillarBroken(part=middle)", 3)
-cobble_pillar_top_broken = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\CobblepillarBroken(part=top)", 3)
-cobble_pillar_top = registries.elements.registerElement("elements\Environment\Blocks\Cobblepillars\Cobblepillar(part=top)", 3)
-hole = registries.elements.registerInvisibleElement()
-hot_air = registries.elements.registerAnimatedElement(3)
-npc = registries.elements.registerAnimatedElement(8) # 37/6
-waterFluid = registries.elements.registerAnimatedElement(3)
-waterWavingFluid = registries.elements.registerAnimatedElement(3)
+grassElement = elements.registerElement("elements/Environment/blocks/grass_dirt", 3)
+dirtElement = elements.registerElement("elements/Environment/blocks/Dirt", 3)
+coarseDirtElement = elements.registerElement("elements/Environment/blocks/Coarse_Dirt", 3)
+coarseGrassElement = elements.registerElement("elements/Environment/blocks/Coarse_Grass", 3)
+cobbleElement = elements.registerElement("elements/Environment/blocks/cobble", 3)
+brickElement = elements.registerElement("elements\Environment\Blocks/brick_wall", 3)
+cobbleMossyElement = elements.registerElement("elements/Environment/blocks/cobble_mossy", 3)
+leverDeco = elements.registerCallableAnimatedElement(3)
+poppyDeco = elements.registerElement("elements\Environment\decoration\Plants\poppy", 3)
+cyanFlowerDeco = elements.registerElement("elements\Environment\decoration\Plants\cyan_flower", 3)
+yellowFlowerDeco = elements.registerElement("elements\Environment\decoration\Plants\yellow_flower", 3)
+pinkFlowerDeco = elements.registerElement("elements\Environment\decoration\Plants\pink_flower", 3)
+grassDeco = elements.registerElement("elements/Environment/decoration/Plants/grass", 3)
+torchLeftDeco = elements.registerAnimatedElement(3)
+torchRightDeco = elements.registerAnimatedElement(3)
+torchTopDeco = elements.registerAnimatedElement(3)
+torchDeco = elements.registerAnimatedElement(3)
+specialTorchDeco = elements.registerElement("elements/Environment/decoration/Torches/special_torch", 3)
+specialTorchHolderDeco = elements.registerElement("elements/Environment/decoration/Torches/special_torch_holder", 3)
+chainDeco = elements.registerElement("elements/Environment/decoration/Chain/Chain", 3)
+chainPartedDeco = elements.registerElement("elements/Environment/decoration/Chain/Chain(parted)", 3) 
+shieldDeco = elements.registerElement("elements/Environment/decoration/Shields/Shield1", 3)
+shieldDamagedDeco = elements.registerElement("elements/Environment/decoration/Shields/Shield1(harmed)", 3)
+bannerRedDeco = elements.registerElement("elements/Environment/decoration/Banners/Banner1", 5)
+bannerBlueDeco = elements.registerElement("elements/Environment/decoration/Banners/Banner2", 5)
+wallCarpet = elements.registerElement("elements\Environment\decoration\Banners\wall_carpet", 6)
+yellowBaner = elements.registerCallableAnimatedElement(5)
+door0OpenLargeElement = elements.registerElement("elements/doors/door_0_open", 5)
+door0ClosedLargeElement = elements.registerElement("elements/doors/door_0_closed", 5)
+door2OpenLargeElement = elements.registerElement("elements/doors/door_2_open", 5)
+door2ClosedLargeElement = elements.registerElement("elements/doors/door_2_closed", 5)
+darkCobble = elements.registerElement("elements\Environment\Blocks\Cobble(Backround)", 3)
+darkMossyCobble = elements.registerElement("elements\Environment\Blocks\Mossy_cobble(Backround)", 3)
+calcite = elements.registerElement("elements\Environment\Blocks\Calcite", 3)
+gravel = elements.registerElement("elements\Environment\Blocks\Gravel", 3)
+grass_end = elements.registerElement("elements\Environment\Blocks\grass_side", 3)
+sky = elements.registerElement("elements\Environment\Sky\Sky", 6)
+cloud = elements.registerElement("elements\Environment\Sky\cloud", 1.5)
+cobbleStairs = elements.registerElement("elements\Environment\Blocks\Cobble_stairs", 3)
+bush = elements.registerElement("elements\Environment\decoration\Plants\Small_bush", 3)
+explosion = elements.registerAnimatedElement(16)
+explosive = elements.registerElement("elements\Environment\Blocks\TNT", 3)
+light_dark_cobble = elements.registerElement("elements\Environment\Blocks\light_dark_cobble", 3)
+cobble_pedestal_inactive = elements.registerElement("elements\Environment\Blocks\Pedestals\cobble_pedestal", 3)
+wooden_plank = elements.registerElement("elements/Environment/Blocks/wooden_plank", 3)
+cobbleOffsetElement = elements.registerElement("elements/Environment/blocks/cobble", 3)
+cobbleY16Element = elements.registerElement("elements/Environment/blocks/cobble", 3)
+cobbleY32Element = elements.registerElement("elements/Environment/blocks/cobble", 3)
+cobbleY64Element = elements.registerElement("elements/Environment/blocks/cobble", 3)
+cobbleY80Element = elements.registerElement("elements/Environment/blocks/cobble", 3)
+towerWallBottom = elements.registerElement("elements\Environment\Blocks/tower_wall", 3)
+towerWall = elements.registerElement("elements\Environment\Blocks/tower_wall2", 3)
+towerWallTop= elements.registerElement("elements\Environment\Blocks/tower_wall3", 3)
+towerWallLong = elements.registerElement("elements/Environment/Blocks/tower_wall4", 3)
+towerTop1 = elements.registerElement("elements/Environment/Blocks/tower_top_1", 3)
+towerTop2 = elements.registerElement("elements/Environment/Blocks/tower_top_2", 3)
+towerWallWindow = elements.registerElement("elements/Environment/Blocks/tower_window", 3)
+tic_tac_toe_board = elements.registerElement("elements\Environment\TicTacToe\TicTacToe", 3)
+cobble_pillar_bottom = elements.registerElement("elements\Environment\Blocks\Cobblepillars\Cobblepillar(part=bottom)", 3)
+cobble_pillar_middle = elements.registerElement("elements\Environment\Blocks\Cobblepillars\Cobblepillar(part=middle)", 3)
+cobble_pillar_middle_broken = elements.registerElement("elements\Environment\Blocks\Cobblepillars\CobblepillarBroken(part=middle)", 3)
+cobble_pillar_top_broken = elements.registerElement("elements\Environment\Blocks\Cobblepillars\CobblepillarBroken(part=top)", 3)
+cobble_pillar_top = elements.registerElement("elements\Environment\Blocks\Cobblepillars\Cobblepillar(part=top)", 3)
+hole = elements.registerInvisibleElement()
+hot_air = elements.registerAnimatedElement(3)
+npc = elements.registerAnimatedElement(8) # 37/6
+waterFluid = elements.registerAnimatedElement(3)
+waterWavingFluid = elements.registerAnimatedElement(3)
 door0Current = door0ClosedLargeElement
 door2Current = door2ClosedLargeElement
-poppy = registries.items.registerItem("poppy", "elements\Environment\decoration\Plants\poppy")
-torch = registries.items.registerItem("torch", "elements\Environment\decoration\Torches/Torch")
+poppy = items.registerItem("poppy", "elements\Environment\decoration\Plants\poppy")
+torch = items.registerItem("torch", "elements\Environment\decoration\Torches/Torch")
 
 creepy_sound = pygame.mixer.Sound("src/main/assets/sounds/scary.mp3")
 creepy_sound.set_volume(0.2)
@@ -467,10 +467,10 @@ halfHealthScaled = pygame.transform.scale(halfHealth, (70, 70))
 emptyHealth = pygame.image.load("src\main/assets/textures/elements\gui\player\Heart(empty).png")
 emptyHealthScaled = pygame.transform.scale(emptyHealth, (70, 70))
 n = 0
-npcCurrent = registries.animations.npcIdle
+npcCurrent = animations.npcIdle
 npcTalking = False
 
-debugMenu = registries.gui.registerGui(70, 100, 300, 800, False)
+debugMenu = gui.registerGui(70, 100, 300, 800, False)
 
 font = pygame.font.Font('src\main/assets/fonts\joystixmonospaceregular.otf', 25)
 
@@ -482,15 +482,15 @@ def renderText(entry, language):
 
 debug_menu = pygame.Rect((70, 70), (300, 400))
 
-damageButton = registries.gui.registerButton("button", 4.0)
-healButton = registries.gui.registerButton("button", 4.0)
-saveButton = registries.gui.registerButton("button", 4.0)
-loadButton = registries.gui.registerButton("button", 4.0)
+damageButton = gui.registerButton("button", 4.0)
+healButton = gui.registerButton("button", 4.0)
+saveButton = gui.registerButton("button", 4.0)
+loadButton = gui.registerButton("button", 4.0)
 
-toggleCollisions = registries.gui.registerButton("toggle", 12.0)
-toggleAdvMove = registries.gui.registerButton("toggle", 12.0)
-togglePos = registries.gui.registerButton("toggle", 12.0)
-toggleEditMode = registries.gui.registerButton("toggle", 12.0)
+toggleCollisions = gui.registerButton("toggle", 12.0)
+toggleAdvMove = gui.registerButton("toggle", 12.0)
+togglePos = gui.registerButton("toggle", 12.0)
+toggleEditMode = gui.registerButton("toggle", 12.0)
 
 screen_width = 1000
 screen_height = 800
@@ -514,12 +514,12 @@ def platformHandling():
         Player.rect.bottom = platformRect.top
         Player.movement[1] = 0
 
-chatBackground = registries.gui.registerGui(110, 100, 800, 600, False)
-chat = registries.gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 100, 800, 600, 140, 575, 735, 100)
+chatBackground = gui.registerGui(110, 100, 800, 600, False)
+chat = gui.registerChat(6, 30, BLACK, BLACK, BLACK, BLACK, 170, 110, 100, 800, 600, 140, 575, 735, 100)
 chat.inputLocked = True
-exitChat = registries.gui.registerExitButton(85, 80)
-exitDebugMenu = registries.gui.registerExitButton(40, 75)
-continueNpcTalk = registries.gui.registerExitButton(2950, 650, "gui\speech_bubble_button")
+exitChat = gui.registerExitButton(85, 80)
+exitDebugMenu = gui.registerExitButton(40, 75)
+continueNpcTalk = gui.registerExitButton(2950, 650, "gui\speech_bubble_button")
 
 #tutorial working
 Tut_welcome = True
@@ -796,7 +796,7 @@ def loadExplosion(map, world):
         x = 0
         for tile in row:
             if tile == 25:
-                explosion.drawAnimatedElement(world, x, y, deco_rects, registries.animations.explosion)
+                explosion.drawAnimatedElement(world, x, y, deco_rects, animations.explosion)
                 explosion.yModifier = -600
                 explosion.xModifier = -400
             x += 1
@@ -825,19 +825,19 @@ def genWorld(world, map):
                 coarseGrassElement.drawElement(world, x, y, element_rects)
             #Don't use 9
             if tile == 10:
-                leverDeco.drawCallableAnimatedElement(world, x, y, deco_rects, registries.animations.lever)
+                leverDeco.drawCallableAnimatedElement(world, x, y, deco_rects, animations.lever)
             if tile == 11:
                 grassDeco.drawElement(world, x, y, deco_rects)
             if tile == 12:
                 poppyDeco.drawElement(world, x, y, deco_rects)
             if tile == 14:
-                torchLeftDeco.drawAnimatedElement(world, x, y, deco_rects, registries.animations.torchWallLeft)
+                torchLeftDeco.drawAnimatedElement(world, x, y, deco_rects, animations.torchWallLeft)
             if tile == 15:
-                torchRightDeco.drawAnimatedElement(world, x, y, deco_rects, registries.animations.torchWallRight)
+                torchRightDeco.drawAnimatedElement(world, x, y, deco_rects, animations.torchWallRight)
             if tile == 16:
                 cobbleMossyElement.drawElement(world, x, y, element_rects)
             if tile == 17:
-                torchDeco.drawAnimatedElement(world, x, y, deco_rects, registries.animations.torch)
+                torchDeco.drawAnimatedElement(world, x, y, deco_rects, animations.torch)
             if tile == 19:
                 gravel.drawElement(world, x, y, element_rects)
             if tile == 20:
@@ -911,7 +911,7 @@ def genWorld(world, map):
             if tile == 48:
                 towerWallWindow.drawElement(world, x, y, deco_rects)
             if tile == 49:
-                hot_air.drawAnimatedElement(world, x, y, hot_air_rects, registries.animations.hot_air)
+                hot_air.drawAnimatedElement(world, x, y, hot_air_rects, animations.hot_air)
             if tile == 50:
                 specialTorchDeco.drawElement(world, x, y, deco_rects)
             if tile == 51:
@@ -1137,9 +1137,9 @@ def loadFluids(map, surface):
         x = 0
         for tile in row:
             if tile == 4:
-                waterFluid.drawAnimatedElement(surface, x, y, fluid_rects, registries.animations.water_sprite)
+                waterFluid.drawAnimatedElement(surface, x, y, fluid_rects, animations.water_sprite)
             if tile == 5:
-                waterWavingFluid.drawAnimatedElement(surface, x, y, fluid_rects, registries.animations.water_top_sprite)
+                waterWavingFluid.drawAnimatedElement(surface, x, y, fluid_rects, animations.water_top_sprite)
             x += 1
         y += 1
 
@@ -1215,7 +1215,7 @@ def loadForeGround(map, surface, language):
                 cobbleElement.drawElement(world, x, y, foreground_rects)
                 tic_tac_toe_board.drawElement(surface, x, y, foreground_rects)
             if tile == 33:
-                yellowBaner.drawCallableAnimatedElement(surface, x, y, deco_rects, registries.animations.yellowBanner)
+                yellowBaner.drawCallableAnimatedElement(surface, x, y, deco_rects, animations.yellowBanner)
                 yellowBaner.xModifier = 70
                 yellowBaner.xRectModifier = 70
                 yellowBaner.yRectModifier = -20
@@ -1302,7 +1302,7 @@ def loadForeGround(map, surface, language):
 
     if Player.world == "tut1":
         if Player.rect.colliderect(npc.rect) and key[pygame.K_e]:
-            npcCurrent = registries.animations.npcTalkingNormal
+            npcCurrent = animations.npcTalkingNormal
             npcTalking = True
 
     if Player.world == "lvl1": 
@@ -1311,7 +1311,7 @@ def loadForeGround(map, surface, language):
 
         if yellowBannerDamaged == True:
             yellowBaner.callAnimation()
-            if yellowBaner.frame == len(registries.animations.yellowBanner) - 1:
+            if yellowBaner.frame == len(animations.yellowBanner) - 1:
                 lvl1_map[17][19] = 0
                 lvl1_map[20][20] = 0
                 hasTorch = False
@@ -1416,9 +1416,9 @@ def Start(language):
     resetDebugSettings()
     i = 0
     Player.world = None
-    startButton = registries.gui.registerButton("button", 6.0)
-    optionsButton = registries.gui.registerButton("button", 6.0)
-    quitButton = registries.gui.registerButton("button", 6.0)
+    startButton = gui.registerButton("button", 6.0)
+    optionsButton = gui.registerButton("button", 6.0)
+    quitButton = gui.registerButton("button", 6.0)
     clock = pygame.time.Clock()
     resetVars()
     pygame.mixer.music.load("src\main/assets\sounds/tests/bg_music2.mp3")
@@ -1435,16 +1435,16 @@ def Start(language):
                 pygame.quit()
                 sys.exit()
 
-        startFont = registries.gui.registerText(40, "YET-TO-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
+        startFont = gui.registerText(40, "YET-TO-BE-NAMED-GAME", DARKER_GRAY, screen.get_width()//2 - 250, screen.get_height()//9)
         screen.fill(BLUISH_GRAY)
-        if startButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 2.75, registries.animations.startButton, 48, 48, 6, -125, -25, translatableComponent("button.start", language), BLACK, "joystixmonospaceregular"):
+        if startButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 2.75, animations.startButton, 48, 48, 6, -125, -25, translatableComponent("button.start", language), BLACK, "joystixmonospaceregular"):
             Tut1(language)
-        if optionsButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//2, registries.animations.optionsButton, 48, 48, 6, -100, -25, translatableComponent("button.options", language), BLACK, "joystixmonospaceregular"):
+        if optionsButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//2, animations.optionsButton, 48, 48, 6, -100, -25, translatableComponent("button.options", language), BLACK, "joystixmonospaceregular"):
             if i < len(Player.languageList) -1:
                 i += 1
             else:
                 i = 0
-        if quitButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 5.25, registries.animations.quitButton, 48, 48, 6, -125, -25, translatableComponent("button.quit", language), BLACK, "joystixmonospaceregular"):
+        if quitButton.drawAnimated(screen, screen.get_width()//2, screen.get_height()//8 * 5.25, animations.quitButton, 48, 48, 6, -125, -25, translatableComponent("button.quit", language), BLACK, "joystixmonospaceregular"):
             pygame.quit()
             sys.exit()
             
@@ -1567,29 +1567,29 @@ def Tut1(language):
                 Start(language)
         
         # idle animation calculation
-        if idleValue >= len(registries.animations.idle_sprite):
+        if idleValue >= len(animations.idle_sprite):
             idleValue = 0
 
         # loading the idle animation
-        Player.currentSprite = registries.animations.idle_sprite[idleValue]
+        Player.currentSprite = animations.idle_sprite[idleValue]
         
-        if walkingValue >= len(registries.animations.walking_sprite):
+        if walkingValue >= len(animations.walking_sprite):
             walkingValue = 0
-        if registries.items.pickingUp == True:
-            if pickUpValue > len(registries.animations.pickup_sprite) - 3:
-                registries.items.pickingUp = False
+        if items.pickingUp == True:
+            if pickUpValue > len(animations.pickup_sprite) - 3:
+                items.pickingUp = False
             else:
                 pickUpValue += 1
 
-            if pickUpValue >= len(registries.animations.pickup_sprite) // 2:
-                registries.items.finishedPickup = True
+            if pickUpValue >= len(animations.pickup_sprite) // 2:
+                items.finishedPickup = True
         
         # Movement animation rendering
         if Player.walking == True:
-            Player.currentSprite = registries.animations.walking_sprite[walkingValue]
+            Player.currentSprite = animations.walking_sprite[walkingValue]
         
-        if registries.items.pickingUp == True:
-            Player.currentSprite = registries.animations.pickup_sprite[pickUpValue]
+        if items.pickingUp == True:
+            Player.currentSprite = animations.pickup_sprite[pickUpValue]
 
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
@@ -1627,7 +1627,7 @@ def Tut1(language):
             Player.removeItem(poppy)
         """if npcTalking == True:
             if continueNpcTalk.draw(world):
-                npcCurrent = registries.animations.npcIdle
+                npcCurrent = animations.npcIdle
                 npcTalking = False"""
         
         Player.editingMode(world, tut1_map)
@@ -1763,13 +1763,13 @@ def Tut2(language):
                 Start(language)
     
         # idle animation calculation
-        if idleValue >= len(registries.animations.idle_sprite):
+        if idleValue >= len(animations.idle_sprite):
             idleValue = 0
 
         # loading the idle animation
-        Player.currentSprite = registries.animations.idle_sprite[idleValue]
+        Player.currentSprite = animations.idle_sprite[idleValue]
         
-        if walkingValue >= len(registries.animations.walking_sprite):
+        if walkingValue >= len(animations.walking_sprite):
             walkingValue = 0
         
         TutorialRender(language)
@@ -1784,7 +1784,7 @@ def Tut2(language):
 
         # Movement animation rendering
         if Player.walking == True:
-            Player.currentSprite = registries.animations.walking_sprite[walkingValue]
+            Player.currentSprite = animations.walking_sprite[walkingValue]
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
@@ -1978,13 +1978,13 @@ def Lvl1(language):
             Player.allowPedestalGame = False
 
         # idle animation calculation
-        if idleValue >= len(registries.animations.idle_sprite):
+        if idleValue >= len(animations.idle_sprite):
             idleValue = 0
 
         # loading the idle animation
-        Player.currentSprite = registries.animations.idle_sprite[idleValue]
+        Player.currentSprite = animations.idle_sprite[idleValue]
         
-        if walkingValue >= len(registries.animations.walking_sprite):
+        if walkingValue >= len(animations.walking_sprite):
             walkingValue = 0
 
         loadBackground(lvl1_map, world)
@@ -2064,7 +2064,7 @@ def Lvl1(language):
 
         # Movement animation rendering
         if Player.walking == True:
-            Player.currentSprite = registries.animations.walking_sprite[walkingValue]
+            Player.currentSprite = animations.walking_sprite[walkingValue]
         if Player.facingLeft == True:
             Player.currentSprite = pygame.transform.flip(Player.currentSprite, True, False)
 
@@ -2164,17 +2164,17 @@ def Credits(language):
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.1)
     #This exists because timers and me is lazy
-    startText1 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
-    startText2 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
-    startText3 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
-    startText4 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
-    startText5 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
-    startText6 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
-    startText7 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
-    startText8 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
-    startText9 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
-    startText10 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
-    startText11 = registries.gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText1 = gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText2 = gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText3 = gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText4 = gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText5 = gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText6 = gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText7 = gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText8 = gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText9 = gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText10 = gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
+    startText11 = gui.registerVanishedText(40, BLACK, DARKEST_GRAY, DARKER_GRAY, DARK_GRAY, GRAY, WHITE)
     showCredits = False
     while True:
         screen.fill(BLACK)
@@ -2237,4 +2237,4 @@ if __name__ in "__main__":
     pygame.display.set_caption("yet-to-be-named-game")
     pygame.display.set_icon(icon)
     clock = pygame.time.Clock()
-    Credits(Player.language)
+    Start(Player.language)
