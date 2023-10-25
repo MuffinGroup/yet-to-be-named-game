@@ -1,6 +1,6 @@
 # yet-to-be-named-game 🚀
 
-A project to create a simple 2d game using python
+A project to create a simple 2d game using python.
 
 ### Contributors:
 
