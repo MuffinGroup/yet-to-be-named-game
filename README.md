@@ -50,3 +50,15 @@ you from redistributing the project without making incremental changes to the so
 When doing so, you must also use the same license and credit the original author(s).
 
 You are not allowed to use any art without explicit permission from the team either.
+
+# How to play the game
+
+1. Download the main.zip folder in the output folder
+2. If Windows is blocking the download just press on more details and try it again
+3. Extract the folder in your downloads folder
+4. Then run the main.py file
+5. If you get blocked follow the next steps:
+6. Open your terminal by typng in cmd in your windows search bar
+7. Then go to the main folder by using "cd -your next folder-"
+8. When you got the main folder type in "main.py" and press ENTER
+9. Now the game should start: HAVE FUN!
