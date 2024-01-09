@@ -60,7 +60,7 @@ You are not allowed to use any art without explicit permission from the team eit
 5. If you get blocked follow the next steps:
 6. Open your terminal by typng in cmd in your windows search bar
 7. Then go to the main folder by using "cd -your next folder-"
-8. When you got the main folder type in "main.py" and press ENTER
+8. When you got the main folder type in "main.exe" and press ENTER
 9. Now the game should start: HAVE FUN!
 
 Note: We're currently working on a better solution to run the game. If you want to check out the progress to to the ytbng-bootstrapper
