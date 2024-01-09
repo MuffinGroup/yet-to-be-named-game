@@ -20,7 +20,7 @@ A small showcase: https://www.youtube.com/watch?v=33B_9wH1VLU
 
 A showcase of the dynamic map gen: https://www.youtube.com/watch?v=jVYOqr7GQzY
 
-Our new website: https://muffingroup.github.io/MuffinSite/
+Our new website: https://harmonious-pixie-1dd5af.netlify.app/
 
 To run the project, install python and the pygame library,
 open it in VSC and run the main.py file using the python extension.
